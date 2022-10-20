@@ -56,6 +56,22 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+          			<groupId>org.pitest</groupId>
+          			<artifactId>pitest-maven</artifactId>
+          			<version>1.6.6</version>
+          			<dependencies>
+            				<dependency>
+              					<groupId>org.pitest</groupId>
+             					<artifactId>pitest-junit5-plugin</artifactId>
+             	 				<version>0.14</version>
+            					</dependency>
+          			</dependencies>
+          			<configuration>
+            				<failWhenNoMutations>false</failWhenNoMutations>
+            				<timestampedReports>false</timestampedReports>
+          			</configuration>
+        		</plugin>
 		</plugins>
 	</build>
 </project>
