@@ -80,6 +80,27 @@
             		<id>pitest</id>
             		<build>
                 		<plugins>
+					<plugin>
+        					<groupId>org.pitest</groupId>
+        					<artifactId>pitest-maven</artifactId>
+        					<version>1.6.6</version>
+        					<dependencies>
+          						<dependency>
+            							<groupId>org.pitest</groupId>
+            							<artifactId>pitest-junit5-plugin</artifactId>
+            							<version>0.14</version>
+          						</dependency>
+          						<dependency>
+            							<groupId>com.groupcdg</groupId>
+            							<artifactId>pitest-git-plugin</artifactId>
+            							<version>${cdg.pitest.version}</version>
+          						</dependency>
+        					</dependencies>
+        					<configuration>
+          						<timestampedReports>false</timestampedReports>
+          						<failWhenNoMutations>false</failWhenNoMutations>
+        					</configuration>
+      					</plugin>
                     			<plugin>
                         			<groupId>org.pitest</groupId>
                         			<artifactId>pitest-maven</artifactId>
