@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>boris.valerstein</groupId>
-	<artifactId>DungeonCrawlerFall2021Drexel</artifactId>
+	<artifactId>DungeonCrawlerFall2022Drexel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Dungeon Crawler</name>
 	<description>A simple dungeon crawler to teach TDD and ATDD principles.</description>
