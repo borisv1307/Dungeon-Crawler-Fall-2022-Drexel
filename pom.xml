@@ -74,4 +74,27 @@
         		</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+            		<id>pitest</id>
+            		<build>
+                		<plugins>
+                    			<plugin>
+                        			<groupId>org.pitest</groupId>
+                        			<artifactId>pitest-maven</artifactId>
+                        			<executions>
+                            				<execution>
+                        	        			<id>pitest</id>
+                	                			<phase>test-compile</phase>
+        	                        			<goals>
+		                                    			<goal>mutationCoverage</goal>
+		                                		</goals>
+		                            		</execution>
+		                        	</executions>
+		                   	 </plugin>
+		                </plugins>
+            		</build>
+        	</profile>
+	</profiles>
 </project>
