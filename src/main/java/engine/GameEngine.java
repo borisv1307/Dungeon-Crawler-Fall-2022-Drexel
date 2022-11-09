@@ -79,7 +79,6 @@ public class GameEngine {
         }
     }
 
-
     public void keyLeft() {
         attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
         move(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
