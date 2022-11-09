@@ -1,6 +1,5 @@
 package engine;
 
-import javafx.util.Pair;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -20,8 +19,6 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
-
-    private Pair<Integer, Integer> movement;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -78,23 +75,19 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        movement = new Pair<>(getPlayerXCoordinate() - PLAYER_SPEED, getPlayerYCoordinate());
-        movePlayer(movement);
+        movePlayer(getPlayerXCoordinate() - PLAYER_SPEED, getPlayerYCoordinate());
     }
 
     public void keyRight() {
-        movement = new Pair<>(getPlayerXCoordinate() + PLAYER_SPEED, getPlayerYCoordinate());
-        movePlayer(movement);
+        movePlayer(getPlayerXCoordinate() + PLAYER_SPEED, getPlayerYCoordinate());
     }
 
     public void keyUp() {
-        movement = new Pair<>(getPlayerXCoordinate(), getPlayerYCoordinate() - PLAYER_SPEED);
-        movePlayer(movement);
+        movePlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - PLAYER_SPEED);
     }
 
     public void keyDown() {
-        movement = new Pair<>(getPlayerXCoordinate(), getPlayerYCoordinate() + PLAYER_SPEED);
-        movePlayer(movement);
+        movePlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + PLAYER_SPEED);
     }
 
     public boolean isExit() {
@@ -105,10 +98,10 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    private void movePlayer(Pair<Integer, Integer> destinationXY) {
-        TileType destinationTile = getTileFromCoordinates(destinationXY.getKey(), destinationXY.getValue());
+    private void movePlayer(int destinationX, int destinationY) {
+        TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
         if (isTilePassable(destinationTile)) {
-            setPlayer(destinationXY.getKey(), destinationXY.getValue());
+            setPlayer(destinationX, destinationY);
         }
     }
 
