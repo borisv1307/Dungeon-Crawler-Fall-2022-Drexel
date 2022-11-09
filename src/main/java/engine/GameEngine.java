@@ -9,6 +9,8 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
+import static values.TunableParameters.PLAYER_SPEED;
+
 public class GameEngine {
 
 	private boolean exit;
@@ -74,19 +76,19 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() - PLAYER_SPEED, getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() + PLAYER_SPEED, getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - PLAYER_SPEED);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + PLAYER_SPEED);
 	}
 
 	public void setExit(boolean exit) {

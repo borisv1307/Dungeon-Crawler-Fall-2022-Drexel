@@ -10,4 +10,6 @@ public final class TunableParameters {
 
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 	public static final String FILE_NAME_SUFFIX = ".txt";
+
+	public static final int PLAYER_SPEED = 1;
 }
