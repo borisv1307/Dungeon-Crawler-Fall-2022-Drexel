@@ -77,47 +77,4 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
-	@Test
-	public void key_left() {
-		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
-		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
-		gameEngine.keyLeft();
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ZERO));
-		assertThat(actualY, equalTo(ONE));
-	}
-
-	@Test
-	public void key_right() {
-		gameEngine.addTile(ONE, ONE, TileType.PASSABLE);
-		gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
-		gameEngine.keyRight();
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ONE));
-		assertThat(actualY, equalTo(ONE));
-	}
-
-	@Test
-	public void key_up() {
-		gameEngine.addTile(ONE, ZERO, TileType.PASSABLE);
-		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
-		gameEngine.keyUp();
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ONE));
-		assertThat(actualY, equalTo(ZERO));
-	}
-
-	@Test
-	public void key_down() {
-		gameEngine.addTile(ONE, ONE, TileType.PASSABLE);
-		gameEngine.addTile(ONE, ZERO, TileType.PLAYER);
-		gameEngine.keyDown();
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ONE));
-		assertThat(actualY, equalTo(ONE));
-	}
 }
