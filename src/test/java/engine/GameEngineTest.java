@@ -3,7 +3,7 @@ package engine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.awt.Component;
+import java.awt.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,27 +77,4 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
-	@Test
-	public void key_left() {
-		// TODO Should I start with this test?
-		gameEngine.keyLeft();
-	}
-
-	@Test
-	public void key_right() {
-		// TODO Should I start with this test?
-		gameEngine.keyRight();
-	}
-
-	@Test
-	public void key_up() {
-		// TODO Should I start with this test?
-		gameEngine.keyUp();
-	}
-
-	@Test
-	public void key_down() {
-		// TODO Should I start with this test?
-		gameEngine.keyDown();
-	}
 }
