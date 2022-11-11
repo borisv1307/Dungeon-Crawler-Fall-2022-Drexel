@@ -61,10 +61,6 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
-    private void setPlayerLocation(Point newLocation) {
-        player = newLocation;
-    }
-
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
@@ -114,5 +110,9 @@ public class GameEngine {
         if (attemptedLocationTileType.equals(TileType.PASSABLE)) {
             setPlayerLocation(attemptedLocation);
         }
+    }
+
+    private void setPlayerLocation(Point newLocation) {
+        player = newLocation;
     }
 }
