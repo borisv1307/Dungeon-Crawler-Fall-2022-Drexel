@@ -61,7 +61,7 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	private void setPlayer(int x, int y) {
+	public void setPlayer(int x, int y) {
 		player = new Point(x, y);
 	}
 
@@ -75,6 +75,9 @@ public class GameEngine {
 
 	public void keyLeft() {
 		// TODO Implement movement logic here
+		if (getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate()).equals(TileType.PASSABLE)) {
+			player.setLocation(player.getX() - 1, player.getY());
+		}
 	}
 
 	public void keyRight() {

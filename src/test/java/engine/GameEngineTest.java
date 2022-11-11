@@ -80,7 +80,14 @@ public class GameEngineTest {
 	@Test
 	public void key_left() {
 		// TODO Should I start with this test?
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ONE, ONE, TileType.PASSABLE);
+		gameEngine.setPlayer(ZERO, ONE);
 		gameEngine.keyLeft();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
 	}
 
 	@Test
