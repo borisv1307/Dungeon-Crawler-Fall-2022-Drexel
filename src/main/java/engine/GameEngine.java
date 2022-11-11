@@ -73,23 +73,41 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        int attemptedPlayerXCoordinate = getPlayerXCoordinate() - 1;
+        int attemptedPlayerYCoordinate = getPlayerYCoordinate();
+        TileType attemptedLocation = getTileFromCoordinates(attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
+        moveIfValid(attemptedLocation, attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
     }
 
     public void keyRight() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        int attemptedPlayerXCoordinate = getPlayerXCoordinate() + 1;
+        int attemptedPlayerYCoordinate = getPlayerYCoordinate();
+        TileType attemptedLocation = getTileFromCoordinates(attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
+        moveIfValid(attemptedLocation, attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
     }
 
     public void keyUp() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        int attemptedPlayerXCoordinate = getPlayerXCoordinate();
+        int attemptedPlayerYCoordinate = getPlayerYCoordinate() - 1;
+        TileType attemptedLocation = getTileFromCoordinates(attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
+        moveIfValid(attemptedLocation, attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
     }
 
     public void keyDown() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        int attemptedPlayerXCoordinate = getPlayerXCoordinate();
+        int attemptedPlayerYCoordinate = getPlayerYCoordinate() + 1;
+        TileType attemptedLocation = getTileFromCoordinates(attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
+        moveIfValid(attemptedLocation, attemptedPlayerXCoordinate, attemptedPlayerYCoordinate);
+    }
+
+    private void moveIfValid(TileType attemptedLocation, int attempedXCoordinate, int attemptedYCoordinate) {
+        if (isSpacePassable(attemptedLocation)) {
+            setPlayer(attempedXCoordinate, attemptedYCoordinate);
+        }
+    }
+
+    private boolean isSpacePassable(TileType attemptedLocation) {
+        return attemptedLocation.equals(TileType.PASSABLE);
     }
 
     public boolean isExit() {
