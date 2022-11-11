@@ -97,10 +97,11 @@ public class GameEngine {
 	}
 
 	private boolean tileIsPassable(int xCoordinate, int yCoordinate) {
+		boolean isTrue = false;
 		if (getTileFromCoordinates(xCoordinate, yCoordinate).equals(TileType.PASSABLE)) {
-			return true;
+			isTrue = true;
 		}
-		return false;
+		return isTrue;
 	}
 
 	public boolean isExit() {
