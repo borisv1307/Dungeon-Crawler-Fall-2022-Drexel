@@ -93,18 +93,40 @@ public class GameEngineTest {
 	@Test
 	public void key_right() {
 		// TODO Should I start with this test?
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ONE, ONE, TileType.PASSABLE);
+		gameEngine.setPlayer(ZERO, ONE);
 		gameEngine.keyRight();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ONE));
+		assertThat(actualY, equalTo(ONE));
 	}
 
 	@Test
 	public void key_up() {
 		// TODO Should I start with this test?
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ZERO, ZERO, TileType.PASSABLE);
+		gameEngine.setPlayer(ZERO, ONE);
 		gameEngine.keyUp();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ZERO));
 	}
 
 	@Test
 	public void key_down() {
 		// TODO Should I start with this test?
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ZERO, ZERO, TileType.PASSABLE);
+		gameEngine.setPlayer(ZERO, ZERO);
 		gameEngine.keyDown();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE);
 	}
 }
+

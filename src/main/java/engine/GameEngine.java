@@ -82,15 +82,26 @@ public class GameEngine {
 
 	public void keyRight() {
 		// TODO Implement movement logic here
+		if (getTileFromCoordinates(getPlayerXCoordinate() + 1, getPlayerYCoordinate()).equals(TileType.PASSABLE)) {
+			player.setLocation(player.getX() + 1, player.getY());
+		}
 	}
 
 	public void keyUp() {
 		// TODO Implement movement logic here
+		if (getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() - 1).equals(TileType.PASSABLE)) {
+			player.setLocation(player.getX(), player.getY() - 1);
+		}
 	}
+
 
 	public void keyDown() {
 		// TODO Implement movement logic here
+		if (getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() + 1).equals(TileType.PASSABLE)) {
+			player.setLocation(player.getX(), player.getY() + 1);
+		}
 	}
+
 
 	public void setExit(boolean exit) {
 		this.exit = exit;
