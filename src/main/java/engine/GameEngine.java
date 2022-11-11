@@ -1,7 +1,6 @@
 package engine;
 
-import java.awt.Component;
-import java.awt.Point;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,13 +10,13 @@ import ui.GameFrame;
 
 public class GameEngine {
 
-	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
+	private final int level;
+	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -41,20 +40,20 @@ public class GameEngine {
 		}
 	}
 
-	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
-		this.levelHorizontalDimension = levelHorizontalDimension;
-	}
-
-	public void setLevelVerticalDimension(int levelVerticalDimension) {
-		this.levelVerticalDimension = levelVerticalDimension;
-	}
-
 	public int getLevelHorizontalDimension() {
 		return levelHorizontalDimension;
 	}
 
+	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
+		this.levelHorizontalDimension = levelHorizontalDimension;
+	}
+
 	public int getLevelVerticalDimension() {
 		return levelVerticalDimension;
+	}
+
+	public void setLevelVerticalDimension(int levelVerticalDimension) {
+		this.levelVerticalDimension = levelVerticalDimension;
 	}
 
 	public TileType getTileFromCoordinates(int x, int y) {
@@ -74,26 +73,26 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
-	}
-
-	public void setExit(boolean exit) {
-		this.exit = exit;
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
 	}
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public void setExit(boolean exit) {
+		this.exit = exit;
 	}
 }
