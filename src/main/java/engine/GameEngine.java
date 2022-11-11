@@ -18,6 +18,10 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private int xCoordinate;
+
+    private int yCoordinate;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -34,6 +38,7 @@ public class GameEngine {
     public void addTile(int x, int y, TileType tileType) {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
+            setPlayerCurrentCoordinate();
             tiles.put(new Point(x, y), TileType.PASSABLE);
         } else {
             tiles.put(new Point(x, y), tileType);
@@ -73,23 +78,28 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        xCoordinate = getPlayerXCoordinate() - 1;
+
+        movePlayerIfPassable(xCoordinate, yCoordinate);
+
     }
 
     public void keyRight() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        xCoordinate = getPlayerXCoordinate() + 1;
+
+        movePlayerIfPassable(xCoordinate, yCoordinate);
     }
 
     public void keyUp() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        yCoordinate = getPlayerYCoordinate() - 1;
+
+        movePlayerIfPassable(xCoordinate, yCoordinate);
     }
 
     public void keyDown() {
-        // TODO Implement movement logic here
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        yCoordinate = getPlayerYCoordinate() + 1;
+
+        movePlayerIfPassable(xCoordinate, yCoordinate);
     }
 
     public boolean isExit() {
@@ -99,4 +109,21 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
+    private void movePlayerIfPassable(int xCoordinate, int yCoordinate) {
+        TileType attemptedLocation = getTileFromCoordinates(xCoordinate, yCoordinate);
+
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPlayer(xCoordinate, yCoordinate);
+        }
+
+        setPlayerCurrentCoordinate();
+
+    }
+
+    private void setPlayerCurrentCoordinate() {
+        xCoordinate = getPlayerXCoordinate();
+        yCoordinate = getPlayerYCoordinate();
+    }
+
 }
