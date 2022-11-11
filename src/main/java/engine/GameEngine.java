@@ -89,9 +89,14 @@ public class GameEngine {
     }
 
     private void movePlayer(int shiftX, int shiftY) {
-        int x = getPlayerXCoordinate() + shiftX;
-        int y = getPlayerYCoordinate() + shiftY;
-        setPlayer(x, y);
+        int destinationX = getPlayerXCoordinate() + shiftX;
+        int destinationY = getPlayerYCoordinate() + shiftY;
+
+        TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
+
+        if (destinationTile.equals(TileType.PASSABLE)) {
+            setPlayer(destinationX, destinationY);
+        }
     }
 
     public boolean isExit() {
