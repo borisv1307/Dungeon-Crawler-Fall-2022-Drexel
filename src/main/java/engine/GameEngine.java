@@ -32,11 +32,12 @@ public class GameEngine {
     }
 
     public void addTile(int x, int y, TileType tileType) {
+        Point tileLocation = new Point(x, y);
         if (tileType.equals(TileType.PLAYER)) {
-            setPlayer(x, y);
-            tiles.put(new Point(x, y), TileType.PASSABLE);
+            setPlayerLocation(tileLocation);
+            tiles.put(tileLocation, TileType.PASSABLE);
         } else {
-            tiles.put(new Point(x, y), tileType);
+            tiles.put(tileLocation, tileType);
         }
     }
 
@@ -60,8 +61,8 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
-    private void setPlayer(int x, int y) {
-        player = new Point(x, y);
+    private void setPlayerLocation(Point newLocation) {
+        player = newLocation;
     }
 
     public int getPlayerXCoordinate() {
@@ -73,19 +74,23 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        moveStepValueAlongXAxis(-1);
+        Point attemptedLocation = moveStepValueAlongXAxis(-1);
+        moveToPoint(attemptedLocation);
     }
 
     public void keyRight() {
-        moveStepValueAlongXAxis(1);
+        Point attemptedLocation = moveStepValueAlongXAxis(1);
+        moveToPoint(attemptedLocation);
     }
 
     public void keyUp() {
-        moveStepValueAlongYAxis(-1);
+        Point attemptedLocation = moveStepValueAlongYAxis(-1);
+        moveToPoint(attemptedLocation);
     }
 
     public void keyDown() {
-        moveStepValueAlongYAxis(1);
+        Point attemptedLocation = moveStepValueAlongYAxis(1);
+        moveToPoint(attemptedLocation);
     }
 
     public boolean isExit() {
@@ -96,11 +101,18 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    private void moveStepValueAlongXAxis(int stepValue) {
-        setPlayer(getPlayerXCoordinate() + stepValue, getPlayerYCoordinate());
+    private Point moveStepValueAlongXAxis(int stepValue) {
+        return new Point(getPlayerXCoordinate() + stepValue, getPlayerYCoordinate());
     }
 
-    private void moveStepValueAlongYAxis(int stepValue) {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + stepValue);
+    private Point moveStepValueAlongYAxis(int stepValue) {
+        return new Point(getPlayerXCoordinate(), getPlayerYCoordinate() + stepValue);
+    }
+
+    private void moveToPoint(Point attemptedLocation) {
+        TileType attemptedLocationTileType = tiles.get(attemptedLocation);
+        if (attemptedLocationTileType.equals(TileType.PASSABLE)) {
+            setPlayerLocation(attemptedLocation);
+        }
     }
 }
