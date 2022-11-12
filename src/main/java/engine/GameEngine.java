@@ -64,6 +64,10 @@ public class GameEngine {
         player = new Point(x, y);
     }
 
+    private void setPlayer(Point point) {
+        player = point;
+    }
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
@@ -73,19 +77,47 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        Point possibleMove = getPoint("left");
+        moveIfPossible(possibleMove);
     }
 
     public void keyRight() {
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        Point possibleMove = getPoint("right");
+        moveIfPossible(possibleMove);
     }
 
+
     public void keyUp() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        Point possibleMove = getPoint("up");
+        moveIfPossible(possibleMove);
     }
 
     public void keyDown() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        Point possibleMove = getPoint("down");
+        moveIfPossible(possibleMove);
+    }
+
+    public boolean isPassable(Point possibleMove) {
+        return getTileFromCoordinates(possibleMove.x, possibleMove.y).equals(TileType.PASSABLE);
+    }
+
+    public Point getPoint(String direction) {
+        switch (direction) {
+            case "up":
+                return new Point(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+            case "down":
+                return new Point(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+            case "left":
+                return new Point(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+            default:
+                return new Point(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        }
+    }
+
+    public void moveIfPossible(Point possibleMove) {
+        if (isPassable(possibleMove)) {
+            setPlayer(possibleMove);
+        }
     }
 
     public boolean isExit() {
