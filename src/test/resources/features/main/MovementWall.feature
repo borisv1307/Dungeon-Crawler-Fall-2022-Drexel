@@ -1,4 +1,4 @@
-@IntegrationTest
+@adhoc
 Feature: Move the player into wall
 
   Background: 
