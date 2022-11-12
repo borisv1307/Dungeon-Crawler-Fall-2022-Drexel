@@ -74,19 +74,26 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		setPlayer(this.getPlayerXCoordinate() - 1, this.getPlayerYCoordinate());
+		this.arrowKeyPress(this.getPlayerXCoordinate() - 1, this.getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
-		setPlayer(this.getPlayerXCoordinate() + 1, this.getPlayerYCoordinate());
+		this.arrowKeyPress(this.getPlayerXCoordinate() + 1, this.getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
-		setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate() - 1);
+		this.arrowKeyPress(this.getPlayerXCoordinate(), this.getPlayerYCoordinate() - 1);
 	}
 
 	public void keyDown() {
-		setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate() + 1);
+		this.arrowKeyPress(this.getPlayerXCoordinate(), this.getPlayerYCoordinate() + 1);
+	}
+
+	private void arrowKeyPress(int newX, int newY) {
+		TileType attemptedLocation = getTileFromCoordinates(newX, newY);
+		if (attemptedLocation.equals(TileType.PASSABLE)) {
+			setPlayer(newX, newY);
+		}
 	}
 
 	public void setExit(boolean exit) {
