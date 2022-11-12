@@ -7,6 +7,7 @@ import ui.GameFrame;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class GameEngine {
 
@@ -17,6 +18,11 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private TileType attemptedLocation;
+
+    private String leftRight = "leftRight";
+
+    private String upDown = "upDown";
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -72,24 +78,32 @@ public class GameEngine {
         return (int) player.getY();
     }
 
-    public void keyLeft() {
+    public void isPassableMovePlayer(TileType attemptedLocation, int direction, String keyDirection) {
+        if (attemptedLocation.equals(TileType.PASSABLE) && Objects.equals(keyDirection, upDown)) {
+            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + direction);
+        } else if (attemptedLocation.equals(TileType.PASSABLE) && Objects.equals(keyDirection, leftRight)) {
+            setPlayer(getPlayerXCoordinate() + direction, getPlayerYCoordinate());
+        }
+    }
 
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+    public void keyLeft() {
+        attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        isPassableMovePlayer(attemptedLocation, -1, leftRight);
     }
 
     public void keyRight() {
-
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        isPassableMovePlayer(attemptedLocation, 1, leftRight);
     }
 
     public void keyUp() {
-
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        isPassableMovePlayer(attemptedLocation, -1, upDown);
     }
 
     public void keyDown() {
-
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        isPassableMovePlayer(attemptedLocation, 1, upDown);
     }
 
     public boolean isExit() {
