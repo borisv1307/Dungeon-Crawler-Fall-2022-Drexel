@@ -1,17 +1,16 @@
 package engine;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
-import java.awt.Component;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+
+import java.awt.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GameEngineTest {
 
@@ -79,25 +78,12 @@ public class GameEngineTest {
 
 	@Test
 	public void key_left() {
-		// TODO Should I start with this test?
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
 		gameEngine.keyLeft();
-	}
-
-	@Test
-	public void key_right() {
-		// TODO Should I start with this test?
-		gameEngine.keyRight();
-	}
-
-	@Test
-	public void key_up() {
-		// TODO Should I start with this test?
-		gameEngine.keyUp();
-	}
-
-	@Test
-	public void key_down() {
-		// TODO Should I start with this test?
-		gameEngine.keyDown();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
 	}
 }
