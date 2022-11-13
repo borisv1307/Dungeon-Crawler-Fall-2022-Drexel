@@ -1,7 +1,7 @@
-@IntegrationTest
+@Adhoc
 Feature: Move the player into wall
 
-  Background: 
+  Background:
     Given the level design is:
       | XXX |
       | XPX |
