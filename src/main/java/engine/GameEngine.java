@@ -87,7 +87,10 @@ public class GameEngine {
     }
 
     public void keyUp() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        }
     }
 
     public void keyDown() {
