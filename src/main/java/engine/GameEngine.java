@@ -77,7 +77,7 @@ public class GameEngine {
     }
 
     public void keyRight() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
     }
 
     public void keyUp() {
