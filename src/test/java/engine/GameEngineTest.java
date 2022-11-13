@@ -76,32 +76,4 @@ public class GameEngineTest {
         assertThat(actual, equalTo(exit));
     }
 
-    @Test
-    public void key_left() {
-        gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
-        gameEngine.addTile(ONE, ONE, TileType.PLAYER);
-        gameEngine.keyLeft();
-        int actualX = gameEngine.getPlayerXCoordinate();
-        int actualY = gameEngine.getPlayerYCoordinate();
-        assertThat(actualX, equalTo(ZERO));
-        assertThat(actualY, equalTo(ONE));
-    }
-
-    @Test
-    public void key_right() {
-        // TODO Should I start with this test?
-        gameEngine.keyRight();
-    }
-
-    @Test
-    public void key_up() {
-        // TODO Should I start with this test?
-        gameEngine.keyUp();
-    }
-
-    @Test
-    public void key_down() {
-        // TODO Should I start with this test?
-        gameEngine.keyDown();
-    }
 }
