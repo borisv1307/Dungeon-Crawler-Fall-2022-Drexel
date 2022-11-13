@@ -85,7 +85,7 @@ public class GameEngine {
     }
 
     public void keyDown() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
     }
 
     public boolean isExit() {
