@@ -73,30 +73,25 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
-        }
+        movement(-1, 0);
     }
 
     public void keyRight() {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
-        }
+        movement(1, 0);
     }
 
     public void keyUp() {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
-        }
+        movement(0, -1);
     }
 
     public void keyDown() {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        movement(0, 1);
+    }
+
+    private void movement(int deltaX, int deltaY) {
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
     }
 
