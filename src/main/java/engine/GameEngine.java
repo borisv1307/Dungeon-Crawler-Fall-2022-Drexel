@@ -73,19 +73,31 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        if (isTilePASSABLE(getPlayerXCoordinate() - 1, getPlayerYCoordinate())) {
+            setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        }
     }
 
     public void keyRight() {
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        if (isTilePASSABLE(getPlayerXCoordinate() + 1, getPlayerYCoordinate())) {
+            setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        }
     }
 
     public void keyUp() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        if (isTilePASSABLE(getPlayerXCoordinate(), getPlayerYCoordinate() - 1)) {
+            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        }
     }
 
     public void keyDown() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        if (isTilePASSABLE(getPlayerXCoordinate(), getPlayerYCoordinate() + 1)) {
+            setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        }
+    }
+
+    private boolean isTilePASSABLE(int x, int y) {
+        return (getTileFromCoordinates(x, y).equals(TileType.PASSABLE));
     }
 
     public boolean isExit() {
