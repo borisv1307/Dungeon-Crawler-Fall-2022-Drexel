@@ -81,7 +81,7 @@ public class GameEngine {
     }
 
     public void keyUp() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
     }
 
     public void keyDown() {
