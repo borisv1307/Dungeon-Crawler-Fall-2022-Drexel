@@ -73,19 +73,48 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+        movePlayer("LEFT");
     }
 
     public void keyRight() {
-        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+        movePlayer("RIGHT");
     }
 
     public void keyUp() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        movePlayer("UP");
     }
 
     public void keyDown() {
-        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+        movePlayer("DOWN");
+    }
+
+    private boolean isEmptySpace(int targetXCoordinate, int targetYCoordinate) {
+        TileType targetLocation = getTileFromCoordinates(targetXCoordinate, targetYCoordinate);
+        return targetLocation.equals(TileType.PASSABLE);
+    }
+
+    private void movePlayer(String direction) {
+        int targetXCoordinate = getPlayerXCoordinate();
+        int targetYCoordinate = getPlayerYCoordinate();
+        switch (direction) {
+            case "UP":
+                targetYCoordinate--;
+                break;
+            case "DOWN":
+                targetYCoordinate++;
+                break;
+            case "LEFT":
+                targetXCoordinate--;
+                break;
+            case "RIGHT":
+                targetXCoordinate++;
+                break;
+            default:
+                throw new IllegalArgumentException("ERROR: Player movement" + direction + "is invalid.");
+        }
+        if (isEmptySpace(targetXCoordinate, targetYCoordinate)) {
+            setPlayer(targetXCoordinate, targetYCoordinate);
+        }
     }
 
     public boolean isExit() {
