@@ -20,6 +20,8 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private Point NPC;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -37,6 +39,9 @@ public class GameEngine {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
             tiles.put(new Point(x, y), TileType.PASSABLE);
+        } else if (tileType.equals(tileType.NPC)) {
+            setNPC(x, y);
+            tiles.put(new Point(x, y), TileType.NPC);
         } else {
             tiles.put(new Point(x, y), tileType);
         }
@@ -66,12 +71,24 @@ public class GameEngine {
         player = new Point(x, y);
     }
 
+    private void setNPC(int x, int y) {
+        NPC = new Point(x, y);
+    }
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
 
     public int getPlayerYCoordinate() {
         return (int) player.getY();
+    }
+
+    public int getNPCXCoordinate() {
+        return (int) NPC.getX();
+    }
+
+    public int getNPCYCoordinate() {
+        return (int) NPC.getY();
     }
 
     public void keyLeft() {

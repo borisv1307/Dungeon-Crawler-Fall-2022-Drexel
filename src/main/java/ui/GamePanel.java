@@ -32,7 +32,8 @@ public class GamePanel extends Panel {
         tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
         tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
                 tileWidth, tileHeight, TileType.PLAYER);
-        //NPC was added without needing to add painter def?
+        tilePainter.paintNPC(graphics, gameEngine.getNPCXCoordinate(), gameEngine.getNPCYCoordinate(),
+                tileWidth, tileHeight, TileType.NPC);
     }
 
     @Override
