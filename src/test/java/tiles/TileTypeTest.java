@@ -23,6 +23,12 @@ public class TileTypeTest {
 	}
 
 	@Test
+	public void check_tile_type_is_goal() {
+		TileType actual = TileType.getTileTypeByChar('G');
+		assertEquals(TileType.GOAL, actual);
+	}
+
+	@Test
 	public void get_tile_type_by_char_invalid_char() {
 		try {
 			TileType.getTileTypeByChar(INVALID_CHAR);
