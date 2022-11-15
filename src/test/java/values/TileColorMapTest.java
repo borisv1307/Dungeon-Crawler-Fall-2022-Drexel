@@ -2,7 +2,7 @@ package values;
 
 import static org.junit.Assert.assertSame;
 
-import java.awt.Color;
+import java.awt.*;
 
 import org.junit.Test;
 
@@ -23,6 +23,11 @@ public class TileColorMapTest {
 	@Test
 	public void player() {
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
+	}
+
+	@Test
+	public void goal() {
+		assertSame(Color.YELLOW, TileColorMap.get(TileType.GOAL));
 	}
 
 }
