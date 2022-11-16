@@ -64,7 +64,7 @@ public class TilePainterTest {
 
         tilePainter.paintNPC(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.NPC);
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.NPC);
+        Mockito.verify(graphics).fillRect(20, 60, 10, 20);
     }
 
 }
