@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+
+<dialogues npcName="John">
+    <dialogue ID="1">
+        Dialogue One
+    </dialogue>
+    <dialogue ID="2">
+        Dialogue Two
+    </dialogue>
+    <dialogue ID="3">
+        Dialogue Three
+    </dialogue>
+</dialogues>
