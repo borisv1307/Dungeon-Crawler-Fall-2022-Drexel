@@ -17,6 +17,7 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point goal;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -35,6 +36,9 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.GOAL)) {
+			setGoal(x, y);
+			tiles.put(new Point(x, y), TileType.GOAL);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -64,12 +68,24 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
+	private void setGoal(int x, int y) {
+		goal = new Point(x, y);
+	}
+
 	public int getPlayerXCoordinate() {
 		return (int) player.getX();
 	}
 
 	public int getPlayerYCoordinate() {
 		return (int) player.getY();
+	}
+
+	public int getGoalXCoordinate() {
+		return (int) goal.getX();
+	}
+
+	public int getGoalYCoordinate() {
+		return (int) goal.getY();
 	}
 
 	public void keyLeft() {
@@ -97,11 +113,7 @@ public class GameEngine {
 	}
 
 	private boolean tileIsPassable(int xCoordinate, int yCoordinate) {
-		boolean isTrue = false;
-		if (getTileFromCoordinates(xCoordinate, yCoordinate).equals(TileType.PASSABLE)) {
-			isTrue = true;
-		}
-		return isTrue;
+		return getTileFromCoordinates(xCoordinate, yCoordinate).equals(TileType.PASSABLE);
 	}
 
 	public boolean isExit() {
@@ -111,4 +123,5 @@ public class GameEngine {
 	public void setExit(boolean exit) {
 		this.exit = exit;
 	}
+
 }

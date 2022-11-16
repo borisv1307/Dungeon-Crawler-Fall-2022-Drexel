@@ -23,10 +23,10 @@ import wrappers.ReaderWrapper;
 public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	private static final int ONE = 1;
 	private static final int COORDINATE_OFFSET = ONE;
-	private GameEngine gameEngine;
-	private String exceptionMessage;
 	ReaderWrapper readerWrapper;
 	IOException ioException;
+	private GameEngine gameEngine;
+	private String exceptionMessage;
 
 	@Given("^level is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
@@ -74,6 +74,16 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		char ch = tileChar.charAt(0);
 		TileType actualTileType = gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET);
 		assertThat(actualTileType, equalTo(TileType.getTileTypeByChar(ch)));
+	}
+
+	@Then("^the goal's x coordinate is (\\d+)$")
+	public void the_goal_s_x_coordinate_is(int goalX) {
+		assertThat(gameEngine.getGoalXCoordinate(), equalTo(goalX - COORDINATE_OFFSET));
+	}
+
+	@Then("^the goal's y coordinate is (\\d+)$")
+	public void the_goal_s_y_coordinate_is(int goalY) {
+		assertThat(gameEngine.getGoalYCoordinate(), equalTo(goalY - COORDINATE_OFFSET));
 	}
 
 	@Then("^the invalid character error message is displayed$")
