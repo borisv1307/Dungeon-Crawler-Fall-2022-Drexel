@@ -1,10 +1,10 @@
 package ui;
 
-import java.awt.Graphics;
-
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
+
+import java.awt.*;
 
 public class TilePainter {
 
@@ -16,8 +16,12 @@ public class TilePainter {
 			}
 		}
 	}
-	
+
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+	}
+
+	void paintNPC(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
 

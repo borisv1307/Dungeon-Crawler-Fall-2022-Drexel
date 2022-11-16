@@ -1,9 +1,9 @@
 package values;
 
-import java.awt.Color;
-import java.util.EnumMap;
-
 import tiles.TileType;
+
+import java.awt.*;
+import java.util.EnumMap;
 
 public final class TileColorMap {
 	private TileColorMap() {
@@ -15,6 +15,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.PASSABLE, Color.WHITE);
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.GREEN);
+		tileColors.put(TileType.NPC, Color.ORANGE);
 	}
 
 	public static Color get(TileType key) {

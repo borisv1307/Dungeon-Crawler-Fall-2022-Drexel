@@ -1,17 +1,16 @@
 package ui;
 
-import java.awt.Graphics;
-
+import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
 import org.mockito.InOrder;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-
-import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
+
+import java.awt.*;
 
 public class TilePainterTest {
 
@@ -56,6 +55,14 @@ public class TilePainterTest {
 	public void paint_player() {
 
 		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
+
+		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+	}
+
+	@Test
+	public void paint_NPC() {
+
+		tilePainter.paintNPC(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.NPC);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}

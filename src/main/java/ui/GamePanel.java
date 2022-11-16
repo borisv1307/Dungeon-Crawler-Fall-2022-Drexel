@@ -1,12 +1,9 @@
 package ui;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Panel;
-
 import engine.GameEngine;
 import tiles.TileType;
+
+import java.awt.*;
 
 public class GamePanel extends Panel {
 
@@ -36,6 +33,8 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		tilePainter.paintNPC(graphics, gameEngine.getNPCXCoordinate(), gameEngine.getNPCYCoordinate(),
+				tileWidth, tileHeight, TileType.NPC);
 	}
 
 	@Override
