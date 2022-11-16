@@ -8,6 +8,8 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static values.TunableParameters.PLAYER_SPEED;
+
 public class GameEngine {
 
 	private boolean exit;
@@ -73,23 +75,19 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		// TODO Implement movement logic here
-		setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+		movePlayer(getPlayerXCoordinate() - PLAYER_SPEED, getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
-		setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+		movePlayer(getPlayerXCoordinate() + PLAYER_SPEED, getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
-		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+		movePlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - PLAYER_SPEED);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
-		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+		movePlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + PLAYER_SPEED);
 	}
 
 	public void setExit(boolean exit) {
@@ -98,5 +96,20 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	private void movePlayer(int destinationX, int destinationY) {
+		TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
+		if (isTilePassable(destinationTile)) {
+			setPlayer(destinationX, destinationY);
+		}
+	}
+
+	private boolean isTilePassable(TileType tile) {
+		boolean isPassable = false;
+		if (tile.equals(TileType.PASSABLE)) {
+			isPassable = true;
+		}
+		return isPassable;
 	}
 }
