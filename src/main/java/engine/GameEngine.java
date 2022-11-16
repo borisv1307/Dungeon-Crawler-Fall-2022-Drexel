@@ -1,13 +1,12 @@
 package engine;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameEngine {
 
@@ -75,18 +74,22 @@ public class GameEngine {
 
 	public void keyLeft() {
 		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
 		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
 		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
 	}
 
 	public void keyDown() {
 		// TODO Implement movement logic here
+		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
 	}
 
 	public void setExit(boolean exit) {
