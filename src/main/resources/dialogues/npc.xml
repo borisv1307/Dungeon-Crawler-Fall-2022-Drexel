@@ -1,12 +1,18 @@
 <?xml version = "1.0"?>
 <dialogues>
     <dialogue id="1">
-        Dialogue One
+        <content>
+            Dialogue One
+        </content>
     </dialogue>
     <dialogue id="2">
-        Dialogue Two
+        <content>
+            Dialogue Two
+        </content>
     </dialogue>
     <dialogue id="3">
-        Dialogue Three
+        <content>
+            Dialogue Three
+        </content>
     </dialogue>
 </dialogues>

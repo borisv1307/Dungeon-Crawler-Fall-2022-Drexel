@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class XMLParserWrapper {
 
-    public Document parseXML(String fileName) throws IOException, ParserConfigurationException, SAXException {
+    public Document parse(String fileName) throws IOException, ParserConfigurationException, SAXException {
         File input = new File(fileName);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

@@ -16,7 +16,7 @@ public class XMLParserWrapperTest {
     String xmlName;
     String xmlNamePrefix;
     String xmlNameSuffix;
-    
+
     private XMLParserWrapper xmlParserWrapper;
 
     @Before
@@ -30,8 +30,7 @@ public class XMLParserWrapperTest {
     @Test
     public void parse_dialogue_file_to_document() throws IOException, ParserConfigurationException, SAXException {
         String fileName = xmlNamePrefix + xmlName + xmlNameSuffix;
-        System.out.print(fileName);
-        Document actual = xmlParserWrapper.parseXML(fileName);
+        Document actual = xmlParserWrapper.parse(fileName);
         assertEquals("dialogues", actual.getDocumentElement().getNodeName());
     }
 }
