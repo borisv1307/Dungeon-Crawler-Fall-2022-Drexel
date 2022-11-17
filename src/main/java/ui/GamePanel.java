@@ -1,5 +1,7 @@
 package ui;
 
+import Dialogue.Dialogue;
+import Dialogue.DialoguePrinter;
 import engine.GameEngine;
 import tiles.TileType;
 
@@ -8,7 +10,7 @@ import java.awt.*;
 public class GamePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-
+	private DialoguePrinter dialoguePrinter;
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
@@ -18,6 +20,7 @@ public class GamePanel extends Panel {
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
+		dialoguePrinter = new DialoguePrinter();
 		repaint();
 	}
 
@@ -36,6 +39,9 @@ public class GamePanel extends Panel {
 		tilePainter.paintNonPlayableCharacter(graphics, gameEngine.getNonPlayableCharacterXCoordinate(),
 				gameEngine.getNonPlayableCharacterYCoordinate(), tileWidth,
 				tileHeight, TileType.NON_PLAYABLE_CHARACTER);
+		//TODO Need a Conditional to make sure this isn't always painting text even without dialogue active
+		Dialogue currentDialogue = gameEngine.getLevelDialogues().get(0);
+		dialoguePrinter.paintDialogueText(graphics, currentDialogue.getDialogueContent());
 	}
 
 	@Override
