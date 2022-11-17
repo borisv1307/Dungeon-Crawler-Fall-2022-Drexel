@@ -36,10 +36,32 @@ public class DialogueCreatorTest {
     }
 
     @Test
-    public void first_dialogue_content_is_first_dialogue_content() {
+    public void second_dialogue_id_is_two() {
+        Dialogue actual = dialogues.get(1);
+        assertEquals(2, actual.getDialogueID());
+    }
+
+    @Test
+    public void third_dialogue_id_is_three() {
+        Dialogue actual = dialogues.get(2);
+        assertEquals(3, actual.getDialogueID());
+    }
+
+    @Test
+    public void first_dialogue_content_is_first_dialogue() {
         Dialogue actual = dialogues.get(0);
         assertEquals("Dialogue One", actual.getDialogueContent());
     }
 
+    @Test
+    public void second_dialogue_content_is_second_dialogue() {
+        Dialogue actual = dialogues.get(1);
+        assertEquals("Dialogue Two", actual.getDialogueContent());
+    }
 
+    @Test
+    public void third_dialogue_content_is_second_dialogue() {
+        Dialogue actual = dialogues.get(2);
+        assertEquals("Dialogue Three", actual.getDialogueContent());
+    }
 }
