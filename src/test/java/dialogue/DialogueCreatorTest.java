@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import wrappers.XMLParserWrapper;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class DialogueCreatorTest {
     private DialogueCreator dialogueCreator;
     XMLParserWrapper xmlParserWrapper;
-    ArrayList<Dialogue> dialogues;
+    List<Dialogue> dialogues;
 
     @Before
     public void setUp() {

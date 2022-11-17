@@ -4,9 +4,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import wrappers.XMLParserWrapper;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
@@ -23,34 +27,37 @@ public class DialogueCreator {
         this.xmlParserWrapper = xmlParserWrapper;
     }
 
-    public ArrayList<Dialogue> createDialogueList() {
-        ArrayList<Dialogue> dialogues = new ArrayList<>();
-        Document document;
+    public List<Dialogue> createDialogueList() {
+        List<Dialogue> dialogues = new ArrayList<>();
         try {
-            //TODO //Refactor into helper methods. Move the try catch into helper.
-
-            document = xmlParserWrapper.parse(filePath);
-            NodeList nodeList = document.getElementsByTagName("dialogue");
-            for (int index = 0; index < nodeList.getLength(); index++) {
-                Node dialogueNode = nodeList.item(index);
-
-                if (dialogueNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element nodeElement = (Element) dialogueNode;
-                    int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
-
-                    String elementContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
-                    String dialogueContent = cleanElementStringData(elementContent);
-
-                    dialogues.add(new Dialogue(dialogueID, dialogueContent));
-                }
-
-            }
+            populateListFromFile(dialogues);
         } catch (Exception exception) {
             LOGGER.log(Level.SEVERE, exception.toString(), exception);
         }
-
         return dialogues;
     }
+
+    private void populateListFromFile(List<Dialogue> targetList) throws IOException, ParserConfigurationException, SAXException {
+        Document document;
+        //TODO //Refactor node logic into helper methods.
+        document = xmlParserWrapper.parse(filePath);
+        NodeList nodeList = document.getElementsByTagName("dialogue");
+        for (int index = 0; index < nodeList.getLength(); index++) {
+            Node dialogueNode = nodeList.item(index);
+
+            if (dialogueNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element nodeElement = (Element) dialogueNode;
+                int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
+
+                String elementContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
+                String dialogueContent = cleanElementStringData(elementContent);
+
+                targetList.add(new Dialogue(dialogueID, dialogueContent));
+            }
+
+        }
+    }
+
 
     private String cleanElementStringData(String targetString) {
         return targetString.trim();
