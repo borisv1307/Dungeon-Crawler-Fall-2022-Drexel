@@ -18,7 +18,7 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private Point NPC;
+	private Point nonPlayableCharacter;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -38,8 +38,8 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else if (tileType.equals(TileType.NPC)) {
-			setNPC(x, y);
+		} else if (tileType.equals(TileType.NON_PLAYABLE_CHARACTER)) {
+			setNonPlayableCharacter(x, y);
 			tiles.put(new Point(x, y), TileType.NOT_PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
@@ -70,8 +70,8 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
-	private void setNPC(int x, int y) {
-		NPC = new Point(x, y);
+	private void setNonPlayableCharacter(int x, int y) {
+		nonPlayableCharacter = new Point(x, y);
 	}
 
 	public int getPlayerXCoordinate() {
@@ -82,12 +82,12 @@ public class GameEngine {
 		return (int) player.getY();
 	}
 
-	public int getNPCXCoordinate() {
-		return (int) NPC.getX();
+	public int getNonPlayableCharacterXCoordinate() {
+		return (int) nonPlayableCharacter.getX();
 	}
 
-	public int getNPCYCoordinate() {
-		return (int) NPC.getY();
+	public int getNonPlayableCharacterYCoordinate() {
+		return (int) nonPlayableCharacter.getY();
 	}
 
 	public void keyLeft() {

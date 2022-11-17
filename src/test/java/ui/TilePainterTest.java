@@ -60,9 +60,9 @@ public class TilePainterTest {
 	}
 
 	@Test
-	public void paint_NPC() {
+	public void paint_non_playable_character() {
 
-		tilePainter.paintNPC(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.NPC);
+		tilePainter.paintNonPlayableCharacter(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.NON_PLAYABLE_CHARACTER);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}

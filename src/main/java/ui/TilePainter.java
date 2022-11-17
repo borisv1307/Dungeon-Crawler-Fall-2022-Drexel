@@ -21,7 +21,7 @@ public class TilePainter {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
 
-	void paintNPC(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+	void paintNonPlayableCharacter(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
 

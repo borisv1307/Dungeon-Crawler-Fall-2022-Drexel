@@ -25,8 +25,8 @@ public class TileColorMapTest {
 	}
 
 	@Test
-	public void NPC() {
-		assertSame(Color.ORANGE, TileColorMap.get(TileType.NPC));
+	public void non_playable_character() {
+		assertSame(Color.ORANGE, TileColorMap.get(TileType.NON_PLAYABLE_CHARACTER));
 	}
 
 }
