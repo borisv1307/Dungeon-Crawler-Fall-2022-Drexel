@@ -53,19 +53,19 @@ public class DialogueCreatorTest {
     @Test
     public void first_dialogue_content_should_be_first_dialogue_element_content() {
         Dialogue actual = dialogues.get(0);
-        assertEquals("Dialogue One", actual.getDialogueContent());
+        assertEquals("Hello, Player what can I help you with?", actual.getDialogueContent());
     }
 
     @Test
     public void second_dialogue_content_should_be_second_dialogue_element_content() {
         Dialogue actual = dialogues.get(1);
-        assertEquals("Dialogue Two", actual.getDialogueContent());
+        assertEquals("I can help you find the code, you just have to sniff it out!", actual.getDialogueContent());
     }
 
     @Test
     public void third_dialogue_content_should_be_third_dialogue_element_content() {
         Dialogue actual = dialogues.get(2);
-        assertEquals("Dialogue Three", actual.getDialogueContent());
+        assertEquals("I am here to keep watch over this level, watch your step now.", actual.getDialogueContent());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DialogueCreatorTest {
         Dialogue dialogue = dialogues.get(0);
         responses = dialogue.getResponses();
         String actual = responses[0];
-        assertEquals("Response One to Dialogue One", actual);
+        assertEquals("Can you help me find the code?", actual);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class DialogueCreatorTest {
         Dialogue dialogue = dialogues.get(0);
         responses = dialogue.getResponses();
         String actual = responses[1];
-        assertEquals("Response Two to Dialogue One", actual);
+        assertEquals("What are you doing here?", actual);
     }
 
     @Test
@@ -89,6 +89,6 @@ public class DialogueCreatorTest {
         Dialogue dialogue = dialogues.get(0);
         responses = dialogue.getResponses();
         String actual = responses[2];
-        assertEquals("Response Three to Dialogue One", actual);
+        assertEquals("Actually, I do not need help. Goodbye!", actual);
     }
 }

@@ -2,24 +2,24 @@
 <dialogues>
     <dialogue id="1">
         <content>
-            Dialogue One
+            Hello, Player what can I help you with?
         </content>
         <responses>
             <first_response>
-                Response One to Dialogue One
+                Can you help me find the code?
             </first_response>
             <second_response>
-                Response Two to Dialogue One
+                What are you doing here?
             </second_response>
             <third_response>
-                Response Three to Dialogue One
+                Actually, I do not need help. Goodbye!
             </third_response>
         </responses>
     </dialogue>
 
     <dialogue id="2">
         <content>
-            Dialogue Two
+            I can help you find the code, you just have to sniff it out!
         </content>
         <responses>
             <first_response>
@@ -36,7 +36,7 @@
 
     <dialogue id="3">
         <content>
-            Dialogue Three
+            I am here to keep watch over this level, watch your step now.
         </content>
         <responses>
             <first_response>
@@ -50,5 +50,5 @@
             </third_response>
         </responses>
     </dialogue>
-
 </dialogues>
+
