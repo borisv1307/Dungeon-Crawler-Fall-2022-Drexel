@@ -54,7 +54,7 @@ public class DialogueCreator {
                 Element nodeElement = (Element) dialogueNode;
 
                 int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
-                
+
                 String dialogueContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
 
                 String content = cleanElementStringData(dialogueContent);
@@ -68,22 +68,16 @@ public class DialogueCreator {
 
     private String[] createResponseArray(Element nodeElement) {
         String[] responses = new String[3];
+        String[] prefixes = {"first_", "second_", "third_"};
+        String suffix = "response";
 
-        //TODO refactor this
-        String firstResponse = nodeElement.getElementsByTagName("first_response").item(0).getTextContent();
-        responses[0] = cleanElementStringData(firstResponse);
-
-        String secondResponse = nodeElement.getElementsByTagName("second_response").item(0).getTextContent();
-        responses[1] = cleanElementStringData(secondResponse);
-
-        String thirdResponse = nodeElement.getElementsByTagName("third_response").item(0).getTextContent();
-        responses[2] = cleanElementStringData(thirdResponse);
-
-
+        for (int index = 0; index < prefixes.length; index++) {
+            String elementName = prefixes[index] + suffix;
+            responses[index] = cleanElementStringData(nodeElement.getElementsByTagName(elementName).item(0).getTextContent());
+        }
         return responses;
     }
-
-
+    
     private String cleanElementStringData(String targetString) {
         return targetString.trim();
     }
