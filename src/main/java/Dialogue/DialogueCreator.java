@@ -39,14 +39,20 @@ public class DialogueCreator {
 
     private void populateListFromFile(List<Dialogue> targetList) throws IOException, ParserConfigurationException, SAXException {
         Document document;
-        //TODO //Refactor node logic into helper methods.
         document = xmlParserWrapper.parse(filePath);
+
         NodeList nodeList = document.getElementsByTagName("dialogue");
+
+        assembleDialogueFromNodeList(targetList, nodeList);
+    }
+
+    private void assembleDialogueFromNodeList(List<Dialogue> targetList, NodeList nodeList) {
         for (int index = 0; index < nodeList.getLength(); index++) {
             Node dialogueNode = nodeList.item(index);
 
             if (dialogueNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element nodeElement = (Element) dialogueNode;
+
                 int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
 
                 String elementContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
@@ -56,6 +62,7 @@ public class DialogueCreator {
             }
 
         }
+
     }
 
 
