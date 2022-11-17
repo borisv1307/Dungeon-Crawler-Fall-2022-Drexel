@@ -4,15 +4,51 @@
         <content>
             Dialogue One
         </content>
+        <responses>
+            <first_response>
+                Response One to Dialogue One
+            </first_response>
+            <second_response>
+                Response Two to Dialogue One
+            </second_response>
+            <third_response>
+                Response Three to Dialogue One
+            </third_response>
+        </responses>
     </dialogue>
+
     <dialogue id="2">
         <content>
             Dialogue Two
         </content>
+        <responses>
+            <first_response>
+                Response One to Dialogue Two
+            </first_response>
+            <second_response>
+                Response Two to Dialogue Two
+            </second_response>
+            <third_response>
+                Response Three to Dialogue Two
+            </third_response>
+        </responses>
     </dialogue>
+
     <dialogue id="3">
         <content>
             Dialogue Three
         </content>
+        <responses>
+            <first_response>
+                Response One to Dialogue Three
+            </first_response>
+            <second_response>
+                Response Two to Dialogue Three
+            </second_response>
+            <third_response>
+                Response Three to Dialogue Three
+            </third_response>
+        </responses>
     </dialogue>
+
 </dialogues>

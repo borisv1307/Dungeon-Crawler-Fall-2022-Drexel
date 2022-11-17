@@ -54,15 +54,33 @@ public class DialogueCreator {
                 Element nodeElement = (Element) dialogueNode;
 
                 int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
+                
+                String dialogueContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
 
-                String elementContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
-                String dialogueContent = cleanElementStringData(elementContent);
+                String content = cleanElementStringData(dialogueContent);
 
-                targetList.add(new Dialogue(dialogueID, dialogueContent));
+                String[] responses = createResponseArray(nodeElement);
+
+                targetList.add(new Dialogue(dialogueID, content, responses));
             }
-
         }
+    }
 
+    private String[] createResponseArray(Element nodeElement) {
+        String[] responses = new String[3];
+
+        //TODO refactor this
+        String firstResponse = nodeElement.getElementsByTagName("first_response").item(0).getTextContent();
+        responses[0] = cleanElementStringData(firstResponse);
+
+        String secondResponse = nodeElement.getElementsByTagName("second_response").item(0).getTextContent();
+        responses[1] = cleanElementStringData(secondResponse);
+
+        String thirdResponse = nodeElement.getElementsByTagName("third_response").item(0).getTextContent();
+        responses[2] = cleanElementStringData(thirdResponse);
+
+
+        return responses;
     }
 
 
