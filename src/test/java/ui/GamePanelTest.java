@@ -2,9 +2,7 @@ package ui;
 
 import static org.junit.Assert.assertSame;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,12 +40,18 @@ public class GamePanelTest {
 		Graphics graphics = Mockito.mock(Graphics.class);
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
+		int goalXCoordinate = 3;
+		int goalYCoordinate = 4;
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.getGoalXCoordinate()).thenReturn(goalXCoordinate);
+		Mockito.when(gameEngine.getGoalYCoordinate()).thenReturn(goalYCoordinate);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
+		Mockito.verify(tilePainter).paintGoal(graphics, goalXCoordinate, goalYCoordinate, tileWidth, tileHeight,
+				TileType.GOAL);
 	}
 
 	@Test

@@ -1,9 +1,6 @@
 package ui;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Panel;
+import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -11,10 +8,9 @@ import tiles.TileType;
 public class GamePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-
-	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
+	private Image dbImage;
 	private int tileWidth;
 	private int tileHeight;
 
@@ -36,6 +32,8 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		tilePainter.paintGoal(graphics, gameEngine.getGoalXCoordinate(), gameEngine.getGoalYCoordinate(), tileWidth,
+				tileHeight, TileType.GOAL);
 	}
 
 	@Override

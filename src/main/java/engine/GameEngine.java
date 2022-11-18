@@ -38,7 +38,7 @@ public class GameEngine {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.GOAL)) {
 			setGoal(x, y);
-			tiles.put(new Point(x, y), TileType.GOAL);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}

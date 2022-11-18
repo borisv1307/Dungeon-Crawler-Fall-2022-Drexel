@@ -37,7 +37,7 @@ Feature: Create a Level
     And (3, 1) is "X"
     And (4, 1) is "X"
     And (1, 2) is "X"
-    And (2, 2) is "G"
+    And (2, 2) is " "
     And (3, 2) is " "
     And (4, 2) is "X"
     And (1, 3) is "X"
