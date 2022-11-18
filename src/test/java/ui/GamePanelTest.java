@@ -48,10 +48,10 @@ public class GamePanelTest {
 		Mockito.when(gameEngine.getProjectileYCoordinate()).thenReturn(projectileYCoordinate);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		Mockito.verify(tilePainter).paintMovableObject(graphics, playerXCoordinate, playerYCoordinate, tileWidth,
-				tileHeight, TileType.PLAYER);
-		Mockito.verify(tilePainter).paintMovableObject(graphics, projectileXCoordinate, projectileYCoordinate,
-				tileWidth, tileHeight, TileType.PROJECTILE);
+		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
+				TileType.PLAYER);
+		Mockito.verify(tilePainter).paintPlayer(graphics, projectileXCoordinate, projectileYCoordinate, tileWidth,
+				tileHeight, TileType.PROJECTILE);
 	}
 
 	@Test

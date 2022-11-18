@@ -30,10 +30,10 @@ public class GamePanel extends Panel {
 		super.paint(graphics);
 		requestFocusInWindow();
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		tilePainter.paintMovableObject(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
+		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
-		tilePainter.paintMovableObject(graphics, gameEngine.getProjectileXCoordinate(),
-				gameEngine.getProjectileYCoordinate(), tileWidth, tileHeight, TileType.PROJECTILE);
+		tilePainter.paintPlayer(graphics, gameEngine.getProjectileXCoordinate(), gameEngine.getProjectileYCoordinate(),
+				tileWidth, tileHeight, TileType.PROJECTILE);
 	}
 
 	@Override

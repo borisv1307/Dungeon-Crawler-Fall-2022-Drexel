@@ -70,6 +70,16 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_projectile_coordinates() {
+		TileType tileType = TileType.PROJECTILE;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getProjectileXCoordinate();
+		int actualY = gameEngine.getProjectileYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);

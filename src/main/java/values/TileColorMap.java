@@ -18,9 +18,6 @@ public final class TileColorMap {
 	private TileColorMap() {
 	}
 
-	private TileColorMap() {
-	}
-
 	public static Color get(TileType key) {
 		return tileColors.get(key);
 	}
