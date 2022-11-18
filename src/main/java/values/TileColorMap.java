@@ -11,8 +11,9 @@ public final class TileColorMap {
 	static {
 		tileColors.put(TileType.PASSABLE, Color.WHITE);
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
-		tileColors.put(TileType.PLAYER, Color.GREEN);
+		tileColors.put(TileType.PLAYER, Color.BLUE);
 		tileColors.put(TileType.GOAL, Color.YELLOW);
+		tileColors.put(TileType.GOAL_REACHED, Color.GREEN);
 	}
 
 	private TileColorMap() {
