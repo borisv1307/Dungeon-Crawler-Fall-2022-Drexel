@@ -3,7 +3,7 @@ Feature: Move the player into wall
 
   Background:
     Given the level design is:
-      | XXX |
+      | GXX |
       | XPX |
       | XXX |
 
