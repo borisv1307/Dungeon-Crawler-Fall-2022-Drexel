@@ -12,7 +12,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.PASSABLE, Color.WHITE);
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.BLUE);
-		tileColors.put(TileType.GOAL, Color.YELLOW);
+		tileColors.put(TileType.GOAL, Color.ORANGE);
 	}
 
 	private TileColorMap() {
