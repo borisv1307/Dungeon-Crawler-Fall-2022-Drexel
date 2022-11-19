@@ -80,6 +80,24 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void player_has_reached_goal() {
+		TileType tileType = TileType.GOAL;
+		gameEngine.addTile(ZERO, ONE, tileType);
+
+		tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+
+		assertThat(gameEngine.playerHasReachedGoal(), equalTo(true));
+	}
+
+	@Test
+	public void load_next_consecutive_level() {
+		gameEngine.loadNextLevel();
+
+		assertThat(2, equalTo(gameEngine.getLevel()));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);

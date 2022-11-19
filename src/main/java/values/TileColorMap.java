@@ -13,7 +13,6 @@ public final class TileColorMap {
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.BLUE);
 		tileColors.put(TileType.GOAL, Color.YELLOW);
-		tileColors.put(TileType.GOAL_REACHED, Color.GREEN);
 	}
 
 	private TileColorMap() {

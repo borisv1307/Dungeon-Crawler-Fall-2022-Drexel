@@ -10,9 +10,9 @@ import ui.GameFrame;
 
 public class GameEngine {
 
-	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
-	private final int level;
+	private final LevelCreator levelCreator;
+	private int level = 1;
 	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
@@ -21,7 +21,6 @@ public class GameEngine {
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
-		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
@@ -92,11 +91,17 @@ public class GameEngine {
 		if (tileIsPassable(getPlayerXCoordinate() - 1, getPlayerYCoordinate())) {
 			setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
 		}
+		if (playerHasReachedGoal()) {
+			loadNextLevel();
+		}
 	}
 
 	public void keyRight() {
 		if (tileIsPassable(getPlayerXCoordinate() + 1, getPlayerYCoordinate())) {
 			setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+		}
+		if (playerHasReachedGoal()) {
+			loadNextLevel();
 		}
 	}
 
@@ -104,16 +109,35 @@ public class GameEngine {
 		if (tileIsPassable(getPlayerXCoordinate(), getPlayerYCoordinate() - 1)) {
 			setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
 		}
+		if (playerHasReachedGoal()) {
+			loadNextLevel();
+		}
 	}
 
 	public void keyDown() {
 		if (tileIsPassable(getPlayerXCoordinate(), getPlayerYCoordinate() + 1)) {
 			setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
 		}
+		if (playerHasReachedGoal()) {
+			loadNextLevel();
+		}
 	}
 
 	private boolean tileIsPassable(int xCoordinate, int yCoordinate) {
 		return getTileFromCoordinates(xCoordinate, yCoordinate).equals(TileType.PASSABLE);
+	}
+
+	public boolean playerHasReachedGoal() {
+		return getGoalYCoordinate() == getPlayerYCoordinate() && getGoalXCoordinate() == getPlayerXCoordinate();
+	}
+
+	public void loadNextLevel() {
+		level++;
+		levelCreator.createLevel(this, level);
+	}
+
+	public int getLevel() {
+		return level;
 	}
 
 	public boolean isExit() {

@@ -29,12 +29,6 @@ public class TileTypeTest {
 	}
 
 	@Test
-	public void check_tile_type_is_goal_reached() {
-		TileType actual = TileType.getTileTypeByChar('R');
-		assertEquals(TileType.GOAL_REACHED, actual);
-	}
-
-	@Test
 	public void get_tile_type_by_char_invalid_char() {
 		try {
 			TileType.getTileTypeByChar(INVALID_CHAR);

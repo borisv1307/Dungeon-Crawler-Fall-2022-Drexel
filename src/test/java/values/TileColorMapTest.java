@@ -30,9 +30,4 @@ public class TileColorMapTest {
 		assertSame(Color.YELLOW, TileColorMap.get(TileType.GOAL));
 	}
 
-	@Test
-	public void goal_reached() {
-		assertSame(Color.GREEN, TileColorMap.get(TileType.GOAL_REACHED));
-	}
-
 }
