@@ -3,30 +3,14 @@ package engine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.awt.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
-public class GameEngineTest {
-
-	private static final int ZERO = 0;
-	private static final int ONE = 1;
-
-	GameEngine gameEngine;
-
-	@Before
-	public void setUp() throws Exception {
-		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
-		int level = 1;
-		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
-	}
+import java.awt.*;
 
 	@Test
 	public void run() {
