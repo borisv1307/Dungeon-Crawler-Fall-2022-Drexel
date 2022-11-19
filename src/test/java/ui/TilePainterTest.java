@@ -67,5 +67,4 @@ public class TilePainterTest {
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
-
 }

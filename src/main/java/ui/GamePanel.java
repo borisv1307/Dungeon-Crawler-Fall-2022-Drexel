@@ -34,6 +34,7 @@ public class GamePanel extends Panel {
 				tileWidth, tileHeight, TileType.PLAYER);
 		tilePainter.paintGoal(graphics, gameEngine.getGoalXCoordinate(), gameEngine.getGoalYCoordinate(), tileWidth,
 				tileHeight, TileType.GOAL);
+
 	}
 
 	@Override
