@@ -14,10 +14,6 @@ import java.util.Map;
 
 import static values.TunableParameters.PLAYER_SPEED;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
 public class GameEngine {
 
 	private boolean exit;
@@ -70,8 +66,7 @@ public class GameEngine {
 	public String getDialogueStringByID(int index) {
 		return dialogues.get(index).getDialogueContent();
 	}
-
-
+	
 	public int getLevelHorizontalDimension() {
 		return levelHorizontalDimension;
 	}
