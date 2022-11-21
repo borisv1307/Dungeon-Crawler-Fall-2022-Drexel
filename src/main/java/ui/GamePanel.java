@@ -2,17 +2,13 @@ package ui;
 
 import engine.GameEngine;
 import tiles.TileType;
-import values.TunableParameters;
 
 import java.awt.*;
 
 public class GamePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-	private final Button buttonOne;
-	private final Button buttonTwo;
-	private final Button buttonThree;
-	private Component[] buttons;
+
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
@@ -22,19 +18,6 @@ public class GamePanel extends Panel {
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
-
-		buttonOne = new Button("Choice One");
-		buttonOne.setBounds(100, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
-		add(buttonOne);
-
-		buttonTwo = new Button("Choice Two");
-		buttonTwo.setBounds(150, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
-		add(buttonTwo);
-
-		buttonThree = new Button("Choice Three");
-		buttonThree.setBounds(200, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
-		add(buttonThree);
-
 		repaint();
 	}
 
@@ -82,8 +65,4 @@ public class GamePanel extends Panel {
 		return true;
 	}
 
-	public Component[] getButtons() {
-		buttons = this.getComponents();
-		return buttons;
-	}
 }

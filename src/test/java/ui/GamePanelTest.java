@@ -8,7 +8,6 @@ import tiles.TileType;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
@@ -23,10 +22,6 @@ public class GamePanelTest {
 	GamePanel gamePanel;
 	GameEngine gameEngine;
 	TilePainter tilePainter;
-	private Button buttonOne;
-	private Button buttonTwo;
-	private Button buttonThree;
-	private Component[] buttons;
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,12 +32,6 @@ public class GamePanelTest {
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
 
 		gamePanel = new GamePanel(gameEngine, tilePainter);
-
-		buttons = gamePanel.getButtons();
-		buttonOne = (Button) buttons[0];
-		buttonTwo = (Button) buttons[1];
-		buttonThree = (Button) buttons[2];
-
 		gamePanel.setSize(width, height);
 		gamePanel.init();
 	}
@@ -122,45 +111,6 @@ public class GamePanelTest {
 	public void key_escape() {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
-	}
-
-	@Test
-	public void game_panel_has_three_buttons() {
-		int actual = buttons.length;
-		assertEquals(3, actual);
-	}
-
-	@Test
-	public void button_one_is_created_with_label_choice_one() {
-		assertEquals("Choice One", buttonOne.getLabel());
-	}
-
-	@Test
-	public void button_one_has_correct_set_bounds() {
-		Rectangle actual = buttonOne.getBounds();
-		assertEquals(new Rectangle(100, 100, 80, 30), actual);
-	}
-
-	@Test
-	public void button_two_is_created_with_label_choice_one() {
-		assertEquals("Choice Two", buttonTwo.getLabel());
-	}
-
-	@Test
-	public void button_two_has_correct_set_bounds() {
-		Rectangle actual = buttonTwo.getBounds();
-		assertEquals(new Rectangle(150, 100, 80, 30), actual);
-	}
-
-	@Test
-	public void button_three_is_created_with_label_choice_one() {
-		assertEquals("Choice Three", buttonThree.getLabel());
-	}
-
-	@Test
-	public void button_three_has_correct_set_bounds() {
-		Rectangle actual = buttonThree.getBounds();
-		assertEquals(new Rectangle(200, 100, 80, 30), actual);
 	}
 
 }
