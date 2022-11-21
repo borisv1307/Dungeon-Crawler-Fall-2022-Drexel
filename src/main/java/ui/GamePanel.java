@@ -9,21 +9,32 @@ import java.awt.*;
 public class GamePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
+	private final Button buttonOne;
+	private final Button buttonTwo;
+	private final Button buttonThree;
+	private Component[] buttons;
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
-	private final DialoguePanel dialoguePanel;
 	private int tileWidth;
 	private int tileHeight;
 
-	public GamePanel(GameEngine gameEngine, DialoguePanel dialoguePanel, TilePainter tilePainter) {
+	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
-		this.dialoguePanel = dialoguePanel;
 
-		dialoguePanel.setPreferredSize(new Dimension(TunableParameters.DIALOGUE_PANEL_WIDTH, TunableParameters.DIALOGUE_PANEL_HEIGHT));
-		dialoguePanel.setBackground(TunableParameters.DIALOGUE_PANEL_COLOR);
-		add(dialoguePanel);
+		buttonOne = new Button("Choice One");
+		buttonOne.setBounds(100, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
+		add(buttonOne);
+
+		buttonTwo = new Button("Choice Two");
+		buttonTwo.setBounds(150, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
+		add(buttonTwo);
+
+		buttonThree = new Button("Choice Three");
+		buttonThree.setBounds(200, 100, TunableParameters.BUTTON_WIDTH, TunableParameters.BUTTON_HEIGHT);
+		add(buttonThree);
+
 		repaint();
 	}
 
@@ -68,7 +79,11 @@ public class GamePanel extends Panel {
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
 		}
-
 		return true;
+	}
+
+	public Component[] getButtons() {
+		buttons = this.getComponents();
+		return buttons;
 	}
 }

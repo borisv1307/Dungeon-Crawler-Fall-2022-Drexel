@@ -13,6 +13,7 @@ public class GameFrame extends Frame {
 		addWindowListener(windowAdapterSystemExit);
 		gamePanel.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT));
 		add(gamePanel);
+
 		pack();
 		gamePanel.init();
 		setVisible(true);

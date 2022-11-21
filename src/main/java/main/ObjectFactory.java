@@ -3,7 +3,10 @@ package main;
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
-import ui.*;
+import ui.GameFrame;
+import ui.GamePanel;
+import ui.TilePainter;
+import ui.WindowAdapterSystemExit;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
@@ -19,10 +22,9 @@ public abstract class ObjectFactory {
 			new ReaderWrapper());
 
 	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+	
 
-	private static DialoguePanel defaultDialoguePanel = new DialoguePanel(defaultGameEngine);
-
-	private static GamePanel defaultGamePanel = new GamePanel(defaultGameEngine, defaultDialoguePanel, new TilePainter());
+	private static GamePanel defaultGamePanel = new GamePanel(defaultGameEngine, new TilePainter());
 
 	private static GameFrame defaultGameFrame = new GameFrame(defaultGamePanel,
 			new WindowAdapterSystemExit(defaultGameEngine));
