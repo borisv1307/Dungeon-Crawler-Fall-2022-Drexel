@@ -1,10 +1,10 @@
-package Dialogue;
+package ui;
 
 public class Dialogue {
 
-    private int dialogueID;
-    private String dialogueContent;
-    private String[] responses;
+    private final int dialogueID;
+    private final String dialogueContent;
+    private final String[] responses;
 
     Dialogue(int dialogueID, String dialogueContent, String[] responses) {
         this.dialogueID = dialogueID;

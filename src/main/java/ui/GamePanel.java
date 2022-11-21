@@ -1,26 +1,30 @@
 package ui;
 
-import Dialogue.Dialogue;
-import Dialogue.DialoguePrinter;
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 
 import java.awt.*;
 
 public class GamePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-	private DialoguePrinter dialoguePrinter;
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
+
+	private final DialoguePanel dialoguePanel;
 	private int tileWidth;
 	private int tileHeight;
 
-	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
+	public GamePanel(GameEngine gameEngine, DialoguePanel dialoguePanel, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
-		dialoguePrinter = new DialoguePrinter();
+		this.dialoguePanel = dialoguePanel;
+
+		dialoguePanel.setPreferredSize(new Dimension(TunableParameters.DIALOGUE_PANEL_WIDTH, TunableParameters.DIALOGUE_PANEL_HEIGHT));
+		dialoguePanel.setBackground(TunableParameters.DIALOGUE_PANEL_COLOR);
+		add(dialoguePanel);
 		repaint();
 	}
 
@@ -39,9 +43,6 @@ public class GamePanel extends Panel {
 		tilePainter.paintNonPlayableCharacter(graphics, gameEngine.getNonPlayableCharacterXCoordinate(),
 				gameEngine.getNonPlayableCharacterYCoordinate(), tileWidth,
 				tileHeight, TileType.NON_PLAYABLE_CHARACTER);
-		//TODO Need a Conditional to make sure this isn't always painting text even without dialogue active
-		Dialogue currentDialogue = gameEngine.getLevelDialogues().get(0);
-		dialoguePrinter.paintDialogueText(graphics, currentDialogue.getDialogueContent());
 	}
 
 	@Override

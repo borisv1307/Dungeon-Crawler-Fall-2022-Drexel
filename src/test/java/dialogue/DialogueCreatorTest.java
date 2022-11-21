@@ -1,9 +1,9 @@
 package dialogue;
 
-import Dialogue.Dialogue;
-import Dialogue.DialogueCreator;
 import org.junit.Before;
 import org.junit.Test;
+import ui.Dialogue;
+import ui.DialogueCreator;
 import wrappers.XMLParserWrapper;
 
 import java.util.List;

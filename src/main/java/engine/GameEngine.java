@@ -1,9 +1,9 @@
 package engine;
 
-import Dialogue.Dialogue;
-import Dialogue.DialogueCreator;
 import parser.LevelCreator;
 import tiles.TileType;
+import ui.Dialogue;
+import ui.DialogueCreator;
 import ui.GameFrame;
 import wrappers.XMLParserWrapper;
 
@@ -23,14 +23,15 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Point nonPlayableCharacter;
-	private DialogueCreator dialogueCreator = new DialogueCreator(new XMLParserWrapper());
-	private List<Dialogue> dialogues;
+	private final DialogueCreator dialogueCreator;
+	private final List<Dialogue> dialogues;
 
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
+		dialogueCreator = new DialogueCreator(new XMLParserWrapper());
 		dialogues = dialogueCreator.createDialogueList();
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
@@ -61,10 +62,11 @@ public class GameEngine {
 	public void setLevelVerticalDimension(int levelVerticalDimension) {
 		this.levelVerticalDimension = levelVerticalDimension;
 	}
-
-	public List<Dialogue> getLevelDialogues() {
-		return dialogues;
+	
+	public String getDialogueStringByID(int index) {
+		return dialogues.get(index).getDialogueContent();
 	}
+
 
 	public int getLevelHorizontalDimension() {
 		return levelHorizontalDimension;

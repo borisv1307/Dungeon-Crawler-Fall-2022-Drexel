@@ -1,17 +1,15 @@
 package ui;
 
-import static org.junit.Assert.assertSame;
-
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
-
+import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import engine.GameEngine;
 import tiles.TileType;
+
+import java.awt.*;
+
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
 
 public class GamePanelTest {
 
@@ -25,43 +23,58 @@ public class GamePanelTest {
 	GamePanel gamePanel;
 	GameEngine gameEngine;
 	TilePainter tilePainter;
+	DialoguePanel dialoguePanel;
 
 	@Before
 	public void setUp() throws Exception {
-		gameEngine = Mockito.mock(GameEngine.class);
-		tilePainter = Mockito.mock(TilePainter.class);
+		gameEngine = mock(GameEngine.class);
+		tilePainter = mock(TilePainter.class);
+		dialoguePanel = new DialoguePanel(gameEngine);
+
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
-		gamePanel = new GamePanel(gameEngine, tilePainter);
+
+		gamePanel = new GamePanel(gameEngine, dialoguePanel, tilePainter);
 		gamePanel.setSize(width, height);
 		gamePanel.init();
 	}
 
+
 	@Test
 	public void paint() {
-		Graphics graphics = Mockito.mock(Graphics.class);
+		Graphics graphics = mock(Graphics.class);
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
+		int nonPlayableCharacterXCoordinate = 4;
+		int nonPlayableCharacterYCoordinate = 5;
+
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.getNonPlayableCharacterXCoordinate()).thenReturn(nonPlayableCharacterXCoordinate);
+		Mockito.when(gameEngine.getNonPlayableCharacterYCoordinate()).thenReturn(nonPlayableCharacterYCoordinate);
+
 		gamePanel.paint(graphics);
+
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
+		Mockito.verify(tilePainter).paintNonPlayableCharacter(graphics, gameEngine.getNonPlayableCharacterXCoordinate(),
+				gameEngine.getNonPlayableCharacterYCoordinate(), tileWidth, tileHeight,
+				TileType.NON_PLAYABLE_CHARACTER);
 	}
 
 	@Test
 	public void update() {
-		Graphics dbg = Mockito.mock(Graphics.class);
-		Image dbImage = Mockito.mock(Image.class);
+		Graphics dbg = mock(Graphics.class);
+		Image dbImage = mock(Image.class);
 		Mockito.when(dbImage.getGraphics()).thenReturn(dbg);
 
-		gamePanel = Mockito.mock(GamePanel.class, Mockito.CALLS_REAL_METHODS);
+		gamePanel = mock(GamePanel.class, Mockito.CALLS_REAL_METHODS);
 		Mockito.when(gamePanel.getWidth()).thenReturn(width);
 		Mockito.when(gamePanel.getHeight()).thenReturn(height);
 		Mockito.when(gamePanel.createImage(width, height)).thenReturn(dbImage);
 		Mockito.doNothing().when(gamePanel).paint(dbg);
-		Graphics graphics = Mockito.mock(Graphics.class);
+		Graphics graphics = mock(Graphics.class);
 		gamePanel.update(graphics);
 		gamePanel.update(graphics);
 		Mockito.verify(gamePanel, Mockito.times(1)).createImage(width, height);
@@ -102,4 +115,5 @@ public class GamePanelTest {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
 	}
+
 }
