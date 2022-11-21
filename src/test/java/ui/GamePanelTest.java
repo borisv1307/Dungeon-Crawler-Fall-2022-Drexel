@@ -29,7 +29,7 @@ public class GamePanelTest {
 	public void setUp() throws Exception {
 		gameEngine = mock(GameEngine.class);
 		tilePainter = mock(TilePainter.class);
-		dialoguePanel = new DialoguePanel(gameEngine);
+		dialoguePanel = mock(DialoguePanel.class);
 
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
