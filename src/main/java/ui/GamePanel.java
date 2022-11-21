@@ -12,7 +12,6 @@ public class GamePanel extends Panel {
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
-
 	private final DialoguePanel dialoguePanel;
 	private int tileWidth;
 	private int tileHeight;

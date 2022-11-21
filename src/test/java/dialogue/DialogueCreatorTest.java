@@ -2,17 +2,19 @@ package dialogue;
 
 import org.junit.Before;
 import org.junit.Test;
+import parser.LevelCreator;
 import ui.Dialogue;
 import ui.DialogueCreator;
 import wrappers.XMLParserWrapper;
 
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import static org.junit.Assert.assertEquals;
 
 public class DialogueCreatorTest {
+    private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
     private Dialogue firstDialogue;
     private DialogueCreator dialogueCreator;
     private XMLParserWrapper xmlParserWrapper;

@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import parser.LevelCreator;
 import wrappers.XMLParserWrapper;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,7 +18,7 @@ import static values.TunableParameters.XML_LOCATION_PREFIX;
 import static values.TunableParameters.XML_NAME_SUFFIX;
 
 public class DialogueCreator {
-    private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
     private XMLParserWrapper xmlParserWrapper;
     private String fileName = "npc";
     String filePath = XML_LOCATION_PREFIX + fileName + XML_NAME_SUFFIX;
