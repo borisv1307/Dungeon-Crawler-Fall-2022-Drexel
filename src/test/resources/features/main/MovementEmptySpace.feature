@@ -1,7 +1,7 @@
 @IntegrationTest
 Feature: Move the player into empty space
 
-  Background: 
+  Background:
     Given the level design is:
       | XXXXX |
       | X   X |

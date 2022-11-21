@@ -14,6 +14,10 @@ import java.util.Map;
 
 import static values.TunableParameters.PLAYER_SPEED;
 
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameEngine {
 
 	private boolean exit;
