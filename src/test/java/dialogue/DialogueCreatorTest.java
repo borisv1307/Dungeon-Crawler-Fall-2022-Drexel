@@ -13,22 +13,24 @@ import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import static org.junit.Assert.assertEquals;
 
 public class DialogueCreatorTest {
+    private Dialogue firstDialogue;
     private DialogueCreator dialogueCreator;
     private XMLParserWrapper xmlParserWrapper;
     private List<Dialogue> dialogues;
-
-    private String[] responses;
+    private String[] responsesToFirstDialogue;
 
     @Before
     public void setUp() {
         xmlParserWrapper = new XMLParserWrapper();
         dialogueCreator = new DialogueCreator(xmlParserWrapper);
-        responses = new String[3];
+        responsesToFirstDialogue = new String[3];
         try {
             dialogues = dialogueCreator.createDialogueList();
         } catch (Exception exception) {
             LOGGER.log(Level.SEVERE, exception.toString(), exception);
         }
+        firstDialogue = dialogues.get(0);
+        responsesToFirstDialogue = firstDialogue.getResponses();
 
     }
 
@@ -69,26 +71,20 @@ public class DialogueCreatorTest {
     }
 
     @Test
-    public void first_dialogue_responses_has_first_response() {
-        Dialogue dialogue = dialogues.get(0);
-        responses = dialogue.getResponses();
-        String actual = responses[0];
+    public void first_dialogue_responses_has_correct_first_response() {
+        String actual = responsesToFirstDialogue[0];
         assertEquals("Can you help me find the code?", actual);
     }
 
     @Test
-    public void first_dialogue_responses_has_second_response() {
-        Dialogue dialogue = dialogues.get(0);
-        responses = dialogue.getResponses();
-        String actual = responses[1];
+    public void first_dialogue_responses_has_correct_second_response() {
+        String actual = responsesToFirstDialogue[1];
         assertEquals("What are you doing here?", actual);
     }
 
     @Test
-    public void first_dialogue_responses_has_third_response() {
-        Dialogue dialogue = dialogues.get(0);
-        responses = dialogue.getResponses();
-        String actual = responses[2];
+    public void first_dialogue_responses_has_correct_third_response() {
+        String actual = responsesToFirstDialogue[2];
         assertEquals("Actually, I do not need help. Goodbye!", actual);
     }
 }

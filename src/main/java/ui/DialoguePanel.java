@@ -5,7 +5,7 @@ import engine.GameEngine;
 import java.awt.*;
 
 public class DialoguePanel extends Panel {
-    private final GameEngine gameEngine;
+    private GameEngine gameEngine;
     private final Button buttonOne;
     private final Button buttonTwo;
     private final Button buttonThree;
@@ -14,7 +14,7 @@ public class DialoguePanel extends Panel {
 
     public DialoguePanel(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
-        //ToDo refactor this into a helper method.
+        
         buttonOne = new Button("Choice One");
         buttonOne.setBounds(100, 100, 80, 30);
         this.add(buttonOne);

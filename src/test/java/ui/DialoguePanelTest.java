@@ -12,7 +12,9 @@ import static org.mockito.Mockito.mock;
 public class DialoguePanelTest {
     DialoguePanel dialoguePanel;
     GameEngine gameEngine;
-
+    private Button buttonOne;
+    private Button buttonTwo;
+    private Button buttonThree;
     private Component[] buttons;
 
     @Before
@@ -20,6 +22,9 @@ public class DialoguePanelTest {
         gameEngine = mock(GameEngine.class);
         dialoguePanel = new DialoguePanel(gameEngine);
         buttons = dialoguePanel.getButtons();
+        buttonOne = (Button) buttons[0];
+        buttonTwo = (Button) buttons[1];
+        buttonThree = (Button) buttons[2];
     }
 
     @Test
@@ -30,40 +35,34 @@ public class DialoguePanelTest {
 
     @Test
     public void button_one_is_created_with_label_choice_one() {
-        Button actual = (Button) buttons[0];
-        assertEquals("Choice One", actual.getLabel());
+        assertEquals("Choice One", buttonOne.getLabel());
     }
 
     @Test
     public void button_one_has_correct_set_bounds() {
-        Button button = (Button) buttons[0];
-        Rectangle actual = button.getBounds();
+        Rectangle actual = buttonOne.getBounds();
         assertEquals(new Rectangle(100, 100, 80, 30), actual);
     }
 
     @Test
     public void button_two_is_created_with_label_choice_one() {
-        Button actual = (Button) buttons[1];
-        assertEquals("Choice Two", actual.getLabel());
+        assertEquals("Choice Two", buttonTwo.getLabel());
     }
 
     @Test
     public void button_two_has_correct_set_bounds() {
-        Button button = (Button) buttons[1];
-        Rectangle actual = button.getBounds();
+        Rectangle actual = buttonTwo.getBounds();
         assertEquals(new Rectangle(150, 100, 80, 30), actual);
     }
 
     @Test
     public void button_three_is_created_with_label_choice_one() {
-        Button actual = (Button) buttons[2];
-        assertEquals("Choice Three", actual.getLabel());
+        assertEquals("Choice Three", buttonThree.getLabel());
     }
 
     @Test
     public void button_three_has_correct_set_bounds() {
-        Button button = (Button) buttons[2];
-        Rectangle actual = button.getBounds();
+        Rectangle actual = buttonThree.getBounds();
         assertEquals(new Rectangle(200, 100, 80, 30), actual);
     }
 }

@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import parser.LevelCreator;
 import wrappers.XMLParserWrapper;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,15 +13,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import static values.TunableParameters.XML_LOCATION_PREFIX;
 import static values.TunableParameters.XML_NAME_SUFFIX;
 
 public class DialogueCreator {
+    private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
     private XMLParserWrapper xmlParserWrapper;
     private String fileName = "npc";
-
     String filePath = XML_LOCATION_PREFIX + fileName + XML_NAME_SUFFIX;
 
     public DialogueCreator(XMLParserWrapper xmlParserWrapper) {

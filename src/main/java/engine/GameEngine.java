@@ -25,7 +25,6 @@ public class GameEngine {
 	private Point nonPlayableCharacter;
 	private final DialogueCreator dialogueCreator;
 	private final List<Dialogue> dialogues;
-
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -66,7 +65,7 @@ public class GameEngine {
 	public String getDialogueStringByID(int index) {
 		return dialogues.get(index).getDialogueContent();
 	}
-	
+
 	public int getLevelHorizontalDimension() {
 		return levelHorizontalDimension;
 	}
