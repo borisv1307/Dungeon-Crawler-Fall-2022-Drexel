@@ -4,6 +4,7 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.Dialogue;
 import ui.DialogueCreator;
+import ui.DialogueFrame;
 import ui.GameFrame;
 import wrappers.XMLParserWrapper;
 
@@ -38,6 +39,12 @@ public class GameEngine {
 
 	public void run(GameFrame gameFrame) {
 		for (Component component : gameFrame.getComponents()) {
+			component.repaint();
+		}
+	}
+
+	public void run(DialogueFrame dialogueFrame) {
+		for (Component component : dialogueFrame.getComponents()) {
 			component.repaint();
 		}
 	}

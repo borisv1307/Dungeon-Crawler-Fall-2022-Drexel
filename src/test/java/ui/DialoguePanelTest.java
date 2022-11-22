@@ -10,14 +10,12 @@ import java.awt.*;
 import static org.mockito.Mockito.mock;
 
 public class DialoguePanelTest {
-    Frame testFrame = new Frame();
     DialoguePanel dialoguePanel;
     GameEngine gameEngine;
 
     int width = 50;
     int height = 60;
-
-
+    
     @Before
     public void setUp() throws Exception {
         gameEngine = mock(GameEngine.class);
@@ -30,9 +28,6 @@ public class DialoguePanelTest {
         Graphics graphics = mock(Graphics.class);
         dialoguePanel = mock(DialoguePanel.class, Mockito.CALLS_REAL_METHODS);
         dialoguePanel.paint(graphics);
-        //Mockito.verify(dialoguePanel, Mockito.times(1)).add(any(Component.class));
-        //Mockito.verify(dialoguePanel).add(any(Component.class));
-        
 
     }
 

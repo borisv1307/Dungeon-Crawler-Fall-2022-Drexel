@@ -1,11 +1,11 @@
 package main;
 
+import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import engine.GameEngine;
 import timer.FramesPerSecondHandler;
+import ui.DialogueFrame;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;
 
@@ -15,6 +15,7 @@ public class DungeonCrawlerTest {
 	private ThreadWrapper threadWrapper;
 	private GameEngine gameEngine;
 	private GameFrame gameFrame;
+	private DialogueFrame dialogueFrame;
 	private FramesPerSecondHandler framesPerSecondHandler;
 
 	private DungeonCrawler dungeonCrawler;
@@ -24,8 +25,10 @@ public class DungeonCrawlerTest {
 		threadWrapper = Mockito.mock(ThreadWrapper.class);
 		gameEngine = Mockito.mock(GameEngine.class);
 		gameFrame = Mockito.mock(GameFrame.class);
+		dialogueFrame = Mockito.mock(DialogueFrame.class);
+
 		framesPerSecondHandler = Mockito.mock(FramesPerSecondHandler.class);
-		dungeonCrawler = new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+		dungeonCrawler = new DungeonCrawler(threadWrapper, gameEngine, gameFrame, dialogueFrame, framesPerSecondHandler);
 		Mockito.when(gameEngine.isExit()).thenReturn(false, true);
 		Mockito.when(framesPerSecondHandler.hasEnoughTimeElapsed()).thenReturn(true);
 		Mockito.when(framesPerSecondHandler.calculateSleepDurationInMilliSeconds()).thenReturn(SLEEP_TIME);
@@ -36,6 +39,7 @@ public class DungeonCrawlerTest {
 		Mockito.when(gameEngine.isExit()).thenReturn(true);
 		dungeonCrawler.run();
 		Mockito.verify(gameFrame).dispose();
+		Mockito.verify(dialogueFrame).dispose();
 	}
 
 	@Test
@@ -43,6 +47,7 @@ public class DungeonCrawlerTest {
 		Mockito.when(framesPerSecondHandler.hasEnoughTimeElapsed()).thenReturn(false);
 		dungeonCrawler.run();
 		Mockito.verify(gameEngine, Mockito.never()).run(gameFrame);
+		Mockito.verify(gameEngine, Mockito.never()).run(dialogueFrame);
 	}
 
 	@Test
@@ -60,6 +65,7 @@ public class DungeonCrawlerTest {
 		dungeonCrawler.run();
 		Mockito.verify(framesPerSecondHandler).resetLastRunTimer();
 		Mockito.verify(gameEngine).run(gameFrame);
+		Mockito.verify(gameEngine).run(dialogueFrame);
 		Mockito.verify(threadWrapper).sleep(SLEEP_TIME);
 	}
 }
