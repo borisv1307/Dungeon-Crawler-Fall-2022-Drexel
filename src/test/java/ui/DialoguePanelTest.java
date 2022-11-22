@@ -12,24 +12,32 @@ import static org.mockito.Mockito.mock;
 public class DialoguePanelTest {
     DialoguePanel dialoguePanel;
     GameEngine gameEngine;
-
+    
     int width = 50;
     int height = 60;
-    
+    int horizontalDimension = 5;
+    int verticalDimension = 6;
+
     @Before
     public void setUp() throws Exception {
+
         gameEngine = mock(GameEngine.class);
+
+        Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
+        Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
+
         dialoguePanel = new DialoguePanel(gameEngine);
         dialoguePanel.setSize(width, height);
     }
 
+    /*
     @Test
     public void paint() {
         Graphics graphics = mock(Graphics.class);
         dialoguePanel = mock(DialoguePanel.class, Mockito.CALLS_REAL_METHODS);
         dialoguePanel.paint(graphics);
-
     }
+     */
 
     @Test
     public void update() {

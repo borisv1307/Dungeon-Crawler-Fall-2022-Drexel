@@ -13,6 +13,7 @@ public class DialoguePanel extends Panel {
         this.add(new Button("Choice One"));
         this.add(new Button("Choice Two"));
         this.add(new Button("Choice Three"));
+        setVisible(true);
         repaint();
     }
 

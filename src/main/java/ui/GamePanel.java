@@ -24,6 +24,9 @@ public class GamePanel extends Panel {
 	void init() {
 		tileWidth = this.getWidth() / gameEngine.getLevelHorizontalDimension();
 		tileHeight = this.getHeight() / gameEngine.getLevelVerticalDimension();
+		add(new Button("Choice One"));
+		add(new Button("Choice Two"));
+		add(new Button("Choice Three"));
 	}
 
 	@Override
@@ -61,6 +64,8 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
+		} else if (key == Event.ENTER) {
+			gameEngine.keyEnter();
 		}
 		return true;
 	}

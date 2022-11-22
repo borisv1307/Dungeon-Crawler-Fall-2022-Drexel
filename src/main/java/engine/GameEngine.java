@@ -4,7 +4,6 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.Dialogue;
 import ui.DialogueCreator;
-import ui.DialogueFrame;
 import ui.GameFrame;
 import wrappers.XMLParserWrapper;
 
@@ -42,13 +41,7 @@ public class GameEngine {
 			component.repaint();
 		}
 	}
-
-	public void run(DialogueFrame dialogueFrame) {
-		for (Component component : dialogueFrame.getComponents()) {
-			component.repaint();
-		}
-	}
-
+	
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
@@ -125,6 +118,10 @@ public class GameEngine {
 		movePlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + PLAYER_SPEED);
 	}
 
+	public void keyEnter() {
+
+	}
+
 	public void setExit(boolean exit) {
 		this.exit = exit;
 	}
@@ -147,4 +144,6 @@ public class GameEngine {
 		}
 		return isPassable;
 	}
+
+
 }

@@ -14,7 +14,7 @@ public class GameFrame extends Frame {
 
 		gamePanel.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT));
 		add(gamePanel);
-
+		gamePanel.setVisible(true);
 		pack();
 		gamePanel.init();
 		setVisible(true);

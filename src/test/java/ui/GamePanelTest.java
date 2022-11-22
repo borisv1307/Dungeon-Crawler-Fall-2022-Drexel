@@ -113,4 +113,10 @@ public class GamePanelTest {
 		assertSame(true, actual);
 	}
 
+	@Test
+	public void key_enter() {
+		boolean actual = gamePanel.keyDown(null, Event.ENTER);
+		assertSame(true, actual);
+	}
+
 }

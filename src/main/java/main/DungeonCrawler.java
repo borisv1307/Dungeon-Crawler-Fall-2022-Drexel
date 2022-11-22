@@ -2,7 +2,6 @@ package main;
 
 import engine.GameEngine;
 import timer.FramesPerSecondHandler;
-import ui.DialogueFrame;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;
 
@@ -16,16 +15,13 @@ public class DungeonCrawler implements Runnable {
 	private final ThreadWrapper threadWrapper;
 	private final GameEngine gameEngine;
 	private final GameFrame gameFrame;
-	private final DialogueFrame dialogueFrame;
 	private final FramesPerSecondHandler framesPerSecondHandler;
 
 
-	public DungeonCrawler(ThreadWrapper threadWrapper, GameEngine gameEngine, GameFrame gameFrame,
-						  DialogueFrame dialogueFrame, FramesPerSecondHandler framesPerSecondHandler) {
+	public DungeonCrawler(ThreadWrapper threadWrapper, GameEngine gameEngine, GameFrame gameFrame, FramesPerSecondHandler framesPerSecondHandler) {
 		this.threadWrapper = threadWrapper;
 		this.gameEngine = gameEngine;
 		this.gameFrame = gameFrame;
-		this.dialogueFrame = dialogueFrame;
 		this.framesPerSecondHandler = framesPerSecondHandler;
 		this.threadWrapper.createNewThreadWithDungeonCrawler(this);
 	}
@@ -53,14 +49,12 @@ public class DungeonCrawler implements Runnable {
 
 	public void terminate() {
 		gameFrame.dispose();
-		dialogueFrame.dispose();
 	}
 
 	private void runIfEnoughTimeHasElapsed() throws InterruptedException {
 		if (framesPerSecondHandler.hasEnoughTimeElapsed()) {
 			framesPerSecondHandler.resetLastRunTimer();
 			gameEngine.run(gameFrame);
-			gameEngine.run(dialogueFrame);
 			threadWrapper.sleep(framesPerSecondHandler.calculateSleepDurationInMilliSeconds());
 		}
 	}
