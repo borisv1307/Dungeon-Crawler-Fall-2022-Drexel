@@ -21,14 +21,20 @@ public class GameFrameUITest {
 		int width = TunableParameters.SCREEN_WIDTH;
 		int height = TunableParameters.SCREEN_HEIGHT;
 		final GamePanel gamePanel = Mockito.mock(GamePanel.class);
-		final Panel buttonPanel = Mockito.mock(Panel.class);
 
 		WindowAdapterSystemExit windowAdapter = Mockito.mock(WindowAdapterSystemExit.class);
+
 		gameFrame = new GameFrame(gamePanel, windowAdapter) {
 			@Override
 			public Component add(Component comp) {
 				assertThat((GamePanel) comp, equalTo(gamePanel));
 				return gamePanel;
+			}
+
+			@Override
+			public void add(Component component, Object constraint) {
+				Panel expected = this.getButtonPanel();
+				assertThat(component, equalTo(expected));
 			}
 
 			@Override
