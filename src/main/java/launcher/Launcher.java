@@ -9,10 +9,6 @@ import wrappers.ThreadWrapper;
 
 public class Launcher {
 
-	static {
-		System.setProperty("java.awt.headless", "false");
-	}
-
 	public static void main(String[] args) {
 
 		ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
@@ -21,5 +17,6 @@ public class Launcher {
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
 
 		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+
 	}
 }

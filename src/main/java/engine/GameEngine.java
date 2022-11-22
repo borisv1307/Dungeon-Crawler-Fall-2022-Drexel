@@ -5,9 +5,12 @@ import tiles.TileType;
 import ui.Dialogue;
 import ui.DialogueCreator;
 import ui.GameFrame;
+import values.TunableParameters;
 import wrappers.XMLParserWrapper;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +122,7 @@ public class GameEngine {
 	}
 
 	public void keyEnter() {
-
+		createDialogueFrame();
 	}
 
 	public void setExit(boolean exit) {
@@ -143,6 +146,18 @@ public class GameEngine {
 			isPassable = true;
 		}
 		return isPassable;
+	}
+
+	void createDialogueFrame() {
+		Frame frame = new Frame("Dialogue Window");
+		frame.setSize(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT);
+		frame.setVisible(true);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frame.dispose();
+			}
+		});
 	}
 
 

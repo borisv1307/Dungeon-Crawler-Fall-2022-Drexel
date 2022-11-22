@@ -75,4 +75,11 @@ public class GameEngineTest {
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
 	}
+
+	@Test
+	public void enter_creates_new_frame_for_dialogue() {
+		gameEngine = Mockito.mock(GameEngine.class, Mockito.CALLS_REAL_METHODS);
+		gameEngine.keyEnter();
+		Mockito.verify(gameEngine, Mockito.times(1)).createDialogueFrame();
+	}
 }
