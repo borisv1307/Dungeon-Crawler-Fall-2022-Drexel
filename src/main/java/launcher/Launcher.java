@@ -11,7 +11,6 @@ public class Launcher {
 
 	static {
 		System.setProperty("java.awt.headless", "false");
-		System.out.println(java.awt.GraphicsEnvironment.isHeadless());
 	}
 
 	public static void main(String[] args) {

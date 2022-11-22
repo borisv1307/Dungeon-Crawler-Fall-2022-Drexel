@@ -18,6 +18,9 @@ public class GamePanel extends Panel {
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
+		this.add(new Button("Choice One"));
+		this.add(new Button("Choice Two"));
+		this.add(new Button("Choice Three"));
 		setVisible(true);
 		repaint();
 	}
