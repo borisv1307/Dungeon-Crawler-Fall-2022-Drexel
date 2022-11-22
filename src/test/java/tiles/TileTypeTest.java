@@ -17,6 +17,11 @@ public class TileTypeTest {
 	}
 
 	@Test
+	public void value_of_enemy() {
+		assertThat(TileType.valueOf(TileType.ENEMY.name()), equalTo(TileType.ENEMY));
+	}
+
+	@Test
 	public void get_tile_type_by_char_valid_char() {
 		TileType actual = TileType.getTileTypeByChar(VALID_CHAR);
 		assertEquals(TileType.PASSABLE, actual);

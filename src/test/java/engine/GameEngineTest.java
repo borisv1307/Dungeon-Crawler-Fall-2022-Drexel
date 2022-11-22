@@ -68,6 +68,8 @@ public class GameEngineTest {
         assertThat(actualY, equalTo(ONE));
     }
 
+    //TODO: add_and_get_enemy_coordinates()
+
     @Test
     public void set_and_get_exit() {
         boolean exit = true;
