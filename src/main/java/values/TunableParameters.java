@@ -18,12 +18,5 @@ public final class TunableParameters {
 	public static final String XML_NAME_SUFFIX = ".xml";
 
 	public static final String FILE_NAME_SUFFIX = ".txt";
-
-	public static final String[] CHOICE_BUTTONS_LABELS = {
-			"Choice One",
-			"Choice Two",
-			"Choice Three"
-	};
-
-
+	
 }
