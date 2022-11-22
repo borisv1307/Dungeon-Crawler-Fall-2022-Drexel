@@ -118,5 +118,6 @@ public class GamePanelTest {
 		boolean actual = gamePanel.keyDown(null, Event.ENTER);
 		assertSame(true, actual);
 	}
+	
 
 }

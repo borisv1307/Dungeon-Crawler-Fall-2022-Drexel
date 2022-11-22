@@ -24,9 +24,7 @@ public class GamePanel extends Panel {
 	void init() {
 		tileWidth = this.getWidth() / gameEngine.getLevelHorizontalDimension();
 		tileHeight = this.getHeight() / gameEngine.getLevelVerticalDimension();
-		add(new Button("Choice One"));
-		add(new Button("Choice Two"));
-		add(new Button("Choice Three"));
+		
 	}
 
 	@Override
