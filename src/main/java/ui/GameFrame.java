@@ -41,4 +41,12 @@ public class GameFrame extends Frame {
 		}
 		return panel;
 	}
+
+	Button getButton(int index) {
+		return (Button) buttonPanel.getComponent(index);
+	}
+
+	Component[] getAllComponents() {
+		return buttonPanel.getComponents();
+	}
 }

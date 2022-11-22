@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 public class GameFrameTest {
     GameFrame gameFrame;
@@ -17,10 +16,10 @@ public class GameFrameTest {
     Button buttonTwo;
     Button buttonThree;
 
-
     @Before
     public void setUp() throws Exception {
-        gameFrame = mock(GameFrame.class, Mockito.CALLS_REAL_METHODS);
+
+        gameFrame = Mockito.mock(GameFrame.class, Mockito.CALLS_REAL_METHODS);
         buttonsPanel = gameFrame.createButtonsPanel();
         components = buttonsPanel.getComponents();
 
@@ -31,6 +30,10 @@ public class GameFrameTest {
 
     @Test
     public void button_panel_should_have_three_buttons() {
+        if (!GraphicsEnvironment.isHeadless()) {
+            Frame frame = new Frame("test");
+            frame.setVisible(true);
+        }
         int actual = buttonsPanel.getComponentCount();
         assertEquals(actual, 3);
     }
