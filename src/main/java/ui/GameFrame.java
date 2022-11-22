@@ -4,6 +4,8 @@ import values.TunableParameters;
 
 import java.awt.*;
 
+import static values.TunableParameters.CHOICE_BUTTONS_LABELS;
+
 public class GameFrame extends Frame {
 
 	private static final long serialVersionUID = 1L;
@@ -12,15 +14,13 @@ public class GameFrame extends Frame {
 	public GameFrame(GamePanel gamePanel, WindowAdapterSystemExit windowAdapterSystemExit) {
 		setResizable(false);
 		addWindowListener(windowAdapterSystemExit);
-		
+
 		gamePanel.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT));
 		add(gamePanel);
 
-		buttonPanel = new Panel();
+		buttonPanel = createButtonsPanel();
 		buttonPanel.setBackground(Color.CYAN);
-		Button button = new Button("Click Me");
-		button.setBounds(60, 60, 100, 100);
-		buttonPanel.add(button);
+		
 		add(buttonPanel, BorderLayout.NORTH);
 
 		pack();
@@ -30,5 +30,15 @@ public class GameFrame extends Frame {
 
 	public Panel getButtonPanel() {
 		return buttonPanel;
+	}
+
+	Panel createButtonsPanel() {
+		Panel panel = new Panel();
+		for (String label : CHOICE_BUTTONS_LABELS) {
+			Button button = new Button(label);
+			button.setBounds(60, 60, 100, 100);
+			panel.add(button);
+		}
+		return panel;
 	}
 }
