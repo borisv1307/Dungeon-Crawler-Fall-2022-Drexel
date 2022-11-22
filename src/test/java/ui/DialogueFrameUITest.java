@@ -32,7 +32,7 @@ public class DialogueFrameUITest {
 
             @Override
             public void setVisible(boolean b) {
-                assertThat(b, equalTo(true));
+                assertThat(b, equalTo(false));
             }
         };
         Mockito.verify(dialoguePanel).setPreferredSize(new Dimension(width, height));
