@@ -4,13 +4,11 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.Dialogue;
 import ui.DialogueCreator;
+import ui.FrameCreator;
 import ui.GameFrame;
-import values.TunableParameters;
 import wrappers.XMLParserWrapper;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +42,7 @@ public class GameEngine {
 			component.repaint();
 		}
 	}
-	
+
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
@@ -64,7 +62,7 @@ public class GameEngine {
 	public void setLevelVerticalDimension(int levelVerticalDimension) {
 		this.levelVerticalDimension = levelVerticalDimension;
 	}
-	
+
 	public String getDialogueStringByID(int index) {
 		return dialogues.get(index).getDialogueContent();
 	}
@@ -133,6 +131,11 @@ public class GameEngine {
 		return exit;
 	}
 
+	void createDialogueFrame() {
+		FrameCreator frameCreator = new FrameCreator();
+		frameCreator.createFrame();
+	}
+
 	private void movePlayer(int destinationX, int destinationY) {
 		TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
 		if (isTilePassable(destinationTile)) {
@@ -147,18 +150,4 @@ public class GameEngine {
 		}
 		return isPassable;
 	}
-
-	void createDialogueFrame() {
-		Frame frame = new Frame("Dialogue Window");
-		frame.setSize(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT);
-		frame.setVisible(true);
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				frame.dispose();
-			}
-		});
-	}
-
-
 }
