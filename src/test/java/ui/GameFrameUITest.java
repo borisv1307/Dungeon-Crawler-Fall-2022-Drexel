@@ -32,12 +32,6 @@ public class GameFrameUITest {
 			}
 
 			@Override
-			public void add(Component component, Object constraint) {
-				Panel expected = this.getButtonPanel();
-				assertThat(component, equalTo(expected));
-			}
-
-			@Override
 			public void setVisible(boolean b) {
 				assertThat(b, equalTo(true));
 			}

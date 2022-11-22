@@ -3,10 +3,7 @@ package main;
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
-import ui.GameFrame;
-import ui.GamePanel;
-import ui.TilePainter;
-import ui.WindowAdapterSystemExit;
+import ui.*;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
@@ -22,13 +19,16 @@ public abstract class ObjectFactory {
 			new ReaderWrapper());
 
 	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
-	
+
 
 	private static GamePanel defaultGamePanel = new GamePanel(defaultGameEngine, new TilePainter());
 
+	private static DialoguePanel defaultDialoguePanel = new DialoguePanel(defaultGameEngine);
 	private static GameFrame defaultGameFrame = new GameFrame(defaultGamePanel,
 			new WindowAdapterSystemExit(defaultGameEngine));
 
+	private static DialogueFrame defaultDialogueFrame = new DialogueFrame(defaultDialoguePanel,
+			new WindowAdapterSystemExit(defaultGameEngine));
 	private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
 			TunableParameters.TARGET_FPS, new SystemWrapper());
 
@@ -42,6 +42,10 @@ public abstract class ObjectFactory {
 
 	public static GameFrame getDefaultGameFrame() {
 		return defaultGameFrame;
+	}
+
+	public static DialogueFrame getDefaultDialogueFrame() {
+		return defaultDialogueFrame;
 	}
 
 	public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
