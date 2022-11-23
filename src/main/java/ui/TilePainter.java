@@ -3,6 +3,7 @@ package ui;
 import java.awt.*;
 import java.util.List;
 import engine.GameEngine;
+import main.EnemyHandler;
 import main.LaserHandler;
 import tiles.TileType;
 import values.TileColorMap;
@@ -34,11 +35,16 @@ public class TilePainter {
 	public void paintLasers(Graphics graphics, List<LaserHandler.Laser> lasers, int laserWidth, int laserHeight, int tileWidth) {
 		handleTile(graphics, TileType.LASER);
 		for(LaserHandler.Laser laser : lasers){
-//			int laserX = laser.getX() * tileWidth + (tileWidth/2) - (laser.getWidth() / 2);
-//			int laserY = laser.getY() * tileHeight - laser.getHeight();
 			int laserX = laser.getX() * laserWidth + (tileWidth/2) - (laserWidth/2);
 			int laserY = laser.getY() * laserHeight;
 			graphics.fillRect(laserX, laserY, laserWidth, laserHeight);
+		}
+	}
+
+	public void paintEnemies(Graphics graphics, List<EnemyHandler.Enemy> enemies) {
+		handleTile(graphics, TileType.ENEMY);
+		for(EnemyHandler.Enemy enemy : enemies){
+			graphics.fillRect(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
 		}
 	}
 }

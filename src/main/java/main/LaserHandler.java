@@ -12,7 +12,7 @@ public class LaserHandler {
     }
 
     public Laser laserFactory(int x, int y) {
-        Laser laser = new Laser(x, y, 10, 10);
+        Laser laser = new Laser(x, y);
         lasers.add(laser);
         return laser;
     }
@@ -30,14 +30,10 @@ public class LaserHandler {
     public class Laser {
         int x;
         int y;
-        int width;
-        int height;
 
-        private Laser(int x, int y, int width, int height){
+        private Laser(int x, int y){
             this.x = x;
             this.y = y;
-            this.width = width;
-            this.height = height;
         }
 
         public int getX() {

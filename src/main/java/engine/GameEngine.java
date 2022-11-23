@@ -1,5 +1,6 @@
 package engine;
 
+import main.EnemyHandler;
 import main.LaserHandler;
 import parser.LevelCreator;
 import tiles.TileType;
@@ -17,10 +18,14 @@ public class GameEngine {
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     public LaserHandler laserHandler;
+    public EnemyHandler enemyHandler;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private int tileWidth;
+    private int tileHeight;
+
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -28,6 +33,7 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         this.laserHandler = new LaserHandler();
+        this.enemyHandler = new EnemyHandler();
     }
 
     public void run(GameFrame gameFrame) {
@@ -54,6 +60,7 @@ public class GameEngine {
 
     public void setLevelHorizontalDimension(int levelHorizontalDimension) {
         this.levelHorizontalDimension = levelHorizontalDimension;
+        this.tileWidth = TunableParameters.SCREEN_WIDTH / levelHorizontalDimension;
     }
 
     public int getLevelVerticalDimension() {
@@ -62,6 +69,7 @@ public class GameEngine {
 
     public void setLevelVerticalDimension(int levelVerticalDimension) {
         this.levelVerticalDimension = levelVerticalDimension;
+        this.tileHeight = TunableParameters.SCREEN_HEIGHT / levelVerticalDimension;
     }
 
     public TileType getTileFromCoordinates(int x, int y) {
@@ -118,5 +126,9 @@ public class GameEngine {
 
     public List<LaserHandler.Laser> getLasers() {
         return laserHandler.lasers;
+    }
+
+    public void spawnEnemy(int x, int y) {
+        enemyHandler.createEnemy(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
 }

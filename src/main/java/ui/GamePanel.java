@@ -5,10 +5,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import engine.GameEngine;
+import main.EnemyHandler;
+import main.LaserHandler;
 import tiles.TileType;
 import values.TunableParameters;
+
 
 public class GamePanel extends Panel {
 
@@ -21,10 +25,16 @@ public class GamePanel extends Panel {
 	private int tileHeight;
 	private int laserWidth;
 	private int laserHeight;
+	private final List<EnemyHandler.Enemy> enemies;
+	private final List<LaserHandler.Laser> lasers;
 
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
+		this.enemies = EnemyHandler.enemies;
+		this.lasers = this.gameEngine.getLasers();
+
+
 		repaint();
 	}
 
@@ -42,8 +52,11 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
-		if(!gameEngine.getLasers().isEmpty()){
-			tilePainter.paintLasers(graphics, gameEngine.getLasers(), laserWidth, laserHeight, tileWidth);
+		if(!lasers.isEmpty()){
+			tilePainter.paintLasers(graphics, lasers, laserWidth, laserHeight, tileWidth);
+		}
+		if(!enemies.isEmpty()){
+			tilePainter.paintEnemies(graphics, enemies);
 		}
 	}
 
