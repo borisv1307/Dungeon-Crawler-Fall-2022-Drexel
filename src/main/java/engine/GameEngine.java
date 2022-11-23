@@ -4,7 +4,7 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.Dialogue;
 import ui.DialogueCreator;
-import ui.FrameCreator;
+import ui.DialogueManager;
 import ui.GameFrame;
 import wrappers.XMLParserWrapper;
 
@@ -120,7 +120,7 @@ public class GameEngine {
 	}
 
 	public void keyEnter() {
-		createDialogueFrame();
+		Frame dialogueFrame = getDialogueFrame();
 	}
 
 	public void setExit(boolean exit) {
@@ -131,9 +131,10 @@ public class GameEngine {
 		return exit;
 	}
 
-	void createDialogueFrame() {
-		FrameCreator frameCreator = new FrameCreator();
-		frameCreator.createFrame();
+	public Frame getDialogueFrame() {
+		DialogueManager dialogueManager = new DialogueManager();
+		Frame dialogueFrame = dialogueManager.createFrame("Dialogue Frame");
+		return dialogueFrame;
 	}
 
 	private void movePlayer(int destinationX, int destinationY) {

@@ -77,9 +77,9 @@ public class GameEngineTest {
 	}
 
 	@Test
-	public void enter_creates_new_frame_for_dialogue() {
+	public void enter_key_down_gets_new_frame_from_dialogue_manager() {
 		gameEngine = Mockito.mock(GameEngine.class, Mockito.CALLS_REAL_METHODS);
 		gameEngine.keyEnter();
-		Mockito.verify(gameEngine, Mockito.times(1)).createDialogueFrame();
+		Mockito.verify(gameEngine, Mockito.times(1)).getDialogueFrame();
 	}
 }
