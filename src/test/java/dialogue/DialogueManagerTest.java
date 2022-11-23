@@ -19,8 +19,9 @@ import static org.junit.Assert.assertFalse;
 public class DialogueManagerTest {
     DialogueManager dialogueManager;
     GameEngine gameEngine;
-    Component[] buttons;
-    JButton actual;
+    Component[] components;
+    JButton actualJButton;
+    JTextField textFieldActual;
     Frame dialogueFrame;
 
     @Before
@@ -29,7 +30,8 @@ public class DialogueManagerTest {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
         dialogueFrame = dialogueManager.createFrame("Dialogue Frame");
-        buttons = dialogueFrame.getComponents();
+        textFieldActual = (JTextField) dialogueFrame.getComponent(3);
+        components = dialogueFrame.getComponents();
     }
 
     @Test
@@ -45,25 +47,49 @@ public class DialogueManagerTest {
 
     @Test
     public void dialogue_frame_layout_is_flow_layout() {
-        assertEquals(dialogueFrame.getLayout().toString(), new FlowLayout().toString());
+        assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
     }
 
     @Test
     public void dialogue_frame_has_choice_one_button() {
-        actual = (JButton) buttons[0];
-        assertEquals("Choice One", actual.getText());
+        actualJButton = (JButton) components[0];
+        assertEquals("Choice One", actualJButton.getText());
     }
 
     @Test
     public void dialogue_frame_has_choice_two_button() {
-        actual = (JButton) buttons[1];
-        assertEquals("Choice Two", actual.getText());
+        actualJButton = (JButton) components[1];
+        assertEquals("Choice Two", actualJButton.getText());
     }
 
     @Test
     public void dialogue_frame_has_choice_three_button() {
-        actual = (JButton) buttons[2];
-        assertEquals("Choice Three", actual.getText());
+        actualJButton = (JButton) components[2];
+        assertEquals("Choice Three", actualJButton.getText());
     }
-    
+
+    @Test
+    public void dialogue_frame_text_area_read_only() {
+        assertFalse(textFieldActual.isEditable());
+    }
+
+    @Test
+    public void display_first_dialogue_display_to_text_field() {
+        dialogueManager.updateJTextField(0);
+        assertEquals("Hello, Player what can I help you with?", textFieldActual.getText());
+    }
+
+    @Test
+    public void display_second_dialogue_display_to_text_field() {
+        dialogueManager.updateJTextField(1);
+        assertEquals("I can help you find the code, you just have to sniff it out!", textFieldActual.getText());
+    }
+
+    @Test
+    public void display_third_dialogue_display_to_text_field() {
+        dialogueManager.updateJTextField(2);
+        assertEquals("I am here to keep watch over this level, watch your step now.", textFieldActual.getText());
+    }
+
+
 }

@@ -53,25 +53,7 @@ public class DialogueCreatorTest {
         Dialogue actual = dialogues.get(2);
         assertEquals(3, actual.getDialogueID());
     }
-
-    @Test
-    public void first_dialogue_content_should_be_first_dialogue_element_content() {
-        Dialogue actual = dialogues.get(0);
-        assertEquals("Hello, Player what can I help you with?", actual.getDialogueContent());
-    }
-
-    @Test
-    public void second_dialogue_content_should_be_second_dialogue_element_content() {
-        Dialogue actual = dialogues.get(1);
-        assertEquals("I can help you find the code, you just have to sniff it out!", actual.getDialogueContent());
-    }
-
-    @Test
-    public void third_dialogue_content_should_be_third_dialogue_element_content() {
-        Dialogue actual = dialogues.get(2);
-        assertEquals("I am here to keep watch over this level, watch your step now.", actual.getDialogueContent());
-    }
-
+    
     @Test
     public void first_dialogue_responses_has_correct_first_response() {
         String actual = responsesToFirstDialogue[0];

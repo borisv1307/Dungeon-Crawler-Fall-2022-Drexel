@@ -2,15 +2,11 @@ package engine;
 
 import parser.LevelCreator;
 import tiles.TileType;
-import ui.Dialogue;
-import ui.DialogueCreator;
 import ui.DialogueManager;
 import ui.GameFrame;
-import wrappers.XMLParserWrapper;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static values.TunableParameters.PLAYER_SPEED;
@@ -24,15 +20,11 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Point nonPlayableCharacter;
-	private final DialogueCreator dialogueCreator;
-	private final List<Dialogue> dialogues;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
-		dialogueCreator = new DialogueCreator(new XMLParserWrapper());
-		dialogues = dialogueCreator.createDialogueList();
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
@@ -61,10 +53,6 @@ public class GameEngine {
 
 	public void setLevelVerticalDimension(int levelVerticalDimension) {
 		this.levelVerticalDimension = levelVerticalDimension;
-	}
-
-	public String getDialogueStringByID(int index) {
-		return dialogues.get(index).getDialogueContent();
 	}
 
 	public int getLevelHorizontalDimension() {
