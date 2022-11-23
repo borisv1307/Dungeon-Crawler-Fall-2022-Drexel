@@ -17,11 +17,14 @@ public class DialogueManager {
     private final JTextField textField;
     private Dialogue currentDialogue;
 
+    private Response[] currentDialogueResponses;
+
     public DialogueManager() {
         dialogueCreator = new DialogueCreator(new XMLParserWrapper());
         dialogues = dialogueCreator.createDialogueList();
         textField = new JTextField("Default");
         currentDialogue = dialogues.get(0);
+        currentDialogueResponses = currentDialogue.getResponses();
     }
 
     public Frame createFrame(String label) {
@@ -69,29 +72,50 @@ public class DialogueManager {
         int startColumn = 0;
         int responseIndex = 0;
 
-        Response[] responses = currentDialogue.getResponses();
         for (String buttonLabel : TunableParameters.CHOICE_BUTTONS_LABELS) {
 
-            JButton button = new JButton(responses[responseIndex].getResponseText());
+            Response currentResponse = currentDialogueResponses[responseIndex];
+            JButton button = new JButton(currentResponse.getResponseText());
+
             button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    updateJTextField(1);
+                    JButton buttonClicked = (JButton) e.getSource();
+                    updateJTextField(findNextDialogueID(buttonClicked.getText()));
                 }
             });
             constraints.gridx = startColumn;
             constraints.gridy = 0;
 
             parentFrame.add(button, constraints);
+
             startColumn++;
             responseIndex++;
         }
     }
 
     public void updateJTextField(int targetDialogueID) {
-        Dialogue targetDialogue = dialogues.get(targetDialogueID);
-        textField.setText(targetDialogue.getDialogueContent());
+        for (Dialogue dialogue : dialogues) {
+            if (dialogue.getDialogueID() == targetDialogueID) {
+                Dialogue targetDialogue = dialogue;
+                textField.setText(targetDialogue.getDialogueContent());
+            }
+        }
+    }
+
+    public void updateButtons(Dialogue Dialogue) {
+        
+    }
+
+    public int findNextDialogueID(String currentResponse) {
+        int targetID = 0;
+        for (Response response : currentDialogueResponses) {
+            if (response.getResponseText().equals(currentResponse)) {
+                targetID = response.getTarget();
+            }
+        }
+        return targetID;
     }
 
 

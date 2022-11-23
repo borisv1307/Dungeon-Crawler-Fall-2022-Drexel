@@ -9,13 +9,13 @@
                 Can you help me find the code?
             </first_response>
             <first_response_target>
-                1
+                2
             </first_response_target>
             <second_response>
                 What are you doing here?
             </second_response>
             <second_response_target>
-                2
+                3
             </second_response_target>
             <third_response>
                 Actually, I do not need help. Goodbye!
@@ -41,7 +41,7 @@
                 Response Two to Dialogue Two
             </second_response>
             <second_response_target>
-                2
+                3
             </second_response_target>
             <third_response>
                 Response Three to Dialogue Two
