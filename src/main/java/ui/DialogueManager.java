@@ -24,14 +24,16 @@ public class DialogueManager {
     public Frame createFrame(String label) {
         Frame frame = new Frame(label);
 
+        Dialogue startDialogue = dialogues.get(0);
+
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(2, 2, 2, 2);
 
         applySettings(frame);
 
-        addChoiceButtons(frame, constraints);
+        addChoiceButtons(frame, constraints, startDialogue);
 
-
+        textField.setText(startDialogue.getDialogueContent());
         textField.setEditable(false);
         Font textFieldFont = new Font(textField.getFont().getName(), textField.getFont().getStyle(), 16);
         textField.setFont(textFieldFont);
@@ -62,10 +64,13 @@ public class DialogueManager {
         parentFrame.setLayout(new GridBagLayout());
     }
 
-    private void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints) {
+    private void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints, Dialogue currentDialogue) {
         int startColumn = 0;
+        int responseIndex = 0;
+        String[] responses = currentDialogue.getResponses();
         for (String buttonLabel : TunableParameters.CHOICE_BUTTONS_LABELS) {
-            JButton button = new JButton(buttonLabel);
+
+            JButton button = new JButton(responses[responseIndex]);
 
             button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
 
@@ -74,6 +79,7 @@ public class DialogueManager {
 
             parentFrame.add(button, constraints);
             startColumn++;
+            responseIndex++;
         }
     }
 

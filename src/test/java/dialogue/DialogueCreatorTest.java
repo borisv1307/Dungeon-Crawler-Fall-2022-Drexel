@@ -53,22 +53,5 @@ public class DialogueCreatorTest {
         Dialogue actual = dialogues.get(2);
         assertEquals(3, actual.getDialogueID());
     }
-    
-    @Test
-    public void first_dialogue_responses_has_correct_first_response() {
-        String actual = responsesToFirstDialogue[0];
-        assertEquals("Can you help me find the code?", actual);
-    }
 
-    @Test
-    public void first_dialogue_responses_has_correct_second_response() {
-        String actual = responsesToFirstDialogue[1];
-        assertEquals("What are you doing here?", actual);
-    }
-
-    @Test
-    public void first_dialogue_responses_has_correct_third_response() {
-        String actual = responsesToFirstDialogue[2];
-        assertEquals("Actually, I do not need help. Goodbye!", actual);
-    }
 }

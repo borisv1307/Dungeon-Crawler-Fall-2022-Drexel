@@ -19,7 +19,6 @@ import static org.junit.Assert.assertFalse;
 public class DialogueManagerTest {
     DialogueManager dialogueManager;
     GameEngine gameEngine;
-    Component[] components;
     JButton actualJButton;
     JTextField textFieldActual;
     Frame dialogueFrame;
@@ -31,7 +30,6 @@ public class DialogueManagerTest {
         gameEngine = new GameEngine(levelCreator);
         dialogueFrame = dialogueManager.createFrame("Dialogue Frame");
         textFieldActual = (JTextField) dialogueFrame.getComponent(3);
-        components = dialogueFrame.getComponents();
     }
 
     @Test
@@ -51,21 +49,21 @@ public class DialogueManagerTest {
     }
 
     @Test
-    public void dialogue_frame_has_choice_one_button() {
-        actualJButton = (JButton) components[0];
-        assertEquals("Choice One", actualJButton.getText());
+    public void dialogue_frame_has_response_button_with_first_dialogue_first_response() {
+        actualJButton = (JButton) dialogueFrame.getComponent(0);
+        assertEquals("Can you help me find the code?", actualJButton.getText());
     }
 
     @Test
-    public void dialogue_frame_has_choice_two_button() {
-        actualJButton = (JButton) components[1];
-        assertEquals("Choice Two", actualJButton.getText());
+    public void dialogue_frame_has_response_button_with_first_dialogue_second_response() {
+        actualJButton = (JButton) dialogueFrame.getComponent(1);
+        assertEquals("What are you doing here?", actualJButton.getText());
     }
 
     @Test
-    public void dialogue_frame_has_choice_three_button() {
-        actualJButton = (JButton) components[2];
-        assertEquals("Choice Three", actualJButton.getText());
+    public void dialogue_frame_has_response_button_with_first_dialogue_third_response() {
+        actualJButton = (JButton) dialogueFrame.getComponent(2);
+        assertEquals("Actually, I do not need help. Goodbye!", actualJButton.getText());
     }
 
     @Test
