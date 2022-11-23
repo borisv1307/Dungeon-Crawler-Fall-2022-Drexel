@@ -18,6 +18,8 @@ public class TilePainterTest {
 
 	private final int TILE_WIDTH = 10;
 	private final int TILE_HEIGHT = 20;
+	private final int LASER_WIDTH = 2;
+	private final int LASER_HEIGHT = 4;
 	private final int X = 2;
 	private final int Y = 3;
 
@@ -65,12 +67,12 @@ public class TilePainterTest {
 		LaserHandler laserHandler = new LaserHandler();
 		laserHandler.laserFactory(1, 2);
 		laserHandler.laserFactory(4, 2);
-		tilePainter.paintLasers(graphics, laserHandler.lasers, TILE_WIDTH, TILE_HEIGHT);
+		tilePainter.paintLasers(graphics, laserHandler.lasers, LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
 
 		InOrder inOrder = Mockito.inOrder(graphics);
 		inOrder.verify(graphics).setColor(Color.red);
-		inOrder.verify(graphics).fillRect(10, 40, 10, 10);
-		inOrder.verify(graphics).fillRect(40, 40, 10, 10);
+		inOrder.verify(graphics).fillRect(6, 8, LASER_WIDTH, LASER_HEIGHT);
+		inOrder.verify(graphics).fillRect(12, 8, LASER_WIDTH, LASER_HEIGHT);
 	}
 
 

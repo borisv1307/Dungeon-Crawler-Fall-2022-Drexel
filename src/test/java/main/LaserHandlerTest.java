@@ -11,12 +11,14 @@ import wrappers.ReaderWrapper;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class LaserHandlerTest {
 
     private final int TILE_WIDTH = 10;
-    private final int TILE_HEIGHT = 20;
+
+    private final int LASER_WIDTH = 2;
+    private final int LASER_HEIGHT = 4;
 
     GameEngine gameEngine;
 
@@ -37,34 +39,51 @@ public class LaserHandlerTest {
 
     @Test
     public void laser_is_created_on_space_press(){
-        int playerXCoordinate = gameEngine.getPlayerXCoordinate();
-        int playerYCoordinate = gameEngine.getPlayerYCoordinate();
-        gameEngine.keySpace();
-        LaserHandler.Laser laser = gameEngine.laserHandler.lasers.get(0);
-        assertEquals(laser.getX(), playerXCoordinate);
-        assertEquals(laser.getY(), playerYCoordinate);
-    }
-    @Test
-    public void laser_is_painted_at_correct_spot(){
-        Graphics graphics = Mockito.mock(Graphics.class);
-        gameEngine.keySpace();
-        TilePainter tilePainter = new TilePainter();
-        tilePainter.paintLasers(graphics, gameEngine.getLasers(), TILE_WIDTH, TILE_HEIGHT);
-        int correctXPosition = gameEngine.getPlayerXCoordinate() * TILE_WIDTH + (TILE_WIDTH / 2) - gameEngine.getLasers().get(0).getWidth() / 2;
-        int correctYPosition = gameEngine.getPlayerYCoordinate() * TILE_HEIGHT - gameEngine.getLasers().get(0).getHeight();
-        Mockito.verify(graphics).fillRect(correctXPosition, correctYPosition, 10, 10);
+        LaserHandler.Laser laser = createAndGetFirstLaser();
+        assertNotNull(laser);
     }
 
     @Test
+    public void laser_position_is_in_own_grid() {
+        int playerXCoordinate = gameEngine.getPlayerXCoordinate();
+        int playerYCoordinate = gameEngine.getPlayerYCoordinate();
+        LaserHandler.Laser laser = createAndGetFirstLaser();
+        assertEquals(laser.getX(), playerXCoordinate * TunableParameters.TILE_TO_LASER_WIDTH);
+        assertEquals(laser.getY(), playerYCoordinate * TunableParameters.TILE_TO_LASER_HEIGHT);
+    }
+    @Test
+    public void laser_is_painted_at_correct_spot() {
+        Graphics graphics = Mockito.mock(Graphics.class);
+        LaserHandler.Laser laser = createAndGetFirstLaser();
+        TilePainter tilePainter = new TilePainter();
+        tilePainter.paintLasers(graphics, gameEngine.getLasers(), LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
+        int correctXPosition = laser.getX() * LASER_WIDTH + (TILE_WIDTH / 2) - (LASER_WIDTH / 2);
+        int correctYPosition = laser.getY() * LASER_HEIGHT;
+        Mockito.verify(graphics).fillRect(correctXPosition, correctYPosition, LASER_WIDTH, LASER_HEIGHT);
+
+    }
+    @Test
     public void laser_moves_position_to_top(){
-        gameEngine.keySpace();
-        LaserHandler.Laser laser = gameEngine.getLasers().get(0);
+        LaserHandler.Laser laser = createAndGetFirstLaser();
         int initialX = laser.getX();
         int initialY = laser.getY();
         gameEngine.laserHandler.progressLasers();
         assertEquals(initialY - 1, laser.getY());
         assertEquals(initialX, laser.getX());
-
     }
 
+    @Test
+    public void laser_is_removed_on_contact_with_wall(){
+        LaserHandler.Laser laser = createAndGetFirstLaser();
+        while(laser.getY() >= 5){
+            gameEngine.laserHandler.progressLasers();
+        }
+        assert(gameEngine.laserHandler.lasers.isEmpty());
+    }
+
+    public LaserHandler.Laser createAndGetFirstLaser(){
+        gameEngine.keySpace();
+        return gameEngine.getLasers().get(0);
+
+    }
 }

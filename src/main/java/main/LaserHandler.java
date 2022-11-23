@@ -18,8 +18,12 @@ public class LaserHandler {
     }
 
     public void progressLasers() {
-        for(Laser laser : lasers){
+        for(int i = 0; i < lasers.size(); i++){
+            Laser laser = lasers.get(i);
             laser.setY(laser.getY() - (1));
+            if(laser.getY() < 5){
+                lasers.remove(lasers.get(i));
+            }
         }
     }
 
@@ -42,14 +46,6 @@ public class LaserHandler {
 
         public int getY() {
             return this.y;
-        }
-
-        public int getWidth() {
-            return this.width;
-        }
-
-        public int getHeight() {
-            return this.height;
         }
 
         public void setY(int y) {

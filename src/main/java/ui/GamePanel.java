@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 
 public class GamePanel extends Panel {
 
@@ -18,6 +19,8 @@ public class GamePanel extends Panel {
 	private final TilePainter tilePainter;
 	private int tileWidth;
 	private int tileHeight;
+	private int laserWidth;
+	private int laserHeight;
 
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
@@ -28,6 +31,8 @@ public class GamePanel extends Panel {
 	void init() {
 		tileWidth = this.getWidth() / gameEngine.getLevelHorizontalDimension();
 		tileHeight = this.getHeight() / gameEngine.getLevelVerticalDimension();
+		laserWidth = tileWidth / TunableParameters.TILE_TO_LASER_WIDTH;
+		laserHeight = tileHeight / TunableParameters.TILE_TO_LASER_HEIGHT;
 	}
 
 	@Override
@@ -38,7 +43,7 @@ public class GamePanel extends Panel {
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
 		if(!gameEngine.getLasers().isEmpty()){
-			tilePainter.paintLasers(graphics, gameEngine.getLasers(), tileWidth, tileHeight);
+			tilePainter.paintLasers(graphics, gameEngine.getLasers(), laserWidth, laserHeight, tileWidth);
 		}
 	}
 

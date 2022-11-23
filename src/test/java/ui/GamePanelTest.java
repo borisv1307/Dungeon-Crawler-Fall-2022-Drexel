@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 
 public class GamePanelTest {
 
@@ -24,6 +25,9 @@ public class GamePanelTest {
 	int verticalDimension = 6;
 	int tileWidth = width / horizontalDimension;
 	int tileHeight = height / verticalDimension;
+
+	int laserWidth = tileWidth/ TunableParameters.TILE_TO_LASER_WIDTH;
+	int laserHeight = tileHeight / TunableParameters.TILE_TO_LASER_HEIGHT;
 
 	GamePanel gamePanel;
 	GameEngine gameEngine;
@@ -117,6 +121,6 @@ public class GamePanelTest {
 		Graphics graphics = Mockito.mock(Graphics.class);
 		Mockito.when(gameEngine.getLasers()).thenReturn(new ArrayList<>());
 		gamePanel.paint(graphics);
-		Mockito.verify(tilePainter, never()).paintLasers(graphics, gameEngine.getLasers(), tileWidth, tileHeight);
+		Mockito.verify(tilePainter, never()).paintLasers(graphics, gameEngine.getLasers(), laserWidth, laserHeight, tileWidth);
 	}
 }

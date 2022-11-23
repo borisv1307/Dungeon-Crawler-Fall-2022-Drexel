@@ -4,6 +4,7 @@ import main.LaserHandler;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import values.TunableParameters;
 
 import java.awt.*;
 import java.util.List;
@@ -111,7 +112,8 @@ public class GameEngine {
     }
 
     public void keySpace() {
-        laserHandler.laserFactory(getPlayerXCoordinate(), getPlayerYCoordinate());
+        laserHandler.laserFactory(getPlayerXCoordinate() * TunableParameters.TILE_TO_LASER_WIDTH,
+                getPlayerYCoordinate() * TunableParameters.TILE_TO_LASER_HEIGHT);
     }
 
     public List<LaserHandler.Laser> getLasers() {

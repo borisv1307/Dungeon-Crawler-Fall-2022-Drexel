@@ -31,12 +31,14 @@ public class TilePainter {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
 
-	public void paintLasers(Graphics graphics, List<LaserHandler.Laser> lasers, int tileWidth, int tileHeight) {
+	public void paintLasers(Graphics graphics, List<LaserHandler.Laser> lasers, int laserWidth, int laserHeight, int tileWidth) {
 		handleTile(graphics, TileType.LASER);
 		for(LaserHandler.Laser laser : lasers){
-			int laserX = laser.getX() * tileWidth + (tileWidth/2) - (laser.getWidth() / 2);
-			int laserY = laser.getY() * tileHeight - laser.getHeight();
-			graphics.fillRect(laserX, laserY, laser.getWidth(), laser.getHeight());
+//			int laserX = laser.getX() * tileWidth + (tileWidth/2) - (laser.getWidth() / 2);
+//			int laserY = laser.getY() * tileHeight - laser.getHeight();
+			int laserX = laser.getX() * laserWidth + (tileWidth/2) - (laserWidth/2);
+			int laserY = laser.getY() * laserHeight;
+			graphics.fillRect(laserX, laserY, laserWidth, laserHeight);
 		}
 	}
 }
