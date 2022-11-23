@@ -25,4 +25,9 @@ public class TileColorMapTest {
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
 	}
 
+	@Test
+	public void laser() { assertSame(Color.RED, TileColorMap.get(TileType.LASER)); }
+
+
+
 }

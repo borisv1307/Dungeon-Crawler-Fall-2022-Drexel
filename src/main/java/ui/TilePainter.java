@@ -1,8 +1,9 @@
 package ui;
 
-import java.awt.Graphics;
-
+import java.awt.*;
+import java.util.List;
 import engine.GameEngine;
+import main.LaserHandler;
 import tiles.TileType;
 import values.TileColorMap;
 
@@ -30,4 +31,12 @@ public class TilePainter {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
 
+	public void paintLasers(Graphics graphics, List<LaserHandler.Laser> lasers, int tileWidth, int tileHeight) {
+		handleTile(graphics, TileType.LASER);
+		for(LaserHandler.Laser laser : lasers){
+			int laserX = laser.getX() * tileWidth + (tileWidth/2) - (laser.getWidth() / 2);
+			int laserY = laser.getY() * tileHeight - laser.getHeight();
+			graphics.fillRect(laserX, laserY, laser.getWidth(), laser.getHeight());
+		}
+	}
 }

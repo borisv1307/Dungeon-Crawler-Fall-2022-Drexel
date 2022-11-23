@@ -8,6 +8,9 @@ public final class TunableParameters {
 
 	public static final int TARGET_FPS = 45;
 
+	public static final int TILE_TO_LASER_WIDTH = 5;
+	public static final int TILE_TO_LASER_HEIGHT = 5;
+
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 	public static final String FILE_NAME_SUFFIX = ".txt";
 }

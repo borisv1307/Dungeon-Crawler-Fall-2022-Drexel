@@ -1,10 +1,13 @@
 package ui;
 
 import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.never;
 
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -101,5 +104,19 @@ public class GamePanelTest {
 	public void key_escape() {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
+	}
+
+	@Test
+	public void key_space() {
+		gamePanel.keyDown(null, KeyEvent.VK_SPACE);
+		Mockito.verify(gameEngine, Mockito.times(1)).keySpace();
+	}
+
+	@Test
+	public void empty_laser_list_does_not_paint(){
+		Graphics graphics = Mockito.mock(Graphics.class);
+		Mockito.when(gameEngine.getLasers()).thenReturn(new ArrayList<>());
+		gamePanel.paint(graphics);
+		Mockito.verify(tilePainter, never()).paintLasers(graphics, gameEngine.getLasers(), tileWidth, tileHeight);
 	}
 }

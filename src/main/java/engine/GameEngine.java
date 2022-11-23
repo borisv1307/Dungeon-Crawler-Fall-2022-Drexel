@@ -1,10 +1,12 @@
 package engine;
 
+import main.LaserHandler;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+    public LaserHandler laserHandler;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -23,9 +26,13 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        this.laserHandler = new LaserHandler();
     }
 
     public void run(GameFrame gameFrame) {
+        if(!getLasers().isEmpty()){
+            laserHandler.progressLasers();
+        }
         for (Component component : gameFrame.getComponents()) {
             component.repaint();
         }
@@ -101,5 +108,13 @@ public class GameEngine {
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public void keySpace() {
+        laserHandler.laserFactory(getPlayerXCoordinate(), getPlayerYCoordinate());
+    }
+
+    public List<LaserHandler.Laser> getLasers() {
+        return laserHandler.lasers;
     }
 }

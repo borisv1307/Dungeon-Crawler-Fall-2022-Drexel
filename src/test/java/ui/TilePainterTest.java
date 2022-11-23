@@ -1,7 +1,8 @@
 package ui;
 
-import java.awt.Graphics;
+import java.awt.*;
 
+import main.LaserHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
@@ -54,10 +55,24 @@ public class TilePainterTest {
 
 	@Test
 	public void paint_player() {
-
 		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
+
+	@Test
+	public void paint_lasers(){
+		LaserHandler laserHandler = new LaserHandler();
+		laserHandler.laserFactory(1, 2);
+		laserHandler.laserFactory(4, 2);
+		tilePainter.paintLasers(graphics, laserHandler.lasers, TILE_WIDTH, TILE_HEIGHT);
+
+		InOrder inOrder = Mockito.inOrder(graphics);
+		inOrder.verify(graphics).setColor(Color.red);
+		inOrder.verify(graphics).fillRect(10, 40, 10, 10);
+		inOrder.verify(graphics).fillRect(40, 40, 10, 10);
+	}
+
+
 
 }

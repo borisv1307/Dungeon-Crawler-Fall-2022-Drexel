@@ -4,6 +4,7 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.event.KeyEvent;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -36,6 +37,9 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		if(!gameEngine.getLasers().isEmpty()){
+			tilePainter.paintLasers(graphics, gameEngine.getLasers(), tileWidth, tileHeight);
+		}
 	}
 
 	@Override
@@ -61,6 +65,8 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
+		} else if (key == KeyEvent.VK_SPACE) {
+			gameEngine.keySpace();
 		}
 
 		return true;
