@@ -4,11 +4,14 @@ public class Dialogue {
 
     private final int dialogueID;
     private final String dialogueContent;
-    private final String[] responses;
+    //private final String[] responses;
+    private final Response[] responses;
 
-    Dialogue(int dialogueID, String dialogueContent, String[] responses) {
+
+    Dialogue(int dialogueID, String dialogueContent, Response[] responses) {
         this.dialogueID = dialogueID;
         this.dialogueContent = dialogueContent;
+        //this.responses = responses;
         this.responses = responses;
     }
 
@@ -19,8 +22,8 @@ public class Dialogue {
     public int getDialogueID() {
         return dialogueID;
     }
-    
-    public String[] getResponses() {
+
+    public Response[] getResponses() {
         return responses;
     }
 }

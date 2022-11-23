@@ -56,28 +56,32 @@ public class DialogueCreator {
                 int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
 
                 String dialogueContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
+                String dialogue = cleanElementStringData(dialogueContent);
 
-                String content = cleanElementStringData(dialogueContent);
+                Response[] responses = createResponsesArray(nodeElement);
 
-                String[] responses = createResponseArray(nodeElement);
-
-                targetList.add(new Dialogue(dialogueID, content, responses));
+                targetList.add(new Dialogue(dialogueID, dialogue, responses));
             }
         }
     }
 
-    private String[] createResponseArray(Element nodeElement) {
-        String[] responses = new String[3];
+
+    private Response[] createResponsesArray(Element nodeElement) {
+        Response[] responses = new Response[3];
         String[] prefixes = {"first_", "second_", "third_"};
         String suffix = "response";
 
         for (int index = 0; index < prefixes.length; index++) {
-            String elementName = prefixes[index] + suffix;
-            responses[index] = cleanElementStringData(nodeElement.getElementsByTagName(elementName).item(0).getTextContent());
+            String responseElementName = prefixes[index] + suffix;
+            String targetElement = prefixes[index] + suffix + "_target";
+            String textResponse = cleanElementStringData(nodeElement.getElementsByTagName(responseElementName).item(0).getTextContent());
+            int responseTarget = Integer.parseInt(cleanElementStringData(nodeElement.getElementsByTagName(targetElement).item(0).getTextContent()));
+
+            responses[index] = new Response(textResponse, responseTarget);
         }
         return responses;
     }
-    
+
     private String cleanElementStringData(String targetString) {
         return targetString.trim();
     }

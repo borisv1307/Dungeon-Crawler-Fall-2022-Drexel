@@ -8,29 +8,47 @@
             <first_response>
                 Can you help me find the code?
             </first_response>
+            <first_response_target>
+                1
+            </first_response_target>
             <second_response>
                 What are you doing here?
             </second_response>
+            <second_response_target>
+                2
+            </second_response_target>
             <third_response>
                 Actually, I do not need help. Goodbye!
             </third_response>
+            <third_response_target>
+                -1
+            </third_response_target>
         </responses>
     </dialogue>
 
     <dialogue id="2">
         <content>
-            I can help you find the code, you just have to sniff it out!
+            I can help you find the code!
         </content>
         <responses>
             <first_response>
                 Response One to Dialogue Two
             </first_response>
+            <first_response_target>
+                1
+            </first_response_target>
             <second_response>
                 Response Two to Dialogue Two
             </second_response>
+            <second_response_target>
+                2
+            </second_response_target>
             <third_response>
                 Response Three to Dialogue Two
             </third_response>
+            <third_response_target>
+                -1
+            </third_response_target>
         </responses>
     </dialogue>
 
@@ -42,13 +60,23 @@
             <first_response>
                 Response One to Dialogue Three
             </first_response>
+            <first_response_target>
+                -1
+            </first_response_target>
             <second_response>
                 Response Two to Dialogue Three
             </second_response>
+            <second_response_target>
+                -1
+            </second_response_target>
             <third_response>
                 Response Three to Dialogue Three
             </third_response>
+            <third_response_target>
+                -1
+            </third_response_target>
         </responses>
     </dialogue>
+
 </dialogues>
 

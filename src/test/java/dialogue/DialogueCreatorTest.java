@@ -5,6 +5,7 @@ import org.junit.Test;
 import parser.LevelCreator;
 import ui.Dialogue;
 import ui.DialogueCreator;
+import ui.Response;
 import wrappers.XMLParserWrapper;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class DialogueCreatorTest {
     private DialogueCreator dialogueCreator;
     private XMLParserWrapper xmlParserWrapper;
     private List<Dialogue> dialogues;
-    private String[] responsesToFirstDialogue;
+    private Response[] responsesToFirstDialogue;
 
     @Before
     public void setUp() {
         xmlParserWrapper = new XMLParserWrapper();
         dialogueCreator = new DialogueCreator(xmlParserWrapper);
-        responsesToFirstDialogue = new String[3];
+        responsesToFirstDialogue = new Response[3];
         try {
             dialogues = dialogueCreator.createDialogueList();
         } catch (Exception exception) {

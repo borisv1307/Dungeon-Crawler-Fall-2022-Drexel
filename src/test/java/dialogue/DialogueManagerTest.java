@@ -80,7 +80,7 @@ public class DialogueManagerTest {
     @Test
     public void display_second_dialogue_display_to_text_field() {
         dialogueManager.updateJTextField(1);
-        assertEquals("I can help you find the code, you just have to sniff it out!", textFieldActual.getText());
+        assertEquals("I can help you find the code!", textFieldActual.getText());
     }
 
     @Test
@@ -88,6 +88,6 @@ public class DialogueManagerTest {
         dialogueManager.updateJTextField(2);
         assertEquals("I am here to keep watch over this level, watch your step now.", textFieldActual.getText());
     }
-
+    
 
 }
