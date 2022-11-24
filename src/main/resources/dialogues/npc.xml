@@ -21,7 +21,7 @@
                 Actually, I do not need help. Goodbye!
             </third_response>
             <third_response_target>
-                -1
+                4
             </third_response_target>
         </responses>
     </dialogue>
@@ -32,19 +32,19 @@
         </content>
         <responses>
             <first_response>
-                Response One to Dialogue Two
+                Actually, can you help me with something else?
             </first_response>
             <first_response_target>
                 1
             </first_response_target>
             <second_response>
-                Response Two to Dialogue Two
+                What is your purpose here, NPC?
             </second_response>
             <second_response_target>
                 3
             </second_response_target>
             <third_response>
-                Response Three to Dialogue Two
+                Never mind, I am leaving!
             </third_response>
             <third_response_target>
                 -1
@@ -56,6 +56,33 @@
         <content>
             I am here to keep watch over this level, watch your step now.
         </content>
+        <responses>
+            <first_response>
+                Okay, best of luck!
+            </first_response>
+            <first_response_target>
+                -1
+            </first_response_target>
+            <second_response>
+                I wish you luck!
+            </second_response>
+            <second_response_target>
+                -1
+            </second_response_target>
+            <third_response>
+                What are you protecting this place from?
+            </third_response>
+            <third_response_target>
+                5
+            </third_response_target>
+        </responses>
+    </dialogue>
+
+    <dialogue id="4">
+        <content>
+            I am here to keep watch over this level, watch your step now.
+        </content>
+
         <responses>
             <first_response>
                 Response One to Dialogue Three
@@ -71,6 +98,33 @@
             </second_response_target>
             <third_response>
                 Response Three to Dialogue Three
+            </third_response>
+            <third_response_target>
+                -1
+            </third_response_target>
+        </responses>
+    </dialogue>
+
+    <dialogue id="5">
+        <content>
+            Well, bugs of course!
+        </content>
+
+        <responses>
+            <first_response>
+                Well thanks for sharing, goodbye now!
+            </first_response>
+            <first_response_target>
+                -1
+            </first_response_target>
+            <second_response>
+                Well I hope you don't find any, then. Goodbye!
+            </second_response>
+            <second_response_target>
+                -1
+            </second_response_target>
+            <third_response>
+                I hate bugs! I'm out of here!
             </third_response>
             <third_response_target>
                 -1

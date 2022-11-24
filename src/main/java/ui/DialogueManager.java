@@ -14,28 +14,30 @@ import java.util.List;
 public class DialogueManager {
     private final DialogueCreator dialogueCreator;
     private final List<Dialogue> dialogues;
+    private Frame dialogueFrame;
     private final JTextField textField;
     private Dialogue currentDialogue;
-
     private Response[] currentDialogueResponses;
 
     public DialogueManager() {
         dialogueCreator = new DialogueCreator(new XMLParserWrapper());
         dialogues = dialogueCreator.createDialogueList();
+        dialogueFrame = new Frame();
         textField = new JTextField("Default");
         currentDialogue = dialogues.get(0);
         currentDialogueResponses = currentDialogue.getResponses();
     }
 
-    public Frame createFrame(String label) {
-        Frame frame = new Frame(label);
+    public Frame createFrame() {
+        String label = "Dialogue Frame";
+        dialogueFrame = new Frame(label);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(2, 2, 2, 2);
 
-        applySettings(frame);
+        applySettings(dialogueFrame);
 
-        addChoiceButtons(frame, constraints, currentDialogue);
+        addChoiceButtons(dialogueFrame, constraints);
 
         textField.setText(currentDialogue.getDialogueContent());
         textField.setEditable(false);
@@ -47,55 +49,26 @@ public class DialogueManager {
         constraints.gridx = 0;
         constraints.gridy = 1;
 
-        frame.add(textField, constraints);
+        dialogueFrame.add(textField, constraints);
 
-        frame.addWindowListener(new WindowAdapter() {
+        dialogueFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                frame.dispose();
+                dialogueFrame.dispose();
             }
         });
-        frame.pack();
-        frame.setVisible(true);
-        return frame;
+
+        dialogueFrame.pack();
+        dialogueFrame.setVisible(true);
+
+        return dialogueFrame;
     }
 
-    private void applySettings(Frame parentFrame) {
-        parentFrame.setResizable(false);
-        parentFrame.setSize(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT);
-        parentFrame.setBackground(Color.LIGHT_GRAY);
-        parentFrame.setVisible(true);
-        parentFrame.setLayout(new GridBagLayout());
+    public Dialogue getCurrentDialogue() {
+        return this.currentDialogue;
     }
 
-    private void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints, Dialogue currentDialogue) {
-        int startColumn = 0;
-        int responseIndex = 0;
-
-        for (String buttonLabel : TunableParameters.CHOICE_BUTTONS_LABELS) {
-
-            Response currentResponse = currentDialogueResponses[responseIndex];
-            JButton button = new JButton(currentResponse.getResponseText());
-
-            button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton buttonClicked = (JButton) e.getSource();
-                    updateJTextField(findNextDialogueID(buttonClicked.getText()));
-                }
-            });
-            constraints.gridx = startColumn;
-            constraints.gridy = 0;
-
-            parentFrame.add(button, constraints);
-
-            startColumn++;
-            responseIndex++;
-        }
-    }
-
-    public void updateJTextField(int targetDialogueID) {
+    void updateJTextField(int targetDialogueID) {
         for (Dialogue dialogue : dialogues) {
             if (dialogue.getDialogueID() == targetDialogueID) {
                 Dialogue targetDialogue = dialogue;
@@ -104,11 +77,61 @@ public class DialogueManager {
         }
     }
 
-    public void updateButtons(Dialogue Dialogue) {
-        
+    void updateButtons() {
+        currentDialogueResponses = currentDialogue.getResponses();
+        Component[] components = dialogueFrame.getComponents();
+
+        for (int responseIndex = 0; responseIndex < 3; responseIndex++) {
+            JButton currentButton = (JButton) components[responseIndex];
+            Response currentResponse = currentDialogueResponses[responseIndex];
+            currentButton.setText(currentResponse.getResponseText());
+
+        }
     }
 
-    public int findNextDialogueID(String currentResponse) {
+    void applySettings(Frame parentFrame) {
+        parentFrame.setResizable(false);
+        parentFrame.setSize(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT);
+        parentFrame.setBackground(Color.LIGHT_GRAY);
+        parentFrame.setVisible(true);
+        parentFrame.setLayout(new GridBagLayout());
+    }
+
+    void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints) {
+        int startColumn = 0;
+        int responseIndex = 0;
+
+        for (String buttonLabel : TunableParameters.CHOICE_BUTTONS_LABELS) {
+            JButton button = createButton(responseIndex, startColumn, constraints);
+            parentFrame.add(button, constraints);
+
+            startColumn++;
+            responseIndex++;
+        }
+    }
+
+    JButton createButton(int responseIndex, int column, GridBagConstraints constraints) {
+        Response currentResponse = currentDialogueResponses[responseIndex];
+        JButton button = new JButton(currentResponse.getResponseText());
+
+        button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton buttonClicked = (JButton) e.getSource();
+                int nextDialogueID = readResponseToFindNextDialogue(buttonClicked.getText());
+
+                updateCurrentDialogueToTarget(nextDialogueID);
+                updateJTextField(nextDialogueID);
+                updateButtons();
+            }
+        });
+        constraints.gridx = column;
+        constraints.gridy = 0;
+        return button;
+    }
+
+    int readResponseToFindNextDialogue(String currentResponse) {
         int targetID = 0;
         for (Response response : currentDialogueResponses) {
             if (response.getResponseText().equals(currentResponse)) {
@@ -116,6 +139,14 @@ public class DialogueManager {
             }
         }
         return targetID;
+    }
+
+    private void updateCurrentDialogueToTarget(int targetDialogueID) {
+        for (Dialogue dialogue : dialogues) {
+            if (dialogue.getDialogueID() == targetDialogueID) {
+                currentDialogue = dialogue;
+            }
+        }
     }
 
 

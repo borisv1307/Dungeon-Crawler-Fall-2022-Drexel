@@ -121,7 +121,7 @@ public class GameEngine {
 
 	public Frame getDialogueFrame() {
 		DialogueManager dialogueManager = new DialogueManager();
-		Frame dialogueFrame = dialogueManager.createFrame("Dialogue Frame");
+		Frame dialogueFrame = dialogueManager.createFrame();
 		return dialogueFrame;
 	}
 
