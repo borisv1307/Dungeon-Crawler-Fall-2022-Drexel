@@ -9,8 +9,7 @@ public final class TunableParameters {
 
 	public static final int TARGET_FPS = 45;
 	public static final int PLAYER_SPEED = 1;
-	public static final int BUTTON_WIDTH = 80;
-	public static final int BUTTON_HEIGHT = 30;
+
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 
 	public static final String XML_LOCATION_PREFIX = "src/main/resources/dialogues/";
@@ -19,10 +18,6 @@ public final class TunableParameters {
 
 	public static final String FILE_NAME_SUFFIX = ".txt";
 
-	public static final String[] CHOICE_BUTTONS_LABELS = {
-			"Choice One",
-			"Choice Two",
-			"Choice Three"
-	};
-
+	public static final int NUMBER_OF_BUTTONS = 3;
+	
 }

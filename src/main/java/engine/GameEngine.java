@@ -131,8 +131,7 @@ public class GameEngine {
 
 	Frame getDialogueFrame() {
 		DialogueManager dialogueManager = new DialogueManager();
-		Frame dialogueFrame = dialogueManager.createFrame();
-		return dialogueFrame;
+		return dialogueManager.createFrame();
 	}
 
 	private void movePlayer(int destinationX, int destinationY) {

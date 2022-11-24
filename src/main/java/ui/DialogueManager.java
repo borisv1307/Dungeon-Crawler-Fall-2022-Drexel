@@ -112,7 +112,7 @@ public class DialogueManager {
         int startColumn = 0;
         int responseIndex = 0;
 
-        for (String buttonLabel : TunableParameters.CHOICE_BUTTONS_LABELS) {
+        for (int index = 0; index < TunableParameters.NUMBER_OF_BUTTONS; index++) {
             JButton button = createButton(responseIndex, startColumn, constraints);
             parentFrame.add(button, constraints);
 

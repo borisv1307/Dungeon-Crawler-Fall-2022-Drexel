@@ -1,16 +1,16 @@
 package ui;
 
 public class Response {
-    private String response;
+    private String textResponse;
     private int target;
 
-    public Response(String response, int target) {
-        this.response = response;
+    public Response(String textResponse, int target) {
+        this.textResponse = textResponse;
         this.target = target;
     }
 
     public String getResponseText() {
-        return response;
+        return textResponse;
     }
 
     public int getTarget() {
