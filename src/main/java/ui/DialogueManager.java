@@ -5,8 +5,6 @@ import wrappers.XMLParserWrapper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -77,7 +75,7 @@ public class DialogueManager {
         }
     }
 
-    void updateButtons() {
+    private void updateButtons() {
         currentDialogueResponses = currentDialogue.getResponses();
         Component[] components = dialogueFrame.getComponents();
 
@@ -85,11 +83,10 @@ public class DialogueManager {
             JButton currentButton = (JButton) components[responseIndex];
             Response currentResponse = currentDialogueResponses[responseIndex];
             currentButton.setText(currentResponse.getResponseText());
-
         }
     }
 
-    void applySettings(Frame parentFrame) {
+    private void applySettings(Frame parentFrame) {
         parentFrame.setResizable(false);
         parentFrame.setSize(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT);
         parentFrame.setBackground(Color.LIGHT_GRAY);
@@ -97,7 +94,7 @@ public class DialogueManager {
         parentFrame.setLayout(new GridBagLayout());
     }
 
-    void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints) {
+    private void addChoiceButtons(Frame parentFrame, GridBagConstraints constraints) {
         int startColumn = 0;
         int responseIndex = 0;
 
@@ -110,28 +107,31 @@ public class DialogueManager {
         }
     }
 
-    JButton createButton(int responseIndex, int column, GridBagConstraints constraints) {
+    private JButton createButton(int responseIndex, int column, GridBagConstraints constraints) {
         Response currentResponse = currentDialogueResponses[responseIndex];
         JButton button = new JButton(currentResponse.getResponseText());
 
         button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButton buttonClicked = (JButton) e.getSource();
-                int nextDialogueID = readResponseToFindNextDialogue(buttonClicked.getText());
-
-                updateCurrentDialogueToTarget(nextDialogueID);
-                updateJTextField(nextDialogueID);
-                updateButtons();
+        button.addActionListener(e -> {
+            JButton buttonClicked = (JButton) e.getSource();
+            int nextDialogueID = readResponseToFindNextDialogue(buttonClicked.getText());
+            if (nextDialogueID == -1) {
+                dialogueFrame.dispose();
             }
+            updateFrame(nextDialogueID);
         });
         constraints.gridx = column;
         constraints.gridy = 0;
         return button;
     }
 
-    int readResponseToFindNextDialogue(String currentResponse) {
+    private void updateFrame(int nextDialogueID) {
+        updateCurrentDialogueToTarget(nextDialogueID);
+        updateJTextField(nextDialogueID);
+        updateButtons();
+    }
+
+    private int readResponseToFindNextDialogue(String currentResponse) {
         int targetID = 0;
         for (Response response : currentDialogueResponses) {
             if (response.getResponseText().equals(currentResponse)) {

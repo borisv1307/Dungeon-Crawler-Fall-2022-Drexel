@@ -1,12 +1,13 @@
 <?xml version = "1.0"?>
 <dialogues>
+
     <dialogue id="1">
         <content>
-            Hello, Player what can I help you with?
+            Halt! Who goes there? Are ye a player or a bug?
         </content>
         <responses>
             <first_response>
-                Can you help me find the code?
+                Can you help me find the mythical code?
             </first_response>
             <first_response_target>
                 2
@@ -21,24 +22,24 @@
                 Actually, I do not need help. Goodbye!
             </third_response>
             <third_response_target>
-                4
+                -1
             </third_response_target>
         </responses>
     </dialogue>
 
     <dialogue id="2">
         <content>
-            I can help you find the code!
+            I can help you find the code! But only after my watch ends.
         </content>
         <responses>
             <first_response>
-                Actually, can you help me with something else?
+                I'm sorry I wasn't listening, can we start over?
             </first_response>
             <first_response_target>
                 1
             </first_response_target>
             <second_response>
-                What is your purpose here, NPC?
+                Great, but what are you doing here, NPC?
             </second_response>
             <second_response_target>
                 3
@@ -80,9 +81,8 @@
 
     <dialogue id="4">
         <content>
-            I am here to keep watch over this level, watch your step now.
+            Bug are the worst of all enemies, be wary player!
         </content>
-
         <responses>
             <first_response>
                 Response One to Dialogue Three
@@ -109,16 +109,15 @@
         <content>
             Well, bugs of course!
         </content>
-
         <responses>
             <first_response>
-                Well thanks for sharing, goodbye now!
+                What are bugs?
             </first_response>
             <first_response_target>
-                -1
+                4
             </first_response_target>
             <second_response>
-                Well I hope you don't find any, then. Goodbye!
+                Well I hope you don't find any! Goodbye!
             </second_response>
             <second_response_target>
                 -1
