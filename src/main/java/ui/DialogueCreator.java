@@ -69,11 +69,11 @@ public class DialogueCreator {
     private Response[] createResponsesArray(Element nodeElement) {
         Response[] responses = new Response[3];
         String[] prefixes = {"first_", "second_", "third_"};
-        String suffix = "response";
+        String response = "response";
 
         for (int index = 0; index < prefixes.length; index++) {
-            String responseElementName = prefixes[index] + suffix;
-            String targetElement = prefixes[index] + suffix + "_target";
+            String responseElementName = prefixes[index] + response;
+            String targetElement = prefixes[index] + response + "_target";
             String textResponse = cleanElementStringData(nodeElement.getElementsByTagName(responseElementName).item(0).getTextContent());
             int responseTarget = Integer.parseInt(cleanElementStringData(nodeElement.getElementsByTagName(targetElement).item(0).getTextContent()));
 

@@ -1,6 +1,5 @@
 package ui;
 
-import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,8 +15,6 @@ import static org.junit.Assert.assertFalse;
 
 public class DialogueManagerTest {
     DialogueManager dialogueManager;
-    GameEngine gameEngine;
-    JButton actualJButton;
     JButton responseButtonOne;
     JButton responseButtonTwo;
     JButton responseButtonThree;

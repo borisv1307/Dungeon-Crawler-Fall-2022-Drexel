@@ -12,7 +12,7 @@ import java.util.Map;
 import static values.TunableParameters.PLAYER_SPEED;
 
 public class GameEngine {
-
+	private boolean isDialogueActive;
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
@@ -27,6 +27,7 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		isDialogueActive = false;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -109,6 +110,11 @@ public class GameEngine {
 
 	public void keyEnter() {
 		Frame dialogueFrame = getDialogueFrame();
+		isDialogueActive = true;
+	}
+
+	public void setIsDialogueActive(boolean isDialogueActive) {
+		this.isDialogueActive = isDialogueActive;
 	}
 
 	public void setExit(boolean exit) {
@@ -119,16 +125,22 @@ public class GameEngine {
 		return exit;
 	}
 
-	public Frame getDialogueFrame() {
+	public boolean isDialogueActive() {
+		return isDialogueActive;
+	}
+
+	Frame getDialogueFrame() {
 		DialogueManager dialogueManager = new DialogueManager();
 		Frame dialogueFrame = dialogueManager.createFrame();
 		return dialogueFrame;
 	}
 
 	private void movePlayer(int destinationX, int destinationY) {
-		TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
-		if (isTilePassable(destinationTile)) {
-			setPlayer(destinationX, destinationY);
+		if (!isDialogueActive()) {
+			TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
+			if (isTilePassable(destinationTile)) {
+				setPlayer(destinationX, destinationY);
+			}
 		}
 	}
 

@@ -75,6 +75,14 @@ public class DialogueManager {
         }
     }
 
+    void setCurrentDialogue(int dialogueID) {
+        for (Dialogue dialogue : dialogues) {
+            if (dialogue.getDialogueID() == dialogueID) {
+                currentDialogue = dialogue;
+            }
+        }
+    }
+
     private void updateButtons() {
         currentDialogueResponses = currentDialogue.getResponses();
         Component[] components = dialogueFrame.getComponents();
@@ -84,6 +92,12 @@ public class DialogueManager {
             Response currentResponse = currentDialogueResponses[responseIndex];
             currentButton.setText(currentResponse.getResponseText());
         }
+    }
+
+    private void updateFrame(int nextDialogueID) {
+        setCurrentDialogue(nextDialogueID);
+        updateJTextField(nextDialogueID);
+        updateButtons();
     }
 
     private void applySettings(Frame parentFrame) {
@@ -125,12 +139,6 @@ public class DialogueManager {
         return button;
     }
 
-    private void updateFrame(int nextDialogueID) {
-        updateCurrentDialogueToTarget(nextDialogueID);
-        updateJTextField(nextDialogueID);
-        updateButtons();
-    }
-
     private int readResponseToFindNextDialogue(String currentResponse) {
         int targetID = 0;
         for (Response response : currentDialogueResponses) {
@@ -140,14 +148,4 @@ public class DialogueManager {
         }
         return targetID;
     }
-
-    private void updateCurrentDialogueToTarget(int targetDialogueID) {
-        for (Dialogue dialogue : dialogues) {
-            if (dialogue.getDialogueID() == targetDialogueID) {
-                currentDialogue = dialogue;
-            }
-        }
-    }
-
-
 }

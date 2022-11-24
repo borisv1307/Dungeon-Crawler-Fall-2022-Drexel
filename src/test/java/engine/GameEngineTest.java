@@ -77,9 +77,19 @@ public class GameEngineTest {
 	}
 
 	@Test
-	public void enter_key_down_gets_new_frame_from_dialogue_manager() {
+	public void enter_key_gets_only_one_new_frame_from_dialogue_manager() {
 		gameEngine = Mockito.mock(GameEngine.class, Mockito.CALLS_REAL_METHODS);
 		gameEngine.keyEnter();
 		Mockito.verify(gameEngine, Mockito.times(1)).getDialogueFrame();
+	}
+
+	@Test
+	public void while_dialogue_is_active_player_should_not_move() {
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+		boolean isDialogueActive = true;
+		gameEngine.setIsDialogueActive(isDialogueActive);
+		gameEngine.keyRight();
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(ONE));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(ONE));
 	}
 }
