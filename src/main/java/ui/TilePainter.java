@@ -1,6 +1,6 @@
 package ui;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -16,7 +16,7 @@ public class TilePainter {
 			}
 		}
 	}
-	
+
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
@@ -30,4 +30,8 @@ public class TilePainter {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
 
+	public void paintProjectile(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		handleTile(graphics, tileType);
+		graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+	}
 }
