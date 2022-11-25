@@ -20,7 +20,3 @@ Feature: Move the player into empty space
   Scenario: Move up into empty space
     When the player moves up
     Then the player is located at (3, 2)
-
-  Scenario: Move down into empty space
-    When the player moves down
-    Then the player is located at (3, 4)

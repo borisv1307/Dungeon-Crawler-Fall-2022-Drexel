@@ -84,10 +84,6 @@ public class GameEngine {
         movement(0, -1);
     }
 
-    public void keyDown() {
-        movement(0, 1);
-    }
-
     private void movement(int deltaX, int deltaY) {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
