@@ -1,15 +1,13 @@
 @IntegrationTest
 Feature: Move the player into empty space
 
-  Background:
+  Scenario Outline: Move into empty
     Given the level design is:
       | XXXXX |
       | X   X |
       | X P X |
       | X   X |
       | XXXXX |
-
-  Scenario Outline: Move into empty space
     When the player moves <direction>
     Then the player is located at <point>
     Examples:
