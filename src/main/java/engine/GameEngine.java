@@ -17,6 +17,8 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private Point enemy;
+    private Point goal;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -32,11 +34,15 @@ public class GameEngine {
     }
 
     public void addTile(int x, int y, TileType tileType) {
-        if (tileType.equals(TileType.PLAYER)) {
-            setPlayer(x, y);
-            tiles.put(new Point(x, y), TileType.PASSABLE);
-        } else {
-            tiles.put(new Point(x, y), tileType);
+        switch (tileType) {
+            case GOAL:
+            case ENEMY:
+            case PLAYER:
+                setPoint(tileType, x, y);
+                tiles.put(new Point(x, y), TileType.PASSABLE);
+                break;
+            default:
+                tiles.put(new Point(x, y), tileType);
         }
     }
 
@@ -60,16 +66,22 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
-    private void setPlayer(int x, int y) {
-        player = new Point(x, y);
-    }
+    private void setPoint(TileType tileType, int x, int y) {
+        Point point = new Point(x, y);
 
-    public int getPlayerXCoordinate() {
-        return (int) player.getX();
-    }
-
-    public int getPlayerYCoordinate() {
-        return (int) player.getY();
+        switch (tileType) {
+            case PLAYER:
+                player = point;
+                break;
+            case GOAL:
+                goal = point;
+                break;
+            case ENEMY:
+                enemy = point;
+                break;
+            default:
+                throw new IllegalArgumentException("Get Coordinate not applicable for TileType" + tileType);
+        }
     }
 
     public void keyLeft() {
@@ -89,9 +101,11 @@ public class GameEngine {
     }
 
     private void movement(int deltaX, int deltaY) {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        int attemptedX = getXCoordinate(TileType.PLAYER) + deltaX;
+        int attemptedY = getYCoordinate(TileType.PLAYER) + deltaY;
+        TileType attemptedLocation = getTileFromCoordinates(attemptedX, attemptedY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            setPoint(TileType.PLAYER, attemptedX, attemptedY);
         }
     }
 
@@ -101,5 +115,26 @@ public class GameEngine {
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public int getXCoordinate(TileType tileType) {
+        return getPoint(tileType).x;
+    }
+
+    public int getYCoordinate(TileType tileType) {
+        return getPoint(tileType).y;
+    }
+
+    private Point getPoint(TileType tileType) {
+        switch (tileType) {
+            case PLAYER:
+                return player;
+            case GOAL:
+                return goal;
+            case ENEMY:
+                return enemy;
+            default:
+                throw new IllegalArgumentException("Get Coordinate not applicable for TileType" + tileType);
+        }
     }
 }

@@ -62,8 +62,8 @@ public class GameEngineTest {
     public void add_and_get_player_coordinates() {
         TileType tileType = TileType.PLAYER;
         gameEngine.addTile(ZERO, ONE, tileType);
-        int actualX = gameEngine.getPlayerXCoordinate();
-        int actualY = gameEngine.getPlayerYCoordinate();
+        int actualX = gameEngine.getXCoordinate(tileType);
+        int actualY = gameEngine.getYCoordinate(tileType);
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(ONE));
     }
