@@ -2,10 +2,12 @@ package engine;
 
 import main.EnemyHandler;
 import main.LaserHandler;
+import main.RandomHandler;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import values.TunableParameters;
+import wrappers.RandomWrapper;
 
 import java.awt.*;
 import java.util.List;
@@ -25,6 +27,8 @@ public class GameEngine {
     private Point player;
     private int tileWidth;
     private int tileHeight;
+    private RandomHandler randomHandler;
+    private RandomWrapper randomWrapper;
 
 
     public GameEngine(LevelCreator levelCreator) {
@@ -34,11 +38,20 @@ public class GameEngine {
         this.levelCreator.createLevel(this, level);
         this.laserHandler = new LaserHandler();
         this.enemyHandler = new EnemyHandler();
+        this.randomWrapper = new RandomWrapper();
+        this.randomHandler = new RandomHandler(randomWrapper);
     }
 
     public void run(GameFrame gameFrame) {
         if(!getLasers().isEmpty()){
             laserHandler.progressLasers();
+        }
+        if(enemyHandler.enemyWillSpawn(new RandomWrapper())){
+            spawnEnemyAtRandomX(randomHandler);
+
+        }
+        if(!EnemyHandler.enemies.isEmpty()){
+            enemyHandler.progressEnemies();
         }
         for (Component component : gameFrame.getComponents()) {
             component.repaint();
@@ -122,13 +135,19 @@ public class GameEngine {
     public void keySpace() {
         laserHandler.laserFactory(getPlayerXCoordinate() * TunableParameters.TILE_TO_LASER_WIDTH,
                 getPlayerYCoordinate() * TunableParameters.TILE_TO_LASER_HEIGHT);
+        spawnEnemy(1, 1);
     }
 
     public List<LaserHandler.Laser> getLasers() {
         return laserHandler.lasers;
     }
 
-    public void spawnEnemy(int x, int y) {
-        enemyHandler.createEnemy(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+    public EnemyHandler.Enemy spawnEnemy(int x, int y) {
+        return enemyHandler.createEnemy(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+    }
+
+    public EnemyHandler.Enemy spawnEnemyAtRandomX(RandomHandler randomHandler) {
+        int randomNum = randomHandler.getRandomIntInRange(1, levelHorizontalDimension - 1);
+        return spawnEnemy(randomNum, 1);
     }
 }

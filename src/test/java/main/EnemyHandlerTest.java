@@ -8,15 +8,17 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import ui.TilePainter;
 import values.TunableParameters;
+import wrappers.RandomWrapper;
 import wrappers.ReaderWrapper;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class EnemyHandlerTest {
     GameEngine game;
     EnemyHandler enemyHandler;
+    private final double chanceOfSpawn = .2;
     private static final int ENEMY_WIDTH = 10;
     private static final int ENEMY_HEIGHT = 20;
     private static final int TILE_WIDTH = TunableParameters.SCREEN_WIDTH / 20;
@@ -53,8 +55,36 @@ public class EnemyHandlerTest {
     }
 
     @Test
-    public void enemies_spawn_randomly(){
+    public void enemies_progress_at_own_speed(){
+        Graphics graphics = Mockito.mock(Graphics.class);
+        TilePainter tilePainter = new TilePainter();
+        EnemyHandler.Enemy enemy = game.spawnEnemy(1, 1);
+        int initialX = enemy.getX();
+        int initialY = enemy.getY();
+        // game.run(new GameFrame()) so don't have to do next two lines. ?
+        enemyHandler.progressEnemies();
+        tilePainter.paintEnemies(graphics, EnemyHandler.enemies);
+        Mockito.verify(graphics).fillRect(initialX, initialY + enemy.getSpeed(), 45, 60);
 
+
+    }
+
+    @Test
+    public void enemies_spawn_randomly_on_X_axis(){
+        RandomHandler randomHandler = Mockito.mock(RandomHandler.class);
+        Mockito.when(randomHandler.getRandomIntInRange(1, 19)).thenReturn(6);
+        EnemyHandler.Enemy enemy = game.spawnEnemyAtRandomX(randomHandler);
+        assertEquals(enemy.getX(), TILE_WIDTH * 6);
+    }
+
+    @Test
+    public void enemies_have_chance_to_spawn_each_fps(){
+        RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+        Mockito.when(randomWrapper.getRandomDouble()).thenReturn(chanceOfSpawn - .01);
+        enemyHandler.setChanceOfSpawn(chanceOfSpawn);
+        assertTrue(enemyHandler.enemyWillSpawn(randomWrapper));
+        Mockito.when(randomWrapper.getRandomDouble()).thenReturn(chanceOfSpawn + .01);
+        assertFalse(enemyHandler.enemyWillSpawn(randomWrapper));
     }
 
 
