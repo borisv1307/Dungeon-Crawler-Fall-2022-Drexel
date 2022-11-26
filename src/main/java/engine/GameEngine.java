@@ -10,13 +10,15 @@ import ui.GameFrame;
 
 public class GameEngine {
 
-	private final LevelCreator levelCreator;
-	private final Map<Point, TileType> tiles = new HashMap<>();
-	private final int level;
-	private boolean exit;
-	private int levelHorizontalDimension;
-	private int levelVerticalDimension;
-	private Point player;
+    private final LevelCreator levelCreator;
+    private final Map<Point, TileType> tiles = new HashMap<>();
+    private final int level;
+    private boolean exit;
+    private int levelHorizontalDimension;
+    private int levelVerticalDimension;
+    private Point player;
+    private Point enemy;
+    private Point goal;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -31,14 +33,18 @@ public class GameEngine {
 		}
 	}
 
-	public void addTile(int x, int y, TileType tileType) {
-		if (tileType.equals(TileType.PLAYER)) {
-			setPlayer(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else {
-			tiles.put(new Point(x, y), tileType);
-		}
-	}
+    public void addTile(int x, int y, TileType tileType) {
+        switch (tileType) {
+            case GOAL:
+            case ENEMY:
+            case PLAYER:
+                setPoint(tileType, x, y);
+                tiles.put(new Point(x, y), TileType.PASSABLE);
+                break;
+            default:
+                tiles.put(new Point(x, y), tileType);
+        }
+    }
 
 	public int getLevelHorizontalDimension() {
 		return levelHorizontalDimension;
@@ -60,17 +66,23 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	private void setPlayer(int x, int y) {
-		player = new Point(x, y);
-	}
+    private void setPoint(TileType tileType, int x, int y) {
+        Point point = new Point(x, y);
 
-	public int getPlayerXCoordinate() {
-		return (int) player.getX();
-	}
-
-	public int getPlayerYCoordinate() {
-		return (int) player.getY();
-	}
+        switch (tileType) {
+            case PLAYER:
+                player = point;
+                break;
+            case GOAL:
+                goal = point;
+                break;
+            case ENEMY:
+                enemy = point;
+                break;
+            default:
+                throw new IllegalArgumentException("Get Coordinate not applicable for TileType" + tileType);
+        }
+    }
 
 	public void keyLeft() {
 		movement(-1, 0);
@@ -88,19 +100,41 @@ public class GameEngine {
 		movement(0, 1);
 	}
 
-	private void movement(int deltaX, int deltaY) {
-		TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
-				getPlayerYCoordinate() + deltaY);
-		if (attemptedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-		}
-	}
+    private void movement(int deltaX, int deltaY) {
+        int attemptedX = getXCoordinate(TileType.PLAYER) + deltaX;
+        int attemptedY = getYCoordinate(TileType.PLAYER) + deltaY;
+        TileType attemptedLocation = getTileFromCoordinates(attemptedX, attemptedY);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPoint(TileType.PLAYER, attemptedX, attemptedY);
+        }
+    }
 
 	public boolean isExit() {
 		return exit;
 	}
 
-	public void setExit(boolean exit) {
-		this.exit = exit;
-	}
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
+    public int getXCoordinate(TileType tileType) {
+        return getPoint(tileType).x;
+    }
+
+    public int getYCoordinate(TileType tileType) {
+        return getPoint(tileType).y;
+    }
+
+    private Point getPoint(TileType tileType) {
+        switch (tileType) {
+            case PLAYER:
+                return player;
+            case GOAL:
+                return goal;
+            case ENEMY:
+                return enemy;
+            default:
+                throw new IllegalArgumentException("Get Coordinate not applicable for TileType" + tileType);
+        }
+    }
 }

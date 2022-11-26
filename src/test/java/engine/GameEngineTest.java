@@ -59,15 +59,15 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(ONE));
 	}
 
-	@Test
-	public void add_and_get_player_coordinates() {
-		TileType tileType = TileType.PLAYER;
-		gameEngine.addTile(ZERO, ONE, tileType);
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ZERO));
-		assertThat(actualY, equalTo(ONE));
-	}
+    @Test
+    public void add_and_get_player_coordinates() {
+        TileType tileType = TileType.PLAYER;
+        gameEngine.addTile(ZERO, ONE, tileType);
+        int actualX = gameEngine.getXCoordinate(tileType);
+        int actualY = gameEngine.getYCoordinate(tileType);
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ONE));
+    }
 
 	@Test
 	public void set_and_get_exit() {
