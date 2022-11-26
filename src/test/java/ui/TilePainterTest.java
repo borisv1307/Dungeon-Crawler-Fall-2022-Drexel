@@ -1,6 +1,6 @@
 package ui;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,10 +54,50 @@ public class TilePainterTest {
 
 	@Test
 	public void paint_player() {
-
 		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
-
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 
+	@Test
+	public void advance_a_projectile_every_frame() {
+		GameEngine game = setup_game();
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(1, 2, TileType.PASSABLE);
+		Mockito.verify(game, Mockito.times(1)).addTile(1, 2 - 1, TileType.PROJECTILE);
+	}
+
+	@Test
+	public void projectile_cannot_go_through_wall() {
+		GameEngine game = Mockito.mock(GameEngine.class);
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(X);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(Y);
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 0)).thenReturn(TileType.NOT_PASSABLE);
+
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.NOT_PASSABLE);
+
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 2)).thenReturn(TileType.PROJECTILE);
+
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(1, 2, TileType.PASSABLE);
+	}
+
+	private GameEngine setup_game() {
+		GameEngine game = Mockito.mock(GameEngine.class);
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(X);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(Y);
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 0)).thenReturn(TileType.NOT_PASSABLE);
+
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.PASSABLE);
+
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getTileFromCoordinates(1, 2)).thenReturn(TileType.PROJECTILE);
+		return game;
+	}
 }

@@ -102,4 +102,10 @@ public class GamePanelTest {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
 	}
+
+	@Test
+	public void back_space_will_shoot_projectile() {
+		gamePanel.keyDown(null, Event.BACK_SPACE);
+		Mockito.verify(gameEngine, Mockito.times(1)).shoot();
+	}
 }

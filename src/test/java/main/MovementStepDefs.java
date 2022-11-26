@@ -50,4 +50,16 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
+
+	@When("^the player moves up twice$")
+	public void the_player_moves_up_twice() throws Throwable {
+		gameEngine.keyUp();
+		gameEngine.keyUp();
+	}
+
+	@Then("^the player is then located at \\((\\d+), (\\d+)\\)$")
+	public void thePlayerIsThenLocatedAt(int playerX, int playerY) {
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY));
+	}
 }
