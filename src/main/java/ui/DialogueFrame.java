@@ -12,7 +12,7 @@ public class DialogueFrame extends Frame {
     private final JButton buttonOne;
     private final JButton buttonTwo;
     private final JButton buttonThree;
-    private final JTextArea dialogueDisplay;
+    private JTextArea dialogueDisplay;
 
     public DialogueFrame() {
         constraints = new GridBagConstraints();
@@ -62,7 +62,7 @@ public class DialogueFrame extends Frame {
     }
 
     private JTextArea createJTextArea() {
-        JTextArea dialogueDisplay = new JTextArea();
+        dialogueDisplay = new JTextArea();
         dialogueDisplay.setText("default");
         dialogueDisplay.setEditable(false);
 

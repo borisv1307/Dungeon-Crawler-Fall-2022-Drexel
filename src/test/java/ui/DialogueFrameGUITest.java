@@ -94,7 +94,6 @@ public class DialogueFrameGUITest {
         assertEquals(Font.ITALIC, actual.getStyle());
         assertEquals(16, actual.getSize());
         assertEquals("Text Area Font", actual.getName());
-        System.out.println(textFieldActual.getFont());
     }
 
 

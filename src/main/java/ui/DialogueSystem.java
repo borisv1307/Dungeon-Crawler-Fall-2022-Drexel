@@ -81,7 +81,7 @@ public class DialogueSystem {
 
     private void updateButtonsContent(DialogueFrame dialogueFrame) {
         currentDialogueResponses = currentDialogue.getResponses();
-        Component[] components = dialogueFrame.getComponents();
+        components = dialogueFrame.getComponents();
 
         for (int responseIndex = 0; responseIndex < currentDialogueResponses.size(); responseIndex++) {
             JButton currentButton = (JButton) components[responseIndex];
