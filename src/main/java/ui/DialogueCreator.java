@@ -20,8 +20,8 @@ import static values.TunableParameters.XML_NAME_SUFFIX;
 public class DialogueCreator {
     private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
     private final XMLParserWrapper xmlParserWrapper;
-    private static final String fileName = "npc";
-    String filePath = XML_LOCATION_PREFIX + fileName + XML_NAME_SUFFIX;
+    private static final String FILE_NAME = "npc";
+    String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
 
     public DialogueCreator(XMLParserWrapper xmlParserWrapper) {
         this.xmlParserWrapper = xmlParserWrapper;
