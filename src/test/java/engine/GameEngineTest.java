@@ -9,9 +9,11 @@ import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.*;
 
 public class GameEngineTest {
 
@@ -77,5 +79,45 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
+    }
+
+    @Test
+    public void get_all_empty_tiles() {
+        ArrayList<Point> expected = new ArrayList<>();
+        expected.add(new Point(0, 1));
+        expected.add(new Point(1, 1));
+        gameEngine.setLevelVerticalDimension(2);
+        gameEngine.setLevelHorizontalDimension(2);
+        gameEngine.addTile(0, 0, TileType.NOT_PASSABLE);
+        gameEngine.addTile(0, 1, TileType.PASSABLE);
+        gameEngine.addTile(1, 1, TileType.PASSABLE);
+        gameEngine.addTile(1, 0, TileType.NOT_PASSABLE);
+        ArrayList<Point> actual = gameEngine.getAllPassableTiles();
+        assertArrayEquals(expected.toArray(), actual.toArray());
+    }
+
+    @Test
+    public void no_random_passable_tile() {
+        gameEngine.addTile(0, 0, TileType.NOT_PASSABLE);
+        Point randomPassablePoint = gameEngine.getRandomPassableTile();
+        assertNull(randomPassablePoint);
+    }
+
+    @Test
+    public void get_random_passable_tile() {
+        gameEngine.setLevelVerticalDimension(1);
+        gameEngine.setLevelHorizontalDimension(1);
+        gameEngine.addTile(0, 0, TileType.PASSABLE);
+        Point randomPassablePoint = gameEngine.getRandomPassableTile();
+        assertNotNull(randomPassablePoint);
+    }
+
+    @Test
+    public void remove_object_from_tile() {
+        gameEngine.setLevelVerticalDimension(1);
+        gameEngine.setLevelHorizontalDimension(1);
+        gameEngine.addTile(0, 0, TileType.OBJECT);
+        gameEngine.removeObjectFromTile(new Point(0, 0));
+        assertEquals(TileType.PASSABLE, gameEngine.getTileFromCoordinates(0, 0));
     }
 }
