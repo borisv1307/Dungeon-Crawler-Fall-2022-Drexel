@@ -19,8 +19,8 @@ import static values.TunableParameters.XML_NAME_SUFFIX;
 
 public class DialogueCreator {
     private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
-    private XMLParserWrapper xmlParserWrapper;
-    private String fileName = "npc";
+    private final XMLParserWrapper xmlParserWrapper;
+    private final String fileName = "npc";
     String filePath = XML_LOCATION_PREFIX + fileName + XML_NAME_SUFFIX;
 
     public DialogueCreator(XMLParserWrapper xmlParserWrapper) {
@@ -58,28 +58,32 @@ public class DialogueCreator {
                 String dialogueContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
                 String dialogue = cleanElementStringData(dialogueContent);
 
-                Response[] responses = createResponsesArray(nodeElement);
+                List<Response> responses = createResponsesArray(nodeElement);
 
                 targetList.add(new Dialogue(dialogueID, dialogue, responses));
             }
         }
     }
 
+    private List<Response> createResponsesArray(Element nodeElement) {
+        List<Response> responsesFromXML = new ArrayList<>();
+        NodeList nodeList = nodeElement.getElementsByTagName("responses");
+        Node responsesNode = nodeList.item(0);
 
-    private Response[] createResponsesArray(Element nodeElement) {
-        Response[] responses = new Response[3];
-        String[] prefixes = {"first_", "second_", "third_"};
-        String response = "response";
+        if (responsesNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element responsesElement = (Element) responsesNode;
+            NodeList responses = responsesElement.getElementsByTagName("response");
 
-        for (int index = 0; index < prefixes.length; index++) {
-            String responseElementName = prefixes[index] + response;
-            String targetElement = prefixes[index] + response + "_target";
-            String textResponse = cleanElementStringData(nodeElement.getElementsByTagName(responseElementName).item(0).getTextContent());
-            int responseTarget = Integer.parseInt(cleanElementStringData(nodeElement.getElementsByTagName(targetElement).item(0).getTextContent()));
+            for (int index = 0; index < responses.getLength(); index++) {
+                Node response = responses.item(index);
+                Element responseElement = (Element) response;
+                int targetIDForNextDialogue = Integer.parseInt(responseElement.getAttribute("target"));
+                String currentResponse = cleanElementStringData(response.getTextContent());
 
-            responses[index] = new Response(textResponse, responseTarget);
+                responsesFromXML.add(new Response(currentResponse, targetIDForNextDialogue));
+            }
         }
-        return responses;
+        return responsesFromXML;
     }
 
     private String cleanElementStringData(String targetString) {

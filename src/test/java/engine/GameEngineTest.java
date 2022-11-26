@@ -69,6 +69,16 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_non_playable_character_coordinates() {
+		TileType tileType = TileType.NON_PLAYABLE_CHARACTER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getNonPlayableCharacterXCoordinate();
+		int actualY = gameEngine.getNonPlayableCharacterYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);
@@ -77,10 +87,11 @@ public class GameEngineTest {
 	}
 
 	@Test
-	public void enter_key_gets_only_one_new_frame_from_dialogue_manager() {
+	public void enter_key_creates_new_frame_from_dialogue_system() {
 		gameEngine = Mockito.mock(GameEngine.class, Mockito.CALLS_REAL_METHODS);
 		gameEngine.keyEnter();
-		Mockito.verify(gameEngine, Mockito.times(1)).getDialogueFrame();
+		Mockito.verify(gameEngine, Mockito.times(1)).keyEnter();
+		Mockito.verify(gameEngine, Mockito.times(1)).setIsDialogueActive(true);
 	}
 
 	@Test

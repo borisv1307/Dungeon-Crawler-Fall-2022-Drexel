@@ -6,24 +6,15 @@
             Halt! Who goes there? Are ye a player or a bug?
         </content>
         <responses>
-            <first_response>
+            <response target="2">
                 Can you help me find the mythical code?
-            </first_response>
-            <first_response_target>
-                2
-            </first_response_target>
-            <second_response>
+            </response>
+            <response target="3">
                 What are you doing here?
-            </second_response>
-            <second_response_target>
-                3
-            </second_response_target>
-            <third_response>
+            </response>
+            <response target="-1">
                 Actually, I do not need help. Goodbye!
-            </third_response>
-            <third_response_target>
-                -1
-            </third_response_target>
+            </response>
         </responses>
     </dialogue>
 
@@ -32,24 +23,12 @@
             I can help you find the code! But only after my watch ends.
         </content>
         <responses>
-            <first_response>
+            <response target="1">
                 I'm sorry I wasn't listening, can we start over?
-            </first_response>
-            <first_response_target>
-                1
-            </first_response_target>
-            <second_response>
+            </response>
+            <response target="3">
                 Great, but what are you doing here, NPC?
-            </second_response>
-            <second_response_target>
-                3
-            </second_response_target>
-            <third_response>
-                Never mind, I am leaving!
-            </third_response>
-            <third_response_target>
-                -1
-            </third_response_target>
+            </response>
         </responses>
     </dialogue>
 
@@ -58,50 +37,27 @@
             I am here to keep watch over this level, watch your step now.
         </content>
         <responses>
-            <first_response>
+            <response target="-1">
                 Okay, best of luck!
-            </first_response>
-            <first_response_target>
-                -1
-            </first_response_target>
-            <second_response>
+            </response>
+            <response target="-1">
                 I wish you luck!
-            </second_response>
-            <second_response_target>
-                -1
-            </second_response_target>
-            <third_response>
+            </response>
+            <response target="5">
                 What are you protecting this place from?
-            </third_response>
-            <third_response_target>
-                5
-            </third_response_target>
+            </response>
         </responses>
     </dialogue>
 
     <dialogue id="4">
         <content>
-            Bug are the worst of all enemies, be wary player!
+            Bug are the worst of all enemies, be wary player! They can attack a level at random
+            and leave a level in disorder!
         </content>
         <responses>
-            <first_response>
-                Response One to Dialogue Three
-            </first_response>
-            <first_response_target>
-                -1
-            </first_response_target>
-            <second_response>
-                Response Two to Dialogue Three
-            </second_response>
-            <second_response_target>
-                -1
-            </second_response_target>
-            <third_response>
-                Response Three to Dialogue Three
-            </third_response>
-            <third_response_target>
-                -1
-            </third_response_target>
+            <response target="-1">
+                Thanks for sharing! I'll keep my eyes out!
+            </response>
         </responses>
     </dialogue>
 
@@ -110,24 +66,12 @@
             Well, bugs of course!
         </content>
         <responses>
-            <first_response>
+            <response target="4">
                 What are bugs?
-            </first_response>
-            <first_response_target>
-                4
-            </first_response_target>
-            <second_response>
-                Well I hope you don't find any! Goodbye!
-            </second_response>
-            <second_response_target>
-                -1
-            </second_response_target>
-            <third_response>
+            </response>
+            <response target="-1">
                 I hate bugs! I'm out of here!
-            </third_response>
-            <third_response_target>
-                -1
-            </third_response_target>
+            </response>
         </responses>
     </dialogue>
 

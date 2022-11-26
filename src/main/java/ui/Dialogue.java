@@ -1,13 +1,15 @@
 package ui;
 
+import java.util.List;
+
 public class Dialogue {
 
     private final int dialogueID;
     private final String dialogueContent;
-    private Response[] responses;
+    private final List<Response> responses;
 
 
-    Dialogue(int dialogueID, String dialogueContent, Response[] responses) {
+    public Dialogue(int dialogueID, String dialogueContent, List<Response> responses) {
         this.dialogueID = dialogueID;
         this.dialogueContent = dialogueContent;
         this.responses = responses;
@@ -21,7 +23,7 @@ public class Dialogue {
         return dialogueID;
     }
 
-    public Response[] getResponses() {
+    public List<Response> getResponses() {
         return responses;
     }
 }

@@ -5,64 +5,61 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.WindowEvent;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class DialogueManagerTest {
-    DialogueManager dialogueManager;
+public class DialogueSystemTest {
+    DialogueSystem dialogueSystem;
     JButton responseButtonOne;
     JButton responseButtonTwo;
     JButton responseButtonThree;
 
-    JTextField textFieldActual;
-    Frame dialogueFrame;
+    JTextArea textFieldActual;
+    DialogueFrame dialogueFrame;
+    String eventName;
 
     @Before
     public void setUp() throws Exception {
-        dialogueManager = new DialogueManager();
-        dialogueFrame = dialogueManager.createFrame();
+        dialogueSystem = new DialogueSystem();
+        dialogueFrame = dialogueSystem.launchDialogueFrame();
 
         responseButtonOne = (JButton) dialogueFrame.getComponent(0);
         responseButtonTwo = (JButton) dialogueFrame.getComponent(1);
         responseButtonThree = (JButton) dialogueFrame.getComponent(2);
-        textFieldActual = (JTextField) dialogueFrame.getComponent(3);
+        textFieldActual = (JTextArea) dialogueFrame.getComponent(3);
+        eventName = "Click Event";
     }
 
     @Test
     public void create_dialogue_frame_only_once() {
-        final DialogueManager mockDialogueManager = Mockito.mock(DialogueManager.class);
-        dialogueFrame = mockDialogueManager.createFrame();
-        Mockito.verify(mockDialogueManager, Mockito.times(1)).createFrame();
+        dialogueSystem = Mockito.mock(DialogueSystem.class);
+        dialogueFrame = dialogueSystem.launchDialogueFrame();
+        Mockito.verify(dialogueSystem, Mockito.times(1)).launchDialogueFrame();
     }
 
     @Test
-    public void dialogue_frame_is_not_resizable() {
-        assertThat(dialogueFrame.isResizable(), equalTo(false));
+    public void first_button_event_is_click_event() {
+        assertEquals(eventName, responseButtonOne.getActionCommand());
     }
 
     @Test
-    public void close_dialogue_frame_when_user_clicks_exit() {
-        dialogueFrame.dispatchEvent(new WindowEvent(dialogueFrame, WindowEvent.WINDOW_CLOSING));
-        assertFalse(dialogueFrame.isShowing());
+    public void second_button_event_is_click_event() {
+        assertEquals(eventName, responseButtonTwo.getActionCommand());
     }
 
     @Test
-    public void dialogue_frame_layout_is_grid_bag() {
-        assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
+    public void third_button_event_is_click_event() {
+        assertEquals(eventName, responseButtonThree.getActionCommand());
     }
 
     @Test
-    public void dialogue_frame_has_response_button_with_dialogue_one_response_one() {
+    public void when_created_dialogue_frame_has_response_button_with_dialogue_one_response_one() {
         assertEquals("Can you help me find the mythical code?", responseButtonOne.getText());
     }
 
     @Test
-    public void dialogue_frame_has_response_button_with_dialogue_one_response_two() {
+    public void when_created_dialogue_frame_has_response_button_with_dialogue_one_response_two() {
         assertEquals("What are you doing here?", responseButtonTwo.getText());
     }
 
@@ -72,47 +69,47 @@ public class DialogueManagerTest {
     }
 
     @Test
-    public void dialogue_frame_text_area_read_only() {
-        assertFalse(textFieldActual.isEditable());
-    }
-
-    @Test
-    public void display_first_dialogue_display_to_text_field() {
-        dialogueManager.updateJTextField(1);
+    public void display_first_dialogue_to_text_field() {
         assertEquals("Halt! Who goes there? Are ye a player or a bug?", textFieldActual.getText());
     }
 
     @Test
-    public void display_second_dialogue_display_to_text_field() {
-        dialogueManager.updateJTextField(2);
+    public void update_dialogue_system_and_display_second_dialogue_to_text_field() {
+        dialogueSystem.updateJTextFieldContent(2, dialogueFrame);
         assertEquals("I can help you find the code! But only after my watch ends.", textFieldActual.getText());
     }
 
     @Test
-    public void display_third_dialogue_display_to_text_field() {
-        dialogueManager.updateJTextField(3);
+    public void update_dialogue_system_and_display_third_dialogue_to_text_field() {
+        dialogueSystem.updateJTextFieldContent(3, dialogueFrame);
         assertEquals("I am here to keep watch over this level, watch your step now.", textFieldActual.getText());
     }
 
     @Test
-    public void click_dialogue_one_response_one_current_dialogue_should_be_dialogue_two() {
+    public void click_first_dialogue_response_one_next_dialogue_should_be_dialogue_ID_two() {
         responseButtonOne.doClick();
-        Dialogue actual = dialogueManager.getCurrentDialogue();
+        Dialogue actual = dialogueSystem.getCurrentDialogue();
         assertEquals(2, actual.getDialogueID());
     }
 
     @Test
-    public void click_dialogue_one_response_two_current_dialogue_should_be_dialogue_three() {
+    public void dialogue_two_should_button_three_should_not_be_visible() {
+        responseButtonOne.doClick();
+        assertFalse(responseButtonThree.isShowing());
+    }
+
+    @Test
+    public void click_dialogue_one_response_two_current_dialogue_should_be_dialogue_ID_three() {
         responseButtonTwo.doClick();
-        Dialogue actual = dialogueManager.getCurrentDialogue();
+        Dialogue actual = dialogueSystem.getCurrentDialogue();
         assertEquals(3, actual.getDialogueID());
     }
 
     @Test
-    public void click_dialogue_one_response_one_then_dialogue_two_response_one_current_dialogue_should_be_dialogue_one() {
+    public void click_dialogue_one_response_one_then_dialogue_two_response_one_current_dialogue_should_be_dialogue_ID_one() {
         responseButtonOne.doClick();
         responseButtonOne.doClick();
-        Dialogue actual = dialogueManager.getCurrentDialogue();
+        Dialogue actual = dialogueSystem.getCurrentDialogue();
         assertEquals(1, actual.getDialogueID());
     }
 
@@ -129,8 +126,11 @@ public class DialogueManagerTest {
         responseButtonThree.doClick();
         responseButtonOne.doClick();
         responseButtonTwo.doClick();
+        responseButtonOne.doClick();
         assertFalse(dialogueFrame.isShowing());
     }
 
 
 }
+
+
