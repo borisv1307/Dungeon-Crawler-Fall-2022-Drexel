@@ -5,6 +5,7 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.RandomWrapper;
+import wrappers.TimerTaskWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,12 +26,15 @@ public class GameEngine {
 
     private RandomWrapper randomWrapper;
 
+    private TimerTaskWrapper timerTaskWrapper;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         this.randomWrapper = new RandomWrapper();
+        this.timerTaskWrapper = new TimerTaskWrapper();
     }
 
     public void run(GameFrame gameFrame) {
@@ -190,5 +194,11 @@ public class GameEngine {
     public void removeObjectFromTile(Point objectTile) {
         TileType oldTileType = tiles.get(objectTile);
         tiles.replace(objectTile, oldTileType, TileType.PASSABLE);
+    }
+
+    public void activateGameTimer(int numberOfSeconds) {
+        long timeInMilliseconds = numberOfSeconds * 1000;
+        timerTaskWrapper.setTimeToExecute(timeInMilliseconds);
+        timerTaskWrapper.runTask();
     }
 }
