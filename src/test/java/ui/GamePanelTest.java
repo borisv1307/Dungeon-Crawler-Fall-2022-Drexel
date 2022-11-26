@@ -73,25 +73,25 @@ public class GamePanelTest {
     @Test
     public void key_left() {
         gamePanel.keyDown(null, Event.LEFT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyLeft();
+        Mockito.verify(gameEngine, Mockito.times(1)).keyLeft(TileType.PLAYER);
     }
 
     @Test
     public void key_right() {
         gamePanel.keyDown(null, Event.RIGHT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyRight();
+        Mockito.verify(gameEngine, Mockito.times(1)).keyRight(TileType.PLAYER);
     }
 
     @Test
     public void key_up() {
         gamePanel.keyDown(null, Event.UP);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyUp();
+        Mockito.verify(gameEngine, Mockito.times(1)).keyUp(TileType.PLAYER);
     }
 
     @Test
     public void key_down() {
         gamePanel.keyDown(null, Event.DOWN);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
+        Mockito.verify(gameEngine, Mockito.times(1)).keyDown(TileType.PLAYER);
     }
 
     @Test

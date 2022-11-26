@@ -50,13 +50,13 @@ public class GamePanel extends Panel {
     @Override
     public boolean keyDown(Event evt, int key) {
         if (key == Event.LEFT) {
-            gameEngine.keyLeft();
+            gameEngine.keyLeft(TileType.PLAYER);
         } else if (key == Event.RIGHT) {
-            gameEngine.keyRight();
+            gameEngine.keyRight(TileType.PLAYER);
         } else if (key == Event.UP) {
-            gameEngine.keyUp();
+            gameEngine.keyUp(TileType.PLAYER);
         } else if (key == Event.DOWN) {
-            gameEngine.keyDown();
+            gameEngine.keyDown(TileType.PLAYER);
         }
 
         return true;
