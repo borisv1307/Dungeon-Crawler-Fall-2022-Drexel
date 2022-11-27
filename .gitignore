@@ -2,3 +2,7 @@
 /.settings/
 .classpath
 .project
+.idea
+/DungeonCrawlerFall2022Drexel.iml
+src/test/resources/levels/1.txt
+src/test/resources/levels/1.txt
