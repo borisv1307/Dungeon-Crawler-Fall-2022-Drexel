@@ -14,10 +14,10 @@ public class DialogueFrame extends Frame {
     private transient List<Response> currentDialogueResponses;
     private transient Dialogue currentDialogue;
     private final JTextArea dialogueTextArea;
-    private final GridBagConstraints constraints;
-    private final DialoguePanel dialoguePanel;
-    private transient GameEngine gameEngine;
-    private final transient DialogueSystem dialogueSystem;
+    GridBagConstraints constraints;
+    DialoguePanel dialoguePanel;
+    GameEngine gameEngine;
+    transient DialogueSystem dialogueSystem;
 
     public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
         this.dialoguePanel = dialoguePanel;

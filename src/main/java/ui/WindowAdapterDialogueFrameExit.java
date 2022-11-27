@@ -4,6 +4,7 @@ import engine.GameEngine;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
+import java.util.Objects;
 
 public class WindowAdapterDialogueFrameExit extends WindowAdapter {
 
@@ -25,12 +26,17 @@ public class WindowAdapterDialogueFrameExit extends WindowAdapter {
 
     @Override
     public boolean equals(Object object) {
-        boolean isEquals = false;
-        WindowAdapterDialogueFrameExit comparisonAdapter = (WindowAdapterDialogueFrameExit) object;
-        if (comparisonAdapter.getType().equals(type)) {
-            isEquals = true;
+        if (object == null || this.getClass() != object.getClass()) {
+            return false;
         }
-        return isEquals;
+        WindowAdapterDialogueFrameExit windowAdapter = (WindowAdapterDialogueFrameExit) object;
+        return type.equals(windowAdapter.getType());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gameEngine, dialogueFrame);
     }
 
     private String getType() {
