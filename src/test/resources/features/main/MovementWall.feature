@@ -18,7 +18,3 @@ Feature: Move the player into wall
   Scenario: Move up into wall
     When the player moves up
     Then the player is located at (2, 2)
-
-  Scenario: Move down into wall
-    When the player moves down
-    Then the player is located at (2, 2)
