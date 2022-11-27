@@ -3,7 +3,7 @@ package engine;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.DialogueFrame;
-import ui.DialogueSystem;
+import ui.DialoguePanel;
 import ui.GameFrame;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.Map;
 import static values.TunableParameters.PLAYER_SPEED;
 
 public class GameEngine {
-	private DialogueSystem dialogueSystem;
+
 	boolean isDialogueActive;
 	private boolean exit;
 	private final LevelCreator levelCreator;
@@ -29,7 +29,6 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		dialogueSystem = new DialogueSystem();
 		isDialogueActive = false;
 	}
 
@@ -112,9 +111,12 @@ public class GameEngine {
 	}
 
 	public void keyEnter() {
-		dialogueSystem = new DialogueSystem();
-		DialogueFrame dialogueFrame = dialogueSystem.launchDialogueFrame();
 		setIsDialogueActive(true);
+		if (isDialogueActive) {
+			DialoguePanel dialoguePanel = new DialoguePanel();
+			DialogueFrame dialogueFrame = new DialogueFrame(dialoguePanel, this);
+			dialogueFrame.updateDialogueFrame(1);
+		}
 	}
 
 	public void setIsDialogueActive(boolean isDialogueActive) {

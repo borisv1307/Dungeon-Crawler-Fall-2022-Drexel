@@ -108,16 +108,15 @@ public class GamePanelTest {
 	}
 
 	@Test
+	public void key_enter() {
+		gamePanel.keyDown(null, Event.ENTER);
+		Mockito.verify(gameEngine, Mockito.times(1)).keyEnter();
+	}
+
+	@Test
 	public void key_escape() {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
 	}
-
-	@Test
-	public void key_enter() {
-		boolean actual = gamePanel.keyDown(null, Event.ENTER);
-		assertSame(true, actual);
-	}
-	
 
 }

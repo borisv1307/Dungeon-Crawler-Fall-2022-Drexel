@@ -49,7 +49,6 @@ public class GamePanel extends Panel {
 		dbg.setColor(getForeground());
 		paint(dbg);
 		graphics.drawImage(dbImage, 0, 0, this);
-
 	}
 
 	@Override

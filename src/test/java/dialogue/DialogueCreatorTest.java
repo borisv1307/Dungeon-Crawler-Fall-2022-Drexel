@@ -21,7 +21,7 @@ public class DialogueCreatorTest {
     private XMLParserWrapper xmlParserWrapper;
     private List<Dialogue> dialogues;
     private List<Response> responsesToCurrentDialogue;
-    private Dialogue dialogueActual;
+    private Dialogue actual;
 
     @Before
     public void setUp() {
@@ -42,26 +42,26 @@ public class DialogueCreatorTest {
 
     @Test
     public void first_dialogue_id_should_be_one() {
-        dialogueActual = getDialogueByID(1);
-        assertEquals(1, dialogueActual.getDialogueID());
+        actual = getDialogueByID(1);
+        assertEquals(1, actual.getDialogueID());
     }
 
     @Test
     public void second_dialogue_id_should_be_two() {
-        dialogueActual = getDialogueByID(2);
-        assertEquals(2, dialogueActual.getDialogueID());
+        actual = getDialogueByID(2);
+        assertEquals(2, actual.getDialogueID());
     }
 
     @Test
     public void third_dialogue_id_should_be_three() {
-        dialogueActual = getDialogueByID(3);
-        assertEquals(3, dialogueActual.getDialogueID());
+        actual = getDialogueByID(3);
+        assertEquals(3, actual.getDialogueID());
     }
 
     @Test
     public void first_dialogue_has_three_responses() {
-        dialogueActual = getDialogueByID(1);
-        assertEquals(3, dialogueActual.getResponses().size());
+        actual = getDialogueByID(1);
+        assertEquals(3, actual.getResponses().size());
     }
 
     @Test
@@ -75,15 +75,15 @@ public class DialogueCreatorTest {
 
     @Test
     public void second_dialogue_has_only_two_responses() {
-        dialogueActual = getDialogueByID(2);
-        responsesToCurrentDialogue = dialogueActual.getResponses();
+        actual = getDialogueByID(2);
+        responsesToCurrentDialogue = actual.getResponses();
         assertEquals(2, responsesToCurrentDialogue.size());
     }
 
     @Test
     public void second_dialogue_has_correct_responses_content() {
-        Dialogue firstDialogue = getDialogueByID(2);
-        responsesToCurrentDialogue = firstDialogue.getResponses();
+        Dialogue actual = getDialogueByID(2);
+        responsesToCurrentDialogue = actual.getResponses();
         assertEquals("I'm sorry I wasn't listening, can we start over?", responsesToCurrentDialogue.get(0).getResponseText());
         assertEquals("Great, but what are you doing here, NPC?", responsesToCurrentDialogue.get(1).getResponseText());
     }

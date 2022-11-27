@@ -1,81 +1,129 @@
 package ui;
 
+import engine.GameEngine;
 import values.TunableParameters;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogueFrame extends Frame {
+    private final ArrayList<DialogueButton> buttons;
+    private final List<Dialogue> dialogues;
+    private List<Response> currentDialogueResponses;
+    private Dialogue currentDialogue;
+    private final JTextArea dialogueTextArea;
     private final GridBagConstraints constraints;
-    private final JButton buttonOne;
-    private final JButton buttonTwo;
-    private final JButton buttonThree;
-    private JTextArea dialogueDisplay;
+    private final DialoguePanel dialoguePanel;
+    private final DialogueSystem dialogueSystem;
 
-    public DialogueFrame() {
+    public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
+        this.dialoguePanel = dialoguePanel;
+        buttons = dialoguePanel.getDialoguePanelButtons();
+
+        dialogueSystem = new DialogueSystem();
+        dialogues = dialogueSystem.getDialogues();
+
+        currentDialogue = dialogues.get(0);
+        currentDialogueResponses = currentDialogue.getResponses();
+
         constraints = new GridBagConstraints();
         constraints.insets = new Insets(2, 2, 2, 2);
 
-        applyGeneralFrameSettings();
+        setResizable(false);
+        setLayout(new GridBagLayout());
 
-        buttonOne = createButton(0, constraints);
-        add(buttonOne, constraints);
+        dialoguePanel.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT));
+        dialoguePanel.setBackground(Color.GRAY);
+        dialoguePanel.setVisible(true);
 
-        buttonTwo = createButton(1, constraints);
-        add(buttonTwo, constraints);
+        addButtonListenerToButtons();
 
-        buttonThree = createButton(2, constraints);
-        add(buttonThree, constraints);
+        dialogueTextArea = createJTextArea(constraints);
 
-        dialogueDisplay = createJTextArea();
-        add(dialogueDisplay, constraints);
+        dialoguePanel.add(dialogueTextArea, constraints);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                dispose();
-            }
-        });
+        add(dialoguePanel);
+
+        addWindowListener(new WindowAdapterDialogueFrameExit(gameEngine, this));
+
+        setVisible(true);
         pack();
     }
 
-    public JTextArea getJTextField() {
-        return dialogueDisplay;
+    public JTextArea getDialogueTextArea() {
+        return dialogueTextArea;
     }
 
-    void applyGeneralFrameSettings() {
-        setResizable(false);
-        setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH, TunableParameters.SCREEN_HEIGHT));
-        setBackground(Color.GRAY);
-        setVisible(true);
-        setLayout(new GridBagLayout());
+    public void updateDialogueFrame(int nextDialogueID) {
+        resetButtons();
+        setCurrentDialogueToTargetDialogue(nextDialogueID);
+        updateJTextFieldContent(nextDialogueID);
+        updateButtonsContent();
     }
 
-    private JButton createButton(int columnPosition, GridBagConstraints constraints) {
-        JButton button = new JButton("default");
-        button.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 3, TunableParameters.SCREEN_HEIGHT / 3));
-        constraints.gridx = columnPosition;
-        constraints.gridy = 0;
-        return button;
+    public void updateJTextFieldContent(int targetDialogueID) {
+        for (Dialogue dialogue : dialogues) {
+            if (dialogue.getDialogueID() == targetDialogueID) {
+                dialogueTextArea.setText(dialogue.getDialogueContent());
+            }
+        }
     }
 
-    private JTextArea createJTextArea() {
-        dialogueDisplay = new JTextArea();
-        dialogueDisplay.setText("default");
-        dialogueDisplay.setEditable(false);
+    public int readPlayerResponseToFindNextDialogueID(String currentResponse) {
+        int targetID = 0;
+        for (Response response : currentDialogueResponses) {
+            if (response.getResponseText().equals(currentResponse)) {
+                targetID = response.getTarget();
+            }
+        }
+        return targetID;
+    }
 
+    private JTextArea createJTextArea(GridBagConstraints constraints) {
+        JTextArea jtextArea = new JTextArea();
+        jtextArea.setText("default text area");
+        jtextArea.setEditable(false);
         Font displayFont = new Font("Text Area Font", Font.ITALIC, 16);
-
-        dialogueDisplay.setFont(displayFont);
-        dialogueDisplay.setPreferredSize(new Dimension(TunableParameters.SCREEN_WIDTH / 2, TunableParameters.SCREEN_WIDTH / 2));
-
+        jtextArea.setFont(displayFont);
+        jtextArea.setPreferredSize(new Dimension(400, 600));
         constraints.gridwidth = 3;
         constraints.gridx = 0;
         constraints.gridy = 1;
-
-        return dialogueDisplay;
+        return jtextArea;
     }
 
+    private void addButtonListenerToButtons() {
+        for (JButton button : buttons) {
+            button.addActionListener(new ButtonClickActionListener(this));
+        }
+    }
+
+    private void resetButtons() {
+        int index = 0;
+        for (DialogueButton dialogueButton : buttons) {
+            JButton button = buttons.get(index);
+            button.setVisible(false);
+            index++;
+        }
+    }
+
+    private void setCurrentDialogueToTargetDialogue(int dialogueID) {
+        for (Dialogue dialogue : dialogues) {
+            if (dialogue.getDialogueID() == dialogueID) {
+                currentDialogue = dialogue;
+            }
+        }
+    }
+
+    private void updateButtonsContent() {
+        currentDialogueResponses = currentDialogue.getResponses();
+        for (int responseIndex = 0; responseIndex < currentDialogueResponses.size(); responseIndex++) {
+            DialogueButton currentButton = buttons.get(responseIndex);
+            Response currentResponse = currentDialogueResponses.get(responseIndex);
+            currentButton.setText(currentResponse.getResponseText());
+            currentButton.setVisible(true);
+        }
+    }
 }
