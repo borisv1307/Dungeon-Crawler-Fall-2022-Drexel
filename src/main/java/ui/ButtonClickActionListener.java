@@ -15,10 +15,10 @@ public class ButtonClickActionListener implements ActionListener {
         DialogueButton buttonClicked = (DialogueButton) e.getSource();
 
         int nextDialogueID = dialogueFrame.readPlayerResponseToFindNextDialogueID(buttonClicked.getText());
-        if (nextDialogueID == -1) {
-            dialogueFrame.dispose();
-        } else {
+        if (nextDialogueID != -1) {
             dialogueFrame.updateDialogueFrame(nextDialogueID);
+        } else {
+            dialogueFrame.dispose();
         }
     }
 
