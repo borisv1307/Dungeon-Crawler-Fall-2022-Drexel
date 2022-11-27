@@ -1,32 +1,30 @@
 package main;
 
+import javax.swing.*;
+
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
-import ui.GameFrame;
-import ui.GamePanel;
-import ui.TilePainter;
-import ui.WindowAdapterSystemExit;
+import ui.*;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {}
-
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
-
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
-
+	private static ScorePanel defaultScorePanel = new ScorePanel(new JPanel());
+	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultScorePanel);
 	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
-			new WindowAdapterSystemExit(defaultGameEngine));
-
+			new WindowAdapterSystemExit(defaultGameEngine), defaultScorePanel);
 	private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
 			TunableParameters.TARGET_FPS, new SystemWrapper());
+
+	private ObjectFactory() {
+	}
 
 	public static ThreadWrapper getDefaultThreadWrapper() {
 		return defaultThreadWrapper;
@@ -44,4 +42,7 @@ public abstract class ObjectFactory {
 		return defaultFramesPerSecondHandler;
 	}
 
+	public static ScorePanel getDefaultScorePanel() {
+		return defaultScorePanel;
+	}
 }

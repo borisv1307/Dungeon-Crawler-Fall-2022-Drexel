@@ -4,9 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.WindowListener;
+
+import javax.swing.*;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,11 +25,18 @@ public class GameFrameUITest {
 		int height = TunableParameters.SCREEN_HEIGHT;
 		final GamePanel gamePanel = Mockito.mock(GamePanel.class);
 		WindowAdapterSystemExit windowAdapter = Mockito.mock(WindowAdapterSystemExit.class);
-		gameFrame = new GameFrame(gamePanel, windowAdapter) {
+		ScorePanel scorePanel = Mockito.mock(ScorePanel.class);
+
+		gameFrame = new GameFrame(gamePanel, windowAdapter, scorePanel) {
 			@Override
 			public Component add(Component comp) {
 				assertThat((GamePanel) comp, equalTo(gamePanel));
 				return gamePanel;
+			}
+
+			@Override
+			public void add(Component comp, Object constraints) {
+				assertThat((JPanel) comp, equalTo(scorePanel.getPanel()));
 			}
 
 			@Override

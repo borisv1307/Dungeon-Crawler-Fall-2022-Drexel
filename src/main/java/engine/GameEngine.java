@@ -7,10 +7,12 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import ui.ScorePanel;
 
 public class GameEngine {
 
 	private final LevelCreator levelCreator;
+	private final ScorePanel scorePanel;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private final int level;
 	private boolean exit;
@@ -18,10 +20,11 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, ScorePanel scorePanel) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
+		this.scorePanel = scorePanel;
 		this.levelCreator.createLevel(this, level);
 	}
 

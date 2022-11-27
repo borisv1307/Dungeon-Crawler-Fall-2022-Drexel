@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import ui.ScorePanel;
 
 public class GameEngineTest {
 
@@ -23,7 +24,8 @@ public class GameEngineTest {
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
+		ScorePanel scorePanel = Mockito.mock(ScorePanel.class);
+		gameEngine = new GameEngine(levelCreator, scorePanel);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
