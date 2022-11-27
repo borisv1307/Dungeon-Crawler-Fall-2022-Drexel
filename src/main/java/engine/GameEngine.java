@@ -17,6 +17,7 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private Point enemy;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -35,7 +36,12 @@ public class GameEngine {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
             tiles.put(new Point(x, y), TileType.PASSABLE);
-        } else {
+        }
+        else if (tileType.equals(TileType.ENEMY)) {
+            setEnemy(x, y);
+            tiles.put(new Point(x, y), TileType.PASSABLE);
+        }
+        else {
             tiles.put(new Point(x, y), tileType);
         }
     }
@@ -64,12 +70,24 @@ public class GameEngine {
         player = new Point(x, y);
     }
 
+    private void setEnemy(int x, int y) {
+        enemy = new Point(x, y);
+    }
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
 
     public int getPlayerYCoordinate() {
         return (int) player.getY();
+    }
+
+    public int getEnemyXCoordinate() {
+        return (int) enemy.getX();
+    }
+
+    public int getEnemyYCoordinate() {
+        return (int) enemy.getY();
     }
 
     public void keyLeft() {

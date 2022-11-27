@@ -68,7 +68,15 @@ public class GameEngineTest {
         assertThat(actualY, equalTo(ONE));
     }
 
-    //TODO: add_and_get_enemy_coordinates()
+    @Test
+    public void add_and_get_enemy_coordinates() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.addTile(ZERO, ONE, tileType);
+        int actualX = gameEngine.getEnemyXCoordinate();
+        int actualY = gameEngine.getEnemyYCoordinate();
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ONE));
+    }
 
     @Test
     public void set_and_get_exit() {
