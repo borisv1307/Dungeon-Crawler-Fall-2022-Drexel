@@ -97,6 +97,17 @@ public class GameEngine {
 	}
 
 	public void shoot() {
+//		int xx = 2;
+//		int yy = 2;
+//		addTile(xx, yy, TileType.ENEMY);
+//		addTile(getLevelHorizontalDimension() - 3, getLevelVerticalDimension() - 3, TileType.ENEMY);
+//		addTile(2, getLevelVerticalDimension() - 3, TileType.ENEMY);
+//		addTile(getLevelHorizontalDimension() - 3, 2, TileType.ENEMY);
+//
+//		addTile(new RandomWrapper().getRandomNumberInRange(2, getLevelHorizontalDimension() - 3),
+//				new RandomWrapper().getRandomNumberInRange(2, getLevelVerticalDimension() - 3), TileType.ENEMY);
+//		System.out.println("(" + getLevelHorizontalDimension() + "," + getLevelVerticalDimension() + ")");
+//		System.out.println(new RandomWrapper().getRandomNumberInRange(1, getLevelHorizontalDimension() - 3));
 		int x = this.getPlayerXCoordinate();
 		int y = this.getPlayerYCoordinate() - 1;
 		addTile(x, y, TileType.PROJECTILE);

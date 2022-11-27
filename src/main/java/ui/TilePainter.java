@@ -5,8 +5,16 @@ import java.awt.*;
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
+import values.TunableParameters;
+import wrappers.RandomWrapper;
 
 public class TilePainter {
+
+	private RandomWrapper randomWrapper;
+
+	public void setRandomWrapper(RandomWrapper randomWrapper) {
+		this.randomWrapper = randomWrapper;
+	}
 
 	void paintTiles(Graphics graphics, GameEngine game, int tileWidth, int tileHeight) {
 		for (int x = 0; x < game.getLevelHorizontalDimension(); x++) {
@@ -18,6 +26,8 @@ public class TilePainter {
 				paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 			}
 		}
+
+		this.addRandomEnemies(game);
 	}
 
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
@@ -32,6 +42,27 @@ public class TilePainter {
 			gameEngine.addTile(x, newY, TileType.PROJECTILE);
 		} else if (nextTile == TileType.NOT_PASSABLE) {
 			gameEngine.addTile(x, y, TileType.PASSABLE);
+		}
+	}
+
+	void addRandomEnemies(GameEngine game) {
+		int lowerBound = TunableParameters.RANDOM_ENEMY_SPAWN_LOWER_BOUND;
+		int upperBoundHorizontal = game.getLevelHorizontalDimension()
+				- TunableParameters.HORIZONTAL_RANDOM_ENEMY_SPAWN_OFFSET;
+		int upperBoundVertical = game.getLevelVerticalDimension()
+				- TunableParameters.VERTICAL_RANDOM_ENEMY_SPAWN_OFFSET;
+
+		int x = randomWrapper.getRandomNumberInRange(lowerBound, upperBoundHorizontal);
+		int y = randomWrapper.getRandomNumberInRange(lowerBound, upperBoundVertical);
+
+		int playerX = game.getPlayerXCoordinate();
+		int playerY = game.getPlayerYCoordinate();
+
+		double d = Math.sqrt(Math.pow((x - playerX), 2) + Math.pow((y - playerY), 2));
+
+		TileType currentTile = game.getTileFromCoordinates(x, y);
+		if (currentTile == TileType.PASSABLE && d > TunableParameters.DISTANCE_ALLOWED_FROM_PLAYER) {
+			game.addTile(x, y, TileType.ENEMY);
 		}
 	}
 

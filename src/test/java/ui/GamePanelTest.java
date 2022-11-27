@@ -2,9 +2,7 @@ package ui;
 
 import static org.junit.Assert.assertSame;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +10,7 @@ import org.mockito.Mockito;
 
 import engine.GameEngine;
 import tiles.TileType;
+import wrappers.RandomWrapper;
 
 public class GamePanelTest {
 
@@ -40,6 +39,10 @@ public class GamePanelTest {
 	@Test
 	public void paint() {
 		Graphics graphics = Mockito.mock(Graphics.class);
+
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);

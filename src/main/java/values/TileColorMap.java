@@ -1,14 +1,11 @@
 package values;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.EnumMap;
 
 import tiles.TileType;
 
 public final class TileColorMap {
-	private TileColorMap() {
-	}
-
 	private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
 
 	static {
@@ -16,6 +13,10 @@ public final class TileColorMap {
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.GREEN);
 		tileColors.put(TileType.PROJECTILE, Color.BLUE);
+		tileColors.put(TileType.ENEMY, Color.RED);
+	}
+
+	private TileColorMap() {
 	}
 
 	public static Color get(TileType key) {
