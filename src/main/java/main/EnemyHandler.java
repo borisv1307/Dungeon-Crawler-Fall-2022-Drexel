@@ -1,13 +1,13 @@
 package main;
 import values.TunableParameters;
 import wrappers.RandomWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyHandler {
     public static List<Enemy> enemies = new ArrayList<>();
     public double chanceOfSpawn = TunableParameters.INITIAL_CHANCE_OF_SPAWN;
+
 
     public Enemy createEnemy(int x, int y, int enemyWidth, int enemyHeight) {
         Enemy enemy = new Enemy(x, y, enemyWidth, enemyHeight, 4);
