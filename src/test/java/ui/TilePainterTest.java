@@ -182,6 +182,36 @@ public class TilePainterTest {
 		Mockito.verify(game, Mockito.times(0)).addTile(0, 0, TileType.ENEMY);
 	}
 
+	@Test
+	public void colliding_with_enemy_kills_the_enemy() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getPlayerXCoordinate()).thenReturn(0);
+		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.advanceProjectile(game, 1, 2);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(1, 1, TileType.PASSABLE);
+	}
+
+	@Test
+	public void killing_an_enemy_increments_score() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getPlayerXCoordinate()).thenReturn(0);
+		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.advanceProjectile(game, 1, 2);
+
+		Mockito.verify(game, Mockito.times(1)).incrementScore();
+	}
+
 	private GameEngine setup_game() {
 		GameEngine game = Mockito.mock(GameEngine.class);
 		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(X);

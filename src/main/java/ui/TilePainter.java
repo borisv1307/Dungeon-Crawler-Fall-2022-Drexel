@@ -42,6 +42,10 @@ public class TilePainter {
 			gameEngine.addTile(x, newY, TileType.PROJECTILE);
 		} else if (nextTile == TileType.NOT_PASSABLE) {
 			gameEngine.addTile(x, y, TileType.PASSABLE);
+		} else if (nextTile == TileType.ENEMY) {
+			gameEngine.addTile(x, newY, TileType.PASSABLE);
+			gameEngine.addTile(x, y, TileType.PASSABLE);
+			gameEngine.incrementScore();
 		}
 	}
 

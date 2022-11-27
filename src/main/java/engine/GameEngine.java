@@ -28,6 +28,10 @@ public class GameEngine {
 		this.levelCreator.createLevel(this, level);
 	}
 
+	public void incrementScore() {
+		this.scorePanel.incrementScore();
+	}
+
 	public void run(GameFrame gameFrame) {
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
