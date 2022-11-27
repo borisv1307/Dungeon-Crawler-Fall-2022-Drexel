@@ -111,8 +111,8 @@ public class GameEngine {
 	}
 
 	public void keyEnter() {
-		setIsDialogueActive(true);
-		if (isDialogueActive) {
+		if (!isDialogueActive) {
+			isDialogueActive = true;
 			DialoguePanel dialoguePanel = new DialoguePanel();
 			DialogueFrame dialogueFrame = new DialogueFrame(dialoguePanel, this);
 			dialogueFrame.updateDialogueFrame(1);

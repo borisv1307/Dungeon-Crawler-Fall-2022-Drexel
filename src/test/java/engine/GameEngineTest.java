@@ -5,12 +5,15 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
+import ui.DialogueFrame;
 import ui.GameFrame;
 
 import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class GameEngineTest {
 
@@ -18,20 +21,22 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
+	DialogueFrame dialogueFrame;
 
 	@Before
 	public void setUp() throws Exception {
-		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+		LevelCreator levelCreator = mock(LevelCreator.class);
 		gameEngine = new GameEngine(levelCreator);
+		dialogueFrame = mock(DialogueFrame.class);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
 
 	@Test
 	public void run() {
-		GameFrame gameFrame = Mockito.mock(GameFrame.class);
-		Component component = Mockito.mock(Component.class);
-		Mockito.when(gameFrame.getComponents()).thenReturn(new Component[] { component });
+		GameFrame gameFrame = mock(GameFrame.class);
+		Component component = mock(Component.class);
+		Mockito.when(gameFrame.getComponents()).thenReturn(new Component[]{component});
 		gameEngine.run(gameFrame);
 		Mockito.verify(component, Mockito.times(1)).repaint();
 	}
@@ -88,10 +93,8 @@ public class GameEngineTest {
 
 	@Test
 	public void enter_key_creates_new_frame_from_dialogue_system() {
-		gameEngine = Mockito.mock(GameEngine.class, Mockito.CALLS_REAL_METHODS);
 		gameEngine.keyEnter();
-		Mockito.verify(gameEngine, Mockito.times(1)).keyEnter();
-		Mockito.verify(gameEngine, Mockito.times(1)).setIsDialogueActive(true);
+		assertEquals(true, gameEngine.isDialogueActive());
 	}
 
 	@Test

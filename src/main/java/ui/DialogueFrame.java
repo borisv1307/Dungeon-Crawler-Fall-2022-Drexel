@@ -10,17 +10,18 @@ import java.util.List;
 
 public class DialogueFrame extends Frame {
     private final ArrayList<DialogueButton> buttons;
-    private final List<Dialogue> dialogues;
-    private static final long serialVersionUID = 1L;
-    private List<Response> currentDialogueResponses;
-    private Dialogue currentDialogue;
+    private final transient List<Dialogue> dialogues;
+    private transient List<Response> currentDialogueResponses;
+    private transient Dialogue currentDialogue;
     private final JTextArea dialogueTextArea;
     private final GridBagConstraints constraints;
     private final DialoguePanel dialoguePanel;
-    private final DialogueSystem dialogueSystem;
+    private final GameEngine gameEngine;
+    private transient final DialogueSystem dialogueSystem;
 
     public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
         this.dialoguePanel = dialoguePanel;
+        this.gameEngine = gameEngine;
 
         buttons = dialoguePanel.getDialoguePanelButtons();
 
@@ -82,7 +83,7 @@ public class DialogueFrame extends Frame {
         }
         return targetID;
     }
-    
+
     private JTextArea createJTextArea(GridBagConstraints constraints) {
         JTextArea jtextArea = new JTextArea();
         jtextArea.setText("default text area");
