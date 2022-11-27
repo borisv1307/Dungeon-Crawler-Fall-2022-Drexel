@@ -2,9 +2,9 @@ XXXXXXXXXXXXXXXXXXXX
 X                  X
 X                  X
 X                  X
+X    K       D     X
 X                  X
 X                  X
-X                  X
-X         P        X
+X        P         X
 X                  X
 XXXXXXXXXXXXXXXXXXXX
