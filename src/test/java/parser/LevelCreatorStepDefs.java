@@ -69,6 +69,16 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
+	@Then("^the enemy's x coordinate is (\\d+)$")
+	public void enemy_x_is(int enemyX) throws Throwable {
+		assertThat(gameEngine.getEnemyXCoordinate(), equalTo(enemyX - COORDINATE_OFFSET));
+	}
+
+	@Then("^the enemy's y coordinate is (\\d+)$")
+	public void enemy_y_is(int enemyY) throws Throwable {
+		assertThat(gameEngine.getEnemyYCoordinate(), equalTo(enemyY - COORDINATE_OFFSET));
+	}
+
 	@Then("^\\((\\d+), (\\d+)\\) is \"([^\"]*)\"$")
 	public void is(int x, int y, String tileChar) throws Throwable {
 		char ch = tileChar.charAt(0);

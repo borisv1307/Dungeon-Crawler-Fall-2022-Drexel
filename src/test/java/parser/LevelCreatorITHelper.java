@@ -30,7 +30,7 @@ public class LevelCreatorITHelper {
 	protected List<String> createSimpleLevel() {
 		List<String> levelStrings = new ArrayList<>();
 		levelStrings.add("XXXX");
-		levelStrings.add("X PX");
+		levelStrings.add("XEPX");
 		levelStrings.add("XXXX");
 		return levelStrings;
 	}
@@ -69,6 +69,19 @@ public class LevelCreatorITHelper {
 
 	protected void checkPlayerYCoordinate(int playerY) throws Throwable {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY));
+	}
+
+	protected void enemyIsLocatedAt(int enemyX, int enemyY) throws Throwable {
+		checkEnemyXCoordinate(enemyX);
+		checkEnemyYCoordinate(enemyY);
+	}
+
+	protected void checkEnemyXCoordinate(int enemyX) throws Throwable {
+		assertThat(gameEngine.getEnemyXCoordinate(), equalTo(enemyX));
+	}
+
+	protected void checkEnemyYCoordinate(int enemyY) throws Throwable {
+		assertThat(gameEngine.getEnemyYCoordinate(), equalTo(enemyY));
 	}
 
 	protected void checkTileTypeByLocation(int x, int y, char tileChar) throws Throwable {

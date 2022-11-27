@@ -4,12 +4,14 @@ Feature: Create a Level
   Scenario: Level 1
     Given level is:
       | XXXX |
-      | X PX |
+      | XEPX |
       | XXXX |
     When I create the level
     Then starting from the top-left:
     And the player's x coordinate is 3
     And the player's y coordinate is 2
+    And the enemy's x coordinate is 2
+    And the enemy's y coordinate is 2
     And (1, 1) is "X"
     And (2, 1) is "X"
     And (3, 1) is "X"

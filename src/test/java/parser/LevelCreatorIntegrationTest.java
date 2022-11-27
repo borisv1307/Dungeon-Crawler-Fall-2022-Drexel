@@ -17,6 +17,7 @@ public class LevelCreatorIntegrationTest extends LevelCreatorITHelper {
 		createLevel();
 
 		playerIsLocatedAt(2, 1);
+		enemyIsLocatedAt(1,1);
 		levelStrings.set(1, "X  X");
 		checkAllTiles(levelStrings);
 	}
