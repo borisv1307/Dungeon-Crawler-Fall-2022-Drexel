@@ -1,13 +1,15 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class DialogueButton extends JButton {
-
     public DialogueButton(String label) {
-        setPreferredSize(new Dimension(275, 150));
-        setText("default");
+        setText("default dialogue button");
         setName(label);
     }
+
+    public String getButtonContent() {
+        return this.getText();
+    }
+
 }

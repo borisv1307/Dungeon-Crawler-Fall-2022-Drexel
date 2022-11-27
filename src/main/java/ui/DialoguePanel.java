@@ -8,10 +8,14 @@ public class DialoguePanel extends Panel {
     private final DialogueButton buttonTwo;
     private final DialogueButton buttonThree;
     ArrayList<DialogueButton> buttons;
+    GridBagConstraints constraints;
 
     public DialoguePanel() {
-        buttons = new ArrayList<>();
+        setName("Dialogue Panel");
 
+        buttons = new ArrayList<>();
+        constraints = new GridBagConstraints();
+        
         buttonOne = createButton(0);
         buttonOne.setPreferredSize(new Dimension(275, 150));
         buttons.add(buttonOne);
@@ -33,10 +37,15 @@ public class DialoguePanel extends Panel {
         return buttons;
     }
 
+    public DialogueButton getDialogueButton(int index) {
+        return buttons.get(index);
+    }
+
     DialogueButton createButton(int columnPosition) {
-        GridBagConstraints constraints = new GridBagConstraints();
         DialogueButton button = new DialogueButton("default dialogue button");
-        
+        button.setName("Dialogue Button " + columnPosition);
+        button.setActionCommand("Click Event");
+
         constraints.gridx = columnPosition;
         constraints.gridy = 0;
 

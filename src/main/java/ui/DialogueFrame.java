@@ -55,6 +55,10 @@ public class DialogueFrame extends Frame {
         pack();
     }
 
+    public Dialogue getCurrentDialogue() {
+        return currentDialogue;
+    }
+
     public JTextArea getDialogueTextArea() {
         return dialogueTextArea;
     }
@@ -73,7 +77,7 @@ public class DialogueFrame extends Frame {
             }
         }
     }
-
+    
     public int readPlayerResponseToFindNextDialogueID(String currentResponse) {
         int targetID = 0;
         for (Response response : currentDialogueResponses) {

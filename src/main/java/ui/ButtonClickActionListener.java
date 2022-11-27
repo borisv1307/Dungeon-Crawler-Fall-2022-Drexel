@@ -13,6 +13,7 @@ public class ButtonClickActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Button Clicked!");
         JButton buttonClicked = (JButton) e.getSource();
 
         int nextDialogueID = dialogueFrame.readPlayerResponseToFindNextDialogueID(buttonClicked.getText());

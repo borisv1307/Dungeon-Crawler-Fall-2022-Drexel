@@ -12,7 +12,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class GameEngineTest {
@@ -64,6 +64,13 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void set_and_get_is_dialogue_active() {
+		gameEngine.setIsDialogueActive(true);
+		boolean actual = gameEngine.isDialogueActive;
+		assertTrue(actual);
+	}
+
+	@Test
 	public void add_and_get_player_coordinates() {
 		TileType tileType = TileType.PLAYER;
 		gameEngine.addTile(ZERO, ONE, tileType);
@@ -89,12 +96,6 @@ public class GameEngineTest {
 		gameEngine.setExit(exit);
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
-	}
-
-	@Test
-	public void enter_key_creates_new_frame_from_dialogue_system() {
-		gameEngine.keyEnter();
-		assertEquals(true, gameEngine.isDialogueActive());
 	}
 
 	@Test

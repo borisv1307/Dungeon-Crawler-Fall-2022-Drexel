@@ -13,8 +13,7 @@ import java.awt.event.WindowEvent;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class DialogueFrameGUITest {
     DialogueFrame dialogueFrame;
@@ -62,8 +61,7 @@ public class DialogueFrameGUITest {
         final Font textAreaFont = textArea.getFont();
 
         assertThat(dialogueFrame.isResizable(), equalTo(false));
-        System.out.println(dialogueFrame.getWindowListeners()[0]);
-        assertEquals(true, dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
+        assertTrue(dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
 
         assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
 
@@ -85,17 +83,22 @@ public class DialogueFrameGUITest {
     }
 
     @Test
-    public void dialogue_panel_has_three_buttons() {
+    public void dialogue_panel_has_three_buttons_with_correct_settings() {
         final DialogueButton actual = Mockito.mock(DialogueButton.class);
         Mockito.when(actual.getName()).thenReturn("default dialogue button");
+        Mockito.when(actual.getActionCommand()).thenReturn("Click Event");
+
         dialoguePanel = new DialoguePanel() {
             @Override
             public Component add(Component comp) {
                 DialogueButton currentButton = (DialogueButton) comp;
-                assertThat(currentButton.getName(), equalTo(actual.getName()));
+                assertThat(currentButton.getButtonContent(), equalTo(actual.getName()));
+                assertThat(currentButton.getActionCommand(), equalTo(actual.getActionCommand()));
                 return actual;
             }
         };
+        Mockito.verify(actual, Mockito.times(3)).getName();
+        Mockito.verify(actual, Mockito.times(3)).getActionCommand();
     }
 
 
