@@ -15,8 +15,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.java.StepDefAnnotation;
 import engine.GameEngine;
-import main.ObjectFactory;
 import tiles.TileType;
+import ui.ScorePanel;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -39,7 +39,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		try {
-			gameEngine = new GameEngine(levelCreator, ObjectFactory.getDefaultScorePanel());
+			gameEngine = new GameEngine(levelCreator, Mockito.mock(ScorePanel.class));
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -53,7 +53,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator, ObjectFactory.getDefaultScorePanel());
+		gameEngine = new GameEngine(levelCreator, Mockito.mock(ScorePanel.class));
 	}
 
 	@Then("^starting from the top-left:$")

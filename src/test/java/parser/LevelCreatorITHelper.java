@@ -10,8 +10,8 @@ import java.util.List;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
-import main.ObjectFactory;
 import tiles.TileType;
+import ui.ScorePanel;
 import values.TestingTunableParameters;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
@@ -49,7 +49,7 @@ public class LevelCreatorITHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		try {
-			gameEngine = new GameEngine(levelCreator, ObjectFactory.getDefaultScorePanel());
+			gameEngine = new GameEngine(levelCreator, Mockito.mock(ScorePanel.class));
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -89,7 +89,7 @@ public class LevelCreatorITHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator, ObjectFactory.getDefaultScorePanel());
+		gameEngine = new GameEngine(levelCreator, Mockito.mock(ScorePanel.class));
 	}
 
 }
