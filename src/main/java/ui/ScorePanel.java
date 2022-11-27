@@ -9,11 +9,13 @@ import values.TunableParameters;
 
 public class ScorePanel {
 
+	private static final String SCORE = "Score: ";
+	private static final String LIVES = "Lives: ";
 	private final JPanel panel;
 	private int playerScore = TunableParameters.STARTING_SCORE;
-	private final JLabel scoreText = new JLabel("Score: " + playerScore);
+	private final JLabel scoreText = new JLabel(SCORE + playerScore);
 	private int playerLives = TunableParameters.STARTING_LIVES;
-	private final JLabel livesText = new JLabel("Lives: " + playerLives);
+	private final JLabel livesText = new JLabel(LIVES + playerLives);
 
 	public ScorePanel(JPanel panel) {
 		this.panel = panel;
@@ -55,16 +57,16 @@ public class ScorePanel {
 
 	public void incrementScore() {
 		playerScore++;
-		scoreText.setText("Score: " + playerScore);
+		scoreText.setText(SCORE + playerScore);
 	}
 
 	public void incrementLives() {
 		playerLives++;
-		livesText.setText("Lives: " + playerLives);
+		livesText.setText(LIVES + playerLives);
 	}
 
 	public void decrementLives() {
 		playerLives--;
-		livesText.setText("Lives: " + playerLives);
+		livesText.setText(LIVES + playerLives);
 	}
 }
