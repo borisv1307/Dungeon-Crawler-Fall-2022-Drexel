@@ -3,3 +3,6 @@
 .classpath
 .project
 /bin/
+.idea
+/DungeonCrawlerFall2022Drexel.iml
+src/test/resources/levels/1.txt
