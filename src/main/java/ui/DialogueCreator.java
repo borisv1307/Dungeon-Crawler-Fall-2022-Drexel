@@ -27,7 +27,7 @@ public class DialogueCreator {
         this.xmlParserWrapper = xmlParserWrapper;
     }
 
-    public ArrayList<Dialogue> createDialogueList() {
+    public List<Dialogue> createDialogueList() {
         ArrayList<Dialogue> dialogues = new ArrayList<>();
         try {
             populateListFromFile(dialogues);

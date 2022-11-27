@@ -22,12 +22,12 @@ public class WindowAdapterDialogueFrameExit extends WindowAdapter {
         gameEngine.setIsDialogueActive(false);
         dialogueFrame.dispose();
     }
-    
+
     @Override
     public boolean equals(Object object) {
         boolean isEquals = false;
         WindowAdapterDialogueFrameExit comparisonAdapter = (WindowAdapterDialogueFrameExit) object;
-        if (comparisonAdapter.getType().equals(comparisonAdapter.getType())) {
+        if (comparisonAdapter.getType().equals(type)) {
             isEquals = true;
         }
         return isEquals;

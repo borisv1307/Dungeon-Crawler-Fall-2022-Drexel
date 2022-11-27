@@ -11,6 +11,7 @@ import java.util.List;
 public class DialogueFrame extends Frame {
     private final ArrayList<DialogueButton> buttons;
     private final List<Dialogue> dialogues;
+    private static final long serialVersionUID = 1L;
     private List<Response> currentDialogueResponses;
     private Dialogue currentDialogue;
     private final JTextArea dialogueTextArea;
@@ -20,6 +21,7 @@ public class DialogueFrame extends Frame {
 
     public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
         this.dialoguePanel = dialoguePanel;
+
         buttons = dialoguePanel.getDialoguePanelButtons();
 
         dialogueSystem = new DialogueSystem();
@@ -80,7 +82,7 @@ public class DialogueFrame extends Frame {
         }
         return targetID;
     }
-
+    
     private JTextArea createJTextArea(GridBagConstraints constraints) {
         JTextArea jtextArea = new JTextArea();
         jtextArea.setText("default text area");
@@ -102,8 +104,8 @@ public class DialogueFrame extends Frame {
 
     private void resetButtons() {
         int index = 0;
-        for (DialogueButton dialogueButton : buttons) {
-            JButton button = buttons.get(index);
+        for (DialogueButton ignored : buttons) {
+            DialogueButton button = buttons.get(index);
             button.setVisible(false);
             index++;
         }
