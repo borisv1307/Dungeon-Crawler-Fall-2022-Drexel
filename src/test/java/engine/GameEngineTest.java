@@ -87,4 +87,16 @@ public class GameEngineTest {
 		int y = gameEngine.getPlayerYCoordinate();
 		assertThat(gameEngine.getTileFromCoordinates(x, y - 1), equalTo(TileType.PROJECTILE));
 	}
+
+	@Test
+	public void cannot_add_a_projectile_above_player_if_player_against_unpassable_tile() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.NOT_PASSABLE);
+		gameEngine.shoot();
+
+		int x = gameEngine.getPlayerXCoordinate();
+		int y = gameEngine.getPlayerYCoordinate();
+		assertThat(gameEngine.getTileFromCoordinates(x, y - 1), equalTo(TileType.NOT_PASSABLE));
+	}
 }

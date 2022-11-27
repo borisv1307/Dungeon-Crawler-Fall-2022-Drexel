@@ -100,6 +100,25 @@ public class TilePainterTest {
 	}
 
 	@Test
+	public void projectile_can_go_through_other_projectile() {
+		GameEngine game = setup_game();
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(10);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(10);
+		Mockito.when(game.getPlayerXCoordinate()).thenReturn(0);
+		Mockito.when(game.getPlayerYCoordinate()).thenReturn(3);
+		Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.PROJECTILE);
+
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.advanceProjectile(game, 1, 2);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(1, 2, TileType.PASSABLE);
+	}
+
+	@Test
 	public void spawn_an_enemy_randomly() {
 		GameEngine game = setup_game();
 		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);

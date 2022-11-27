@@ -37,7 +37,7 @@ public class TilePainter {
 	void advanceProjectile(GameEngine gameEngine, int x, int y) {
 		int newY = y - 1;
 		TileType nextTile = gameEngine.getTileFromCoordinates(x, newY);
-		if (nextTile == TileType.PASSABLE) {
+		if (nextTile == TileType.PASSABLE || nextTile == TileType.PROJECTILE) {
 			gameEngine.addTile(x, y, TileType.PASSABLE);
 			gameEngine.addTile(x, newY, TileType.PROJECTILE);
 		} else if (nextTile == TileType.NOT_PASSABLE) {

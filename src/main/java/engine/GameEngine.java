@@ -99,7 +99,11 @@ public class GameEngine {
 	public void shoot() {
 		int x = this.getPlayerXCoordinate();
 		int y = this.getPlayerYCoordinate() - 1;
-		addTile(x, y, TileType.PROJECTILE);
+
+		TileType nextTile = getTileFromCoordinates(x, y);
+		if (nextTile != TileType.NOT_PASSABLE) {
+			addTile(x, y, TileType.PROJECTILE);
+		}
 	}
 
 	public boolean isExit() {
