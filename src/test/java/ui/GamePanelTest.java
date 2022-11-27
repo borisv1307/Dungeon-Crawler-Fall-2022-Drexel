@@ -8,8 +8,6 @@ import tiles.TileType;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertSame;
-
 public class GamePanelTest {
 
     int width = 50;
@@ -70,27 +68,4 @@ public class GamePanelTest {
         Mockito.verify(graphics, Mockito.times(2)).drawImage(dbImage, 0, 0, gamePanel);
     }
 
-    @Test
-    public void key_left() {
-        gamePanel.keyDown(null, Event.LEFT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyLeft();
-    }
-
-    @Test
-    public void key_right() {
-        gamePanel.keyDown(null, Event.RIGHT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyRight();
-    }
-
-    @Test
-    public void key_up() {
-        gamePanel.keyDown(null, Event.UP);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyUp();
-    }
-
-    @Test
-    public void key_escape() {
-        boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
-        assertSame(true, actual);
-    }
 }

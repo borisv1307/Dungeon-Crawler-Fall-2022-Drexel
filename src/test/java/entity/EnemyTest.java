@@ -12,9 +12,16 @@ public class EnemyTest {
 
     EnemyRandomWrapper enemyRandomWrapper;
 
+    int maxExpected;
+    int minExpected;
+
     @Before
     public void setUp() {
         enemyRandomWrapper = new EnemyRandomWrapper();
+        enemy = new Enemy(5);
+        enemy.createEnemy(enemyRandomWrapper);
+        maxExpected = enemy.getLevel() * 10;
+        minExpected = (int) (maxExpected * 0.8);
     }
 
     @Test
@@ -28,13 +35,13 @@ public class EnemyTest {
 
     @Test
     public void level_5_enemy_attack_is_between_max_and_min() {
-        enemy = new Enemy(5);
-        enemy.createEnemy(enemyRandomWrapper);
-
-        int maxExpected = enemy.getLevel() * 10;
-        int minExpected = (int) (maxExpected * 0.8);
-
         assertTrue(enemy.getAttackPoint() < maxExpected);
-        assertTrue(enemy.getAttackPoint() > minExpected);
+        assertTrue(enemy.getAttackPoint() >= minExpected);
+    }
+
+    @Test
+    public void level_5_enemy_health_is_between_max_and_min() {
+        assertTrue(enemy.getHealthPoint() < maxExpected);
+        assertTrue(enemy.getHealthPoint() >= minExpected);
     }
 }

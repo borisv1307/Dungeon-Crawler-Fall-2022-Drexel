@@ -84,6 +84,14 @@ public class GameEngine {
         movement(0, -1);
     }
 
+    public void keyDown() {
+        movement(0, 1);
+    }
+
+    public void keySpace() {
+
+    }
+
     private void movement(int deltaX, int deltaY) {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
@@ -98,4 +106,5 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
 }
