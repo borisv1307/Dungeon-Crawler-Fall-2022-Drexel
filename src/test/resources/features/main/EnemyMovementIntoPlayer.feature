@@ -8,7 +8,7 @@ Feature: Move the enemy into player
       | X   X |
       | XXXXX |
     When the player moves right
-    Then level 2 is generated
+    Then level 1 is generated
     And win count is 0
     And lose count is 1
 
@@ -20,7 +20,7 @@ Feature: Move the enemy into player
       | X   X |
       | XXXXX |
     When the enemy moves left
-    Then level 2 is generated
+    Then level 1 is generated
     And win count is 0
     And lose count is 1
 
@@ -32,7 +32,7 @@ Feature: Move the enemy into player
       | X   X |
       | XXXXX |
     When the enemy moves up
-    Then level 2 is generated
+    Then level 1 is generated
     And win count is 0
     And lose count is 1
 
@@ -44,6 +44,6 @@ Feature: Move the enemy into player
       | X P X |
       | XXXXX |
     When the enemy moves down
-    Then level 2 is generated
+    Then level 1 is generated
     And win count is 0
     And lose count is 1
