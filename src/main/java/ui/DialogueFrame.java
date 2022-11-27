@@ -16,8 +16,8 @@ public class DialogueFrame extends Frame {
     private final JTextArea dialogueTextArea;
     private final GridBagConstraints constraints;
     private final DialoguePanel dialoguePanel;
-    private final GameEngine gameEngine;
-    private transient final DialogueSystem dialogueSystem;
+    private transient GameEngine gameEngine;
+    private final transient DialogueSystem dialogueSystem;
 
     public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
         this.dialoguePanel = dialoguePanel;
@@ -77,7 +77,7 @@ public class DialogueFrame extends Frame {
             }
         }
     }
-    
+
     public int readPlayerResponseToFindNextDialogueID(String currentResponse) {
         int targetID = 0;
         for (Response response : currentDialogueResponses) {
@@ -109,7 +109,7 @@ public class DialogueFrame extends Frame {
 
     private void resetButtons() {
         int index = 0;
-        for (DialogueButton ignored : buttons) {
+        for (DialogueButton dialogueButton : buttons) {
             DialogueButton button = buttons.get(index);
             button.setVisible(false);
             index++;

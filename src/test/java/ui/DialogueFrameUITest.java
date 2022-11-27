@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.mockito.Mockito;
 import parser.LevelCreator;
 
-public class DialogueFrameTest {
+public class DialogueFrameUITest {
 
     GameEngine gameEngine;
     DialogueFrame dialogueFrame;

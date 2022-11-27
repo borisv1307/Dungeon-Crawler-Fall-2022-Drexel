@@ -8,7 +8,7 @@ import parser.LevelCreator;
 
 import static org.junit.Assert.assertEquals;
 
-public class DialoguePanelTest {
+public class DialoguePanelUITest {
     GameEngine gameEngine;
     DialoguePanel dialoguePanel;
     DialogueFrame dialogueFrame;

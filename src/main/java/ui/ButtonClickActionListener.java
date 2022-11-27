@@ -1,6 +1,5 @@
 package ui;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +12,7 @@ public class ButtonClickActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Button Clicked!");
-        JButton buttonClicked = (JButton) e.getSource();
+        DialogueButton buttonClicked = (DialogueButton) e.getSource();
 
         int nextDialogueID = dialogueFrame.readPlayerResponseToFindNextDialogueID(buttonClicked.getText());
         if (nextDialogueID == -1) {

@@ -13,7 +13,8 @@ import java.awt.event.WindowEvent;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class DialogueFrameGUITest {
     DialogueFrame dialogueFrame;
@@ -61,7 +62,7 @@ public class DialogueFrameGUITest {
         final Font textAreaFont = textArea.getFont();
 
         assertThat(dialogueFrame.isResizable(), equalTo(false));
-        assertTrue(dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
+        assertEquals(true, dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
 
         assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
 
