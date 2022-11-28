@@ -1,55 +1,62 @@
 package ui;
 
-import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import parser.LevelCreator;
 import values.TunableParameters;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static values.TunableParameters.DIALOGUE_BUTTON_HEIGHT;
+import static values.TunableParameters.DIALOGUE_BUTTON_WIDTH;
 
 public class DialogueFrameGUITest {
     DialogueFrame dialogueFrame;
-    GameEngine gameEngine;
-    GridBagConstraints gridBagConstraints;
     int height;
     int width;
-
     DialoguePanel dialoguePanel;
+    DialogueSystem dialogueSystem;
+    DialogueButton dialogueButton;
+    JTextArea jTextArea;
+    DialoguePanel mockDialoguePanel;
+    ArrayList<DialogueButton> buttons;
+    Dimension dimension;
+
+    private static final Dimension EXPECTED_BUTTON_DIMENSIONS = new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT);
 
     @Before
-    public void setUp() {
-        LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
 
-        dialoguePanel = Mockito.mock(DialoguePanel.class);
-        gameEngine = new GameEngine(levelCreator);
-        dialogueFrame = Mockito.mock(DialogueFrame.class);
+    public void setUp() {
+        dialoguePanel = new DialoguePanel();
+        mockDialoguePanel = Mockito.mock(DialoguePanel.class);
+        dialogueSystem = Mockito.mock(DialogueSystem.class);
+        dialogueButton = new DialogueButton();
 
         width = TunableParameters.SCREEN_WIDTH;
         height = TunableParameters.SCREEN_HEIGHT;
 
-        gridBagConstraints = Mockito.mock(GridBagConstraints.class);
+        dialogueFrame = new DialogueFrame(new DialoguePanel(), dialogueSystem);
+        buttons = dialogueFrame.getButtons();
+
+        jTextArea = dialogueFrame.getDialogueTextArea();
     }
 
     @Test
     public void constructor() {
-        final String jTextAreaLabel = "default text area";
-
-        dialogueFrame = new DialogueFrame(dialoguePanel) {
+        dialogueFrame = new DialogueFrame(mockDialoguePanel, dialogueSystem) {
             @Override
             public Component add(Component comp) {
-                assertThat((Panel) comp, equalTo(dialoguePanel));
-                return dialoguePanel;
+                assertThat((Panel) comp, equalTo(mockDialoguePanel));
+                return mockDialoguePanel;
             }
 
             @Override
@@ -58,51 +65,93 @@ public class DialogueFrameGUITest {
             }
         };
 
-        WindowAdapterDialogueFrameExit windowAdapter = new WindowAdapterDialogueFrameExit();
-
-        final JTextArea textArea = dialogueFrame.getDialogueTextArea();
-        final Font textAreaFont = textArea.getFont();
+        WindowAdapterDialogueFrameExit windowAdapter = new WindowAdapterDialogueFrameExit(dialogueSystem);
 
         assertThat(dialogueFrame.isResizable(), equalTo(false));
         assertThat(dialogueFrame.getWindowListeners(), arrayContaining((WindowListener) windowAdapter));
-        
+
         assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
-
-        assertEquals(jTextAreaLabel, textArea.getText());
-        assertFalse(textArea.isEditable());
-        assertEquals(Font.ITALIC, textAreaFont.getStyle());
-        assertEquals(16, textAreaFont.getSize());
-        assertEquals("Text Area Font", textAreaFont.getName());
-
-        Mockito.verify(dialoguePanel).setPreferredSize(new Dimension(width, height));
-        Mockito.verify(dialoguePanel).setBackground(Color.GRAY);
+        Mockito.verify(mockDialoguePanel).setPreferredSize(new Dimension(width, height));
+        Mockito.verify(mockDialoguePanel).setBackground(Color.GRAY);
     }
 
     @Test
-    public void dialogue_frame_closes_when_user_clicks_exit_dialogue_frame_exit() {
-        final DialogueFrame frameActual = new DialogueFrame(new DialoguePanel());
-        frameActual.dispatchEvent(new WindowEvent(frameActual, WindowEvent.WINDOW_CLOSING));
-        assertFalse(frameActual.isShowing());
+    public void dialogue_panel_layout_manager_is_flow_layout() {
+        dialoguePanel = new DialoguePanel();
+        final LayoutManager actual = dialoguePanel.getLayout();
+        assertEquals(actual.toString(), new FlowLayout().toString());
     }
 
     @Test
-    public void dialogue_panel_has_three_buttons_with_correct_settings() {
-        final DialogueButton actual = Mockito.mock(DialogueButton.class);
-        Mockito.when(actual.getName()).thenReturn("default dialogue button");
-        Mockito.when(actual.getActionCommand()).thenReturn("Click Event");
+    public void dialogue_panel_only_has_four_components_on_creation() {
+        assertEquals(4, dialoguePanel.getComponentCount());
+    }
 
+    @Test
+    public void dialogue_panel_has_has_three_components_on_creation() {
+        assertEquals(3, dialoguePanel.getDialoguePanelButtons().size());
+    }
+
+    @Test
+    public void dialogue_panel_components_should_either_equal_dialogue_button_or_j_text_field() {
         dialoguePanel = new DialoguePanel() {
             @Override
             public Component add(Component comp) {
                 DialogueButton currentButton = (DialogueButton) comp;
-                assertThat(currentButton.getButtonContent(), equalTo(actual.getName()));
-                assertThat(currentButton.getActionCommand(), equalTo(actual.getActionCommand()));
-                return actual;
+                assertEquals(currentButton, dialogueButton);
+                return dialogueButton;
+            }
+
+            @Override
+            public void add(Component comp, Object constraint) {
+                JTextArea currentTextArea = (JTextArea) comp;
+                assertThat(currentTextArea.getClass(), equalTo(JTextArea.class));
             }
         };
-        Mockito.verify(actual, Mockito.times(3)).getName();
-        Mockito.verify(actual, Mockito.times(3)).getActionCommand();
     }
 
+    @Test
+    public void dialogue_panel_button_one_is_created_with_correct_dimension() {
+        dialogueButton = buttons.get(0);
+        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
+        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+    }
+
+    @Test
+    public void dialogue_panel_button_two_is_created_with_correct_dimension() {
+        dialogueButton = buttons.get(1);
+        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
+        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+    }
+
+    @Test
+    public void dialogue_panel_button_three_is_created_with_correct_dimension() {
+        dialogueButton = buttons.get(2);
+        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
+        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+    }
+
+    @Test
+    public void dialogue_panel_text_area_has_correct_font() {
+        final JTextArea textArea = dialogueFrame.getDialogueTextArea();
+        final Font textAreaFont = textArea.getFont();
+
+        assertFalse(textArea.isEditable());
+        assertEquals(Font.ITALIC, textAreaFont.getStyle());
+        assertEquals(16, textAreaFont.getSize());
+        assertEquals("Text Area Font", textAreaFont.getName());
+    }
+
+    @Test
+    public void dialogue_frame_closes_when_user_clicks_dialogue_frame_system_exit() {
+        final DialogueFrame frameActual = new DialogueFrame(new DialoguePanel(), dialogueSystem);
+        frameActual.dispatchEvent(new WindowEvent(frameActual, WindowEvent.WINDOW_CLOSING));
+        assertFalse(frameActual.isShowing());
+    }
+
+    private Dimension createDimensionFromWidthAndHeight(int width, int height) {
+        return new Dimension(width, height);
+    }
+    
 
 }

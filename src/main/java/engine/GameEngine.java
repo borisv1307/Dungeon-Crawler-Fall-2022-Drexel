@@ -21,13 +21,15 @@ public class GameEngine {
 	private Point player;
 	private Point nonPlayableCharacter;
 	private final int level;
-	final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
+	private final DialogueSystem dialogueSystem;
 
-	public GameEngine(LevelCreator levelCreator) {
+
+	public GameEngine(LevelCreator levelCreator, DialogueSystem dialogueSystem) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		this.dialogueSystem = dialogueSystem;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -111,7 +113,6 @@ public class GameEngine {
 	public void keyEnter() {
 		if (!dialogueSystem.isDialogueActive()) {
 			dialogueSystem.initiateDialogueFrame();
-			dialogueSystem.setIsDialogueActive(true);
 		}
 	}
 

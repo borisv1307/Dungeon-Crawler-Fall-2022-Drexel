@@ -5,10 +5,11 @@ import java.util.Objects;
 
 public class WindowAdapterDialogueFrameExit extends WindowAdapter {
 
-    private final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
-    private String type;
+    private final String type;
+    private final DialogueSystem dialogueSystem;
 
-    public WindowAdapterDialogueFrameExit() {
+    public WindowAdapterDialogueFrameExit(DialogueSystem dialogueSystem) {
+        this.dialogueSystem = dialogueSystem;
         this.type = "Dialogue Frame Exit Adapter";
     }
 
@@ -16,6 +17,7 @@ public class WindowAdapterDialogueFrameExit extends WindowAdapter {
     public void windowClosing(java.awt.event.WindowEvent e) {
         dialogueSystem.setIsDialogueActive(false);
         dialogueSystem.terminate();
+        dialogueSystem.resetCurrentDialogueToIDOne();
     }
 
 

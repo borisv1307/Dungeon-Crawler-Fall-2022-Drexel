@@ -1,23 +1,19 @@
 package parser;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mockito.Mockito;
-
 import engine.GameEngine;
+import org.mockito.Mockito;
 import tiles.TileType;
+import ui.DialogueSystem;
 import values.TestingTunableParameters;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class LevelCreatorITHelper {
 
@@ -51,8 +47,9 @@ public class LevelCreatorITHelper {
 	protected void createLevel() throws Throwable {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
+		DialogueSystem dialogueSystem = new DialogueSystem();
 		try {
-			gameEngine = new GameEngine(levelCreator);
+			gameEngine = new GameEngine(levelCreator, dialogueSystem);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -92,7 +89,8 @@ public class LevelCreatorITHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator);
+		DialogueSystem dialogueSystem = new DialogueSystem();
+		gameEngine = new GameEngine(levelCreator, dialogueSystem);
 	}
 
 }

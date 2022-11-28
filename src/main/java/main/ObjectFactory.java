@@ -3,10 +3,7 @@ package main;
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
-import ui.GameFrame;
-import ui.GamePanel;
-import ui.TilePainter;
-import ui.WindowAdapterSystemExit;
+import ui.*;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
@@ -16,16 +13,17 @@ public abstract class ObjectFactory {
 	private ObjectFactory() {
 	}
 
+	private static DialogueSystem defaultDialogueSystem = new DialogueSystem();
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultDialogueSystem);
 
 
 	private static GamePanel defaultGamePanel = new GamePanel(defaultGameEngine, new TilePainter());
-	
+
 	private static GameFrame defaultGameFrame = new GameFrame(defaultGamePanel,
 			new WindowAdapterSystemExit(defaultGameEngine));
 

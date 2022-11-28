@@ -5,22 +5,25 @@ import java.awt.event.ActionListener;
 
 public class ButtonClickActionListener implements ActionListener {
 
-    int nextDialogueID;
+    private int nextDialogueID;
+    private final DialogueSystem dialogueSystem;
 
-    public ButtonClickActionListener() {
+    public ButtonClickActionListener(DialogueSystem dialogueSystem) {
+        this.dialogueSystem = dialogueSystem;
         nextDialogueID = 0;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        DialogueSystem dialogueSystem = DialogueSystem.getInstance();
         DialogueButton buttonClicked = (DialogueButton) e.getSource();
 
         nextDialogueID = dialogueSystem.readPlayerResponseToFindNextDialogueID(buttonClicked.getButtonContent());
         if (nextDialogueID == -1) {
             dialogueSystem.terminate();
             dialogueSystem.setIsDialogueActive(false);
+            dialogueSystem.updateDialogueFrame(1);
         }
         dialogueSystem.updateDialogueFrame(nextDialogueID);
     }
+
 }

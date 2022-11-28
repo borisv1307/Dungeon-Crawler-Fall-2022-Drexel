@@ -8,17 +8,14 @@ import java.util.ArrayList;
 
 public class DialogueFrame extends Frame {
     private final ArrayList<DialogueButton> buttons;
-    private final JTextArea dialogueTextArea;
-    GridBagConstraints constraints;
-    DialoguePanel dialoguePanel;
+    private final DialoguePanel dialoguePanel;
+    private final DialogueSystem dialogueSystem;
 
-    public DialogueFrame(DialoguePanel dialoguePanel) {
+    public DialogueFrame(DialoguePanel dialoguePanel, DialogueSystem dialogueSystem) {
         this.dialoguePanel = dialoguePanel;
+        this.dialogueSystem = dialogueSystem;
 
         buttons = dialoguePanel.getDialoguePanelButtons();
-
-        constraints = new GridBagConstraints();
-        constraints.insets = new Insets(2, 2, 2, 2);
 
         setResizable(false);
         setLayout(new GridBagLayout());
@@ -29,38 +26,25 @@ public class DialogueFrame extends Frame {
 
         addButtonListenerToButtons();
 
-        dialogueTextArea = createJTextArea(constraints);
-
-        dialoguePanel.add(dialogueTextArea, constraints);
-
         add(dialoguePanel);
 
-        addWindowListener(new WindowAdapterDialogueFrameExit());
+        addWindowListener(new WindowAdapterDialogueFrameExit(dialogueSystem));
 
         setVisible(false);
         pack();
     }
 
     public JTextArea getDialogueTextArea() {
-        return dialogueTextArea;
+        return dialoguePanel.getDialogueTextArea();
     }
 
-    private JTextArea createJTextArea(GridBagConstraints constraints) {
-        JTextArea jtextArea = new JTextArea();
-        jtextArea.setText("default text area");
-        jtextArea.setEditable(false);
-        Font displayFont = new Font("Text Area Font", Font.ITALIC, 16);
-        jtextArea.setFont(displayFont);
-        jtextArea.setPreferredSize(new Dimension(400, 600));
-        constraints.gridwidth = 3;
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        return jtextArea;
+    public ArrayList<DialogueButton> getButtons() {
+        return dialoguePanel.getDialoguePanelButtons();
     }
 
     private void addButtonListenerToButtons() {
         for (DialogueButton button : buttons) {
-            button.addActionListener(new ButtonClickActionListener());
+            button.addActionListener(new ButtonClickActionListener(dialogueSystem));
         }
     }
 }

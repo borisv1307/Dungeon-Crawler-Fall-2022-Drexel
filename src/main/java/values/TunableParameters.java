@@ -18,6 +18,12 @@ public final class TunableParameters {
 
 	public static final String FILE_NAME_SUFFIX = ".txt";
 
-	public static final int NUMBER_OF_BUTTONS = 3;
-	
+	public static final int DIALOGUE_BUTTON_WIDTH = 275;
+
+	public static final int DIALOGUE_BUTTON_HEIGHT = 150;
+
+	public static final int DIALOGUE_TEXT_AREA_WIDTH = 550;
+
+	public static final int DIALOGUE_TEXT_AREA_HEIGHT = 600;
+
 }

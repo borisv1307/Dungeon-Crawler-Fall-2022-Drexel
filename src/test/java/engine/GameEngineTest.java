@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
-import ui.DialogueFrame;
 import ui.DialogueSystem;
 import ui.GameFrame;
 
@@ -21,13 +20,13 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
-	DialogueFrame dialogueFrame;
+	DialogueSystem dialogueSystem;
 
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
-		dialogueFrame = mock(DialogueFrame.class);
+		dialogueSystem = Mockito.mock(DialogueSystem.class);
+		gameEngine = new GameEngine(levelCreator, dialogueSystem);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
@@ -94,10 +93,12 @@ public class GameEngineTest {
 
 	@Test
 	public void while_dialogue_is_active_player_should_not_move() {
-		final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
-		dialogueSystem.setIsDialogueActive(true);
 		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+		gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
+
+		gameEngine.keyEnter();
 		gameEngine.keyRight();
+
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(ONE));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(ONE));
 	}
