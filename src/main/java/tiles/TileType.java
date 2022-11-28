@@ -2,23 +2,22 @@ package tiles;
 
 public enum TileType {
 
-	PASSABLE(' '), NOT_PASSABLE('X'), PLAYER('P');
+    PASSABLE(' '), NOT_PASSABLE('X'), PLAYER('P'), ENEMY('E'), NEXT_LEVEL('N');
 
-	static final String INVALID_CHARACTER_PROVIDED_MESSAGE = "Invalid character provided: ";
+    static final String INVALID_CHARACTER_PROVIDED_MESSAGE = "Invalid character provided: ";
+    private final char asChar;
 
-	public static TileType getTileTypeByChar(final char ch) {
-		for (TileType type : TileType.values()) {
-			if (type.asChar == ch) {
-				return type;
-			}
-		}
+    private TileType(char asChar) {
+        this.asChar = asChar;
+    }
 
-		throw new IllegalArgumentException(INVALID_CHARACTER_PROVIDED_MESSAGE + ch);
-	}
+    public static TileType getTileTypeByChar(final char ch) {
+        for (TileType type : TileType.values()) {
+            if (type.asChar == ch) {
+                return type;
+            }
+        }
 
-	private final char asChar;
-
-	private TileType(char asChar) {
-		this.asChar = asChar;
-	}
+        throw new IllegalArgumentException(INVALID_CHARACTER_PROVIDED_MESSAGE + ch);
+    }
 }

@@ -89,7 +89,6 @@ public class GameEngine {
     }
 
     public void keySpace() {
-
     }
 
     private void movement(int deltaX, int deltaY) {
