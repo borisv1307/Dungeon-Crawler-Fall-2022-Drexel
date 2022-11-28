@@ -65,9 +65,7 @@ public class DialogueFrameGUITest {
 
         assertThat(dialogueFrame.isResizable(), equalTo(false));
         assertThat(dialogueFrame.getWindowListeners(), arrayContaining((WindowListener) windowAdapter));
-
-        //assertEquals(true, dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
-
+        
         assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
 
         assertEquals(jTextAreaLabel, textArea.getText());

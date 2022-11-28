@@ -88,7 +88,6 @@ public class DialogueSystem {
         for (int index = 0; index < dialogueButtons.size(); index++) {
             DialogueButton button = dialogueButtons.get(index);
             button.setVisible(false);
-            index++;
         }
     }
 
