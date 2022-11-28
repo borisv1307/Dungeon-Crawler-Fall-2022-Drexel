@@ -1,4 +1,4 @@
-@Ignore
+@IntegrationTest
 Feature: Move the enemy into Goal
 
   Scenario: Move enemy right into goal
