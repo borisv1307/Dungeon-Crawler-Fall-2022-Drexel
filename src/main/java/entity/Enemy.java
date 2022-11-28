@@ -2,11 +2,7 @@ package entity;
 
 import wrappers.EnemyRandomWrapper;
 
-public class Enemy {
-
-    private int level;
-    private int healthPoint;
-    private int attackPoint;
+public class Enemy extends CharacterObject {
 
     public Enemy(int level) {
         this.level = level;
@@ -17,24 +13,4 @@ public class Enemy {
 
     }
 
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
-    }
-
-    public int getAttackPoint() {
-        return attackPoint;
-    }
-
-    public void setAttackPoint(int attackPoint) {
-        this.attackPoint = attackPoint;
-    }
-
-    public int getLevel() {
-        return level;
-    }
 }

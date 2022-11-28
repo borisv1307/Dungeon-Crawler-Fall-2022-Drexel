@@ -1,15 +1,9 @@
 package entity;
 
-public class Player {
-
-    private int level;
-    private int healthPoint;
-    private int attackPoint;
+public class Player extends CharacterObject {
 
     public Player() {
-        level = 1;
-        healthPoint = 10;
-        attackPoint = 10;
+        super();
     }
 
     public void levelUp() {
@@ -23,24 +17,5 @@ public class Player {
         setAttackPoint(baseState + level * 2);
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
-    }
-
-    public int getAttackPoint() {
-        return attackPoint;
-    }
-
-    public void setAttackPoint(int attackPoint) {
-        this.attackPoint = attackPoint;
-    }
 
 }
