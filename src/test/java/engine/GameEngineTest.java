@@ -11,6 +11,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
 
 public class GameEngineTest {
 
@@ -61,22 +62,44 @@ public class GameEngineTest {
 
     @Test
     public void add_and_get_player_coordinates() {
-        TileType tileType = TileType.PLAYER;
-        gameEngine.addTile(ZERO, ONE, tileType);
+        createPlayerTile();
         int actualX = gameEngine.getPlayerXCoordinate();
         int actualY = gameEngine.getPlayerYCoordinate();
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(ONE));
     }
 
+
     @Test
     public void add_and_get_enemy_coordinates() {
-        TileType tileType = TileType.ENEMY;
-        gameEngine.addTile(ZERO, TWO, tileType);
+        createEnemyTile();
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(TWO));
+    }
+
+    @Test
+    public void despawn_enemy_tile(){
+        createEnemyTile();
+        gameEngine.removeTile(ZERO, TWO);
+        TileType actualTileType = gameEngine.getTileFromCoordinates(ZERO, TWO);
+        assertFalse(actualTileType == TileType.ENEMY);
+    }
+
+    @Test
+    public void spawn_new_enemy_on_defeat(){
+        gameEngine.setLevelVerticalDimension(TWO);
+        gameEngine.setLevelHorizontalDimension(TWO);
+        createPlayerTile();
+        createEnemyTile();
+        int previousX = gameEngine.getEnemyXCoordinate();
+        int previousY = gameEngine.getEnemyYCoordinate();
+        gameEngine.enemyKilled(previousX, previousY);
+        int actualX = gameEngine.getEnemyXCoordinate();
+        int actualY = gameEngine.getEnemyYCoordinate();
+        assertFalse(actualX == previousX);
+        assertFalse(actualY == previousY);
     }
 
     @Test
@@ -86,5 +109,12 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
-
+    private void createPlayerTile() {
+        TileType tileType = TileType.PLAYER;
+        gameEngine.addTile(ZERO, ONE, tileType);
+    }
+    private void createEnemyTile() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.addTile(ZERO, TWO, tileType);
+    }
 }

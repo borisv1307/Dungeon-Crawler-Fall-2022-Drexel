@@ -5,8 +5,8 @@ import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.List;
+import java.util.*;
 
 public class GameEngine {
 
@@ -109,12 +109,8 @@ public class GameEngine {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
         else if (attemptedLocation.equals(TileType.ENEMY)) {
-
+            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
         }
-    }
-
-    private void combat(){
-
     }
 
     public boolean isExit() {
@@ -123,5 +119,50 @@ public class GameEngine {
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public void removeTile(int x, int y) {
+        tiles.put(new Point(x, y), TileType.PASSABLE);
+    }
+
+    public void enemyKilled(int x, int y) {
+        ArrayList<Integer> newCoordinates = getNewCoordinates();
+        removeTile(x, y);
+        setEnemy(newCoordinates.get(0), newCoordinates.get(1));
+        tiles.put(new Point(newCoordinates.get(0), newCoordinates.get(1)), TileType.ENEMY);
+    }
+
+    private ArrayList<Integer> getNewCoordinates(){
+        int newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
+        int newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
+
+        while (!newPointIsValid(newXCoordinate, newYCoordinate)){
+            newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
+            newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
+        }
+
+        return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
+    }
+
+    private boolean newPointIsValid(int x, int y){
+        if (conflictsWithOtherObjects(x, y)){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean conflictsWithOtherObjects(int x, int y){
+        TileType tileType = getTileFromCoordinates(x, y);
+        if (tileType == TileType.PASSABLE){
+            return false;
+        }
+        return true;
+    }
+
+    private int getRandomNewCoordinate(int dimensionLimit){
+        Random random = new Random();
+
+
+        return random.nextInt(dimensionLimit);
     }
 }
