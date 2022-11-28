@@ -89,7 +89,7 @@ public class LevelCreatorITHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		DialogueSystem dialogueSystem = new DialogueSystem();
+		DialogueSystem dialogueSystem = Mockito.mock(DialogueSystem.class);
 		gameEngine = new GameEngine(levelCreator, dialogueSystem);
 	}
 
