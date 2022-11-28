@@ -17,7 +17,7 @@ public class GameEngine {
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
-    private Point player;
+    private Player player;
     private Enemy enemy;
 
     public GameEngine(LevelCreator levelCreator) {
@@ -67,7 +67,7 @@ public class GameEngine {
     }
 
     private void setPlayer(int x, int y) {
-        player = new Point(x, y);
+        player = new Player(x, y);
     }
 
     public int getPlayerXCoordinate() {
@@ -109,12 +109,17 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
-        else if (enemy != null && attemptedLocation.equals(enemy.getTileType())) {
-            int newHP = enemy.receiveDamage(5);
+        else if (locationHasEnemy(attemptedLocation)) {
+            int newHP = enemy.receiveDamage(player.getAttackValue());
+            System.out.println(newHP);
             if (newHP <=0 ){
                 enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
             }
         }
+    }
+
+    private boolean locationHasEnemy(TileType attemptedLocation) {
+        return enemy != null && attemptedLocation.equals(enemy.getTileType());
     }
 
     public boolean isExit() {
@@ -133,7 +138,8 @@ public class GameEngine {
         ArrayList<Integer> newCoordinates = getNewCoordinates();
         removeTile(x, y);
         setEnemy(newCoordinates.get(0), newCoordinates.get(1));
-        tiles.put(new Point(newCoordinates.get(0), newCoordinates.get(1)), TileType.ENEMY);
+        Enemy newEnemy = new Kobold(newCoordinates.get(0), newCoordinates.get(1));
+        tiles.put(newEnemy, enemy.getTileType());
     }
 
     private ArrayList<Integer> getNewCoordinates(){
