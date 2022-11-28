@@ -16,6 +16,8 @@ public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     GameEngine gameEngine;
 
@@ -76,4 +78,66 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
+
+    @Test
+    public void add_and_get_door() {
+        TileType tileType = TileType.DOOR;
+        gameEngine.addTile(ZERO, ONE, TileType.DOOR);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+
+    }
+
+    @Test
+    public void add_and_get_key() {
+        TileType tileType = TileType.KEY;
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+
+    }
+
+    @Test
+    public void add_and_get_collectible() {
+        TileType tileType = TileType.COLLECTIBLE;
+        gameEngine.addTile(ZERO, ONE, TileType.COLLECTIBLE);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+
+    }
+
+    @Test
+    public void collectible_collected() {
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.addTile(TWO, THREE, TileType.COLLECTIBLE);
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        gameEngine.keyLeft();
+        assertThat(gameEngine.playerHasKey(), equalTo(true));
+        assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(TileType.PASSABLE));
+    }
+
+    @Test
+    public void key_passable_when_collected() {
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        assertThat(gameEngine.playerHasKey(), equalTo(true));
+        assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(TileType.PASSABLE));
+    }
+
+
+    @Test
+    public void door_passable_when_key_collected() {
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.addTile(ONE, ONE, TileType.DOOR);
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        gameEngine.keyRight();
+        assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.PASSABLE));
+    }
+
 }

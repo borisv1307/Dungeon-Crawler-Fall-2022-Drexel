@@ -19,6 +19,9 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private boolean playerHasKey;
+    private boolean playerHasCollectible;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -73,12 +76,6 @@ public class GameEngine {
         return (int) player.getY();
     }
 
-    public void move(int x, int y) {
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(x, y);
-        }
-    }
-
     public void keyLeft() {
         attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
         move(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
@@ -99,6 +96,37 @@ public class GameEngine {
         move(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
     }
 
+    public void move(int x, int y) {
+        attemptedLocation = getTileFromCoordinates(x, y);
+
+        if (attemptedLocation == TileType.PASSABLE) {
+            setPlayer(x, y);
+        }
+
+        if (attemptedLocation == TileType.KEY) {
+            // setPlayer(x, y);
+            getPlayerHasKey(true);
+            tilePassable(x, y);
+        }
+
+        if (attemptedLocation == TileType.COLLECTIBLE) {
+            getPlayerHasCollectible(true);
+            tilePassable(x, y);
+        }
+
+        if ((attemptedLocation == (TileType.DOOR) && (playerHasKey()))) {
+            tilePassable(x, y);
+        }
+
+
+    }
+
+    private void tilePassable(int x, int y) {
+        tiles.put(new Point(x, y), TileType.PASSABLE);
+        setPlayer(x, y);
+    }
+
+
     public boolean isExit() {
         return exit;
     }
@@ -106,4 +134,22 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
+    public boolean playerHasKey() {
+        return playerHasKey;
+    }
+
+    public boolean playerHasCollectible() {
+        return playerHasCollectible;
+    }
+
+    public void getPlayerHasKey(boolean playerHasKey) {
+        this.playerHasKey = playerHasKey;
+    }
+
+    public void getPlayerHasCollectible(boolean playerHasCollectible) {
+        this.playerHasCollectible = playerHasCollectible;
+    }
+
+
 }

@@ -1,23 +1,26 @@
 package values;
 
-import java.awt.Color;
-import java.util.EnumMap;
-
 import tiles.TileType;
 
+import java.awt.*;
+import java.util.EnumMap;
+
 public final class TileColorMap {
-	private TileColorMap() {
-	}
+    private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
 
-	private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
+    static {
+        tileColors.put(TileType.PASSABLE, Color.WHITE);
+        tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
+        tileColors.put(TileType.PLAYER, Color.GREEN);
+        tileColors.put(TileType.DOOR, Color.ORANGE);
+        tileColors.put(TileType.KEY, Color.BLUE);
+        tileColors.put(TileType.COLLECTIBLE, Color.PINK);
+    }
 
-	static {
-		tileColors.put(TileType.PASSABLE, Color.WHITE);
-		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
-		tileColors.put(TileType.PLAYER, Color.GREEN);
-	}
+    private TileColorMap() {
+    }
 
-	public static Color get(TileType key) {
-		return tileColors.get(key);
-	}
+    public static Color get(TileType key) {
+        return tileColors.get(key);
+    }
 }
