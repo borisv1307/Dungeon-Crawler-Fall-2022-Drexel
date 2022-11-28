@@ -104,7 +104,7 @@ public class GameEngine {
         int attemptedX = getXCoordinate(tileType) + deltaX;
         int attemptedY = getYCoordinate(tileType) + deltaY;
         TileType attemptedLocation = getTileFromCoordinates(attemptedX, attemptedY);
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
+        if (attemptedLocation.equals(TileType.PASSABLE) && !(goal != null && attemptedX == goal.x && attemptedY == goal.y)) {
             setPoint(tileType, attemptedX, attemptedY);
         }
     }
