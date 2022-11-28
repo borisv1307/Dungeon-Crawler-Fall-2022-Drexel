@@ -69,7 +69,6 @@ public class GameEngineTest {
         assertThat(actualY, equalTo(ONE));
     }
 
-
     @Test
     public void add_and_get_enemy_coordinates() {
         createEnemyTile();
@@ -87,6 +86,7 @@ public class GameEngineTest {
         assertFalse(actualTileType == TileType.ENEMY);
     }
 
+
     @Test
     public void spawn_new_enemy_on_defeat(){
         gameEngine.setLevelVerticalDimension(TWO);
@@ -98,8 +98,7 @@ public class GameEngineTest {
         gameEngine.enemyKilled(previousX, previousY);
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
-        assertFalse(actualX == previousX);
-        assertFalse(actualY == previousY);
+        assertFalse(actualX == previousX && actualY == previousY );
     }
 
     @Test

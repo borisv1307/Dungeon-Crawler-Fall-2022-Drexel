@@ -1,6 +1,6 @@
 package ui;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -28,6 +28,6 @@ public class TilePainter {
 
 	private void handleTile(Graphics graphics, TileType tileType) {
 		graphics.setColor(TileColorMap.get(tileType));
-	}
 
+	}
 }

@@ -1,5 +1,6 @@
 package engine;
 
+import entities.*;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -17,7 +18,7 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
-    private Point enemy;
+    private Enemy enemy;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -35,10 +36,10 @@ public class GameEngine {
     public void addTile(int x, int y, TileType tileType) {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
-            tiles.put(new Point(x, y), TileType.PASSABLE);
+            tiles.put(player, TileType.PASSABLE);
         } else if (tileType.equals(TileType.ENEMY)){
             setEnemy(x, y);
-            tiles.put(new Point(x, y), TileType.ENEMY);
+            tiles.put(enemy, enemy.getTileType());
         }
         else {
             tiles.put(new Point(x, y), tileType);
@@ -77,7 +78,7 @@ public class GameEngine {
         return (int) player.getY();
     }
 
-    private void setEnemy(int x, int y) {enemy = new Point(x, y);}
+    private void setEnemy(int x, int y) {enemy = new Kobold(x, y);}
 
     public int getEnemyXCoordinate() {
         return (int) enemy.getX();
@@ -109,7 +110,13 @@ public class GameEngine {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
         else if (attemptedLocation.equals(TileType.ENEMY)) {
-            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
+            int newHP = enemy.receiveDamage(5);
+            System.out.println(newHP);
+
+            if (newHP <=0 ){
+                enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
+            }
+
         }
     }
 
