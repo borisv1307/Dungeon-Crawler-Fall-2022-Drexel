@@ -1,3 +1,4 @@
+@Ignore
 Feature: Move the enemy into wall
 
   Scenario Outline: Move into enemy

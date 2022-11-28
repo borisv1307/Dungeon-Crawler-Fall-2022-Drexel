@@ -1,3 +1,4 @@
+@Ignore
 Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player on shortest path (y move)

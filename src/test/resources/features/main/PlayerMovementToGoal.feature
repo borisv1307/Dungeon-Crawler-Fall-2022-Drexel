@@ -1,3 +1,4 @@
+@Ignore
 Feature: Move the player into Goal
 
   Scenario: Move player right into goal
