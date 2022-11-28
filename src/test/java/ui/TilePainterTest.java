@@ -55,9 +55,16 @@ public class TilePainterTest {
 	@Test
 	public void paint_player() {
 
-		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
+		tilePainter.paintEntity(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 
+	@Test
+	public void paint_enemy() {
+
+		tilePainter.paintEntity(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.ENEMY);
+
+		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+	}
 }

@@ -16,6 +16,7 @@ public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
+    private static final int TWO = 2;
 
     GameEngine gameEngine;
 
@@ -66,6 +67,16 @@ public class GameEngineTest {
         int actualY = gameEngine.getPlayerYCoordinate();
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(ONE));
+    }
+
+    @Test
+    public void add_and_get_enemy_coordinates() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.addTile(ZERO, TWO, tileType);
+        int actualX = gameEngine.getEnemyXCoordinate();
+        int actualY = gameEngine.getEnemyYCoordinate();
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(TWO));
     }
 
     @Test
