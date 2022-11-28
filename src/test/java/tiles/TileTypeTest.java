@@ -12,6 +12,7 @@ public class TileTypeTest {
     private static final char VALID_CHAR = ' ';
     private static final char KEY = 'K';
     private static final char DOOR = 'D';
+    private static final char GOAL = 'G';
 
     @Test
     public void value_of() {
@@ -34,6 +35,12 @@ public class TileTypeTest {
     public void get_door_tile_by_char_d() {
         TileType actual = TileType.getTileTypeByChar(DOOR);
         assertEquals(TileType.DOOR, actual);
+    }
+
+    @Test
+    public void get_goal_tile_by_char_g() {
+        TileType actual = TileType.getTileTypeByChar(GOAL);
+        assertEquals(TileType.GOAL, actual);
     }
 
     @Test

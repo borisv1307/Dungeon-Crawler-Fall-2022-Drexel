@@ -2,7 +2,7 @@ XXXXXXXXXXXXXXXXXXXX
 X                  X
 X         XXXXXXX  X
 X         X     X  X
-X    K    D     X  X
+X    K    D  G  X  X
 X         X     X  X
 X         XXXXXXX  X
 X    P             X

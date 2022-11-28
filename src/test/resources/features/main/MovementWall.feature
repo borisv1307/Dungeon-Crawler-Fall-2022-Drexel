@@ -5,7 +5,7 @@ Feature: Move the player into wall
     Given the level design is:
       | KXX |
       | XPX |
-      | DXX |
+      | DXG |
 
   Scenario: Move left into wall
     When the player moves left

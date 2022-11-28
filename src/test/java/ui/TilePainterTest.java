@@ -16,7 +16,7 @@ public class TilePainterTest {
 
     private final int TILE_WIDTH = 10;
     private final int TILE_HEIGHT = 20;
-    private final int X = 2;
+    private final int X = 3;
     private final int Y = 3;
 
     Graphics graphics;
@@ -36,6 +36,7 @@ public class TilePainterTest {
         Mockito.when(game.getTileFromCoordinates(1, 0)).thenReturn(TileType.NOT_PASSABLE);
         Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.KEY);
         Mockito.when(game.getTileFromCoordinates(1, 2)).thenReturn(TileType.DOOR);
+        Mockito.when(game.getTileFromCoordinates(2, 1)).thenReturn(TileType.GOAL);
         Mockito.when(game.getTileFromCoordinates(AdditionalMatchers.not(Matchers.eq(1)),
                 AdditionalMatchers.not(Matchers.eq(1)))).thenReturn(TileType.PASSABLE);
 
@@ -52,12 +53,14 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(10, 20, 10, 20);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.DOOR));
         inOrder.verify(graphics).fillRect(10, 40, 10, 20);
+        inOrder.verify(graphics).setColor(TileColorMap.get(TileType.GOAL));
+        inOrder.verify(graphics).fillRect(20, 20, 10, 20);
     }
 
     @Test
     public void paint_player() {
         tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
-        Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+        Mockito.verify(graphics).fillRect(30, 60, 10, 20);
     }
 
 }
