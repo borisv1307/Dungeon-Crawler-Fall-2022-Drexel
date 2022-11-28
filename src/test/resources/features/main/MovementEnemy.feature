@@ -3,9 +3,9 @@ Feature: Move the player into enemy
 
   Background:
     Given the level design is:
-      | XEX |
-      | EPE |
-      | XEX |
+      | XKX |
+      | KPK |
+      | XKX |
 
   Scenario: Move left into enemy
     When the player moves left

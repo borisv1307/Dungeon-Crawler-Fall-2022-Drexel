@@ -86,7 +86,6 @@ public class GameEngineTest {
         assertFalse(actualTileType == TileType.ENEMY);
     }
 
-
     @Test
     public void spawn_new_enemy_on_defeat(){
         gameEngine.setLevelVerticalDimension(TWO);
@@ -113,7 +112,7 @@ public class GameEngineTest {
         gameEngine.addTile(ZERO, ONE, tileType);
     }
     private void createEnemyTile() {
-        TileType tileType = TileType.ENEMY;
+        TileType tileType = TileType.KOBOLD;
         gameEngine.addTile(ZERO, TWO, tileType);
     }
 }

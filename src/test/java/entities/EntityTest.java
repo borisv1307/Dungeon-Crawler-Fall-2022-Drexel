@@ -1,12 +1,8 @@
 package entities;
 
-import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import parser.LevelCreator;
 import tiles.TileType;
-import ui.GameFrame;
 import values.TileColorMap;
 
 import java.awt.*;
@@ -14,12 +10,14 @@ import java.awt.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class EnemyTest {
-    Enemy enemy;
+public class EntityTest {
+    Entity enemy;
+    Entity player;
 
     @Before
     public void setUp() throws Exception {
         enemy = new Kobold(0,0);
+        player = new Player(1, 1);
     }
 
     @Test
@@ -38,4 +36,5 @@ public class EnemyTest {
         Color actual = TileColorMap.get(enemy.getTileType());
         assertThat(tileColor, equalTo(actual));
     }
+
 }

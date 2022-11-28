@@ -37,7 +37,7 @@ public class GameEngine {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
             tiles.put(player, TileType.PASSABLE);
-        } else if (tileType.equals(TileType.ENEMY)){
+        } else if (tileType.equals(TileType.KOBOLD)){
             setEnemy(x, y);
             tiles.put(enemy, enemy.getTileType());
         }
@@ -109,14 +109,11 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
-        else if (attemptedLocation.equals(TileType.ENEMY)) {
+        else if (enemy != null && attemptedLocation.equals(enemy.getTileType())) {
             int newHP = enemy.receiveDamage(5);
-            System.out.println(newHP);
-
             if (newHP <=0 ){
                 enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
             }
-
         }
     }
 
