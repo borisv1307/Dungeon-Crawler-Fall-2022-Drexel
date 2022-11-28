@@ -2,6 +2,7 @@ package wrappers;
 
 import entity.Enemy;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class EnemyRandomWrapper {
@@ -9,7 +10,7 @@ public class EnemyRandomWrapper {
     private Random random;
 
     public EnemyRandomWrapper() {
-        random = new Random();
+        random = new SecureRandom();
     }
 
     public void generateIntValue(Enemy enemy) {
