@@ -104,7 +104,6 @@ public class GameEngine {
         }
 
         if (attemptedLocation == TileType.KEY) {
-            // setPlayer(x, y);
             getPlayerHasKey(true);
             tilePassable(x, y);
         }
