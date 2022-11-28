@@ -4,7 +4,8 @@ public final class TunableParameters {
 	public static final int SCREEN_WIDTH = 900;
 	public static final int SCREEN_HEIGHT = 600;
 	public static final int SCORE_HEIGHT = 35;
-	public static final int TARGET_FPS = 5;
+	public static final int TARGET_FPS = 10;
+	public static final int ENEMY_SPAWN_EVERY_N_FRAMES = 20;
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 	public static final String FILE_NAME_SUFFIX = ".txt";
 	public static final int RANDOM_ENEMY_SPAWN_LOWER_BOUND = 2;

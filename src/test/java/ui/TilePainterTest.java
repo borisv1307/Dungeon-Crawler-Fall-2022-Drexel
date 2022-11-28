@@ -1,5 +1,7 @@
 package ui;
 
+import static org.junit.Assert.assertEquals;
+
 import java.awt.*;
 
 import org.junit.Before;
@@ -12,6 +14,7 @@ import org.mockito.Mockito;
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
+import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 public class TilePainterTest {
@@ -131,7 +134,7 @@ public class TilePainterTest {
 		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.addRandomEnemies(game);
+		tilePainter.addRandomEnemy(game);
 
 		Mockito.verify(game, Mockito.times(1)).addTile(0, 0, TileType.ENEMY);
 	}
@@ -145,7 +148,7 @@ public class TilePainterTest {
 		Mockito.when(game.getLevelVerticalDimension()).thenReturn(10);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.addRandomEnemies(game);
+		tilePainter.addRandomEnemy(game);
 
 		Mockito.verify(randomWrapper, Mockito.times(2)).getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt());
 	}
@@ -160,7 +163,7 @@ public class TilePainterTest {
 		Mockito.when(game.getLevelVerticalDimension()).thenReturn(10);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.addRandomEnemies(game);
+		tilePainter.addRandomEnemy(game);
 
 		Mockito.verify(game, Mockito.times(0)).addTile(0, 0, TileType.ENEMY);
 	}
@@ -177,7 +180,7 @@ public class TilePainterTest {
 		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.addRandomEnemies(game);
+		tilePainter.addRandomEnemy(game);
 
 		Mockito.verify(game, Mockito.times(0)).addTile(0, 0, TileType.ENEMY);
 	}
@@ -210,6 +213,80 @@ public class TilePainterTest {
 		tilePainter.advanceProjectile(game, 1, 2);
 
 		Mockito.verify(game, Mockito.times(1)).incrementScore();
+	}
+
+	@Test
+	public void increment_count_down() {
+		tilePainter.incrementCountDown();
+		assertEquals(1, tilePainter.getEnemyCountDown());
+	}
+
+	@Test
+	public void reset_count_down() {
+		tilePainter.incrementCountDown();
+		tilePainter.incrementCountDown();
+		tilePainter.incrementCountDown();
+
+		tilePainter.resetCountDown();
+		assertEquals(0, tilePainter.getEnemyCountDown());
+	}
+
+	@Test
+	public void does_not_spawn_enemy_when_count_down_is_not_at_the_set_value() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		Mockito.verify(game, Mockito.times(0)).addTile(0, 0, TileType.ENEMY);
+	}
+
+	@Test
+	public void enemy_spawns_when_count_down_is_reached() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		this.incrementCountDown(TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES);
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		Mockito.verify(randomWrapper, Mockito.times(2)).getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt());
+	}
+
+	@Test
+	public void reset_count_down_after_spawning_an_enemy() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		this.incrementCountDown(TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES);
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		assertEquals(0, tilePainter.getEnemyCountDown());
+	}
+
+	@Test
+	public void increment_count_down_when_paint_tiles_is_called() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		assertEquals(1, tilePainter.getEnemyCountDown());
+	}
+
+	private void incrementCountDown(int numTimes) {
+		for (int i = 0; i < numTimes; i++) {
+			tilePainter.incrementCountDown();
+		}
 	}
 
 	private GameEngine setup_game() {

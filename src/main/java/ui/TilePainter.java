@@ -12,8 +12,22 @@ public class TilePainter {
 
 	private RandomWrapper randomWrapper;
 
+	private int enemyCountDown = 0;
+
 	public void setRandomWrapper(RandomWrapper randomWrapper) {
 		this.randomWrapper = randomWrapper;
+	}
+
+	public int getEnemyCountDown() {
+		return enemyCountDown;
+	}
+
+	public void incrementCountDown() {
+		enemyCountDown++;
+	}
+
+	public void resetCountDown() {
+		enemyCountDown = 0;
 	}
 
 	void paintTiles(Graphics graphics, GameEngine game, int tileWidth, int tileHeight) {
@@ -27,7 +41,12 @@ public class TilePainter {
 			}
 		}
 
-		this.addRandomEnemies(game);
+		if (enemyCountDown == TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES) {
+			addRandomEnemy(game);
+			resetCountDown();
+		} else {
+			incrementCountDown();
+		}
 	}
 
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
@@ -49,7 +68,7 @@ public class TilePainter {
 		}
 	}
 
-	void addRandomEnemies(GameEngine game) {
+	void addRandomEnemy(GameEngine game) {
 		int lowerBound = TunableParameters.RANDOM_ENEMY_SPAWN_LOWER_BOUND;
 		int upperBoundHorizontal = game.getLevelHorizontalDimension()
 				- TunableParameters.HORIZONTAL_RANDOM_ENEMY_SPAWN_OFFSET;
@@ -78,5 +97,4 @@ public class TilePainter {
 	private void handleTile(Graphics graphics, TileType tileType) {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
-
 }
