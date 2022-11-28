@@ -37,7 +37,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	public void i_create_the_level() throws Throwable {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
-		DialogueSystem dialogueSystem = new DialogueSystem();
+		DialogueSystem dialogueSystem = Mockito.mock(DialogueSystem.class);
 		try {
 			gameEngine = new GameEngine(levelCreator, dialogueSystem);
 		} catch (IllegalArgumentException e) {
