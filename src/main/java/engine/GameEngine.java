@@ -17,6 +17,7 @@ public class GameEngine {
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private boolean playerHasKey;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -93,6 +94,26 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
+        if (attemptedLocation.equals(TileType.KEY)) {
+            setPlayerHasKey(true);
+            setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        }
+        if (attemptedLocation.equals(TileType.DOOR) && isPlayerHasKey()) {
+            setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        }
+    }
+
+    private void setTilePassableAndMovePlayer(int deltaX, int deltaY) {
+        tiles.put(new Point(deltaX, deltaY), TileType.PASSABLE);
+        setPlayer(deltaX, deltaY);
+    }
+
+    public boolean isPlayerHasKey() {
+        return playerHasKey;
+    }
+
+    public void setPlayerHasKey(boolean playerHasKey) {
+        this.playerHasKey = playerHasKey;
     }
 
     public boolean isExit() {

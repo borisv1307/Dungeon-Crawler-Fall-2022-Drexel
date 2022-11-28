@@ -46,17 +46,12 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(0, 0, 10, 20);
         inOrder.verify(graphics).fillRect(0, 20, 10, 20);
         inOrder.verify(graphics).fillRect(0, 40, 10, 20);
-
-
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.NOT_PASSABLE));
         inOrder.verify(graphics).fillRect(10, 0, 10, 20);
-
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.KEY));
         inOrder.verify(graphics).fillRect(10, 20, 10, 20);
-
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.DOOR));
         inOrder.verify(graphics).fillRect(10, 40, 10, 20);
-
     }
 
     @Test

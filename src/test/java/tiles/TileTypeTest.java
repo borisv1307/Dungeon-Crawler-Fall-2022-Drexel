@@ -36,7 +36,6 @@ public class TileTypeTest {
         assertEquals(TileType.DOOR, actual);
     }
 
-
     @Test
     public void get_tile_type_by_char_invalid_char() {
         try {

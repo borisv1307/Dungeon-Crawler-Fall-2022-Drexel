@@ -16,6 +16,7 @@ public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
+    private static final int TWO = 2;
 
     GameEngine gameEngine;
 
@@ -45,6 +46,22 @@ public class GameEngineTest {
     }
 
     @Test
+    public void add_and_get_key_tile() {
+        TileType tileType = TileType.KEY;
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+    }
+
+    @Test
+    public void add_and_get_door_tile() {
+        TileType tileType = TileType.DOOR;
+        gameEngine.addTile(ZERO, ONE, TileType.DOOR);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+    }
+
+    @Test
     public void set_and_get_horizontal_dimension() {
         gameEngine.setLevelHorizontalDimension(ONE);
         int actual = gameEngine.getLevelHorizontalDimension();
@@ -66,6 +83,25 @@ public class GameEngineTest {
         int actualY = gameEngine.getPlayerYCoordinate();
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(ONE));
+    }
+
+    @Test
+    public void update_key_to_passable_when_player_has_key() {
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.keyUp();
+        assertThat(gameEngine.isPlayerHasKey(), equalTo(true));
+        assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(TileType.PASSABLE));
+    }
+
+    @Test
+    public void update_door_to_passable_when_player_open_door_with_key() {
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.addTile(ONE, ONE, TileType.DOOR);
+        gameEngine.keyUp();
+        gameEngine.keyRight();
+        assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.PASSABLE));
     }
 
     @Test

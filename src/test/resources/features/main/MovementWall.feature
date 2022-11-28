@@ -3,9 +3,9 @@ Feature: Move the player into wall
 
   Background:
     Given the level design is:
-      | XKX |
+      | KXX |
       | XPX |
-      | XDX |
+      | DXX |
 
   Scenario: Move left into wall
     When the player moves left
