@@ -25,6 +25,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	private static final int COORDINATE_OFFSET = ONE;
 	private GameEngine gameEngine;
 	private String exceptionMessage;
+	private DialogueSystem dialogueSystem;
 	ReaderWrapper readerWrapper;
 	IOException ioException;
 
@@ -37,7 +38,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	public void i_create_the_level() throws Throwable {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
-		DialogueSystem dialogueSystem = Mockito.mock(DialogueSystem.class);
+		dialogueSystem = Mockito.mock(DialogueSystem.class);
 		try {
 			gameEngine = new GameEngine(levelCreator, dialogueSystem);
 		} catch (IllegalArgumentException e) {
@@ -53,7 +54,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		DialogueSystem dialogueSystem = Mockito.mock(DialogueSystem.class);
+		dialogueSystem = Mockito.mock(DialogueSystem.class);
 		gameEngine = new GameEngine(levelCreator, dialogueSystem);
 	}
 
