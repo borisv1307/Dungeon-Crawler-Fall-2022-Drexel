@@ -13,7 +13,9 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+
     TileType attemptedLocation;
+
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -21,6 +23,7 @@ public class GameEngine {
 
     private boolean playerHasKey;
     private boolean playerHasCollectible;
+
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -126,6 +129,14 @@ public class GameEngine {
     }
 
 
+    private void movement(int deltaX, int deltaY) {
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        }
+    }
+
+
     public boolean isExit() {
         return exit;
     }
@@ -133,6 +144,7 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
 
     public boolean playerHasKey() {
         return playerHasKey;
