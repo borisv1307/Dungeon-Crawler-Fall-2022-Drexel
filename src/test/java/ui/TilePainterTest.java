@@ -17,7 +17,7 @@ public class TilePainterTest {
     private final int TILE_WIDTH = 10;
     private final int TILE_HEIGHT = 20;
     private final int X = 2;
-    private final int Y = 3;
+    private final int Y = 4;
 
     Graphics graphics;
     TilePainter tilePainter;
@@ -64,7 +64,7 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(10, 40, 10, 20);
 
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.COLLECTIBLE));
-        inOrder.verify(graphics).fillOval(10, 40, 10, 20);
+        inOrder.verify(graphics).fillRect(10, 60, 10, 20);
 
     }
 
@@ -73,7 +73,7 @@ public class TilePainterTest {
 
         tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
-        Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+        Mockito.verify(graphics).fillRect(20, 80, 10, 20);
     }
 
 }

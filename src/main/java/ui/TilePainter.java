@@ -24,7 +24,6 @@ public class TilePainter {
     private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
         handleTile(graphics, tileType);
         graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-        graphics.fillOval(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
 
     private void handleTile(Graphics graphics, TileType tileType) {
