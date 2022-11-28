@@ -8,7 +8,7 @@ import javax.swing.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
-public class ButtonActionListenerTest {
+public class ButtonActionListenerUITest {
     DialogueSystem dialogueSystem;
     JTextArea dialogueTextArea;
     DialogueButton dialogueButtonOne;

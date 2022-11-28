@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DialogueFrame extends Frame {
     private final ArrayList<DialogueButton> buttons;
     private final DialoguePanel dialoguePanel;
-    private transient final DialogueSystem dialogueSystem;
+    private final transient DialogueSystem dialogueSystem;
 
     public DialogueFrame(DialoguePanel dialoguePanel, DialogueSystem dialogueSystem) {
         this.dialoguePanel = dialoguePanel;
