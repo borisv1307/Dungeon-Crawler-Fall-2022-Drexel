@@ -38,7 +38,7 @@ public class GameEngine {
             tiles.put(new Point(x, y), TileType.PASSABLE);
         } else if (tileType.equals(TileType.ENEMY)){
             setEnemy(x, y);
-            tiles.put(new Point(x, y), tileType.ENEMY);
+            tiles.put(new Point(x, y), TileType.ENEMY);
         }
         else {
             tiles.put(new Point(x, y), tileType);
@@ -109,7 +109,7 @@ public class GameEngine {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
         else if (attemptedLocation.equals(TileType.ENEMY)) {
-            
+
         }
     }
 
