@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static values.TunableParameters.*;
 
@@ -10,7 +11,7 @@ public class DialoguePanel extends Panel {
     private final DialogueButton buttonOne;
     private final DialogueButton buttonTwo;
     private final DialogueButton buttonThree;
-    private final ArrayList<DialogueButton> buttons;
+    private final List<DialogueButton> buttons;
     private final GridBagConstraints constraints;
     private final JTextArea dialogueTextArea;
 
@@ -45,7 +46,7 @@ public class DialoguePanel extends Panel {
         setVisible(true);
     }
 
-    public ArrayList<DialogueButton> getDialoguePanelButtons() {
+    public List<DialogueButton> getDialoguePanelButtons() {
         return buttons;
     }
 

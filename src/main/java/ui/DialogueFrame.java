@@ -4,10 +4,10 @@ import values.TunableParameters;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class DialogueFrame extends Frame {
-    private final ArrayList<DialogueButton> buttons;
+    private final List<DialogueButton> buttons;
     private final DialoguePanel dialoguePanel;
     private final transient DialogueSystem dialogueSystem;
 
@@ -38,7 +38,7 @@ public class DialogueFrame extends Frame {
         return dialoguePanel.getDialogueTextArea();
     }
 
-    public ArrayList<DialogueButton> getButtons() {
+    public List<DialogueButton> getButtons() {
         return dialoguePanel.getDialoguePanelButtons();
     }
 

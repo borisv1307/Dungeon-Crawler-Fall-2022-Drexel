@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
@@ -31,7 +31,7 @@ public class DialogueFrameGUITest {
     DialogueButton buttonThree;
     JTextArea jTextArea;
     DialoguePanel mockDialoguePanel;
-    ArrayList<DialogueButton> buttons;
+    List<DialogueButton> buttons;
     Dimension dimension;
 
     private static final Dimension EXPECTED_BUTTON_DIMENSIONS = new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT);
