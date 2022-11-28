@@ -6,8 +6,13 @@ import java.util.Random;
 
 public class EnemyRandomWrapper {
 
+    private Random random;
+
+    public EnemyRandomWrapper() {
+        random = new Random();
+    }
+
     public void generateIntValue(Enemy enemy) {
-        Random random = new Random();
         int max = enemy.getLevel() * 10;
         int min = (int) (max * 0.8);
 
