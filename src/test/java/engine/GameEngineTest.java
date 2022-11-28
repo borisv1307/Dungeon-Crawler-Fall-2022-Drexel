@@ -27,7 +27,6 @@ public class GameEngineTest {
         gameEngine = new GameEngine(levelCreator);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
-
     }
 
     @Test
