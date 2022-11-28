@@ -89,6 +89,7 @@ public class GameEngine {
     }
 
     public void keySpace() {
+        //Perform player interaction with other tile type
     }
 
     private void movement(int deltaX, int deltaY) {

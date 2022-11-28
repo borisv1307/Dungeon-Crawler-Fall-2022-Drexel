@@ -5,7 +5,7 @@ public abstract class CharacterObject {
     int healthPoint;
     int attackPoint;
 
-    public CharacterObject() {
+    CharacterObject() {
         level = 1;
         healthPoint = 10;
         attackPoint = 10;
