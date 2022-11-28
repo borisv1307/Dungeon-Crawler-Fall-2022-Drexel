@@ -10,8 +10,10 @@ import values.TunableParameters;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -43,7 +45,7 @@ public class DialogueFrameGUITest {
     public void constructor() {
         final String jTextAreaLabel = "default text area";
 
-        dialogueFrame = new DialogueFrame(dialoguePanel, gameEngine) {
+        dialogueFrame = new DialogueFrame(dialoguePanel) {
             @Override
             public Component add(Component comp) {
                 assertThat((Panel) comp, equalTo(dialoguePanel));
@@ -52,17 +54,19 @@ public class DialogueFrameGUITest {
 
             @Override
             public void setVisible(boolean b) {
-                assertThat(b, equalTo(true));
+                assertThat(b, equalTo(false));
             }
         };
 
-        WindowAdapterDialogueFrameExit windowAdapter = new WindowAdapterDialogueFrameExit(gameEngine, dialogueFrame);
+        WindowAdapterDialogueFrameExit windowAdapter = new WindowAdapterDialogueFrameExit();
 
         final JTextArea textArea = dialogueFrame.getDialogueTextArea();
         final Font textAreaFont = textArea.getFont();
 
         assertThat(dialogueFrame.isResizable(), equalTo(false));
-        assertEquals(true, dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
+        assertThat(dialogueFrame.getWindowListeners(), arrayContaining((WindowListener) windowAdapter));
+
+        //assertEquals(true, dialogueFrame.getWindowListeners()[0].equals(windowAdapter));
 
         assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
 
@@ -78,7 +82,7 @@ public class DialogueFrameGUITest {
 
     @Test
     public void dialogue_frame_closes_when_user_clicks_exit_dialogue_frame_exit() {
-        final DialogueFrame frameActual = new DialogueFrame(new DialoguePanel(), gameEngine);
+        final DialogueFrame frameActual = new DialogueFrame(new DialoguePanel());
         frameActual.dispatchEvent(new WindowEvent(frameActual, WindowEvent.WINDOW_CLOSING));
         assertFalse(frameActual.isShowing());
     }

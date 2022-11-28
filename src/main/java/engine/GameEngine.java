@@ -2,8 +2,7 @@ package engine;
 
 import parser.LevelCreator;
 import tiles.TileType;
-import ui.DialogueFrame;
-import ui.DialoguePanel;
+import ui.DialogueSystem;
 import ui.GameFrame;
 
 import java.awt.*;
@@ -14,7 +13,6 @@ import static values.TunableParameters.PLAYER_SPEED;
 
 public class GameEngine {
 
-	boolean isDialogueActive;
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
@@ -23,13 +21,13 @@ public class GameEngine {
 	private Point player;
 	private Point nonPlayableCharacter;
 	private final int level;
+	final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		isDialogueActive = false;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -111,16 +109,10 @@ public class GameEngine {
 	}
 
 	public void keyEnter() {
-		if (!isDialogueActive) {
-			isDialogueActive = true;
-			DialoguePanel dialoguePanel = new DialoguePanel();
-			DialogueFrame dialogueFrame = new DialogueFrame(dialoguePanel, this);
-			dialogueFrame.updateDialogueFrame(1);
+		if (!dialogueSystem.isDialogueActive()) {
+			dialogueSystem.initiateDialogueFrame();
+			dialogueSystem.setIsDialogueActive(true);
 		}
-	}
-
-	public void setIsDialogueActive(boolean isDialogueActive) {
-		this.isDialogueActive = isDialogueActive;
 	}
 
 	public void setExit(boolean exit) {
@@ -131,12 +123,8 @@ public class GameEngine {
 		return exit;
 	}
 
-	public boolean isDialogueActive() {
-		return isDialogueActive;
-	}
-
 	private void movePlayer(int destinationX, int destinationY) {
-		if (!isDialogueActive()) {
+		if (!dialogueSystem.isDialogueActive()) {
 			TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);
 			if (isTilePassable(destinationTile)) {
 				setPlayer(destinationX, destinationY);

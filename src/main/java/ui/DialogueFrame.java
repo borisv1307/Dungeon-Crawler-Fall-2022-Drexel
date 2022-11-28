@@ -1,35 +1,21 @@
 package ui;
 
-import engine.GameEngine;
 import values.TunableParameters;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DialogueFrame extends Frame {
     private final ArrayList<DialogueButton> buttons;
-    private final transient List<Dialogue> dialogues;
-    private transient List<Response> currentDialogueResponses;
-    private transient Dialogue currentDialogue;
     private final JTextArea dialogueTextArea;
     GridBagConstraints constraints;
     DialoguePanel dialoguePanel;
-    GameEngine gameEngine;
-    transient DialogueSystem dialogueSystem;
 
-    public DialogueFrame(DialoguePanel dialoguePanel, GameEngine gameEngine) {
+    public DialogueFrame(DialoguePanel dialoguePanel) {
         this.dialoguePanel = dialoguePanel;
-        this.gameEngine = gameEngine;
 
         buttons = dialoguePanel.getDialoguePanelButtons();
-
-        dialogueSystem = new DialogueSystem();
-        dialogues = dialogueSystem.getDialogues();
-
-        currentDialogue = dialogues.get(0);
-        currentDialogueResponses = currentDialogue.getResponses();
 
         constraints = new GridBagConstraints();
         constraints.insets = new Insets(2, 2, 2, 2);
@@ -49,43 +35,14 @@ public class DialogueFrame extends Frame {
 
         add(dialoguePanel);
 
-        addWindowListener(new WindowAdapterDialogueFrameExit(gameEngine, this));
+        addWindowListener(new WindowAdapterDialogueFrameExit());
 
-        setVisible(true);
+        setVisible(false);
         pack();
-    }
-
-    public Dialogue getCurrentDialogue() {
-        return currentDialogue;
     }
 
     public JTextArea getDialogueTextArea() {
         return dialogueTextArea;
-    }
-
-    public void updateDialogueFrame(int nextDialogueID) {
-        resetButtons();
-        setCurrentDialogueToTargetDialogue(nextDialogueID);
-        updateJTextFieldContent(nextDialogueID);
-        updateButtonsContent();
-    }
-
-    public void updateJTextFieldContent(int targetDialogueID) {
-        for (Dialogue dialogue : dialogues) {
-            if (dialogue.getDialogueID() == targetDialogueID) {
-                dialogueTextArea.setText(dialogue.getDialogueContent());
-            }
-        }
-    }
-
-    public int readPlayerResponseToFindNextDialogueID(String currentResponse) {
-        int targetID = 0;
-        for (Response response : currentDialogueResponses) {
-            if (response.getResponseText().equals(currentResponse)) {
-                targetID = response.getTarget();
-            }
-        }
-        return targetID;
     }
 
     private JTextArea createJTextArea(GridBagConstraints constraints) {
@@ -102,35 +59,8 @@ public class DialogueFrame extends Frame {
     }
 
     private void addButtonListenerToButtons() {
-        for (JButton button : buttons) {
-            button.addActionListener(new ButtonClickActionListener(this));
-        }
-    }
-
-    private void resetButtons() {
-        int index = 0;
-        for (DialogueButton dialogueButton : buttons) {
-            DialogueButton button = buttons.get(index);
-            button.setVisible(false);
-            index++;
-        }
-    }
-
-    private void setCurrentDialogueToTargetDialogue(int dialogueID) {
-        for (Dialogue dialogue : dialogues) {
-            if (dialogue.getDialogueID() == dialogueID) {
-                currentDialogue = dialogue;
-            }
-        }
-    }
-
-    private void updateButtonsContent() {
-        currentDialogueResponses = currentDialogue.getResponses();
-        for (int responseIndex = 0; responseIndex < currentDialogueResponses.size(); responseIndex++) {
-            DialogueButton currentButton = buttons.get(responseIndex);
-            Response currentResponse = currentDialogueResponses.get(responseIndex);
-            currentButton.setText(currentResponse.getResponseText());
-            currentButton.setVisible(true);
+        for (DialogueButton button : buttons) {
+            button.addActionListener(new ButtonClickActionListener());
         }
     }
 }

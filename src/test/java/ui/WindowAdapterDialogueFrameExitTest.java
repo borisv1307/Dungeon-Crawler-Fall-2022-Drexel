@@ -1,21 +1,23 @@
 package ui;
 
-import engine.GameEngine;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import java.awt.event.WindowEvent;
+
+import static org.junit.Assert.assertFalse;
 
 public class WindowAdapterDialogueFrameExitTest {
 
     @Test
-    public void window_closing_sets_dialogue_is_active_false() {
-        GameEngine gameEngine = Mockito.mock(GameEngine.class);
-        DialogueFrame dialogueFrame = Mockito.mock(DialogueFrame.class);
-        WindowAdapterDialogueFrameExit windowAdapterDialogueFrameExit = new WindowAdapterDialogueFrameExit(gameEngine, dialogueFrame);
+    public void window_closing_sets_dialogue_system_is_dialogue_active_false() {
+        final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
+        dialogueSystem.initiateDialogueFrame();
 
-        windowAdapterDialogueFrameExit.windowClosing(null);
+        WindowAdapterDialogueFrameExit windowAdapterDialogueFrameExit = new WindowAdapterDialogueFrameExit();
+        windowAdapterDialogueFrameExit.windowClosing(new WindowEvent(dialogueSystem.dialogueFrame, WindowEvent.WINDOW_CLOSING));
 
-        Mockito.verify(gameEngine).setIsDialogueActive(false);
-        Mockito.verify(dialogueFrame).dispose();
+        assertFalse(dialogueSystem.isDialogueActive);
+
     }
 
 }

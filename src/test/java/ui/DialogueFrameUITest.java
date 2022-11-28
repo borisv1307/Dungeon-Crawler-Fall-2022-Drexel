@@ -14,8 +14,7 @@ public class DialogueFrameUITest {
     public void setUp() {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
-        dialogueFrame = new DialogueFrame(new DialoguePanel(), gameEngine);
-        dialogueFrame = Mockito.mock(DialogueFrame.class);
+        dialogueFrame = new DialogueFrame(new DialoguePanel());
     }
 
 

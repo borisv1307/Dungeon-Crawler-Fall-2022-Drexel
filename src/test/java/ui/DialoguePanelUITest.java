@@ -1,36 +1,46 @@
 package ui;
 
-import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import parser.LevelCreator;
 
 import static org.junit.Assert.assertEquals;
 
 public class DialoguePanelUITest {
-    GameEngine gameEngine;
-    DialoguePanel dialoguePanel;
+    DialogueSystem dialogueSystem;
     DialogueFrame dialogueFrame;
+
+    DialogueButton buttonOne;
+    DialogueButton buttonTwo;
+    DialogueButton buttonThree;
 
     @Before
     public void setUp() {
-        LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-        dialoguePanel = Mockito.mock(DialoguePanel.class);
-        gameEngine = new GameEngine(levelCreator);
-        dialogueFrame = Mockito.mock(DialogueFrame.class);
+        dialogueSystem = DialogueSystem.getInstance();
+        dialogueFrame = new DialogueFrame(new DialoguePanel());
+
+        buttonOne = dialogueSystem.getButton(0);
+        buttonTwo = dialogueSystem.getButton(1);
+        buttonThree = dialogueSystem.getButton(2);
     }
 
     @Test
-    public void click_response_one_then_dialogue_should_be_ID_two() {
-        final DialogueFrame frameActual = new DialogueFrame(new DialoguePanel(), gameEngine);
-        frameActual.updateDialogueFrame(1);
+    public void click_dialogue_one_response_one_then_dialogue_should_be_ID_two() {
+        dialogueSystem.initiateDialogueFrame();
+        buttonOne.doClick();
+        assertEquals(2, dialogueSystem.getCurrentDialogue().getDialogueID());
+    }
 
-        final DialoguePanel panelActual = (DialoguePanel) frameActual.getComponent(0);
-        final DialogueButton buttonActual = panelActual.getDialogueButton(0);
-        buttonActual.doClick();
+    @Test
+    public void click_dialogue_one_response_one_then_dialogue_should_be_ID_three() {
+        dialogueSystem.initiateDialogueFrame();
+        buttonTwo.doClick();
+        assertEquals(3, dialogueSystem.getCurrentDialogue().getDialogueID());
+    }
 
-        Dialogue actual = frameActual.getCurrentDialogue();
-        assertEquals(2, actual.getDialogueID());
+    @Test
+    public void click_dialogue_one_response_three_then_dialogue_should_be_ID_reset_to_one_after_window_closes() {
+        dialogueSystem.initiateDialogueFrame();
+        buttonThree.doClick();
+        assertEquals(1, dialogueSystem.getCurrentDialogue().getDialogueID());
     }
 }

@@ -1,28 +1,23 @@
 package ui;
 
-import engine.GameEngine;
-
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.util.Objects;
 
 public class WindowAdapterDialogueFrameExit extends WindowAdapter {
 
-    private final GameEngine gameEngine;
-    private final Frame dialogueFrame;
-    private final String type;
+    private final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
+    private String type;
 
-    public WindowAdapterDialogueFrameExit(GameEngine gameEngine, Frame dialogueFrame) {
-        this.gameEngine = gameEngine;
-        this.dialogueFrame = dialogueFrame;
+    public WindowAdapterDialogueFrameExit() {
         this.type = "Dialogue Frame Exit Adapter";
     }
 
     @Override
     public void windowClosing(java.awt.event.WindowEvent e) {
-        gameEngine.setIsDialogueActive(false);
-        dialogueFrame.dispose();
+        dialogueSystem.setIsDialogueActive(false);
+        dialogueSystem.terminate();
     }
+
 
     @Override
     public boolean equals(Object object) {
@@ -36,10 +31,11 @@ public class WindowAdapterDialogueFrameExit extends WindowAdapter {
 
     @Override
     public int hashCode() {
-        return Objects.hash(gameEngine, dialogueFrame);
+        return Objects.hash();
     }
 
     private String getType() {
         return type;
     }
+
 }

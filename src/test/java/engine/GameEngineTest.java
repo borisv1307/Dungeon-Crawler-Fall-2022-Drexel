@@ -6,13 +6,13 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.DialogueFrame;
+import ui.DialogueSystem;
 import ui.GameFrame;
 
 import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class GameEngineTest {
@@ -63,12 +63,6 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(ONE));
 	}
 
-	@Test
-	public void set_and_get_is_dialogue_active() {
-		gameEngine.setIsDialogueActive(true);
-		boolean actual = gameEngine.isDialogueActive;
-		assertTrue(actual);
-	}
 
 	@Test
 	public void add_and_get_player_coordinates() {
@@ -100,9 +94,9 @@ public class GameEngineTest {
 
 	@Test
 	public void while_dialogue_is_active_player_should_not_move() {
+		final DialogueSystem dialogueSystem = DialogueSystem.getInstance();
+		dialogueSystem.setIsDialogueActive(true);
 		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
-		boolean isDialogueActive = true;
-		gameEngine.setIsDialogueActive(isDialogueActive);
 		gameEngine.keyRight();
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(ONE));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(ONE));
