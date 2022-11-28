@@ -26,6 +26,9 @@ public class DialogueFrameGUITest {
     DialoguePanel dialoguePanel;
     DialogueSystem dialogueSystem;
     DialogueButton dialogueButton;
+    DialogueButton buttonOne;
+    DialogueButton buttonTwo;
+    DialogueButton buttonThree;
     JTextArea jTextArea;
     DialoguePanel mockDialoguePanel;
     ArrayList<DialogueButton> buttons;
@@ -46,6 +49,10 @@ public class DialogueFrameGUITest {
 
         dialogueFrame = new DialogueFrame(new DialoguePanel(), dialogueSystem);
         buttons = dialogueFrame.getButtons();
+
+        buttonOne = buttons.get(0);
+        buttonTwo = buttons.get(1);
+        buttonThree = buttons.get(2);
 
         jTextArea = dialogueFrame.getDialogueTextArea();
     }
@@ -112,23 +119,20 @@ public class DialogueFrameGUITest {
 
     @Test
     public void dialogue_panel_button_one_is_created_with_correct_dimension() {
-        dialogueButton = buttons.get(0);
-        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
-        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+        dimension = createDimensionFromWidthAndHeight(buttonOne.getWidth(), buttonOne.getHeight());
+        assertEquals(EXPECTED_BUTTON_DIMENSIONS, dimension);
     }
 
     @Test
     public void dialogue_panel_button_two_is_created_with_correct_dimension() {
-        dialogueButton = buttons.get(1);
-        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
-        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+        dimension = createDimensionFromWidthAndHeight(buttonTwo.getWidth(), buttonTwo.getHeight());
+        assertEquals(EXPECTED_BUTTON_DIMENSIONS, dimension);
     }
 
     @Test
     public void dialogue_panel_button_three_is_created_with_correct_dimension() {
-        dialogueButton = buttons.get(2);
-        dimension = createDimensionFromWidthAndHeight(dialogueButton.getWidth(), dialogueButton.getHeight());
-        assertEquals(dimension, EXPECTED_BUTTON_DIMENSIONS);
+        dimension = createDimensionFromWidthAndHeight(buttonThree.getWidth(), buttonThree.getHeight());
+        assertEquals(EXPECTED_BUTTON_DIMENSIONS, dimension);
     }
 
     @Test
@@ -152,6 +156,6 @@ public class DialogueFrameGUITest {
     private Dimension createDimensionFromWidthAndHeight(int width, int height) {
         return new Dimension(width, height);
     }
-    
+
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class DialogueSystemTest {
+public class DialogueSystemTestUI {
     DialogueSystem dialogueSystem;
     Dialogue actual;
     Dialogue currentDialogue;
