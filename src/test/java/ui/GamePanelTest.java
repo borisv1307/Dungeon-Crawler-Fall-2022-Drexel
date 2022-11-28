@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 public class GamePanelTest {
@@ -26,7 +27,7 @@ public class GamePanelTest {
 	TilePainter tilePainter;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		gameEngine = Mockito.mock(GameEngine.class);
 		tilePainter = Mockito.mock(TilePainter.class);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
@@ -50,7 +51,7 @@ public class GamePanelTest {
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
-				TileType.PLAYER);
+				TileType.PLAYER, gameEngine);
 	}
 
 	@Test
@@ -110,5 +111,48 @@ public class GamePanelTest {
 	public void back_space_will_shoot_projectile() {
 		gamePanel.keyDown(null, Event.BACK_SPACE);
 		Mockito.verify(gameEngine, Mockito.times(1)).shoot();
+	}
+
+	@Test
+	public void when_player_loses_show_lost_message() {
+		Graphics graphics = Mockito.mock(Graphics.class);
+
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		int playerXCoordinate = 2;
+		int playerYCoordinate = 3;
+		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
+		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.isLost()).thenReturn(true);
+
+		gamePanel.paint(graphics);
+
+		Mockito.verify(tilePainter, Mockito.times(0)).paintPlayer(graphics, gameEngine.getPlayerXCoordinate(),
+				gameEngine.getPlayerYCoordinate(), tileWidth, tileHeight, TileType.PLAYER, gameEngine);
+	}
+
+	@Test
+	public void losing_sets_the_level_to_the_loss_message() {
+		Graphics graphics = Mockito.mock(Graphics.class);
+
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		int playerXCoordinate = 2;
+		int playerYCoordinate = 3;
+		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
+		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.isLost()).thenReturn(true);
+
+		gamePanel.paint(graphics);
+
+		Mockito.verify(gameEngine, Mockito.times(1)).setLevel(TunableParameters.LOSS_LEVEL);
+	}
+
+	@Test
+	public void pressing_enter_will_restart_the_game() {
+		gamePanel.keyDown(null, Event.ENTER);
+		Mockito.verify(gameEngine, Mockito.times(1)).restart();
 	}
 }

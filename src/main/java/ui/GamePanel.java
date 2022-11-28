@@ -4,6 +4,7 @@ import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 public class GamePanel extends Panel {
@@ -32,8 +33,12 @@ public class GamePanel extends Panel {
 		super.paint(graphics);
 		requestFocusInWindow();
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
-				tileWidth, tileHeight, TileType.PLAYER);
+		if (!gameEngine.isLost()) {
+			tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
+					tileWidth, tileHeight, TileType.PLAYER, gameEngine);
+		} else {
+			gameEngine.setLevel(TunableParameters.LOSS_LEVEL);
+		}
 	}
 
 	@Override
@@ -61,6 +66,8 @@ public class GamePanel extends Panel {
 			gameEngine.keyDown();
 		} else if (key == Event.BACK_SPACE) {
 			gameEngine.shoot();
+		} else if (key == Event.ENTER) {
+			gameEngine.restart();
 		}
 
 		return true;

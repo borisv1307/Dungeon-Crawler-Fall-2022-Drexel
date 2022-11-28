@@ -62,7 +62,14 @@ public class TilePainterTest {
 
 	@Test
 	public void paint_player() {
-		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
+		GameEngine game = setup_game();
+		ScorePanel scorePanel = Mockito.mock(ScorePanel.class);
+		Mockito.when(scorePanel.getPlayerLives()).thenReturn(4);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.PLAYER);
+		Mockito.when(game.getScorePanel()).thenReturn(scorePanel);
+
+		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, game);
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 
@@ -281,6 +288,37 @@ public class TilePainterTest {
 		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
 
 		assertEquals(1, tilePainter.getEnemyCountDown());
+	}
+
+	@Test
+	public void player_losing_life_changes_color() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		ScorePanel scorePanel = Mockito.mock(ScorePanel.class);
+		Mockito.when(scorePanel.getPlayerLives()).thenReturn(4);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.PLAYER);
+		Mockito.when(game.getScorePanel()).thenReturn(scorePanel);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.handleTile(graphics, TileType.PLAYER, game);
+
+		Mockito.verify(scorePanel, Mockito.times(1)).getPlayerLives();
+	}
+
+	@Test
+	public void do_not_add_enemies_when_player_lost() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		Mockito.when(game.isLost()).thenReturn(true);
+
+		incrementCountDown(TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES);
+		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
+
+		Mockito.verify(randomWrapper, Mockito.times(0)).getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt());
 	}
 
 	private void incrementCountDown(int numTimes) {

@@ -34,4 +34,14 @@ public class TileColorMapTest {
 	public void enemy() {
 		assertSame(Color.RED, TileColorMap.get(TileType.ENEMY));
 	}
+
+	@Test
+	public void fives_lives_is_green() {
+		assertSame(Color.GREEN, TileColorMap.getPlayerColor(5));
+	}
+
+	@Test
+	public void non_existent_play_lives_is_dark_gray() {
+		assertSame(Color.DARK_GRAY, TileColorMap.getPlayerColor(-12));
+	}
 }

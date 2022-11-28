@@ -8,28 +8,40 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import ui.ScorePanel;
+import values.TunableParameters;
 
 public class GameEngine {
 
 	private final LevelCreator levelCreator;
-	private final ScorePanel scorePanel;
 	private final Map<Point, TileType> tiles = new HashMap<>();
-	private final int level;
+	private final ScorePanel scorePanel;
+	private int level;
 	private boolean exit;
+	private boolean lost;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
 
 	public GameEngine(LevelCreator levelCreator, ScorePanel scorePanel) {
 		exit = false;
+		lost = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.scorePanel = scorePanel;
 		this.levelCreator.createLevel(this, level);
 	}
 
+	public void setLevel(int level) {
+		this.level = level;
+		levelCreator.createLevel(this, level);
+	}
+
 	public void incrementScore() {
 		this.scorePanel.incrementScore();
+	}
+
+	public ScorePanel getScorePanel() {
+		return scorePanel;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -96,11 +108,23 @@ public class GameEngine {
 	}
 
 	private void movement(int deltaX, int deltaY) {
-		TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
-				getPlayerYCoordinate() + deltaY);
-		if (attemptedLocation.equals(TileType.PASSABLE) || attemptedLocation.equals(TileType.PROJECTILE)) {
-			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+		int nextX = getPlayerXCoordinate() + deltaX;
+		int nextY = getPlayerYCoordinate() + deltaY;
+		TileType attemptedLocation = getTileFromCoordinates(nextX, nextY);
+		if (attemptedLocation.equals(TileType.ENEMY)) {
+			addTile(nextX, nextY, TileType.PASSABLE);
+			setPlayer(nextX, nextY);
+			scorePanel.decrementLives();
 		}
+
+		if (scorePanel.getPlayerLives() == 0) {
+			setLost(true);
+		}
+
+		if (attemptedLocation.equals(TileType.PASSABLE) || attemptedLocation.equals(TileType.PROJECTILE)) {
+			setPlayer(nextX, nextY);
+		}
+
 	}
 
 	public void shoot() {
@@ -108,8 +132,24 @@ public class GameEngine {
 		int y = this.getPlayerYCoordinate() - 1;
 
 		TileType nextTile = getTileFromCoordinates(x, y);
+		if (nextTile == TileType.ENEMY) {
+			incrementScore();
+			addTile(x, y, TileType.PASSABLE);
+			return;
+		}
+
 		if (nextTile != TileType.NOT_PASSABLE) {
 			addTile(x, y, TileType.PROJECTILE);
+		}
+	}
+
+	public void restart() {
+		if (lost) {
+			lost = false;
+			setLevel(1);
+			scorePanel.setPlayerLives(TunableParameters.STARTING_AND_MAXIMUM_LIVES);
+			scorePanel.setPlayerScore(TunableParameters.STARTING_SCORE);
+			scorePanel.setLivesIncrementCountDown(0);
 		}
 	}
 
@@ -119,5 +159,13 @@ public class GameEngine {
 
 	public void setExit(boolean exit) {
 		this.exit = exit;
+	}
+
+	public boolean isLost() {
+		return lost;
+	}
+
+	public void setLost(boolean lost) {
+		this.lost = lost;
 	}
 }

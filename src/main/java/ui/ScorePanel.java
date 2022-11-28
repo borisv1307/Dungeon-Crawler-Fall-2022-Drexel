@@ -14,8 +14,9 @@ public class ScorePanel {
 	private final JPanel panel;
 	private int playerScore = TunableParameters.STARTING_SCORE;
 	private final JLabel scoreText = new JLabel(SCORE + playerScore);
-	private int playerLives = TunableParameters.STARTING_LIVES;
+	private int playerLives = TunableParameters.STARTING_AND_MAXIMUM_LIVES;
 	private final JLabel livesText = new JLabel(LIVES + playerLives);
+	private int livesIncrementCountDown = 0;
 
 	public ScorePanel(JPanel panel) {
 		this.panel = panel;
@@ -51,13 +52,40 @@ public class ScorePanel {
 		return playerScore;
 	}
 
+	public void setPlayerScore(int playerScore) {
+		this.playerScore = playerScore;
+		scoreText.setText(SCORE + playerScore);
+	}
+
 	public int getPlayerLives() {
 		return playerLives;
+	}
+
+	public void setPlayerLives(int playerLives) {
+		this.playerLives = playerLives;
+		livesText.setText(LIVES + playerLives);
+		livesText.setForeground(Color.BLACK);
+	}
+
+	public int getLivesIncrementCountDown() {
+		return livesIncrementCountDown;
+	}
+
+	public void setLivesIncrementCountDown(int livesIncrementCountDown) {
+		this.livesIncrementCountDown = livesIncrementCountDown;
 	}
 
 	public void incrementScore() {
 		playerScore++;
 		scoreText.setText(SCORE + playerScore);
+
+		if (livesIncrementCountDown == TunableParameters.GAIN_LIVES_AFTER_N_KILLS - 1
+				&& playerLives < TunableParameters.STARTING_AND_MAXIMUM_LIVES) {
+			incrementLives();
+			livesIncrementCountDown = 0;
+		} else {
+			livesIncrementCountDown++;
+		}
 	}
 
 	public void incrementLives() {
@@ -68,5 +96,10 @@ public class ScorePanel {
 	public void decrementLives() {
 		playerLives--;
 		livesText.setText(LIVES + playerLives);
+
+		if (playerLives <= 0) {
+			livesText.setText(TunableParameters.LOSS_MESSAGE);
+			livesText.setForeground(Color.RED);
+		}
 	}
 }

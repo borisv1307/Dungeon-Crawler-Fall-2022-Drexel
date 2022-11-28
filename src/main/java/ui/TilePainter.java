@@ -37,20 +37,16 @@ public class TilePainter {
 				if (tileType == TileType.PROJECTILE) {
 					this.advanceProjectile(game, x, y);
 				}
-				paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+				paintTile(graphics, tileWidth, tileHeight, x, y, tileType, game);
 			}
 		}
 
-		if (enemyCountDown == TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES) {
-			addRandomEnemy(game);
-			resetCountDown();
-		} else {
-			incrementCountDown();
-		}
+		paintEnemies(game);
 	}
 
-	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
-		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType,
+			GameEngine gameEngine) {
+		paintTile(graphics, tileWidth, tileHeight, x, y, tileType, gameEngine);
 	}
 
 	void advanceProjectile(GameEngine gameEngine, int x, int y) {
@@ -89,12 +85,28 @@ public class TilePainter {
 		}
 	}
 
-	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
-		handleTile(graphics, tileType);
+	void handleTile(Graphics graphics, TileType tileType, GameEngine gameEngine) {
+		if (tileType == TileType.PLAYER) {
+			graphics.setColor(TileColorMap.getPlayerColor(gameEngine.getScorePanel().getPlayerLives()));
+		} else {
+			graphics.setColor(TileColorMap.get(tileType));
+		}
+	}
+
+	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType,
+			GameEngine gameEngine) {
+		handleTile(graphics, tileType, gameEngine);
 		graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 	}
 
-	private void handleTile(Graphics graphics, TileType tileType) {
-		graphics.setColor(TileColorMap.get(tileType));
+	private void paintEnemies(GameEngine game) {
+		if (!game.isLost()) {
+			if (enemyCountDown == TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES) {
+				addRandomEnemy(game);
+				resetCountDown();
+			} else {
+				incrementCountDown();
+			}
+		}
 	}
 }

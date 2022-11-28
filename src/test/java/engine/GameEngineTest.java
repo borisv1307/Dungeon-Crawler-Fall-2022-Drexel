@@ -13,6 +13,7 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import ui.ScorePanel;
+import values.TunableParameters;
 
 public class GameEngineTest {
 
@@ -20,11 +21,13 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
+	ScorePanel scorePanel;
+	LevelCreator levelCreator;
 
 	@Before
-	public void setUp() throws Exception {
-		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		ScorePanel scorePanel = Mockito.mock(ScorePanel.class);
+	public void setUp() {
+		levelCreator = Mockito.mock(LevelCreator.class);
+		scorePanel = Mockito.mock(ScorePanel.class);
 		gameEngine = new GameEngine(levelCreator, scorePanel);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
@@ -100,5 +103,108 @@ public class GameEngineTest {
 		int x = gameEngine.getPlayerXCoordinate();
 		int y = gameEngine.getPlayerYCoordinate();
 		assertThat(gameEngine.getTileFromCoordinates(x, y - 1), equalTo(TileType.NOT_PASSABLE));
+	}
+
+	@Test
+	public void firing_a_projectile_against_an_enemy_increments_score() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.ENEMY);
+		gameEngine.shoot();
+
+		Mockito.verify(scorePanel, Mockito.times(1)).incrementScore();
+	}
+
+	@Test
+	public void firing_projectile_right_in_front_of_enemy_vanquishes_projectile() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.ENEMY);
+		gameEngine.shoot();
+
+		int x = gameEngine.getPlayerXCoordinate();
+		int y = gameEngine.getPlayerYCoordinate();
+		assertThat(gameEngine.getTileFromCoordinates(x, y - 1), equalTo(TileType.PASSABLE));
+	}
+
+	@Test
+	public void walking_into_an_enemy_loses_a_life() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.ENEMY);
+		gameEngine.keyUp();
+
+		Mockito.verify(scorePanel, Mockito.times(1)).decrementLives();
+	}
+
+	@Test
+	public void walking_into_an_enemy_vanquishes_enemy() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.ENEMY);
+		gameEngine.keyUp();
+
+		int x = gameEngine.getPlayerXCoordinate();
+		int y = gameEngine.getPlayerYCoordinate();
+		assertThat(x, equalTo(ZERO));
+		assertThat(y, equalTo(ZERO));
+	}
+
+	@Test
+	public void when_player_lives_hits_zero_lost_is_set_to_true() {
+		Mockito.when(scorePanel.getPlayerLives()).thenReturn(0);
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ZERO, ZERO, TileType.ENEMY);
+		gameEngine.keyUp();
+
+		assertThat(gameEngine.isLost(), equalTo(true));
+	}
+
+	@Test
+	public void restarting_the_game_sets_lost_true() {
+		gameEngine.setLost(true);
+		gameEngine.restart();
+		assertThat(gameEngine.isLost(), equalTo(false));
+	}
+
+	@Test
+	public void restarting_the_game_resets_the_level_to_level_1() {
+		gameEngine.setLost(true);
+		gameEngine.restart();
+
+		Mockito.verify(levelCreator, Mockito.times(2)).createLevel(gameEngine, 1);
+	}
+
+	@Test
+	public void can_only_restart_the_game_when_lost_is_true() {
+		gameEngine.setLost(false);
+		gameEngine.restart();
+
+		Mockito.verify(levelCreator, Mockito.times(1)).createLevel(gameEngine, 1);
+	}
+
+	@Test
+	public void restarting_the_game_sets_lives_back_to_default() {
+		gameEngine.setLost(true);
+		gameEngine.restart();
+
+		Mockito.verify(scorePanel, Mockito.times(1)).setPlayerLives(TunableParameters.STARTING_AND_MAXIMUM_LIVES);
+	}
+
+	@Test
+	public void restarting_the_game_sets_score_back_to_default() {
+		gameEngine.setLost(true);
+		gameEngine.restart();
+
+		Mockito.verify(scorePanel, Mockito.times(1)).setPlayerScore(TunableParameters.STARTING_SCORE);
+	}
+
+	@Test
+	public void restarting_game_sets_lives_increment_to_zero() {
+		gameEngine.setLost(true);
+		gameEngine.restart();
+
+		Mockito.verify(scorePanel, Mockito.times(1)).setLivesIncrementCountDown(0);
 	}
 }
