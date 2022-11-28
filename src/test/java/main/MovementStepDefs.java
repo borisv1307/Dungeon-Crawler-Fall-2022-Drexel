@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import org.mockito.Mockito;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import ui.DialogueSystem;
@@ -18,12 +19,13 @@ import static org.hamcrest.Matchers.equalTo;
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
+	private DialogueSystem dialogueSystem = Mockito.mock(DialogueSystem.class);
 
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new DialogueSystem());
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), dialogueSystem);
 	}
 
 	@When("^the player moves left$")
