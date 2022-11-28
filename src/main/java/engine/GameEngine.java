@@ -27,6 +27,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+
     }
 
     public void run(GameFrame gameFrame) {
