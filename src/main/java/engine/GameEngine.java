@@ -125,7 +125,6 @@ public class GameEngine {
         setPlayer(x, y);
     }
 
-
     public boolean isExit() {
         return exit;
     }
