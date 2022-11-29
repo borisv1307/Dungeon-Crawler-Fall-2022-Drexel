@@ -1,7 +1,5 @@
 package ui;
 
-import static org.junit.Assert.assertSame;
-
 import java.awt.*;
 
 import org.junit.Before;
@@ -71,33 +69,4 @@ public class GamePanelTest {
 		Mockito.verify(graphics, Mockito.times(2)).drawImage(dbImage, 0, 0, gamePanel);
 	}
 
-	@Test
-	public void key_left() {
-		gamePanel.keyDown(null, Event.LEFT);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyLeft();
-	}
-
-	@Test
-	public void key_right() {
-		gamePanel.keyDown(null, Event.RIGHT);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyRight();
-	}
-
-	@Test
-	public void key_up() {
-		gamePanel.keyDown(null, Event.UP);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyUp();
-	}
-
-	@Test
-	public void key_down() {
-		gamePanel.keyDown(null, Event.DOWN);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
-	}
-
-	@Test
-	public void key_escape() {
-		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
-		assertSame(true, actual);
-	}
 }
