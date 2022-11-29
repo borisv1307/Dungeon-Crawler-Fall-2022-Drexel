@@ -118,8 +118,8 @@ public class GameEngine {
 
 
     private void healPlayer() {
-        if (playerHP + 10 <= maxPlayerHP) {
-            playerHP += 10;
+        if (playerHP + 5 <= maxPlayerHP) {
+            playerHP += 5;
         } else {
             playerHP = maxPlayerHP;
         }
