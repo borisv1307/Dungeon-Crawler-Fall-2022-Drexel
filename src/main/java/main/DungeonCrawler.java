@@ -18,7 +18,7 @@ public class DungeonCrawler implements Runnable {
 	private final FramesPerSecondHandler framesPerSecondHandler;
 
 	public DungeonCrawler(ThreadWrapper threadWrapper, GameEngine gameEngine, GameFrame gameFrame,
-			FramesPerSecondHandler framesPerSecondHandler) {
+						  FramesPerSecondHandler framesPerSecondHandler) {
 		this.threadWrapper = threadWrapper;
 		this.gameEngine = gameEngine;
 		this.gameFrame = gameFrame;

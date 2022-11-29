@@ -6,6 +6,8 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import values.TunableParameters;
+import wrappers.ReaderWrapper;
 
 import java.awt.*;
 
@@ -21,10 +23,10 @@ public class GameEngineTest {
 
     @Before
     public void setUp() throws Exception {
-        LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+        LevelCreator levelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
+                new ReaderWrapper());
+
         gameEngine = new GameEngine(levelCreator);
-        int level = 1;
-        Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
 
     @Test
@@ -74,6 +76,30 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
+    }
+
+    @Test
+    public void set_enemy_count() {
+        int level = 1;
+        int range = 5 * level;
+        int levelenemycount = (int) (Math.random() * range) + 1;
+        boolean created = gameEngine.setEnemyCount(levelenemycount);
+        assertThat(created, equalTo(true));
+    }
+
+    @Test
+    public void set_enemy_random_moves() {
+        int ret = gameEngine.setRandomEnemyPosition();
+        assertThat(ret, equalTo(0));
+    }
+
+    @Test
+    public void check_player_captured() {
+        int x = 10;
+        int y = 5;
+        gameEngine.setEnemyPos(0, 10, 5);
+        boolean captured = gameEngine.is_meet_enemy(x, y);
+        assertThat(captured, equalTo(true));
     }
 
 }
