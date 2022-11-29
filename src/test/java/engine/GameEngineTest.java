@@ -120,4 +120,12 @@ public class GameEngineTest {
         gameEngine.removeObjectFromTile(new Point(0, 0));
         assertEquals(TileType.PASSABLE, gameEngine.getTileFromCoordinates(0, 0));
     }
+
+    @Test
+    public void add_object_to_tile() {
+        gameEngine.setLevelVerticalDimension(1);
+        gameEngine.setLevelHorizontalDimension(1);
+        gameEngine.addTile(0, 0, TileType.OBJECT);
+        assertEquals(TileType.OBJECT, gameEngine.getTileFromCoordinates(0, 0));
+    }
 }
