@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e35f6974-a18d-4c26-a1e7-80f2cdeaa15a" name="Changes" comment="Try to fix the merge problem" />
+    <list default="true" id="e35f6974-a18d-4c26-a1e7-80f2cdeaa15a" name="Changes" comment="Restart branch to base to see if merge branch is fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="stephen_lin_merge_problem_branch" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,6 +75,7 @@
       <updated>1669739076676</updated>
       <workItem from="1669739085402" duration="1938000" />
       <workItem from="1669741046676" duration="508000" />
+      <workItem from="1669742191886" duration="637000" />
     </task>
     <task id="LOCAL-00001" summary="Try to fix the merge problem">
       <created>1669740446323</created>
@@ -81,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669740446323</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Restart branch to base to see if merge branch is fix">
+      <created>1669742474358</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669742474358</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +122,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Try to fix the merge problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Try to fix the merge problem" />
+    <MESSAGE value="Restart branch to base to see if merge branch is fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restart branch to base to see if merge branch is fix" />
   </component>
 </project>
