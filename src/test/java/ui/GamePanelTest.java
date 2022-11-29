@@ -3,9 +3,7 @@ package ui;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.never;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 

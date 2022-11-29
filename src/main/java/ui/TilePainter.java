@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.*;
 import java.util.List;
+
 import engine.GameEngine;
 import main.EnemyHandler;
 import main.LaserHandler;
@@ -18,7 +19,7 @@ public class TilePainter {
 			}
 		}
 	}
-	
+
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
