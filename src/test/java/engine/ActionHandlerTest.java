@@ -2,6 +2,8 @@ package engine;
 
 import main.ObjectFactory;
 import org.junit.Before;
+import org.junit.Test;
+
 
 public class ActionHandlerTest {
 
@@ -13,4 +15,8 @@ public class ActionHandlerTest {
         actionHandler = new ActionHandler(gameEngine);
     }
 
+    @Test
+    public void this_should_not_be_a_problem(){
+        //nothing
+    }
 }
