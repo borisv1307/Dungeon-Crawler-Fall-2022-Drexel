@@ -1,10 +1,16 @@
 package engine;
 
+import main.ObjectFactory;
 import org.junit.Before;
 
 public class ActionHandlerTest {
+
+    GameEngine gameEngine;
+    ActionHandler actionHandler;
     @Before
     public void setUp(){
-        //this still pass?
+        gameEngine = ObjectFactory.getDefaultGameEngine();
+        actionHandler = new ActionHandler(gameEngine);
     }
+
 }
