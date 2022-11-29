@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.sun.org.apache.xml.internal.utils.XMLCharacterRecognizer.isWhiteSpace;
 import static values.TunableParameters.XML_LOCATION_PREFIX;
 import static values.TunableParameters.XML_NAME_SUFFIX;
 
@@ -22,7 +21,7 @@ public class DialogueCreator {
     private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
     private final XMLParserWrapper xmlParserWrapper;
     private static final String FILE_NAME = "npc";
-    private final String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
+    private static final String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
     private final String[] illegalCharacters = {
             "!", ".", ",", ";"};
 
@@ -95,34 +94,37 @@ public class DialogueCreator {
     }
 
     private String cleanIndividualLines(String[] targetLine) {
-        String cleanedLineFromXML = " ";
+        StringBuilder stringBuilder = new StringBuilder();
+
         for (String line : targetLine) {
             if (!line.isEmpty()) {
+
                 String trimmedData = line.trim();
                 String cleanString = removeWhiteSpace(trimmedData);
-
                 boolean isSpecial = false;
+
                 for (String illegalCharacter : illegalCharacters) {
                     if (cleanString.equals(illegalCharacter)) {
                         isSpecial = true;
                     }
                 }
                 String space = isSpecial ? "" : " ";
-                cleanedLineFromXML += (space + cleanString);
+                stringBuilder.append(space).append(cleanString);
             }
         }
-        return cleanedLineFromXML.trim();
+        return stringBuilder.toString().trim();
     }
 
     private String removeWhiteSpace(String dataLine) {
+        StringBuilder characterBuilder = new StringBuilder();
         char[] characters = dataLine.toCharArray();
-        String cleanData = " ";
+        
         for (char character : characters) {
-            if (!isWhiteSpace(character)) {
-                cleanData += character;
+            if (character != ' ') {
+                characterBuilder.append(character);
             }
         }
-        return cleanData.trim();
+        return characterBuilder.toString().trim();
     }
 
 
