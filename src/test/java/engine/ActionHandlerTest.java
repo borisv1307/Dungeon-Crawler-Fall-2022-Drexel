@@ -4,6 +4,8 @@ import main.ObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
+
 
 public class ActionHandlerTest {
 
@@ -17,6 +19,6 @@ public class ActionHandlerTest {
 
     @Test
     public void this_should_not_be_a_problem(){
-        //nothing
+        assertEquals(1, 1);
     }
 }
