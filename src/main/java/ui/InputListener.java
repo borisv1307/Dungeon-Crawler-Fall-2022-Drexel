@@ -15,7 +15,7 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent event) {
-        throw new UnsupportedOperationException();
+
     }
 
     @Override
@@ -27,7 +27,6 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent event) {
-        throw new UnsupportedOperationException();
 
     }
 
