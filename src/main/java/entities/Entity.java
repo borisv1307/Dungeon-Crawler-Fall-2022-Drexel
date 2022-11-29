@@ -44,4 +44,31 @@ public abstract class Entity extends Point {
         this.tileType = tileType;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (!super.equals(obj)){
+            return false;
+        }
+
+        Entity entityObj = (Entity) obj;
+        return compareObjectProperties(entityObj);
+    }
+
+    private boolean compareObjectProperties(Entity entityObj){
+        if (this.hitPoints != entityObj.hitPoints){
+            return false;
+        }
+        if (this.armorClass != entityObj.armorClass){
+            return false;
+        }
+        if (this.attackValue != entityObj.attackValue){
+            return false;
+        }
+        if (this.tileType == entityObj.tileType){
+            return false;
+        }
+        return true;
+    }
+
+
 }

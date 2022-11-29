@@ -180,14 +180,12 @@ public class GameEngine {
         int randomInt = random.nextInt(numberOfEnemyTypes);
 
         switch (randomInt){
-            case 0:
-                return new Kobold(x, y);
             case 1:
-                return new Slime(x, y);
+                return new Kobold(x, y);
             case 2:
                 return new Orc(x, y);
+            default:
+                return new Slime(x, y);
         }
-
-        return new Slime(x, y);
     }
 }

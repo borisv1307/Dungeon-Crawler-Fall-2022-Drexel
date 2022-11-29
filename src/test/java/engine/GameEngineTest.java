@@ -12,6 +12,7 @@ import java.awt.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 
 public class GameEngineTest {
 
@@ -83,7 +84,7 @@ public class GameEngineTest {
         createKoboldTile();
         gameEngine.removeTile(ZERO, TWO);
         TileType actualTileType = gameEngine.getTileFromCoordinates(ZERO, TWO);
-        assertFalse(actualTileType == TileType.KOBOLD);
+        assertNotEquals(actualTileType, TileType.KOBOLD);
     }
 
     @Test
