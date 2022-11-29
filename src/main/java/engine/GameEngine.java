@@ -7,6 +7,7 @@ import ui.GameFrame;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class GameEngine {
 
@@ -18,9 +19,14 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private int playerCoins;
+    private int playerLevel;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
+        playerCoins = 0;
+        playerLevel = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
     }
@@ -72,6 +78,26 @@ public class GameEngine {
         return (int) player.getY();
     }
 
+    public int getPlayerCoins(){
+        return playerCoins;
+    }
+
+    public void incrementPlayerCoins(){
+        playerCoins += 1;
+        if(playerCoins == playerLevel * 5){
+            incrementPlayerLevel();
+            playerCoins = 0;
+        }
+    }
+
+    public int getPlayerLevel(){
+        return playerLevel;
+    }
+
+    public void incrementPlayerLevel(){
+        playerLevel += 1;
+    }
+
     public void keyLeft() {
         movement(-1, 0);
     }
@@ -92,6 +118,12 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        }else if(attemptedLocation.equals(TileType.COIN)){
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            addTile(getPlayerXCoordinate(), getPlayerYCoordinate(), TileType.PASSABLE);
+            incrementPlayerCoins();
+            System.out.println("Coins: " + getPlayerCoins());
+            System.out.println("Level: " + getPlayerLevel());
         }
     }
 
