@@ -21,7 +21,7 @@ public class DialogueCreator {
     private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
     private final XMLParserWrapper xmlParserWrapper;
     private static final String FILE_NAME = "npc";
-    private static final String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
+    private static final String XML_FILE_PATH = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
     private final String[] illegalCharacters = {
             "!", ".", ",", ";"};
 
@@ -41,7 +41,7 @@ public class DialogueCreator {
 
     private void populateListFromFile(List<Dialogue> targetList) throws IOException, ParserConfigurationException, SAXException {
         Document document;
-        document = xmlParserWrapper.parse(filePath);
+        document = xmlParserWrapper.parse(XML_FILE_PATH);
 
         NodeList nodeList = document.getElementsByTagName("dialogue");
 
@@ -118,7 +118,7 @@ public class DialogueCreator {
     private String removeWhiteSpace(String dataLine) {
         StringBuilder characterBuilder = new StringBuilder();
         char[] characters = dataLine.toCharArray();
-        
+
         for (char character : characters) {
             if (character != ' ') {
                 characterBuilder.append(character);

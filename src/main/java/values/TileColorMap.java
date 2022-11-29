@@ -1,8 +1,5 @@
 package values;
 
-import java.awt.*;
-import java.util.EnumMap;
-
 import tiles.TileType;
 
 import java.awt.*;
