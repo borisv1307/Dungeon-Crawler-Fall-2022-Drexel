@@ -71,7 +71,7 @@ public class GameEngineTest {
 
     @Test
     public void add_and_get_enemy_coordinates() {
-        createEnemyTile();
+        createKoboldTile();
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
         assertThat(actualX, equalTo(ZERO));
@@ -80,10 +80,10 @@ public class GameEngineTest {
 
     @Test
     public void despawn_enemy_tile(){
-        createEnemyTile();
+        createKoboldTile();
         gameEngine.removeTile(ZERO, TWO);
         TileType actualTileType = gameEngine.getTileFromCoordinates(ZERO, TWO);
-        assertFalse(actualTileType == TileType.ENEMY);
+        assertFalse(actualTileType == TileType.KOBOLD);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class GameEngineTest {
         gameEngine.setLevelVerticalDimension(TWO);
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
-        createEnemyTile();
+        createKoboldTile();
         int previousX = gameEngine.getEnemyXCoordinate();
         int previousY = gameEngine.getEnemyYCoordinate();
         gameEngine.enemyKilled(previousX, previousY);
@@ -111,7 +111,7 @@ public class GameEngineTest {
         TileType tileType = TileType.PLAYER;
         gameEngine.addTile(ZERO, ONE, tileType);
     }
-    private void createEnemyTile() {
+    private void createKoboldTile() {
         TileType tileType = TileType.KOBOLD;
         gameEngine.addTile(ZERO, TWO, tileType);
     }

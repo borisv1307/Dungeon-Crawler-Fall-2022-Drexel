@@ -26,8 +26,18 @@ public class TileColorMapTest {
 	}
 
 	@Test
-	public void enemy() {
-		assertSame(Color.RED, TileColorMap.get(TileType.ENEMY));
+	public void enemy_orc() {
+		assertSame(Color.RED, TileColorMap.get(TileType.ORC));
+	}
+
+	@Test
+	public void enemy_slime() {
+		assertSame(Color.BLUE, TileColorMap.get(TileType.SLIME));
+	}
+
+	@Test
+	public void enemy_kobold() {
+		assertSame(Color.YELLOW, TileColorMap.get(TileType.KOBOLD));
 	}
 
 }

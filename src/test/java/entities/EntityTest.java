@@ -31,6 +31,16 @@ public class EntityTest {
     }
 
     @Test
+    public void deal_damage_player() {
+        int currentHitPoints = player.getHitPoints();
+        int playerArmorClass = player.getArmorClass();
+        int attackValue = 3;
+        int newHitPoints = currentHitPoints - (attackValue - playerArmorClass);
+        int actualHitPoints = player.receiveDamage(attackValue);
+        assertThat(newHitPoints, equalTo(actualHitPoints));
+    }
+
+    @Test
     public void get_tile_type_from_enemy_object(){
         Color tileColor = TileColorMap.get(TileType.KOBOLD);
         Color actual = TileColorMap.get(enemy.getTileType());

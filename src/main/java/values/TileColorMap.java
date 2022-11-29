@@ -18,7 +18,6 @@ public final class TileColorMap {
 		tileColors.put(TileType.SLIME, Color.BLUE);
 		tileColors.put(TileType.KOBOLD, Color.YELLOW );
 		tileColors.put(TileType.ORC, Color.RED);
-		tileColors.put(TileType.ENEMY, Color.RED);
 	}
 
 	public static Color get(TileType key) {

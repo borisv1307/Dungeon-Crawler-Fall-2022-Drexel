@@ -37,7 +37,13 @@ public class GamePanel extends Panel {
 		tilePainter.paintEntity(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
 		tilePainter.paintEntity(graphics, gameEngine.getEnemyXCoordinate(), gameEngine.getEnemyYCoordinate(),
-				tileWidth, tileHeight, TileType.ENEMY);
+				tileWidth, tileHeight, getEnemyTileType());
+	}
+
+	private TileType getEnemyTileType(){
+		int x = gameEngine.getEnemyXCoordinate();
+		int y = gameEngine.getEnemyYCoordinate();
+		return gameEngine.getTileFromCoordinates(x, y);
 	}
 
 	@Override
