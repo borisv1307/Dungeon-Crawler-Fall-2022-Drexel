@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class GameEngineTest {
 
@@ -26,7 +27,7 @@ public class GameEngineTest {
 
     @Before
     public void setUp() throws Exception {
-        LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+        LevelCreator levelCreator = mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
@@ -34,8 +35,8 @@ public class GameEngineTest {
 
     @Test
     public void run() {
-        GameFrame gameFrame = Mockito.mock(GameFrame.class);
-        Component component = Mockito.mock(Component.class);
+        GameFrame gameFrame = mock(GameFrame.class);
+        Component component = mock(Component.class);
         Mockito.when(gameFrame.getComponents()).thenReturn(new Component[]{component});
         gameEngine.run(gameFrame);
         Mockito.verify(component, Mockito.times(1)).repaint();
@@ -127,5 +128,20 @@ public class GameEngineTest {
         gameEngine.setLevelHorizontalDimension(1);
         gameEngine.addTile(0, 0, TileType.OBJECT);
         assertEquals(TileType.OBJECT, gameEngine.getTileFromCoordinates(0, 0));
+    }
+
+    @Test
+    public void remove_previously_added_objects() {
+        gameEngine.addTile(1, 1, TileType.PASSABLE);
+        gameEngine.addObjectToTile();
+        gameEngine.removePreviouslyAddedObjects();
+
+        TileType actualTileType = gameEngine.getTileFromCoordinates(1, 1);
+        assertEquals(TileType.PASSABLE, actualTileType);
+    }
+
+    @Test
+    public void activate_game_timer() {
+
     }
 }

@@ -27,7 +27,6 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
     @When("^a tile is empty and there is an object available$")
     public void a_tile_is_empty_and_there_is_an_object_available() {
         gameEngine.getRandomPassableTile();
-        gameEngine.getCollectableObject();
     }
 
     @Then("^an object will be placed on that tile$")
@@ -35,27 +34,13 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
         gameEngine.addObjectToTile();
     }
 
-    @When("^two tiles are empty and there are two objects available$")
-    public void twoTilesAreEmptyAndThereAreTwoObjectsAvailable() {
-        gameEngine.getRandomPassableTile();
-        gameEngine.getCollectableObject();
-        gameEngine.getRandomPassableTile();
-        gameEngine.getCollectableObject();
-    }
-
-    @Then("^one object will be placed on each tile$")
-    public void oneObjectWillBePlacedOnEachTile() {
-        gameEngine.addObjectToTile();
-        gameEngine.addObjectToTile();
-    }
-
     @When("^the game has been active for (\\d+) seconds$")
-    public void theGameHasBeenActiveForSeconds(int numberOfSeconds) throws InterruptedException {
+    public void theGameHasBeenActiveForSeconds(int numberOfSeconds) {
         gameEngine.activateGameTimer(numberOfSeconds);
     }
 
-    @Then("^an object will be placed on a passable tile$")
-    public void anObjectWillBePlacedOnAPassableTile() {
-        gameEngine.addObjectToTile();
+
+    @Then("^there will be objects available within the level$")
+    public void thereWillBeObjectsAvailableWithinTheLevel() {
     }
 }
