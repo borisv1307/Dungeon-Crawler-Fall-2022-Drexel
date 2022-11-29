@@ -13,6 +13,7 @@ public class TileTypeTest {
     private static final char DOOR = 'D';
     private static final char KEY = 'K';
     private static final char COLLECTIBLE = 'C';
+    private static final char PORTAL = 'O';
     //private static final char ENEMY = 'E';
 
     @Test
@@ -51,6 +52,12 @@ public class TileTypeTest {
     public void get_collectible_tile_type_by_char_C() {
         TileType actual = TileType.getTileTypeByChar(COLLECTIBLE);
         assertEquals(TileType.COLLECTIBLE, actual);
+    }
+
+    @Test
+    public void get_portal_tile_type_by_char_P() {
+        TileType actual = TileType.getTileTypeByChar(PORTAL);
+        assertEquals(TileType.PORTAL, actual);
     }
 
 //    @Test

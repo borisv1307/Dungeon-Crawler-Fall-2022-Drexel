@@ -55,6 +55,11 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         assertThat(gameEngine.playerHasCollectible(), equalTo(true));
     }
 
+    @Then("^the player enters portal$")
+    public void the_player_enters_portal() throws Throwable {
+        assertThat(gameEngine.playerEntersPortal(), equalTo(true));
+    }
+
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")
     public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
         assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));

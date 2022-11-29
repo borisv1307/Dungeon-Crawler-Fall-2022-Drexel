@@ -39,4 +39,9 @@ public class TileColorMapTest {
         assertSame(Color.PINK, TileColorMap.get(TileType.COLLECTIBLE));
     }
 
+    @Test
+    public void portal() {
+        assertSame(Color.GRAY, TileColorMap.get(TileType.PORTAL));
+    }
+
 }

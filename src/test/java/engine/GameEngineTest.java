@@ -18,6 +18,7 @@ public class GameEngineTest {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
+    private static final int FOUR = 4;
 
     GameEngine gameEngine;
 
@@ -106,6 +107,14 @@ public class GameEngineTest {
     }
 
     @Test
+    public void add_and_get_portal() {
+        TileType tileType = TileType.PORTAL;
+        gameEngine.addTile(ZERO, ONE, TileType.PORTAL);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+    }
+
+    @Test
     public void collectible_collected() {
         gameEngine.addTile(ZERO, ONE, TileType.KEY);
         gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
@@ -137,6 +146,17 @@ public class GameEngineTest {
         gameEngine.keyUp();
         gameEngine.keyRight();
         assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.PASSABLE));
+    }
+
+    @Test
+    public void access_portal() {
+        gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
+        gameEngine.addTile(ONE, ONE, TileType.PORTAL);
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        gameEngine.keyDown();
+        gameEngine.keyLeft();
+        assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.PORTAL));
     }
 
 }

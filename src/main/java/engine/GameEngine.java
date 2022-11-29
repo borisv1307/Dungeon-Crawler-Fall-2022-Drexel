@@ -21,6 +21,8 @@ public class GameEngine {
 
     private boolean playerHasKey;
     private boolean playerHasCollectible;
+    private boolean playerEntersPortal;
+    private boolean playerHasNoKey;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -119,6 +121,14 @@ public class GameEngine {
             tilePassable(x, y);
         }
 
+        if ((attemptedLocation == TileType.DOOR)) {
+            getPlayerHasKey(false);
+        }
+
+        if (attemptedLocation == TileType.PORTAL) {
+            getPlayerHasEntered(true);
+            levelCreator.createLevel(this, 2);
+        }
 
     }
 
@@ -151,5 +161,11 @@ public class GameEngine {
         this.playerHasCollectible = playerHasCollectible;
     }
 
+    public void getPlayerHasEntered(boolean playerEntersPortal) {
+        this.playerEntersPortal = playerEntersPortal;
+    }
 
+    public boolean playerEntersPortal() {
+        return playerEntersPortal;
+    }
 }
