@@ -79,16 +79,34 @@ public class DialoguePanelUITest {
     }
 
     @Test
-    public void click_one_response_from_every_dialogue_then_exit_after_responding_to_dialogue_ID_four() {
-        responseButtonOne.doClick();
-        responseButtonTwo.doClick();
-        responseButtonThree.doClick();
-        responseButtonOne.doClick();
-        responseButtonOne.doClick();
+    public void click_response_button_one_three_times_then_response_button_two_twice_then_dialogue_frame_exits() {
+        clickTargetButtonXManyTimes(3, responseButtonOne);
+        clickTargetButtonXManyTimes(2, responseButtonTwo);
 
         currentDialogue = dialogueSystem.getCurrentDialogue();
         assertFalse(dialogueSystem.isDialogueActive());
         assertFalse(dialogueSystem.getDialogueFrame().isShowing());
         assertEquals(1, currentDialogue.getDialogueID());
     }
+
+    @Test
+    public void click_one_response_from_every_dialogue_then_exit_frame_after_responding_to_dialogue_ID_four() {
+        responseButtonOne.doClick();
+        responseButtonTwo.doClick();
+        responseButtonThree.doClick();
+        clickTargetButtonXManyTimes(2, responseButtonOne);
+
+        currentDialogue = dialogueSystem.getCurrentDialogue();
+        assertFalse(dialogueSystem.isDialogueActive());
+        assertFalse(dialogueSystem.getDialogueFrame().isShowing());
+        assertEquals(1, currentDialogue.getDialogueID());
+    }
+
+    private void clickTargetButtonXManyTimes(int numberOfTimes, DialogueButton dialogueButton) {
+        for (int index = 0; index < numberOfTimes; index++) {
+            dialogueButton.doClick();
+        }
+    }
+
+
 }

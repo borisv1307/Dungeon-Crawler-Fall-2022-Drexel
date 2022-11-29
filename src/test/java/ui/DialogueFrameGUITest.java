@@ -14,10 +14,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static values.TunableParameters.DIALOGUE_BUTTON_HEIGHT;
-import static values.TunableParameters.DIALOGUE_BUTTON_WIDTH;
+import static org.junit.Assert.*;
+import static values.TunableParameters.*;
 
 public class DialogueFrameGUITest {
     DialogueFrame dialogueFrame;
@@ -33,15 +31,20 @@ public class DialogueFrameGUITest {
     DialoguePanel mockDialoguePanel;
     List<DialogueButton> buttons;
     Dimension dimension;
+    Point actualComponentPosition;
 
     private static final Dimension EXPECTED_BUTTON_DIMENSIONS = new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT);
+
+    private static final Dimension EXPECTED_TEXT_AREA_DIMENSIONS = new Dimension(DIALOGUE_TEXT_AREA_WIDTH, DIALOGUE_TEXT_AREA_HEIGHT);
 
     @Before
 
     public void setUp() {
         dialoguePanel = new DialoguePanel();
+
         mockDialoguePanel = Mockito.mock(DialoguePanel.class);
         dialogueSystem = Mockito.mock(DialogueSystem.class);
+
         dialogueButton = new DialogueButton();
 
         width = TunableParameters.SCREEN_WIDTH;
@@ -55,6 +58,8 @@ public class DialogueFrameGUITest {
         buttonThree = buttons.get(2);
 
         jTextArea = dialogueFrame.getDialogueTextArea();
+
+        actualComponentPosition = new Point();
     }
 
     @Test
@@ -77,25 +82,19 @@ public class DialogueFrameGUITest {
         assertThat(dialogueFrame.isResizable(), equalTo(false));
         assertThat(dialogueFrame.getWindowListeners(), arrayContaining((WindowListener) windowAdapter));
 
-        assertEquals(dialogueFrame.getLayout().toString(), new GridBagLayout().toString());
         Mockito.verify(mockDialoguePanel).setPreferredSize(new Dimension(width, height));
         Mockito.verify(mockDialoguePanel).setBackground(Color.GRAY);
     }
 
     @Test
-    public void dialogue_panel_layout_manager_is_flow_layout() {
+    public void dialogue_panel_layout_manager_is_null() {
         dialoguePanel = new DialoguePanel();
         final LayoutManager actual = dialoguePanel.getLayout();
-        assertEquals(actual.toString(), new FlowLayout().toString());
+        assertNull(actual);
     }
 
     @Test
-    public void dialogue_panel_only_has_four_components_on_creation() {
-        assertEquals(4, dialoguePanel.getComponentCount());
-    }
-
-    @Test
-    public void dialogue_panel_has_has_three_components_on_creation() {
+    public void dialogue_panel_has_has_three_button_components_on_creation() {
         assertEquals(3, dialoguePanel.getDialoguePanelButtons().size());
     }
 
@@ -104,17 +103,26 @@ public class DialogueFrameGUITest {
         dialoguePanel = new DialoguePanel() {
             @Override
             public Component add(Component comp) {
-                DialogueButton currentButton = (DialogueButton) comp;
-                assertEquals(currentButton, dialogueButton);
-                return dialogueButton;
-            }
 
-            @Override
-            public void add(Component comp, Object constraint) {
-                JTextArea currentTextArea = (JTextArea) comp;
-                assertThat(currentTextArea.getClass(), equalTo(JTextArea.class));
+                if (comp.getWidth() <= 300) {
+                    DialogueButton currentButton = (DialogueButton) comp;
+                    assertEquals(currentButton, dialogueButton);
+                } else {
+                    JTextArea currentJTextArea = (JTextArea) comp;
+                    assertThat(currentJTextArea.getClass(), equalTo(JTextArea.class));
+                }
+                return comp;
             }
         };
+    }
+
+    @Test
+    public void dialogue_button_font_applied_to_button_one_creation() {
+        final Font dialogueButtonFont = buttonOne.getFont();
+
+        assertEquals(RESPONSE_FONT_STYLE, dialogueButtonFont.getStyle());
+        assertEquals(RESPONSE_FONT_SIZE, dialogueButtonFont.getSize());
+        assertEquals("Response Font", dialogueButtonFont.getName());
     }
 
     @Test
@@ -124,9 +132,21 @@ public class DialogueFrameGUITest {
     }
 
     @Test
+    public void dialogue_panel_button_one_is_created_with_correct_X_Y_position() {
+        actualComponentPosition = buttonOne.getLocation();
+        assertEquals(new Point(0, 10), actualComponentPosition.getLocation());
+    }
+
+    @Test
     public void dialogue_panel_button_two_is_created_with_correct_dimension() {
         dimension = createDimensionFromWidthAndHeight(buttonTwo.getWidth(), buttonTwo.getHeight());
         assertEquals(EXPECTED_BUTTON_DIMENSIONS, dimension);
+    }
+
+    @Test
+    public void dialogue_panel_button_two_is_created_with_correct_X_Y_position() {
+        actualComponentPosition = buttonTwo.getLocation();
+        assertEquals(new Point(300, 10), actualComponentPosition.getLocation());
     }
 
     @Test
@@ -136,14 +156,36 @@ public class DialogueFrameGUITest {
     }
 
     @Test
-    public void dialogue_panel_text_area_has_correct_font() {
-        final JTextArea textArea = dialogueFrame.getDialogueTextArea();
-        final Font textAreaFont = textArea.getFont();
+    public void dialogue_panel_button_three_is_created_with_correct_X_Y_position() {
+        actualComponentPosition = buttonThree.getLocation();
+        assertEquals(new Point(600, 10), actualComponentPosition.getLocation());
+    }
 
-        assertFalse(textArea.isEditable());
-        assertEquals(Font.ITALIC, textAreaFont.getStyle());
-        assertEquals(16, textAreaFont.getSize());
+    @Test
+    public void dialogue_panel_text_area_has_correct_font() {
+        final Font textAreaFont = jTextArea.getFont();
+
+        assertEquals(DIALOGUE_FONT_STYLE, textAreaFont.getStyle());
+        assertEquals(DIALOGUE_FONT_SIZE, textAreaFont.getSize());
         assertEquals("Text Area Font", textAreaFont.getName());
+    }
+
+    @Test
+    public void dialogue_panel_is_created_with_proper_settings() {
+        assertFalse(jTextArea.isEditable());
+        assertTrue(jTextArea.getLineWrap());
+    }
+
+    @Test
+    public void dialogue_panel_text_area_is_created_with_correct_X_Y_position() {
+        actualComponentPosition = jTextArea.getLocation();
+        assertEquals(new Point(50, 200), actualComponentPosition);
+    }
+
+    @Test
+    public void dialogue_panel_text_area_is_created_with_correct_dimensions() {
+        dimension = createDimensionFromWidthAndHeight(jTextArea.getWidth(), jTextArea.getHeight());
+        assertEquals(EXPECTED_TEXT_AREA_DIMENSIONS, dimension);
     }
 
     @Test
@@ -156,6 +198,4 @@ public class DialogueFrameGUITest {
     private Dimension createDimensionFromWidthAndHeight(int width, int height) {
         return new Dimension(width, height);
     }
-
-
 }

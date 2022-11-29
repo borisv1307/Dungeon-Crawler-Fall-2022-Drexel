@@ -88,6 +88,20 @@ public class DialogueCreatorTest {
         assertEquals("Great, but what are you doing here, NPC?", responsesToCurrentDialogue.get(1).getResponseText());
     }
 
+    @Test
+    public void dialogue_creator_removes_white_space_from_line() {
+        final String targetLine = "Hello     ,   player      !";
+        String actual = dialogueCreator.cleanElementLineData(targetLine);
+        assertEquals("Hello, player!", actual);
+    }
+
+    @Test
+    public void dialogue_creator_removes_white_space_and_formats_punctuation_properly() {
+        final String targetLine = "Hey!! ! ! Stop,     right there!";
+        String actual = dialogueCreator.cleanElementLineData(targetLine);
+        assertEquals("Hey!!!! Stop, right there!", actual);
+    }
+    
     private Dialogue getDialogueByID(int targetID) {
         Dialogue targetDialogue = new Dialogue(100, "placeholder", new ArrayList<>());
         for (Dialogue dialogue : dialogues) {

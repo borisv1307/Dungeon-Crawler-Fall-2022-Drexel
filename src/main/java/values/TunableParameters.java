@@ -1,5 +1,7 @@
 package values;
 
+import java.awt.*;
+
 public final class TunableParameters {
 	private TunableParameters() {
 	}
@@ -20,10 +22,16 @@ public final class TunableParameters {
 
 	public static final int DIALOGUE_BUTTON_WIDTH = 275;
 
-	public static final int DIALOGUE_BUTTON_HEIGHT = 150;
+	public static final int DIALOGUE_BUTTON_HEIGHT = 100;
 
-	public static final int DIALOGUE_TEXT_AREA_WIDTH = 550;
+	public static final int DIALOGUE_TEXT_AREA_WIDTH = 800;
 
-	public static final int DIALOGUE_TEXT_AREA_HEIGHT = 600;
+	public static final int DIALOGUE_TEXT_AREA_HEIGHT = 200;
 
+	public static final int DIALOGUE_FONT_SIZE = 16;
+
+	public static final int DIALOGUE_FONT_STYLE = Font.ITALIC;
+
+	public static final int RESPONSE_FONT_SIZE = 10;
+	public static final int RESPONSE_FONT_STYLE = Font.PLAIN;
 }

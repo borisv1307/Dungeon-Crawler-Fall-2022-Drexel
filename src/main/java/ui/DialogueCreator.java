@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.sun.org.apache.xml.internal.utils.XMLCharacterRecognizer.isWhiteSpace;
 import static values.TunableParameters.XML_LOCATION_PREFIX;
 import static values.TunableParameters.XML_NAME_SUFFIX;
 
@@ -21,7 +22,9 @@ public class DialogueCreator {
     private static final Logger LOGGER = Logger.getLogger(DialogueCreator.class.getName());
     private final XMLParserWrapper xmlParserWrapper;
     private static final String FILE_NAME = "npc";
-    String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
+    private final String filePath = XML_LOCATION_PREFIX + FILE_NAME + XML_NAME_SUFFIX;
+    private final String[] illegalCharacters = {
+            "!", ".", ",", ";"};
 
     public DialogueCreator(XMLParserWrapper xmlParserWrapper) {
         this.xmlParserWrapper = xmlParserWrapper;
@@ -56,7 +59,7 @@ public class DialogueCreator {
                 int dialogueID = Integer.parseInt(nodeElement.getAttribute("id"));
 
                 String dialogueContent = nodeElement.getElementsByTagName("content").item(0).getTextContent();
-                String dialogue = cleanElementStringData(dialogueContent);
+                String dialogue = cleanElementLineData(dialogueContent);
 
                 List<Response> responses = createResponsesArray(nodeElement);
 
@@ -78,7 +81,7 @@ public class DialogueCreator {
                 Node response = responses.item(index);
                 Element responseElement = (Element) response;
                 int targetIDForNextDialogue = Integer.parseInt(responseElement.getAttribute("target"));
-                String currentResponse = cleanElementStringData(response.getTextContent());
+                String currentResponse = cleanElementLineData(response.getTextContent());
 
                 responsesFromXML.add(new Response(currentResponse, targetIDForNextDialogue));
             }
@@ -86,8 +89,40 @@ public class DialogueCreator {
         return responsesFromXML;
     }
 
-    private String cleanElementStringData(String targetString) {
-        return targetString.trim();
+    public String cleanElementLineData(String targetLine) {
+        String[] splitStrings = targetLine.split(" ");
+        return cleanIndividualLines(splitStrings);
+    }
+
+    private String cleanIndividualLines(String[] targetLine) {
+        String cleanedLineFromXML = " ";
+        for (String line : targetLine) {
+            if (!line.isEmpty()) {
+                String trimmedData = line.trim();
+                String cleanString = removeWhiteSpace(trimmedData);
+
+                boolean isSpecial = false;
+                for (String illegalCharacter : illegalCharacters) {
+                    if (cleanString.equals(illegalCharacter)) {
+                        isSpecial = true;
+                    }
+                }
+                String space = isSpecial ? "" : " ";
+                cleanedLineFromXML += (space + cleanString);
+            }
+        }
+        return cleanedLineFromXML.trim();
+    }
+
+    private String removeWhiteSpace(String dataLine) {
+        char[] characters = dataLine.toCharArray();
+        String cleanData = " ";
+        for (char character : characters) {
+            if (!isWhiteSpace(character)) {
+                cleanData += character;
+            }
+        }
+        return cleanData.trim();
     }
 
 

@@ -43,9 +43,11 @@ public class DialogueSystem {
     }
 
     public void initiateDialogueFrame() {
-        updateDialogueFrame(1);
-        setIsDialogueActive(true);
-        dialogueFrame.setVisible(true);
+        if (!isDialogueActive) {
+            updateDialogueFrame(1);
+            setIsDialogueActive(true);
+            dialogueFrame.setVisible(true);
+        }
     }
 
     public void setIsDialogueActive(boolean isDialogueActive) {
@@ -108,23 +110,8 @@ public class DialogueSystem {
     private void resetButtons() {
         for (int index = 0; index < dialogueButtons.size(); index++) {
             DialogueButton button = dialogueButtons.get(index);
-            hideButton(button);
+            button.setVisible(false);
         }
-    }
-
-    private void hideButton(DialogueButton dialogueButton) {
-        dialogueButton.setText("");
-        dialogueButton.setOpaque(false);
-        dialogueButton.setContentAreaFilled(false);
-        dialogueButton.setBorderPainted(false);
-        dialogueButton.setEnabled(false);
-    }
-
-    private void showButton(DialogueButton dialogueButton) {
-        dialogueButton.setOpaque(true);
-        dialogueButton.setContentAreaFilled(true);
-        dialogueButton.setBorderPainted(true);
-        dialogueButton.setEnabled(true);
     }
 
     private void updateButtonsContent() {
@@ -132,8 +119,9 @@ public class DialogueSystem {
         for (int responseIndex = 0; responseIndex < currentDialogueResponses.size(); responseIndex++) {
             DialogueButton currentButton = dialogueButtons.get(responseIndex);
             Response currentResponse = currentDialogueResponses.get(responseIndex);
+
             currentButton.setText(currentResponse.getResponseText());
-            showButton(currentButton);
+            currentButton.setVisible(true);
         }
     }
 }

@@ -12,38 +12,41 @@ public class DialoguePanel extends Panel {
     private final DialogueButton buttonTwo;
     private final DialogueButton buttonThree;
     private final List<DialogueButton> buttons;
-    private final GridBagConstraints constraints;
     private final JTextArea dialogueTextArea;
-
+    private final Font responseButtonFont;
     private final Font dialogueFont;
 
     public DialoguePanel() {
         setName("Dialogue Panel");
 
-        dialogueFont = new Font("Text Area Font", Font.ITALIC, 16);
+        dialogueFont = new Font("Text Area Font", DIALOGUE_FONT_STYLE, DIALOGUE_FONT_SIZE);
+        responseButtonFont = new Font("Response Font", RESPONSE_FONT_STYLE, RESPONSE_FONT_SIZE);
 
         buttons = new ArrayList<>();
-
-        constraints = new GridBagConstraints();
+        
+        setLayout(null);
 
         buttonOne = createButton(0);
-        buttonOne.setPreferredSize(new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT));
         buttons.add(buttonOne);
-        add(buttonOne);
 
         buttonTwo = createButton(1);
-        buttonTwo.setPreferredSize(new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT));
         buttons.add(buttonTwo);
-        add(buttonTwo);
 
         buttonThree = createButton(2);
-        buttonThree.setPreferredSize(new Dimension(DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT));
         buttons.add(buttonThree);
+
+        applyButtonSettings();
+
+        add(buttonOne);
+        add(buttonTwo);
         add(buttonThree);
 
-        dialogueTextArea = createJTextArea(constraints);
-        add(dialogueTextArea, constraints);
+        dialogueTextArea = createJTextArea();
+        dialogueTextArea.setBounds(50, 200, DIALOGUE_TEXT_AREA_WIDTH, DIALOGUE_TEXT_AREA_HEIGHT);
+
+        add(dialogueTextArea);
         setVisible(true);
+        repaint();
     }
 
     public List<DialogueButton> getDialoguePanelButtons() {
@@ -60,16 +63,24 @@ public class DialoguePanel extends Panel {
         return button;
     }
 
-    JTextArea createJTextArea(GridBagConstraints constraints) {
-        JTextArea jtextArea = new JTextArea();
-        jtextArea.setText("default text area");
-        jtextArea.setEditable(false);
-        jtextArea.setFont(dialogueFont);
+    JTextArea createJTextArea() {
+        JTextArea jTextArea = new JTextArea();
+        jTextArea.setText("default text area");
+        jTextArea.setEditable(false);
+        jTextArea.setFont(dialogueFont);
+        jTextArea.setLineWrap(true);
 
-        jtextArea.setPreferredSize(new Dimension(DIALOGUE_TEXT_AREA_WIDTH, DIALOGUE_TEXT_AREA_HEIGHT));
-        constraints.gridwidth = 3;
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        return jtextArea;
+        jTextArea.setBounds(0, 200, DIALOGUE_TEXT_AREA_WIDTH, DIALOGUE_TEXT_AREA_HEIGHT);
+
+        return jTextArea;
+    }
+
+    private void applyButtonSettings() {
+        int xPosition = 0;
+        for (DialogueButton dialogueButton : buttons) {
+            dialogueButton.setFont(responseButtonFont);
+            dialogueButton.setBounds(xPosition, 10, DIALOGUE_BUTTON_WIDTH, DIALOGUE_BUTTON_HEIGHT);
+            xPosition += 300;
+        }
     }
 }
