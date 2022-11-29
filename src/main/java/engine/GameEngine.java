@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameEngine {
-
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private int level;
