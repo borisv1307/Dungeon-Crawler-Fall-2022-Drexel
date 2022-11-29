@@ -31,7 +31,7 @@ public class GamePanel extends Panel {
 	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
-		this.enemies = EnemyHandler.enemies;
+		this.enemies = EnemyHandler.getEnemies();
 		this.lasers = this.gameEngine.getLasers();
 
 

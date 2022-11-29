@@ -34,15 +34,15 @@ public class EnemyHandlerTest {
 
     @After
     public void teardown(){
-        EnemyHandler.enemies.clear();
+        EnemyHandler.getEnemies().clear();
     }
 
     @Test
     public void enemy_is_created(){
         enemyHandler.createEnemy(10, 10, ENEMY_WIDTH, ENEMY_HEIGHT);
-        EnemyHandler.Enemy enemy = EnemyHandler.enemies.get(0);
-        assertEquals(enemy.getX(), 10);
-        assertEquals(enemy.getY(), 10);
+        EnemyHandler.Enemy enemy = EnemyHandler.getEnemies().get(0);
+        assertEquals(10, enemy.getX());
+        assertEquals(10, enemy.getY());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class EnemyHandlerTest {
         Graphics graphics = Mockito.mock(Graphics.class);
         TilePainter tilePainter = new TilePainter();
         game.spawnEnemy(1, 1);
-        tilePainter.paintEnemies(graphics, EnemyHandler.enemies);
+        tilePainter.paintEnemies(graphics, EnemyHandler.getEnemies());
         Mockito.verify(graphics).fillRect(TILE_WIDTH, TILE_HEIGHT, 45, 60);
     }
 
@@ -61,9 +61,8 @@ public class EnemyHandlerTest {
         EnemyHandler.Enemy enemy = game.spawnEnemy(1, 1);
         int initialX = enemy.getX();
         int initialY = enemy.getY();
-        // game.run(new GameFrame()) so don't have to do next two lines. ?
         enemyHandler.progressEnemies();
-        tilePainter.paintEnemies(graphics, EnemyHandler.enemies);
+        tilePainter.paintEnemies(graphics, EnemyHandler.getEnemies());
         Mockito.verify(graphics).fillRect(initialX, initialY + enemy.getSpeed(), 45, 60);
 
 
@@ -74,7 +73,7 @@ public class EnemyHandlerTest {
         RandomHandler randomHandler = Mockito.mock(RandomHandler.class);
         Mockito.when(randomHandler.getRandomIntInRange(1, 19)).thenReturn(6);
         EnemyHandler.Enemy enemy = game.spawnEnemyAtRandomX(randomHandler);
-        assertEquals(enemy.getX(), TILE_WIDTH * 6);
+        assertEquals(TILE_WIDTH * 6, enemy.getX());
     }
 
     @Test

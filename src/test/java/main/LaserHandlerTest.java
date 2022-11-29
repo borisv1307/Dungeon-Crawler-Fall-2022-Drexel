@@ -32,8 +32,8 @@ public class LaserHandlerTest {
     public void laser_handler_creates_laser() {
         LaserHandler laserHandler = new LaserHandler();
         LaserHandler.Laser laser = laserHandler.laserFactory(10, 10);
-        assertEquals(laser.getX(), 10);
-        assertEquals(laser.getY(), 10);
+        assertEquals(10, laser.getX());
+        assertEquals(10, laser.getY());
     }
 
 
@@ -56,7 +56,7 @@ public class LaserHandlerTest {
         Graphics graphics = Mockito.mock(Graphics.class);
         LaserHandler.Laser laser = createAndGetFirstLaser();
         TilePainter tilePainter = new TilePainter();
-        tilePainter.paintLasers(graphics, gameEngine.getLasers(), LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
+        tilePainter.paintLasers(graphics, gameEngine.laserHandler.getLasers(), LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
         int correctXPosition = laser.getX() * LASER_WIDTH + (TILE_WIDTH / 2) - (LASER_WIDTH / 2);
         int correctYPosition = laser.getY() * LASER_HEIGHT;
         Mockito.verify(graphics).fillRect(correctXPosition, correctYPosition, LASER_WIDTH, LASER_HEIGHT);
@@ -78,12 +78,12 @@ public class LaserHandlerTest {
         while(laser.getY() >= 5){
             gameEngine.laserHandler.progressLasers();
         }
-        assert(gameEngine.laserHandler.lasers.isEmpty());
+        assert(gameEngine.laserHandler.getLasers().isEmpty());
     }
 
     public LaserHandler.Laser createAndGetFirstLaser(){
         gameEngine.keySpace();
-        return gameEngine.getLasers().get(0);
+        return gameEngine.laserHandler.getLasers().get(0);
 
     }
 }

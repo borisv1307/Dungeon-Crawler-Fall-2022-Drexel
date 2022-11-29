@@ -67,7 +67,7 @@ public class TilePainterTest {
 		LaserHandler laserHandler = new LaserHandler();
 		laserHandler.laserFactory(1, 2);
 		laserHandler.laserFactory(4, 2);
-		tilePainter.paintLasers(graphics, laserHandler.lasers, LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
+		tilePainter.paintLasers(graphics, laserHandler.getLasers(), LASER_WIDTH, LASER_HEIGHT, TILE_WIDTH);
 
 		InOrder inOrder = Mockito.inOrder(graphics);
 		inOrder.verify(graphics).setColor(Color.red);

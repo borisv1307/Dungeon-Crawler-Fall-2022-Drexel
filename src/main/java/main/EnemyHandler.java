@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyHandler {
-    public static List<Enemy> enemies = new ArrayList<>();
-    public double chanceOfSpawn = TunableParameters.INITIAL_CHANCE_OF_SPAWN;
+    private static final List<Enemy> enemies = new ArrayList<>();
+    private double chanceOfSpawn = TunableParameters.INITIAL_CHANCE_OF_SPAWN;
 
 
     public Enemy createEnemy(int x, int y, int enemyWidth, int enemyHeight) {
@@ -20,6 +20,10 @@ public class EnemyHandler {
             Enemy enemy = enemies.get(i);
             enemy.setY(enemy.getY() + enemy.getSpeed());
         }
+    }
+
+    public static List<Enemy> getEnemies(){
+        return enemies;
     }
 
     public void setChanceOfSpawn(double chanceOfSpawn) {

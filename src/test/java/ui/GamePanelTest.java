@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import main.LaserHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

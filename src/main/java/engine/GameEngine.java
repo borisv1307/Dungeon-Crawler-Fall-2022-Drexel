@@ -10,8 +10,8 @@ import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 import java.awt.*;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameEngine {
@@ -19,8 +19,8 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
-    public LaserHandler laserHandler;
-    public EnemyHandler enemyHandler;
+    public final LaserHandler laserHandler;
+    public final EnemyHandler enemyHandler;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -42,13 +42,13 @@ public class GameEngine {
     }
 
     public void run(GameFrame gameFrame) {
-        if(!getLasers().isEmpty()){
+        if(!laserHandler.getLasers().isEmpty()){
             laserHandler.progressLasers();
         }
         if(enemyHandler.enemyWillSpawn(randomWrapper)){
             spawnEnemyAtRandomX(randomHandler);
         }
-        if(!EnemyHandler.enemies.isEmpty()){
+        if(!EnemyHandler.getEnemies().isEmpty()){
             enemyHandler.progressEnemies();
         }
         for (Component component : gameFrame.getComponents()) {
@@ -134,11 +134,6 @@ public class GameEngine {
         laserHandler.laserFactory(getPlayerXCoordinate() * TunableParameters.TILE_TO_LASER_WIDTH,
                 getPlayerYCoordinate() * TunableParameters.TILE_TO_LASER_HEIGHT);
     }
-
-    public List<LaserHandler.Laser> getLasers() {
-        return laserHandler.lasers;
-    }
-
     public EnemyHandler.Enemy spawnEnemy(int x, int y) {
         return enemyHandler.createEnemy(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
@@ -146,5 +141,9 @@ public class GameEngine {
     public EnemyHandler.Enemy spawnEnemyAtRandomX(RandomHandler randomHandler) {
         int randomNum = randomHandler.getRandomIntInRange(1, levelHorizontalDimension - 1);
         return spawnEnemy(randomNum, 1);
+    }
+
+    public List<LaserHandler.Laser> getLasers() {
+        return laserHandler.getLasers();
     }
 }

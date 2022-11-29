@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LaserHandler {
 
-    public List<Laser> lasers;
+    private List<Laser> lasers;
 
     public LaserHandler(){
         lasers = new ArrayList<>();
@@ -25,6 +25,9 @@ public class LaserHandler {
                 lasers.remove(lasers.get(i));
             }
         }
+    }
+    public List<Laser> getLasers(){
+        return this.lasers;
     }
 
     public class Laser {
