@@ -2,6 +2,7 @@ package engine;
 
 import parser.LevelCreator;
 import tiles.TileType;
+import ui.EndScreen;
 import ui.GameFrame;
 
 import java.awt.*;
@@ -128,8 +129,14 @@ public class GameEngine implements Serializable {
 
         if (attemptedLocation == TileType.PORTAL) {
             getPlayerHasEntered(true);
-            level = getLevel() + 1;
-            levelCreator.createLevel(this, level);
+
+            if (level == 4) {
+                new EndScreen();
+
+            } else {
+                level = getLevel() + 1;
+                levelCreator.createLevel(this, level);
+            }
         }
 
         if (attemptedLocation == (TileType.ENEMY)) {

@@ -35,7 +35,7 @@ public class MainScreen extends JFrame implements ActionListener {
             choose[i] = new JRadioButton(chooseStrings[i]);
             choose[i].addActionListener(this);
             choose[i].setBackground(Color.WHITE);
-            choose[i].setBounds(230, 200 + i * 50, 80, 30);
+            choose[i].setBounds(230, 200 + i * 50, 200, 30);
             buttonPanel.add(choose[i]);
         }
 

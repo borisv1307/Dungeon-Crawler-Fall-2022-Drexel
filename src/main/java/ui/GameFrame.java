@@ -48,9 +48,11 @@ public class GameFrame extends Frame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+
         if (source == newGameMenuItem) {
             setVisible(true);
             new MainScreen();
+
         }
 
         if (source == exitGameMenuItem) {
