@@ -1,11 +1,6 @@
 package values;
 
 
-import static org.junit.Assert.assertSame;
-
-import java.awt.*;
-
-
 import org.junit.Test;
 import tiles.TileType;
 
@@ -50,4 +45,8 @@ public class TileColorMapTest {
         assertSame(Color.GRAY, TileColorMap.get(TileType.PORTAL));
     }
 
+    @Test
+    public void enemy() {
+        assertSame(Color.RED, TileColorMap.get(TileType.ENEMY));
+    }
 }

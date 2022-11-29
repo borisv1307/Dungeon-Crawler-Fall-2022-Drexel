@@ -1,11 +1,11 @@
 @IntegrationTest
-Feature: Given key, door and collectible
+Feature: Given key, door, Enemy and collectible
 
   Background:
     Given the level design is:
       | XXKXX |
       | X   X |
-      | X P X |
+      | X P E |
       | X C X |
       | XXDXX |
 
@@ -38,3 +38,8 @@ Feature: Given key, door and collectible
     When the player moves down
     When the player moves down
     Then the player is located at (3,5)
+
+  Scenario: If the player moves right, collides with enemy and restarts
+    When the player moves right
+    Then the player is located at (4, 3)
+    Then the game restarts

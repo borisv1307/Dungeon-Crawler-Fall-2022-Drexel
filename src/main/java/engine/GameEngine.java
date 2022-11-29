@@ -12,8 +12,8 @@ public class GameEngine {
 
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
-    private final int level;
     TileType attemptedLocation;
+    private int level;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -22,7 +22,7 @@ public class GameEngine {
     private boolean playerHasKey;
     private boolean playerHasCollectible;
     private boolean playerEntersPortal;
-    private boolean playerHasNoKey;
+    private boolean enemy;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -127,9 +127,33 @@ public class GameEngine {
 
         if (attemptedLocation == TileType.PORTAL) {
             getPlayerHasEntered(true);
-            levelCreator.createLevel(this, 2);
+            level = getLevel() + 1;
+            levelCreator.createLevel(this, level);
         }
 
+        if (attemptedLocation == (TileType.ENEMY)) {
+            getPlayerCollides(true);
+            tilePassable(x, y);
+            restart();
+        }
+
+        if (isOver()) {
+            gameEnded();
+            setExit(exit);
+        }
+    }
+
+
+    private void gameEnded() {
+        System.out.println("NO MORE LEVELS! GAME ENDED!");
+    }
+
+    public boolean isOver() {
+        return false;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     private void tilePassable(int x, int y) {
@@ -167,5 +191,17 @@ public class GameEngine {
 
     public boolean playerEntersPortal() {
         return playerEntersPortal;
+    }
+
+    public boolean playerCollides() {
+        return enemy;
+    }
+
+    public void getPlayerCollides(boolean enemy) {
+        this.enemy = enemy;
+    }
+
+    public void restart() {
+        levelCreator.createLevel(this, level);
     }
 }

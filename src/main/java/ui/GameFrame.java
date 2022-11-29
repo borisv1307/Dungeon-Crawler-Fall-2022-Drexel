@@ -1,10 +1,9 @@
 package ui;
 
-import java.awt.*;
-
 import values.TunableParameters;
 
 import java.awt.*;
+
 
 public class GameFrame extends Frame {
 

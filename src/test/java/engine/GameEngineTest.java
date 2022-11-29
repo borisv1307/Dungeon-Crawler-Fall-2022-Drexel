@@ -116,6 +116,14 @@ public class GameEngineTest {
     }
 
     @Test
+    public void add_enemy() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.addTile(ZERO, ONE, TileType.ENEMY);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+    }
+
+    @Test
     public void collectible_collected() {
         gameEngine.addTile(ZERO, ONE, TileType.KEY);
         gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
@@ -158,6 +166,15 @@ public class GameEngineTest {
         gameEngine.keyDown();
         gameEngine.keyLeft();
         assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.PORTAL));
+    }
+
+    @Test
+    public void collide_with_enemy() {
+        gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
+        gameEngine.addTile(ONE, ONE, TileType.ENEMY);
+        gameEngine.keyUp();
+        gameEngine.keyDown();
+        assertThat(gameEngine.getTileFromCoordinates(ONE, ONE), equalTo(TileType.ENEMY));
     }
 
 }

@@ -16,6 +16,7 @@ public final class TileColorMap {
         tileColors.put(TileType.KEY, Color.BLUE);
         tileColors.put(TileType.COLLECTIBLE, Color.PINK);
         tileColors.put(TileType.PORTAL, Color.GRAY);
+        tileColors.put(TileType.ENEMY, Color.RED);
     }
 
 

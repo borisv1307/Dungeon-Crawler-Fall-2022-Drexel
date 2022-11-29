@@ -4,7 +4,7 @@ Feature: Move the player into empty space
   Background:
     Given the level design is:
       | XXKXX |
-      | X   X |
+      | X   E |
       | X P X |
       | X C X |
       | XXDXX |

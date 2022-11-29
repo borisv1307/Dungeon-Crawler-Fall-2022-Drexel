@@ -2,9 +2,6 @@ package ui;
 
 
 import engine.GameEngine;
-
-import java.awt.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
@@ -21,7 +18,7 @@ public class TilePainterTest {
     private final int TILE_WIDTH = 10;
     private final int TILE_HEIGHT = 20;
     private final int X = 2;
-    private final int Y = 5;
+    private final int Y = 6;
 
     Graphics graphics;
     TilePainter tilePainter;
@@ -47,6 +44,8 @@ public class TilePainterTest {
         Mockito.when(game.getTileFromCoordinates(1, 3)).thenReturn(TileType.COLLECTIBLE);
 
         Mockito.when(game.getTileFromCoordinates(1, 4)).thenReturn(TileType.PORTAL);
+
+        Mockito.when(game.getTileFromCoordinates(1, 5)).thenReturn(TileType.ENEMY);
 
         Mockito.when(game.getTileFromCoordinates(AdditionalMatchers.not(Matchers.eq(1)),
                 AdditionalMatchers.not(Matchers.eq(1)))).thenReturn(TileType.PASSABLE);
@@ -75,6 +74,9 @@ public class TilePainterTest {
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PORTAL));
         inOrder.verify(graphics).fillRect(10, 80, 10, 20);
 
+        inOrder.verify(graphics).setColor(TileColorMap.get(TileType.ENEMY));
+        inOrder.verify(graphics).fillRect(10, 100, 10, 20);
+
     }
 
     @Test
@@ -82,7 +84,7 @@ public class TilePainterTest {
 
         tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
-        Mockito.verify(graphics).fillRect(20, 100, 10, 20);
+        Mockito.verify(graphics).fillRect(20, 120, 10, 20);
     }
 
 }

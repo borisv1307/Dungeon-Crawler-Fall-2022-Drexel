@@ -60,6 +60,11 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         assertThat(gameEngine.playerEntersPortal(), equalTo(true));
     }
 
+    @Then("^the player collides with enemy")
+    public void the_player_collides_with_enemy() throws Throwable {
+        assertThat(gameEngine.playerCollides(), equalTo(true));
+    }
+
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")
     public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
         assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));

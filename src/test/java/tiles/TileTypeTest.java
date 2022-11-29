@@ -14,7 +14,7 @@ public class TileTypeTest {
     private static final char KEY = 'K';
     private static final char COLLECTIBLE = 'C';
     private static final char PORTAL = 'O';
-    //private static final char ENEMY = 'E';
+    private static final char ENEMY = 'E';
 
     @Test
     public void value_of() {
@@ -60,9 +60,10 @@ public class TileTypeTest {
         assertEquals(TileType.PORTAL, actual);
     }
 
-//    @Test
-//    public void get_enemy_tile_type_by_char_E() {
-//        TileType actual = TileType.getTileTypeByChar(ENEMY);
-//        assertEquals(TileType.ENEMY, actual);
-//    }
+    @Test
+    public void get_enemy_tile_type_by_char_E() {
+        TileType actual = TileType.getTileTypeByChar(ENEMY);
+        assertEquals(TileType.ENEMY, actual);
+    }
+
 }
