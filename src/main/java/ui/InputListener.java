@@ -15,6 +15,7 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent event) {
+        //The InputListener class do not need to implement this method
 
     }
 
@@ -27,7 +28,7 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent event) {
-
+        //The InputListener class do not need to implement this method
     }
 
     void performAction(int key) {

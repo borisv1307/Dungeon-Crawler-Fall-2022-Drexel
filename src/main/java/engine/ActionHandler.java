@@ -32,7 +32,7 @@ public class ActionHandler {
 
     public void interactWithObject() {
         if (playerIsNextToEnemy()) {
-            System.out.println("I am next to enemy");
+            //perform action like attack
         }
     }
 
