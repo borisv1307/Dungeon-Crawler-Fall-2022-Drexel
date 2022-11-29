@@ -1,5 +1,6 @@
 package engine;
 
+
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.DialogueSystem;
@@ -25,11 +26,13 @@ public class GameEngine {
 
 
 	public GameEngine(LevelCreator levelCreator, DialogueSystem dialogueSystem) {
+
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 		this.dialogueSystem = dialogueSystem;
+
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -62,10 +65,18 @@ public class GameEngine {
 		return levelHorizontalDimension;
 	}
 
+	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
+		this.levelHorizontalDimension = levelHorizontalDimension;
+	}
+
 	public int getLevelVerticalDimension() {
 		return levelVerticalDimension;
 	}
 
+	public void setLevelVerticalDimension(int levelVerticalDimension) {
+		this.levelVerticalDimension = levelVerticalDimension;
+	}
+  
 	public TileType getTileFromCoordinates(int x, int y) {
 		return tiles.get(new Point(x, y));
 	}
@@ -77,6 +88,7 @@ public class GameEngine {
 	private void setNonPlayableCharacter(int x, int y) {
 		nonPlayableCharacter = new Point(x, y);
 	}
+
 
 	public int getPlayerXCoordinate() {
 		return (int) player.getX();
@@ -123,7 +135,7 @@ public class GameEngine {
 	public boolean isExit() {
 		return exit;
 	}
-
+  
 	private void movePlayer(int destinationX, int destinationY) {
 		if (!dialogueSystem.isDialogueActive()) {
 			TileType destinationTile = getTileFromCoordinates(destinationX, destinationY);

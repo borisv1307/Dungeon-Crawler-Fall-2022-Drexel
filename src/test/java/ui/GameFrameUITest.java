@@ -1,5 +1,12 @@
 package ui;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.awt.*;
+import java.awt.event.WindowListener;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 import values.TunableParameters;
