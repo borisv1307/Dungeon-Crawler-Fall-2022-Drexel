@@ -8,10 +8,11 @@ import wrappers.ReaderWrapper;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LevelCreator {
+public class LevelCreator implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
 
     String fileLocationPrefix;

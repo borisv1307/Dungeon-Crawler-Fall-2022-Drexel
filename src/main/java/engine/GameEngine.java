@@ -139,15 +139,10 @@ public class GameEngine implements Serializable {
         }
 
         if (isOver()) {
-            gameEnded();
             setExit(exit);
         }
     }
 
-
-    private void gameEnded() {
-        System.out.println("NO MORE LEVELS! GAME ENDED!");
-    }
 
     public boolean isOver() {
         return false;

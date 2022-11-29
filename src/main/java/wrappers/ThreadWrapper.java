@@ -2,7 +2,9 @@ package wrappers;
 
 import main.DungeonCrawler;
 
-public class ThreadWrapper {
+import java.io.Serializable;
+
+public class ThreadWrapper implements Serializable {
 
     public void createNewThreadWithDungeonCrawler(DungeonCrawler dungeonCrawler) {
         Thread thread = new Thread(dungeonCrawler);

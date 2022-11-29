@@ -1,8 +1,10 @@
 package wrappers;
 
-public class SystemWrapper {
+import java.io.Serializable;
 
-	public long nanoTime() {
-		return System.nanoTime();
-	}
+public class SystemWrapper implements Serializable {
+
+    public long nanoTime() {
+        return System.nanoTime();
+    }
 }
