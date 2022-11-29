@@ -19,6 +19,8 @@ public class TilePainterTest {
 	private final int TILE_HEIGHT = 20;
 	private final int X = 2;
 	private final int Y = 3;
+	private final int ENEMY_X = 1;
+	private final int ENEMY_Y = 3;
 
 	Graphics graphics;
 	TilePainter tilePainter;
@@ -58,6 +60,14 @@ public class TilePainterTest {
 		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+	}
+
+	@Test
+	public void paint_enemy() {
+
+		tilePainter.paintEnemy(graphics, ENEMY_X, ENEMY_Y, TILE_WIDTH, TILE_HEIGHT, TileType.ENEMY);
+
+		Mockito.verify(graphics).fillRect(10, 60, 10, 20);
 	}
 
 }

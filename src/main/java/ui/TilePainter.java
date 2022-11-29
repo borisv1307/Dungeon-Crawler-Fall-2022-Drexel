@@ -21,6 +21,10 @@ public class TilePainter {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
 
+	void paintEnemy(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+	}
+
 	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
 		handleTile(graphics, tileType);
 		graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
