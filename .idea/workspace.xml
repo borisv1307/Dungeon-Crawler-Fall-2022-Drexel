@@ -10,6 +10,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/stephen_lin" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -75,7 +78,7 @@
       <updated>1669739076676</updated>
       <workItem from="1669739085402" duration="1938000" />
       <workItem from="1669741046676" duration="508000" />
-      <workItem from="1669742191886" duration="2222000" />
+      <workItem from="1669742191886" duration="2898000" />
     </task>
     <task id="LOCAL-00001" summary="Try to fix the merge problem">
       <created>1669740446323</created>
@@ -98,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669742916572</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="merge problem trying to fix">
+      <created>1669745405181</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669745405181</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
