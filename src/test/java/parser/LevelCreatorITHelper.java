@@ -20,8 +20,8 @@ public class LevelCreatorITHelper {
 	protected static final int ONE = 1;
 	protected GameEngine gameEngine;
 	protected String exceptionMessage;
-	private ReaderWrapper readerWrapper;
 	protected IOException ioException;
+	private ReaderWrapper readerWrapper;
 
 	protected List<String> createSimpleLevel() {
 		List<String> levelStrings = new ArrayList<>();

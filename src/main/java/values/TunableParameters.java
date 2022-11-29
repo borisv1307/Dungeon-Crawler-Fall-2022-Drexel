@@ -3,14 +3,15 @@ package values;
 import java.awt.*;
 
 public final class TunableParameters {
+
 	private TunableParameters() {
 	}
-
 	public static final int SCREEN_WIDTH = 900;
 	public static final int SCREEN_HEIGHT = 600;
-
 	public static final int TARGET_FPS = 45;
+
 	public static final int PLAYER_SPEED = 1;
+
 
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 
@@ -35,3 +36,4 @@ public final class TunableParameters {
 	public static final int RESPONSE_FONT_SIZE = 10;
 	public static final int RESPONSE_FONT_STYLE = Font.PLAIN;
 }
+

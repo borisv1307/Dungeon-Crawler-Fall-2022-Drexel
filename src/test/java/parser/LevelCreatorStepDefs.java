@@ -26,8 +26,11 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	private GameEngine gameEngine;
 	private String exceptionMessage;
 	private DialogueSystem dialogueSystem;
+
 	ReaderWrapper readerWrapper;
 	IOException ioException;
+	private GameEngine gameEngine;
+	private String exceptionMessage;
 
 	@Given("^level is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {

@@ -1,8 +1,14 @@
 package engine;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.awt.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.DialogueSystem;
