@@ -9,12 +9,12 @@ import wrappers.ThreadWrapper;
 
 public class Launcher {
 
-	public static void main(String[] args) {
-		ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
-		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
-		GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
-		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
+    public static void main(String[] args) {
+        ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
+        GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
+        GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
+        FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
 
-		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
-	}
+        new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+    }
 }

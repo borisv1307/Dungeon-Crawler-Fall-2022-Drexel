@@ -3,6 +3,8 @@ Feature: Move the enemy into player
 
   Scenario: Move enemy right into player
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | X EPX |
@@ -15,6 +17,8 @@ Feature: Move the enemy into player
 
   Scenario: Move enemy left into player
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | XPE X |
@@ -27,6 +31,8 @@ Feature: Move the enemy into player
 
   Scenario: Move enemy up into player
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X P X |
       | X E X |
@@ -39,6 +45,8 @@ Feature: Move the enemy into player
 
   Scenario: Move enemy down into player
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | X E X |

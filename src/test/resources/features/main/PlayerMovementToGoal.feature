@@ -3,6 +3,8 @@ Feature: Move the player into Goal
 
   Scenario: Move player right into goal
     Given the level design is:
+      | 4    |
+      | 3    |
       | XXXX |
       | XPGX |
       | XXXX |
@@ -13,6 +15,8 @@ Feature: Move the player into Goal
 
   Scenario: Move player left into goal
     Given the level design is:
+      | 4    |
+      | 3    |
       | XXXX |
       | XGPX |
       | XXXX |
@@ -23,6 +27,8 @@ Feature: Move the player into Goal
 
   Scenario: Move player up into goal
     Given the level design is:
+      | 3   |
+      | 4   |
       | XXX |
       | XGX |
       | XPX |
@@ -34,6 +40,8 @@ Feature: Move the player into Goal
 
   Scenario: Move player down into goal
     Given the level design is:
+      | 3   |
+      | 4   |
       | XXX |
       | XPX |
       | XGX |

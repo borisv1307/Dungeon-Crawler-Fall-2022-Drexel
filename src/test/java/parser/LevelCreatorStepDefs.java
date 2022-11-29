@@ -14,6 +14,7 @@ import wrappers.ReaderWrapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,19 +27,38 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
     IOException ioException;
     private GameEngine gameEngine;
     private String exceptionMessage;
+    private int seed;
 
     @Given("^level is:$")
     public void level_is(List<String> levelStrings) throws Throwable {
         writeLevelFile(levelStrings);
     }
 
-    @When("^I create the level$")
-    public void i_create_the_level() throws Throwable {
-        LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
-                new ReaderWrapper());
+    @Given("^I have a seed of (\\d+)$")
+    public void i_have_a_seed_of(int seed) throws Throwable {
+        this.seed = seed;
+    }
+
+    @When("^I randomly generate a level with an x of (\\d+) and a y of (\\d+)$")
+    public void i_randomly_generate_a_level_with_obstacles_an_x_of_and_a_y_of(int x, int y) throws Throwable {
+        Random random = new Random();
+        random.setSeed(seed);
+        RandomLevelCreator levelCreator = new RandomLevelCreator(random, x, y);
+
         try {
             gameEngine = new GameEngine(levelCreator);
         } catch (IllegalArgumentException e) {
+            exceptionMessage = e.getMessage();
+        }
+    }
+
+    @When("^I create the level$")
+    public void i_create_the_level() throws Throwable {
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
+                new ReaderWrapper());
+        try {
+            gameEngine = new GameEngine(levelCreator);
+        } catch (Exception e) {
             exceptionMessage = e.getMessage();
         }
     }
@@ -50,7 +70,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
-        LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
         gameEngine = new GameEngine(levelCreator);
     }
 
@@ -95,15 +115,16 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         assertThat(actualTileType, equalTo(TileType.getTileTypeByChar(ch)));
     }
 
-    @Then("^the invalid character error message is displayed$")
+    @Then("^the error message is displayed$")
     public void the_invalid_character_error_message_is_displayed() {
         Assert.assertFalse(exceptionMessage.isEmpty());
     }
 
-    @Then("^the message is: \"([^\"]*)\"$")
+    @Then("^the message is: \"(.*)\"$")
     public void the_message_is(String errorMessage) {
         assertThat(exceptionMessage, equalTo(errorMessage));
     }
+
 
     @Then("^the malfunctioning reader error message is displayed$")
     public void the_malfunctioning_reader_error_message_is_displayed() {

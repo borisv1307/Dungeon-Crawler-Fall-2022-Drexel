@@ -16,6 +16,7 @@ public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
+    private static final int TWO = 2;
 
     GameEngine gameEngine;
 
@@ -37,31 +38,38 @@ public class GameEngineTest {
     }
 
     @Test
-    public void add_and_get_tile() {
-        TileType tileType = TileType.PASSABLE;
-        gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
-        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
-        assertThat(actual, equalTo(tileType));
-    }
-
-    @Test
-    public void set_and_get_horizontal_dimension() {
-        gameEngine.setLevelHorizontalDimension(ONE);
-        int actual = gameEngine.getLevelHorizontalDimension();
-        assertThat(actual, equalTo(ONE));
-    }
-
-    @Test
-    public void set_and_get_vertical_dimension() {
-        gameEngine.setLevelVerticalDimension(ONE);
-        int actual = gameEngine.getLevelVerticalDimension();
-        assertThat(actual, equalTo(ONE));
+    public void set_and_get_dimension() {
+        gameEngine.setBoard(new TileType[ONE][TWO]);
+        int actualVertical = gameEngine.getLevelVerticalDimension();
+        int actualHorizontal = gameEngine.getLevelHorizontalDimension();
+        assertThat(actualVertical, equalTo(TWO));
+        assertThat(actualHorizontal, equalTo(ONE));
     }
 
     @Test
     public void add_and_get_player_coordinates() {
         TileType tileType = TileType.PLAYER;
-        gameEngine.addTile(ZERO, ONE, tileType);
+        gameEngine.setPlayableObject(ZERO, ONE, tileType);
+        int actualX = gameEngine.getXCoordinate(tileType);
+        int actualY = gameEngine.getYCoordinate(tileType);
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ONE));
+    }
+
+    @Test
+    public void add_and_get_enemy_coordinates() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.setPlayableObject(ZERO, ONE, tileType);
+        int actualX = gameEngine.getXCoordinate(tileType);
+        int actualY = gameEngine.getYCoordinate(tileType);
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ONE));
+    }
+
+    @Test
+    public void add_and_get_goal_coordinates() {
+        TileType tileType = TileType.GOAL;
+        gameEngine.setPlayableObject(ZERO, ONE, tileType);
         int actualX = gameEngine.getXCoordinate(tileType);
         int actualY = gameEngine.getYCoordinate(tileType);
         assertThat(actualX, equalTo(ZERO));
@@ -75,5 +83,4 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
-
 }

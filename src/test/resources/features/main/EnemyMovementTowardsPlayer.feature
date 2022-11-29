@@ -3,6 +3,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player when x and y are equidistant
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | X E X |
@@ -13,6 +15,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player when x difference is larger than y
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X E X |
       | X   X |
@@ -23,6 +27,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player when y difference is larger than x
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | XE  X |

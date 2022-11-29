@@ -3,6 +3,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player on shortest path (y move)
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | XEG X |
@@ -13,6 +15,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player on shortest path (x move)
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X E X |
       | X G X |
@@ -23,6 +27,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy on path closest to goal when 2 paths are equidistant to player
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | XE GX |
@@ -33,6 +39,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player on shortest path when blocked (y move)
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | XEG X |
@@ -43,6 +51,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player on shortest path when blocked (x move)
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X E X |
       | X GXX |
@@ -53,6 +63,8 @@ Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy on path closest to goal when 2 paths are equidistant to player
     Given the level design is:
+      | 7       |
+      | 5       |
       | XXXXXXX |
       | X E   X |
       | X X  GX |

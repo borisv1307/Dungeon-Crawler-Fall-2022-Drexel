@@ -24,6 +24,8 @@ public class LevelCreatorITHelper {
 
     protected List<String> createSimpleLevel() {
         List<String> levelStrings = new ArrayList<>();
+        levelStrings.add("4");
+        levelStrings.add("3");
         levelStrings.add("XXXX");
         levelStrings.add("X PX");
         levelStrings.add("XXXX");
@@ -44,7 +46,7 @@ public class LevelCreatorITHelper {
     }
 
     protected void createLevel() throws Throwable {
-        LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
                 new ReaderWrapper());
         try {
             gameEngine = new GameEngine(levelCreator);
@@ -86,7 +88,7 @@ public class LevelCreatorITHelper {
         BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
-        LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
         gameEngine = new GameEngine(levelCreator);
     }
 
