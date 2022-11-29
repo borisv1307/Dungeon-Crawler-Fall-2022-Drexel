@@ -1,5 +1,9 @@
 package values;
 
+import java.awt.*;
+import java.util.EnumMap;
+
+
 import tiles.TileType;
 
 import java.awt.*;
@@ -18,10 +22,15 @@ public final class TileColorMap {
         tileColors.put(TileType.PORTAL, Color.GRAY);
     }
 
+	private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
+
+
     private TileColorMap() {
     }
+
 
     public static Color get(TileType key) {
         return tileColors.get(key);
     }
+
 }

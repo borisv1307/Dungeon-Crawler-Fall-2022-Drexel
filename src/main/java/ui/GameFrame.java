@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.*;
+
 import values.TunableParameters;
 
 import java.awt.*;
