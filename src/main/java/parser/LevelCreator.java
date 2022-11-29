@@ -3,5 +3,5 @@ package parser;
 import engine.GameEngine;
 
 public interface LevelCreator {
-    void createLevel(GameEngine gameEngine, int level);
+    void createLevel(final GameEngine gameEngine, final int level);
 }

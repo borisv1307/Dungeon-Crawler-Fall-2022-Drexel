@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 public class FileLevelCreator implements LevelCreator {
     private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
 
-    String fileLocationPrefix;
-    String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
-    ReaderWrapper readerWrapper;
+    final String fileLocationPrefix;
+    final String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
+    final ReaderWrapper readerWrapper;
 
     public FileLevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper) {
         this.fileLocationPrefix = fileLocationPrefix;
@@ -24,7 +24,7 @@ public class FileLevelCreator implements LevelCreator {
     }
 
     @Override
-    public void createLevel(GameEngine gameEngine, int level) {
+    public void createLevel(final GameEngine gameEngine, final int level) {
         BufferedReader reader;
         try {
             reader = readerWrapper.createBufferedReader(getFilePath(level));
