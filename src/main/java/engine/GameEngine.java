@@ -1,14 +1,16 @@
 package engine;
 
-import java.awt.*;
-
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
+import java.awt.*;
+
 public class GameEngine {
     private final LevelCreator levelCreator;
-    private final int level;
+    private final int losses;
+    private int level;
+    private int wins;
     private TileType[][] gameBoard;
     private boolean exit;
     private int levelHorizontalDimension;
@@ -17,18 +19,20 @@ public class GameEngine {
     private Point enemy;
     private Point goal;
 
-	public GameEngine(LevelCreator levelCreator) {
-		exit = false;
-		level = 1;
-		this.levelCreator = levelCreator;
-		this.levelCreator.createLevel(this, level);
-	}
+    public GameEngine(LevelCreator levelCreator) {
+        exit = false;
+        level = 1;
+        wins = 0;
+        losses = 0;
+        this.levelCreator = levelCreator;
+        this.levelCreator.createLevel(this, level);
+    }
 
-	public void run(GameFrame gameFrame) {
-		for (Component component : gameFrame.getComponents()) {
-			component.repaint();
-		}
-	}
+    public void run(GameFrame gameFrame) {
+        for (Component component : gameFrame.getComponents()) {
+            component.repaint();
+        }
+    }
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;
@@ -85,11 +89,25 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPoint(tileType, attemptedX, attemptedY);
         }
+        if (tileType == TileType.PLAYER && attemptedLocation == TileType.GOAL) {
+            wins++;
+            level++;
+            regenerateLevel();
+        }
     }
 
-	public boolean isExit() {
-		return exit;
-	}
+    private void regenerateLevel() {
+        levelCreator.createLevel(this, level);
+    }
+
+    public void regenerateLevel(int level) {
+        this.level = level;
+        levelCreator.createLevel(this, level);
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
 
     public void setExit(boolean exit) {
         this.exit = exit;
@@ -137,5 +155,17 @@ public class GameEngine {
             default:
                 throw new IllegalArgumentException("Get Coordinate not applicable for TileType" + tileType);
         }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getWinCount() {
+        return wins;
+    }
+
+    public int getLossCount() {
+        return losses;
     }
 }

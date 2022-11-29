@@ -2,7 +2,7 @@
 Feature: Move the enemy into Goal
 
   Scenario: Move enemy right into goal
-    Given the level design is:
+    Given the level 1 design is:
       | 4    |
       | 3    |
       | XXXX |
@@ -11,18 +11,18 @@ Feature: Move the enemy into Goal
     When the enemy moves right
     Then the enemy is located at (2, 2)
 
-    Scenario: Move enemy left into goal
-      Given the level design is:
-        | 4    |
-        | 3    |
-        | XXXX |
-        | XGEX |
-        | XXXX |
-      When the enemy moves left
-      Then the enemy is located at (3, 2)
+  Scenario: Move enemy left into goal
+    Given the level 1 design is:
+      | 4    |
+      | 3    |
+      | XXXX |
+      | XGEX |
+      | XXXX |
+    When the enemy moves left
+    Then the enemy is located at (3, 2)
 
   Scenario: Move enemy up into goal
-    Given the level design is:
+    Given the level 1 design is:
       | 3   |
       | 4   |
       | XXX |
@@ -33,7 +33,7 @@ Feature: Move the enemy into Goal
     Then the enemy is located at (2, 3)
 
   Scenario: Move enemy down into goal
-    Given the level design is:
+    Given the level 1 design is:
       | 3   |
       | 4   |
       | XXX |

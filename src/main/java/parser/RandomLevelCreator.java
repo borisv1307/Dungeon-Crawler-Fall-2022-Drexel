@@ -9,9 +9,11 @@ public class RandomLevelCreator implements LevelCreator {
     private final Random random;
     private final int xDimension;
     private final int yDimension;
+    private final int seed;
 
-    public RandomLevelCreator(Random random, int xDimension, int yDimension) {
+    public RandomLevelCreator(Random random, int seed, int xDimension, int yDimension) {
         this.random = random;
+        this.seed = seed;
         this.xDimension = xDimension;
         this.yDimension = yDimension;
     }
@@ -19,6 +21,7 @@ public class RandomLevelCreator implements LevelCreator {
     @Override
     public void createLevel(GameEngine gameEngine, int level) {
         TileType[][] gameBoard = new TileType[xDimension][yDimension];
+        random.setSeed(seed + level);
         for (int x = 0; x < gameBoard.length; x++) {
             for (int y = 0; y < gameBoard[x].length; y++) {
                 if (x == 0 || y == 0 || x == xDimension - 1 || y == yDimension - 1) {

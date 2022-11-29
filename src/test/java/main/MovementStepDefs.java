@@ -10,6 +10,8 @@ import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,11 +21,17 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     private GameEngine gameEngine;
 
-    @Given("^the level design is:$")
-    public void level_is(List<String> levelStrings) throws Throwable {
-        writeLevelFile(levelStrings);
+    @Given("^the level (\\d+) design is:$")
+    public void the_level_design_is(int level, List<String> levelStrings) throws FileNotFoundException, UnsupportedEncodingException {
+        writeLevelFile(level, levelStrings);
         gameEngine = new GameEngine(
                 new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+    }
+
+    @Then("^the goal is located at \\((\\d+), (\\d+)\\)$")
+    public void the_goal_is_located_at(int goalX, int goalY) throws Throwable {
+        assertThat(gameEngine.getXCoordinate(TileType.GOAL), equalTo(goalX - COORDINATE_OFFSET));
+        assertThat(gameEngine.getYCoordinate(TileType.GOAL), equalTo(goalY - COORDINATE_OFFSET));
     }
 
     @When("^the enemy moves left$")
@@ -76,5 +84,20 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     public void the_enemy_is_located_at(int enemyX, int enemyY) {
         assertThat(gameEngine.getXCoordinate(TileType.ENEMY), equalTo(enemyX - COORDINATE_OFFSET));
         assertThat(gameEngine.getYCoordinate(TileType.ENEMY), equalTo(enemyY - COORDINATE_OFFSET));
+    }
+
+    @Then("^level (\\d+) is generated$")
+    public void level_is_generated(int level) {
+        assertThat(gameEngine.getLevel(), equalTo(level));
+    }
+
+    @Then("^win count is (\\d+)$")
+    public void win_count_is(int wins) {
+        assertThat(gameEngine.getWinCount(), equalTo(wins));
+    }
+
+    @Then("^lose count is (\\d+)$")
+    public void lose_count_is(int losses) {
+        assertThat(gameEngine.getLossCount(), equalTo(losses));
     }
 }

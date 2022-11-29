@@ -2,7 +2,7 @@
 Feature: Move the player into empty space
 
   Scenario Outline: Move into empty
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |

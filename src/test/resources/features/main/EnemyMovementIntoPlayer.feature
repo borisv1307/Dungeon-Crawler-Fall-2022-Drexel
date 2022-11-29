@@ -2,7 +2,7 @@
 Feature: Move the enemy into player
 
   Scenario: Move enemy right into player
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |
@@ -16,7 +16,7 @@ Feature: Move the enemy into player
     And lose count is 1
 
   Scenario: Move enemy left into player
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |
@@ -30,7 +30,7 @@ Feature: Move the enemy into player
     And lose count is 1
 
   Scenario: Move enemy up into player
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |
@@ -44,7 +44,7 @@ Feature: Move the enemy into player
     And lose count is 1
 
   Scenario: Move enemy down into player
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |

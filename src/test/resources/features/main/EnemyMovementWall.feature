@@ -2,7 +2,7 @@
 Feature: Move the enemy into wall
 
   Scenario Outline: Move into enemy
-    Given the level design is:
+    Given the level 1 design is:
       | 3   |
       | 3   |
       | XXX |

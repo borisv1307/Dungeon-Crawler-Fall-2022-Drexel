@@ -2,7 +2,7 @@
 Feature: Move the enemy toward player without obstacles
 
   Scenario: Move enemy towards player when x and y are equidistant
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |
@@ -14,7 +14,7 @@ Feature: Move the enemy toward player without obstacles
     Then the enemy is located at (3, 4) or (4, 3)
 
   Scenario: Move enemy towards player when x difference is larger than y
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |
@@ -26,7 +26,7 @@ Feature: Move the enemy toward player without obstacles
     Then the enemy is located at (3, 3)
 
   Scenario: Move enemy towards player when y difference is larger than x
-    Given the level design is:
+    Given the level 1 design is:
       | 5     |
       | 5     |
       | XXXXX |

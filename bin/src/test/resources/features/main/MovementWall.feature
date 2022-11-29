@@ -1,8 +1,8 @@
 @IntegrationTest
 Feature: Move the player into wall
 
-  Background: 
-    Given the level design is:
+  Background:
+    Given the level 1 design is:
       | XXX |
       | XPX |
       | XXX |
