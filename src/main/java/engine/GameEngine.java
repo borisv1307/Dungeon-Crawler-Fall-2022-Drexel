@@ -43,6 +43,7 @@ public class GameEngine {
         } else {
             tiles.put(new Point(x, y), tileType);
         }
+
     }
 
     public int getLevelHorizontalDimension() {
