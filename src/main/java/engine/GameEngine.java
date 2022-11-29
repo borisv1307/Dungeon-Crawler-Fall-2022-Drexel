@@ -1,5 +1,6 @@
 package engine;
 
+import entity.Enemy;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -12,17 +13,21 @@ public class GameEngine {
 
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
-    private final int level;
+    private int level;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
+    private Enemy enemy;
+
+    private ActionHandler actionHandler;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        actionHandler = new ActionHandler(this);
     }
 
     public void run(GameFrame gameFrame) {
@@ -68,6 +73,10 @@ public class GameEngine {
         return (int) player.getX();
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public int getPlayerYCoordinate() {
         return (int) player.getY();
     }
@@ -89,13 +98,19 @@ public class GameEngine {
     }
 
     public void keySpace() {
-        //Perform player interaction with other tile type
+        actionHandler.interactWithObject();
     }
 
     private void movement(int deltaX, int deltaY) {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
+        boolean tileIsPassable = actionHandler.tileIsPassable(deltaX, deltaY);
+        boolean tileIsNextLevel = actionHandler.tileIsNextLevel(deltaX, deltaY);
+
+        if (tileIsPassable || tileIsNextLevel) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            if (tileIsNextLevel) {
+                level = getLevel() + 1;
+                levelCreator.createLevel(this, level);
+            }
         }
     }
 
