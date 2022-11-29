@@ -10,6 +10,7 @@ import java.util.*;
 
 public class GameEngine {
 
+    private Random random = new Random();
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
@@ -120,7 +121,6 @@ public class GameEngine {
         }
         else if (locationHasEnemy(attemptedLocation)) {
             int newHP = enemy.receiveDamage(player.getAttackValue());
-            System.out.println(newHP);
             if (newHP <= 0 ){
                 enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
             }
@@ -162,34 +162,20 @@ public class GameEngine {
     }
 
     private boolean newPointIsValid(int x, int y){
-        if (conflictsWithOtherObjects(x, y)){
-            return false;
-        }
-        return true;
-    }
-
-    private boolean conflictsWithOtherObjects(int x, int y){
         TileType tileType = getTileFromCoordinates(x, y);
-        if (tileType == TileType.PASSABLE){
-            return false;
-        }
-        return true;
+        return (tileType == TileType.PASSABLE);
     }
 
     private int getRandomNewCoordinate(int dimensionLimit){
-        Random random = new Random();
-
         return random.nextInt(dimensionLimit);
     }
 
     private void createNewEnemy(int x, int y){
         enemy = getRandomEnemy(x, y);
-        System.out.println(enemy.getTileType());
         tiles.put(enemy, enemy.getTileType());
     }
 
     private Enemy getRandomEnemy(int x, int y){
-        Random random = new Random();
         int numberOfEnemyTypes = 3;
         int randomInt = random.nextInt(numberOfEnemyTypes);
 
@@ -202,6 +188,6 @@ public class GameEngine {
                 return new Orc(x, y);
         }
 
-        throw new RuntimeException();
+        return new Slime(x, y);
     }
 }

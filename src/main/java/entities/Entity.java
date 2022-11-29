@@ -5,10 +5,10 @@ import tiles.TileType;
 import java.awt.*;
 
 public abstract class Entity extends Point {
-    public TileType tileType;
-    public int hitPoints;
-    public int armorClass;
-    public int attackValue;
+    TileType tileType;
+    int hitPoints;
+    int armorClass;
+    int attackValue;
 
     Entity(int x, int y){
         super(x, y);
