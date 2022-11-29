@@ -3,6 +3,8 @@ Feature: Move the enemy into wall
 
   Scenario Outline: Move into enemy
     Given the level design is:
+      | 3   |
+      | 3   |
       | XXX |
       | XEX |
       | XXX |

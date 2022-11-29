@@ -3,6 +3,8 @@ Feature: Move the player into empty space
 
   Scenario Outline: Move into empty
     Given the level design is:
+      | 5     |
+      | 5     |
       | XXXXX |
       | X   X |
       | X P X |

@@ -1,8 +1,10 @@
 @IntegrationTest
-Feature: Create a Level
+Feature: Create a Level read from a file
 
   Scenario: Level 1
     Given level is:
+      | 6      |
+      | 3      |
       | XXXXXX |
       | X PEGX |
       | XXXXXX |
@@ -22,9 +24,9 @@ Feature: Create a Level
     And (6, 1) is "X"
     And (1, 2) is "X"
     And (2, 2) is " "
-    And (3, 2) is " "
-    And (4, 2) is " "
-    And (5, 2) is " "
+    And (3, 2) is "P"
+    And (4, 2) is "E"
+    And (5, 2) is "G"
     And (6, 2) is "X"
     And (1, 3) is "X"
     And (2, 3) is "X"
@@ -35,24 +37,49 @@ Feature: Create a Level
 
   Scenario: Invalid level
     Given level is:
+      | 4    |
+      | 3    |
       | XXXX |
       | X&PX |
       | XXXX |
     When I create the level
-    Then the invalid character error message is displayed
+    Then the error message is displayed
     And the message is: "Invalid character provided: &"
+
+  Scenario: Missing a dimension
+    Given level is:
+      | 4    |
+      | XXXX |
+      | X&PX |
+      | XXXX |
+    When I create the level
+    Then the error message is displayed
+    And the message is: "For input string: "XXXX""
+
+  Scenario: Missing both dimensions
+    Given level is:
+      | XXXX |
+      | X&PX |
+      | XXXX |
+    When I create the level
+    Then the error message is displayed
+    And the message is: "For input string: "XXXX""
 
   Scenario: Invalid level
     Given level is:
+      | 4    |
+      | 3    |
       | XXXX |
       | X+PX |
       | XXXX |
     When I create the level
-    Then the invalid character error message is displayed
+    Then the error message is displayed
     And the message is: "Invalid character provided: +"
 
   Scenario: The file reader malfunctions
     Given level is:
+      | 4    |
+      | 3    |
       | XXXX |
       | X+PX |
       | XXXX |

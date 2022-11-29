@@ -3,6 +3,8 @@ Feature: Move the enemy into Goal
 
   Scenario: Move enemy right into goal
     Given the level design is:
+      | 4    |
+      | 3    |
       | XXXX |
       | XEGX |
       | XXXX |
@@ -11,6 +13,8 @@ Feature: Move the enemy into Goal
 
     Scenario: Move enemy left into goal
       Given the level design is:
+        | 4    |
+        | 3    |
         | XXXX |
         | XGEX |
         | XXXX |
@@ -19,6 +23,8 @@ Feature: Move the enemy into Goal
 
   Scenario: Move enemy up into goal
     Given the level design is:
+      | 3   |
+      | 4   |
       | XXX |
       | XGX |
       | XEX |
@@ -28,6 +34,8 @@ Feature: Move the enemy into Goal
 
   Scenario: Move enemy down into goal
     Given the level design is:
+      | 3   |
+      | 4   |
       | XXX |
       | XEX |
       | XGX |
