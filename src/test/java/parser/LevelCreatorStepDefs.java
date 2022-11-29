@@ -29,9 +29,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 
 	ReaderWrapper readerWrapper;
 	IOException ioException;
-	private GameEngine gameEngine;
-	private String exceptionMessage;
-
+	
 	@Given("^level is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);

@@ -65,16 +65,8 @@ public class GameEngine {
 		return levelHorizontalDimension;
 	}
 
-	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
-		this.levelHorizontalDimension = levelHorizontalDimension;
-	}
-
 	public int getLevelVerticalDimension() {
 		return levelVerticalDimension;
-	}
-
-	public void setLevelVerticalDimension(int levelVerticalDimension) {
-		this.levelVerticalDimension = levelVerticalDimension;
 	}
   
 	public TileType getTileFromCoordinates(int x, int y) {
