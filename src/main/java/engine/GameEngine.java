@@ -97,19 +97,39 @@ public class GameEngine {
                 getPlayerYCoordinate() + deltaY);
         if (!(attemptedLocation.equals(TileType.NOT_PASSABLE))) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-            checkForHealing(getPlayerXCoordinate(), getPlayerYCoordinate());
+            checkForSpecialTile(getPlayerXCoordinate(), getPlayerYCoordinate());
         }
     }
 
-    private void checkForHealing(int playerXCoordinate, int playerYCoordinate) {
-        TileType currentLocation = getTileFromCoordinates(getPlayerXCoordinate(),
-                getPlayerYCoordinate());
-        if (currentLocation.equals(TileType.HEALING)) {
-            if (playerHP + 10 <= maxPlayerHP) {
-                playerHP += 10;
-            } else {
-                playerHP = maxPlayerHP;
-            }
+    private void checkForSpecialTile(int playerXCoordinate, int playerYCoordinate) {
+        TileType currentLocation = getTileFromCoordinates(playerXCoordinate,
+                playerYCoordinate);
+        switch (currentLocation) {
+            case HEALING:
+                healPlayer();
+                break;
+            case DAMAGE:
+                damagePlayer();
+                break;
+
+        }
+
+    }
+
+
+    private void healPlayer() {
+        if (playerHP + 10 <= maxPlayerHP) {
+            playerHP += 10;
+        } else {
+            playerHP = maxPlayerHP;
+        }
+    }
+
+    private void damagePlayer() {
+        if (playerHP - 5 >= 0) {
+            playerHP -= 5;
+        } else {
+            playerHP = 0;
         }
     }
 
