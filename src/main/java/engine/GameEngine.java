@@ -136,6 +136,7 @@ public class GameEngine implements Serializable {
             } else {
                 level = getLevel() + 1;
                 levelCreator.createLevel(this, level);
+
             }
         }
 
