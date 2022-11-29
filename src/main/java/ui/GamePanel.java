@@ -48,18 +48,4 @@ public class GamePanel extends Panel {
 		graphics.drawImage(dbImage, 0, 0, this);
 	}
 
-	@Override
-	public boolean keyDown(Event evt, int key) {
-		if (key == Event.LEFT) {
-			gameEngine.keyLeft();
-		} else if (key == Event.RIGHT) {
-			gameEngine.keyRight();
-		} else if (key == Event.UP) {
-			gameEngine.keyUp();
-		} else if (key == Event.DOWN) {
-			gameEngine.keyDown();
-		}
-
-		return true;
-	}
 }
