@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e35f6974-a18d-4c26-a1e7-80f2cdeaa15a" name="Changes" comment="merge problem trying to fix" />
+    <list default="true" id="a56a3b9c-1e63-46fd-b97c-8dc9ff6d7be6" name="Changes" comment="Check if the merge problem is fix">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669745405181</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Check if the merge problem is fix">
+      <created>1669747039780</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669747039780</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +151,7 @@
     <MESSAGE value="Try to fix the merge problem" />
     <MESSAGE value="Restart branch to base to see if merge branch is fix" />
     <MESSAGE value="merge problem trying to fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge problem trying to fix" />
+    <MESSAGE value="Check if the merge problem is fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Check if the merge problem is fix" />
   </component>
 </project>
