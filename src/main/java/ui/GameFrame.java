@@ -1,7 +1,6 @@
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
+import java.awt.*;
 
 import values.TunableParameters;
 

@@ -1,10 +1,10 @@
 package ui;
 
+import java.awt.*;
+
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
-
-import java.awt.*;
 
 public class TilePainter {
 
