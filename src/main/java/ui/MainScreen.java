@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
 public class MainScreen extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
-    JRadioButton choose[] = new JRadioButton[2];
-    String chooseStrings[] = {"START GAME!", "EXIT!"};
+    JRadioButton[] choose = new JRadioButton[2];
+    String[] chooseStrings = {"START GAME!", "EXIT!"};
     MainScreenPanel buttonPanel;
 
     ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
@@ -25,7 +25,7 @@ public class MainScreen extends JFrame implements ActionListener {
 
     public MainScreen() {
         buttonPanel = new MainScreenPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(320, 127, 600, 400);
         setResizable(false);
 
