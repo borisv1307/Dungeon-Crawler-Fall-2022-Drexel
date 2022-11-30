@@ -5,15 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertSame;
-import static junit.framework.TestCase.assertTrue;
-
 public class ActionHandlerTest {
 
     ActionHandler actionHandler;
 
     @Before
     public void setUp(){
-        actionHandler = new ActionHandler(ObjectFactory.getDefaultGameEngine());
+//        actionHandler = new ActionHandler(ObjectFactory.getDefaultGameEngine());
     }
 
     @Test
