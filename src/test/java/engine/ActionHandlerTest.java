@@ -11,7 +11,7 @@ public class ActionHandlerTest {
 
     @Before
     public void setUp(){
-//        actionHandler = new ActionHandler(ObjectFactory.getDefaultGameEngine());
+        actionHandler = new ActionHandler(ObjectFactory.getDefaultGameEngine());
     }
 
     @Test
