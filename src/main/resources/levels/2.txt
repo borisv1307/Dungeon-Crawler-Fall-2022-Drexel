@@ -4,7 +4,7 @@ X    P      XXX    X
 X           X X    X
 X         XX G XX  X
 X           X X    X
-X           X X    X
-X    K       D     X
-X                  X
+X  E   E    X X    X
+X   EKE     EDE    X
+X  E   E           X
 XXXXXXXXXXXXXXXXXXXX

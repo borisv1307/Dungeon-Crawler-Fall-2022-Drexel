@@ -5,7 +5,7 @@ Feature: Achieve goal feature
     Given the level design is:
       | XKX |
       | XPX |
-      | XDG |
+      | EDG |
 
   Scenario: After achieving goal of current level, game should launch new level
     When the current level is 1

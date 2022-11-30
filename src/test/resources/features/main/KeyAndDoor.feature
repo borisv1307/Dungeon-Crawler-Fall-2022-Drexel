@@ -5,7 +5,7 @@ Feature: Key and door feature
     Given the level design is:
       | XKX |
       | XPX |
-      | XDG |
+      | EDG |
 
   Scenario: Without a key, the player shouldn't be able to open the door
     When the player moves down

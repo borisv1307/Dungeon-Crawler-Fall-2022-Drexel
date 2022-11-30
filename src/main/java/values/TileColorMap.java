@@ -1,9 +1,9 @@
 package values;
 
+import tiles.TileType;
+
 import java.awt.*;
 import java.util.EnumMap;
-
-import tiles.TileType;
 
 public final class TileColorMap {
     private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
@@ -15,6 +15,7 @@ public final class TileColorMap {
         tileColors.put(TileType.KEY, Color.BLUE);
         tileColors.put(TileType.DOOR, Color.PINK);
         tileColors.put(TileType.GOAL, Color.ORANGE);
+        tileColors.put(TileType.ENEMY, Color.RED);
     }
 
     private TileColorMap() {

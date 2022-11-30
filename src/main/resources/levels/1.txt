@@ -1,9 +1,9 @@
 XXXXXXXXXXXXXXXXXXXX
 X                  X
 X         XXXXXXX  X
-X         X     X  X
+X  E   E  X     X  X
 X    K    D  G  X  X
-X         X     X  X
+X  E   E  X     X  X
 X         XXXXXXX  X
 X    P             X
 X                  X

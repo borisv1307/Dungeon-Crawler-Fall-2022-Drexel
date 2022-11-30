@@ -27,7 +27,7 @@ Feature: Create a Level
     Given level is:
       | XXDX |
       | XGPX |
-      | XXKX |
+      | XEKX |
     When I create the level
     Then starting from the top-left:
     And the player's x coordinate is 3
@@ -40,7 +40,7 @@ Feature: Create a Level
     And tile at (2, 2) is "GOAL"
     And (4, 2) is "X"
     And (1, 3) is "X"
-    And (2, 3) is "X"
+    And tile at (2, 3) is "ENEMY"
     And tile at (3, 3) is "KEY"
     And (4, 3) is "X"
 

@@ -70,6 +70,14 @@ public class GameEngineTest {
     }
 
     @Test
+    public void add_and_get_enemy_tile() {
+        TileType tileType = TileType.ENEMY;
+        gameEngine.addTile(ZERO, ONE, TileType.ENEMY);
+        TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+        assertThat(actual, equalTo(tileType));
+    }
+
+    @Test
     public void set_and_get_horizontal_dimension() {
         gameEngine.setLevelHorizontalDimension(ONE);
         int actual = gameEngine.getLevelHorizontalDimension();
