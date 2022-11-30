@@ -14,9 +14,5 @@ public class ActionHandlerTest {
     public void setUp(){
         actionHandler = new ActionHandler(ObjectFactory.getDefaultGameEngine());
     }
-    @Test
-    public void interact_with_enemy(){
-        actionHandler.playerIsNextToEnemy();
-        assertTrue(actionHandler.playerIsNextToEnemy());
-    }
+
 }
