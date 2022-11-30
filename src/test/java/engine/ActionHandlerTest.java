@@ -16,9 +16,4 @@ public class ActionHandlerTest {
         gameEngine = ObjectFactory.getDefaultGameEngine();
         actionHandler = new ActionHandler(gameEngine);
     }
-
-    @Test
-    public void this_should_not_be_a_problem(){
-        assertEquals(1, 1);
-    }
 }
