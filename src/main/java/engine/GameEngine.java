@@ -104,8 +104,10 @@ public class GameEngine {
             setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
         if (isTileGoal(attemptedLocation)) {
-            setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
             loadNextLevel();
+        }
+        if (isTileEnemy(attemptedLocation)) {
+            restartCurrentLevel();
         }
     }
 
@@ -125,6 +127,10 @@ public class GameEngine {
         return attemptedTile.equals(TileType.GOAL);
     }
 
+    private boolean isTileEnemy(TileType attemptedTile) {
+        return attemptedTile.equals(TileType.ENEMY);
+    }
+
     private void setTilePassableAndMovePlayer(int deltaX, int deltaY) {
         tiles.put(new Point(deltaX, deltaY), TileType.PASSABLE);
         setPlayer(deltaX, deltaY);
@@ -138,6 +144,14 @@ public class GameEngine {
         this.playerHasKey = playerHasKey;
     }
 
+    public int getCurrentLevel() {
+        return level;
+    }
+
+    public void setCurrentLevel(int level) {
+        this.level = level;
+    }
+
     public void loadNextLevel() {
         setPlayerHasKey(false);
         if (getCurrentLevel() < lastLevel) {
@@ -147,12 +161,9 @@ public class GameEngine {
         }
     }
 
-    public int getCurrentLevel() {
-        return level;
-    }
-
-    public void setCurrentLevel(int level) {
-        this.level = level;
+    public void restartCurrentLevel() {
+        setPlayerHasKey(false);
+        levelCreator.createLevel(this, getCurrentLevel());
     }
 
     public boolean isExit() {

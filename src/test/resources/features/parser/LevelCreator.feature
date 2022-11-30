@@ -23,7 +23,7 @@ Feature: Create a Level
     And (3, 3) is "X"
     And (4, 3) is "X"
 
-  Scenario: Level with Key, Door & Goal
+  Scenario: Level with Key, Door, Enemy & Goal tiles
     Given level is:
       | XXDX |
       | XGPX |
