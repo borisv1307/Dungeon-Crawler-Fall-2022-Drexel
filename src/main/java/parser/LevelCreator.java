@@ -1,13 +1,12 @@
 package parser;
 
-import BoardPiece.*;
+import boardPiece.*;
 import engine.GameBoard;
 import engine.GameEngine;
 
 
 public abstract class LevelCreator {
-
-    final protected BoardPieceFactory boardPieceFactory;
+    protected final BoardPieceFactory boardPieceFactory;
 
     protected LevelCreator(BoardPieceFactory boardPieceFactory) {
         this.boardPieceFactory = boardPieceFactory;

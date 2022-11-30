@@ -1,7 +1,7 @@
 package parser;
 
-import BoardPiece.BoardPiece;
-import BoardPiece.BoardPieceFactory;
+import boardPiece.BoardPiece;
+import boardPiece.BoardPieceFactory;
 import engine.GameBoard;
 import engine.GameEngine;
 import enums.TileType;
@@ -16,10 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileLevelCreator extends LevelCreator {
-    private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
-
+    private static final Logger LOGGER = Logger.getLogger(FileLevelCreator.class.getName());
+    final static String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
     final String fileLocationPrefix;
-    final String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
     final ReaderWrapper readerWrapper;
 
     public FileLevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper, BoardPieceFactory boardPieceFactory) {

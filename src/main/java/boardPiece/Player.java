@@ -1,11 +1,11 @@
-package BoardPiece;
+package boardPiece;
 
 import enums.TileType;
 
 import java.awt.*;
 
 public class Player extends MovableBoardPiece {
-    final private static TileType TILE_TYPE = TileType.PLAYER;
+    private final static TileType TILE_TYPE = TileType.PLAYER;
 
     public Player(Point location) {
         super(location, TILE_TYPE);

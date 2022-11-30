@@ -1,4 +1,4 @@
-package BoardPiece;
+package boardPiece;
 
 import enums.TileType;
 

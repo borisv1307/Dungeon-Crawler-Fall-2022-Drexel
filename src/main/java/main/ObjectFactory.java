@@ -1,6 +1,6 @@
 package main;
 
-import BoardPiece.BoardPieceFactory;
+import boardPiece.BoardPieceFactory;
 import engine.GameEngine;
 import parser.FileLevelCreator;
 import parser.LevelCreator;

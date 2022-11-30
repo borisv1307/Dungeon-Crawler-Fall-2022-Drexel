@@ -1,9 +1,9 @@
 package engine;
 
-import BoardPiece.BoardPiece;
-import BoardPiece.Enemy;
-import BoardPiece.Goal;
-import BoardPiece.Player;
+import boardPiece.BoardPiece;
+import boardPiece.Enemy;
+import boardPiece.Goal;
+import boardPiece.Player;
 import enums.TileType;
 import org.junit.Before;
 import org.junit.Test;

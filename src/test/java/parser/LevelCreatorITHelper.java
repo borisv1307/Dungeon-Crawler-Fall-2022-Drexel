@@ -1,6 +1,6 @@
 package parser;
 
-import BoardPiece.BoardPieceFactory;
+import boardPiece.BoardPieceFactory;
 import engine.GameEngine;
 import enums.TileType;
 import org.mockito.Mockito;
