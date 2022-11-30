@@ -127,6 +127,7 @@ public class GameEngine {
         int enemyX = getEnemyXCoordinate();
         int enemyY = getEnemyYCoordinate();
         if (playerX == enemyX && playerY == enemyY) {
+            setExit(true);
             return true;
         }
         return false;

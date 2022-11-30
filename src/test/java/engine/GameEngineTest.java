@@ -87,7 +87,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void get_player_caught() {
+    public void get_player_caught_and_exit() {
         boolean playerCaught = true;
         TileType tileTypeP = TileType.PLAYER;
         gameEngine.addTile(ZERO, ONE, tileTypeP);
@@ -96,6 +96,9 @@ public class GameEngineTest {
         gameEngine.keyUp();
         boolean actual = gameEngine.isPlayerCaught();
         assertThat(actual, equalTo(playerCaught));
+        boolean exit = true;
+        boolean actualExit = gameEngine.isExit();
+        assertThat(actualExit, equalTo(exit));
     }
 
 }
