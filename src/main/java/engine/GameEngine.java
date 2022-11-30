@@ -120,7 +120,6 @@ public class GameEngine {
     private void setPlayer(int x, int y) {
         if (player == null) {
             player = new Player(x, y);
-            System.out.println(x + " : " + y);
         } else {
             player = player.copyPlayerToNewLocation(x, y);
         }
@@ -209,9 +208,8 @@ public class GameEngine {
     private int getNonRandomInt(int limit) {
         long milliseconds = System.currentTimeMillis();
         int digit = (int) Math.abs(milliseconds % 100);
-        int nonRandomInt = digit % -limit;
-
-        return nonRandomInt;
+        
+        return digit % -limit;
     }
 
     public void playerKilled(int x, int y) {
