@@ -1,10 +1,10 @@
 XXXXXXXXXXXXXXXXXXXX
+XB                MX
+XS                FX
 X                  X
 X                  X
 X                  X
 X                  X
-X                  X
-X                  X
-X         P        X
-X                  X
+XA        P       RX
+XD                HX
 XXXXXXXXXXXXXXXXXXXX
