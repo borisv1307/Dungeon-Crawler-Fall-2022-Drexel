@@ -90,12 +90,20 @@ public class GameEngine {
         }
     }
 
+    public void setPlayerCoins(int coinValue){ // for testing
+        playerCoins = coinValue;
+    }
+
     public int getPlayerLevel(){
         return playerLevel;
     }
 
     public void incrementPlayerLevel(){
         playerLevel += 1;
+    }
+
+    public void setPlayerLevel(int levelValue){ // for testing
+        playerLevel = levelValue;
     }
 
     public void keyLeft() {

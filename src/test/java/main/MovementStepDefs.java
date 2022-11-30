@@ -25,6 +25,16 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
 	}
 
+	@Given("^the player starts with (\\d+) coins$")
+	public void the_player_starts_with_coins(int coins){
+		gameEngine.setPlayerCoins(coins);
+	}
+
+	@Given("^the player is at level (\\d+)$")
+	public void the_player_is_at_level(int level){
+		gameEngine.setPlayerLevel(level);
+	}
+
 	@When("^the player moves left$")
 	public void the_player_moves_left() throws Throwable {
 		gameEngine.keyLeft();
@@ -49,5 +59,10 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
+	}
+
+	@Then("^the player has (\\d+) coins$")
+	public void the_player_has_coins(int coins){
+		assertThat(gameEngine.getPlayerCoins(), equalTo(coins));
 	}
 }

@@ -12,6 +12,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -44,14 +51,20 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/arjuniyengar/school/se-570/Dungeon-Crawler-Fall-2022-Drexel/src/test/resources/levels",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "settings.saveactions"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="All Features in: test" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/levels" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Cucumber Java.All Features in: test">
+    <configuration name="All Features in: test" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="1.2" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test" />
       <option name="GLUE" value="parser main" />
@@ -80,7 +93,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cucumber Java.All Features in: test" />
         <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel" />
       </list>
     </recent_temporary>
@@ -94,7 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1668285698259</updated>
       <workItem from="1668285702879" duration="1411000" />
-      <workItem from="1668793382084" duration="8473000" />
+      <workItem from="1668793382084" duration="13317000" />
     </task>
     <servers />
   </component>
