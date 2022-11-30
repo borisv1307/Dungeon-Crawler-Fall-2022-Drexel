@@ -46,12 +46,13 @@ public abstract class Entity extends Point {
 
     @Override
     public boolean equals(Object obj){
-        if (!super.equals(obj)){
-            return false;
+        try{
+            Entity entityObj = (Entity) obj;
+            return compareObjectProperties(entityObj);
         }
-
-        Entity entityObj = (Entity) obj;
-        return compareObjectProperties(entityObj);
+        catch (ClassCastException e){
+            return super.equals(obj);
+        }
     }
 
     private boolean compareObjectProperties(Entity entityObj){
@@ -69,6 +70,4 @@ public abstract class Entity extends Point {
         }
         return true;
     }
-
-
 }
