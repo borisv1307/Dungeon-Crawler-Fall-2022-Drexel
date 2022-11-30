@@ -159,6 +159,10 @@ public class GameEngine {
                 setRegen(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
+            case TRANSIENT_DRAIN:
+                setDrain(true, 5);
+                addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
+                break;
         }
 
     }

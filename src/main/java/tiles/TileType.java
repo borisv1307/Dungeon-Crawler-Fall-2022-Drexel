@@ -4,7 +4,7 @@ public enum TileType {
 
     PASSABLE(' '), NOT_PASSABLE('X'), PLAYER('P'), HEALING('H'), DAMAGE('D'),
     TRANSIENT_HEALING('M'), TRANSIENT_DAMAGE('B'), REGEN('R'), DRAIN('A'),
-    TRANSIENT_REGEN('F');
+    TRANSIENT_REGEN('F'), TRANSIENT_DRAIN('S');
 
     static final String INVALID_CHARACTER_PROVIDED_MESSAGE = "Invalid character provided: ";
     private final char asChar;
