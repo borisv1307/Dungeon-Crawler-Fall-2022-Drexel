@@ -21,6 +21,8 @@ public class GameEngine {
     private int maxPlayerHP;
     private boolean playerRegenOn;
     private int playerRegenRemaining;
+    private boolean playerDrainOn;
+    private int playerDrainRemaining;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -31,6 +33,8 @@ public class GameEngine {
         maxPlayerHP = 50;
         playerRegenOn = false;
         playerRegenRemaining = 0;
+        playerDrainOn = false;
+        playerDrainRemaining = 0;
     }
 
     public void run(GameFrame gameFrame) {
@@ -102,7 +106,18 @@ public class GameEngine {
         if (!(attemptedLocation.equals(TileType.NOT_PASSABLE))) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
             updateRegen();
+            updateDrain();
             checkForSpecialTile(getPlayerXCoordinate(), getPlayerYCoordinate());
+        }
+    }
+
+    private void updateDrain() {
+        if (playerDrainOn) {
+            damagePlayer(2);
+            playerDrainRemaining--;
+        }
+        if (playerDrainRemaining == 0) {
+            setDrain(false, 0);
         }
     }
 
@@ -124,28 +139,35 @@ public class GameEngine {
                 healPlayer(5);
                 break;
             case DAMAGE:
-                damagePlayer();
+                damagePlayer(5);
                 break;
             case TRANSIENT_HEALING:
                 healPlayer(5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case TRANSIENT_DAMAGE:
-                damagePlayer();
+                damagePlayer(5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case REGEN:
                 setRegen(true, 5);
                 break;
+            case DRAIN:
+                setDrain(true, 5);
+                break;
         }
 
+    }
+
+    private void setDrain(boolean drainStatus, int drainCounter) {
+        playerDrainOn = drainStatus;
+        playerDrainRemaining = drainCounter;
     }
 
     private void setRegen(boolean regenStatus, int regenCounter) {
         playerRegenOn = regenStatus;
         playerRegenRemaining = regenCounter;
     }
-
 
     private void healPlayer(int healAmount) {
         if (playerHP + healAmount <= maxPlayerHP) {
@@ -155,9 +177,9 @@ public class GameEngine {
         }
     }
 
-    private void damagePlayer() {
-        if (playerHP - 5 >= 0) {
-            playerHP -= 5;
+    private void damagePlayer(int damageAmount) {
+        if (playerHP - damageAmount >= 0) {
+            playerHP -= damageAmount;
         } else {
             playerHP = 0;
         }
@@ -175,11 +197,19 @@ public class GameEngine {
         return playerHP;
     }
 
-    public Boolean getPlayerRegenStatus() {
+    public boolean getPlayerRegenStatus() {
         return playerRegenOn;
     }
 
     public int getRegenCounter() {
         return playerRegenRemaining;
+    }
+
+    public boolean getPlayerDrainStatus() {
+        return playerDrainOn;
+    }
+
+    public int getDrainCounter() {
+        return playerDrainRemaining;
     }
 }
