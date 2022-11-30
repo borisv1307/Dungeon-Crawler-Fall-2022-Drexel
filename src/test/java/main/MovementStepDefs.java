@@ -50,6 +50,11 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         assertThat(gameEngine.isPlayerHasKey(), equalTo(true));
     }
 
+    @Then("^the player has achieved the goal$")
+    public void the_player_has_achieved_the_goal() throws Throwable {
+        assertThat(gameEngine.isGoalAchieved(), equalTo(true));
+    }
+
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")
     public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
         assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));

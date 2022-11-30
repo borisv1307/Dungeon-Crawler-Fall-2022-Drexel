@@ -23,6 +23,27 @@ Feature: Create a Level
     And (3, 3) is "X"
     And (4, 3) is "X"
 
+  Scenario: Level with Key, Door & Goal
+    Given level is:
+      | XXDX |
+      | XGPX |
+      | XXKX |
+    When I create the level
+    Then starting from the top-left:
+    And the player's x coordinate is 3
+    And the player's y coordinate is 2
+    And (1, 1) is "X"
+    And (2, 1) is "X"
+    And tile at (3, 1) is "DOOR"
+    And (4, 1) is "X"
+    And (1, 2) is "X"
+    And tile at (2, 2) is "GOAL"
+    And (4, 2) is "X"
+    And (1, 3) is "X"
+    And (2, 3) is "X"
+    And tile at (3, 3) is "KEY"
+    And (4, 3) is "X"
+
   Scenario: Invalid level
     Given level is:
       | XXXX |
