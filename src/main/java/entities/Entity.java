@@ -31,6 +31,7 @@ public abstract class Entity extends Point {
     public int getAttackValue(){
         return attackValue;
     }
+
     public int getHitPoints(){
         return hitPoints;
     }
@@ -40,6 +41,7 @@ public abstract class Entity extends Point {
     }
 
     public TileType getTileType() {return tileType;}
+
     public void setTileType(TileType tileType){
         this.tileType = tileType;
     }
@@ -65,9 +67,7 @@ public abstract class Entity extends Point {
         if (this.attackValue != entityObj.attackValue){
             return false;
         }
-        if (this.tileType != entityObj.tileType){
-            return false;
-        }
-        return true;
+
+        return this.tileType == entityObj.tileType;
     }
 }
