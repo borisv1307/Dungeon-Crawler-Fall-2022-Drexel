@@ -1,19 +1,19 @@
-package boardPiece;
+package board.piece;
 
 import enums.TileType;
 
 import java.awt.*;
 
-public class Enemy extends MovableBoardPiece {
-    private final static TileType TILE_TYPE = TileType.ENEMY;
+public class Player extends MovableBoardPiece {
+    private static final TileType TILE_TYPE = TileType.PLAYER;
 
-    public Enemy(Point location) {
+    public Player(Point location) {
         super(location, TILE_TYPE);
     }
 
     @Override
     protected boolean isValidMove(BoardPiece[][] gameBoard, Point attemptedLocation) {
         TileType attemptedLocationType = getTileType(gameBoard, attemptedLocation);
-        return attemptedLocationType != TileType.WALL && attemptedLocationType != TileType.GOAL;
+        return attemptedLocationType != TileType.WALL;
     }
 }

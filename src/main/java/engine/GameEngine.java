@@ -1,5 +1,6 @@
 package engine;
 
+import board.GameBoard;
 import enums.Direction;
 import enums.Result;
 import enums.TileType;

@@ -1,6 +1,6 @@
 package parser;
 
-import boardPiece.BoardPieceFactory;
+import board.piece.BoardPieceFactory;
 import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;

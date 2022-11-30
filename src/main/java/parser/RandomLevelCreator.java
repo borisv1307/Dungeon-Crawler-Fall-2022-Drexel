@@ -1,10 +1,10 @@
 package parser;
 
-import boardPiece.BoardPiece;
-import boardPiece.BoardPieceFactory;
-import boardPiece.Empty;
-import boardPiece.Wall;
-import engine.GameBoard;
+import board.GameBoard;
+import board.piece.BoardPiece;
+import board.piece.BoardPieceFactory;
+import board.piece.Empty;
+import board.piece.Wall;
 import engine.GameEngine;
 import enums.TileType;
 

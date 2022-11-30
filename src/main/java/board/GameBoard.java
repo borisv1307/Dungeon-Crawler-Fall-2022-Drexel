@@ -1,6 +1,6 @@
-package engine;
+package board;
 
-import boardPiece.*;
+import board.piece.*;
 import enums.Direction;
 import enums.Result;
 import enums.TileType;

@@ -1,11 +1,11 @@
-package boardPiece;
+package board.piece;
 
 import enums.TileType;
 
 import java.awt.*;
 
 public class Empty extends BoardPiece {
-    private final static TileType TILE_TYPE = TileType.EMPTY;
+    private static final TileType TILE_TYPE = TileType.EMPTY;
 
     public Empty(Point location) {
         super(location, TILE_TYPE);

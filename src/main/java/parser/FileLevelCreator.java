@@ -1,8 +1,8 @@
 package parser;
 
-import boardPiece.BoardPiece;
-import boardPiece.BoardPieceFactory;
-import engine.GameBoard;
+import board.GameBoard;
+import board.piece.BoardPiece;
+import board.piece.BoardPieceFactory;
 import engine.GameEngine;
 import enums.TileType;
 import values.TunableParameters;

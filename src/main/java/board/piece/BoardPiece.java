@@ -1,4 +1,4 @@
-package boardPiece;
+package board.piece;
 
 import enums.TileType;
 
@@ -8,7 +8,7 @@ public abstract class BoardPiece {
     protected final TileType tileType;
     protected Point location;
 
-    public BoardPiece(Point location, TileType tileType) {
+    protected BoardPiece(Point location, TileType tileType) {
         this.location = location;
         this.tileType = tileType;
     }

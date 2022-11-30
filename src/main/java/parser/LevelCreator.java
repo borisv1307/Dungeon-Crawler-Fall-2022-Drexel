@@ -1,7 +1,7 @@
 package parser;
 
-import boardPiece.*;
-import engine.GameBoard;
+import board.GameBoard;
+import board.piece.*;
 import engine.GameEngine;
 
 
