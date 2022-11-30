@@ -163,6 +163,8 @@ public class GameEngine {
                 setDrain(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
+            default:
+                break;
         }
 
     }
