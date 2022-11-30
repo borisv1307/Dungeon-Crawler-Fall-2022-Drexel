@@ -1,6 +1,7 @@
-package tiles;
+package projectile;
 
 import engine.GameEngine;
+import tiles.TileType;
 
 public class ProjectileShooter {
     private int xDiff, yDiff;
