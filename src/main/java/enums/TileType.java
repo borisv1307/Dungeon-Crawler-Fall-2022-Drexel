@@ -1,13 +1,13 @@
-package tiles;
+package enums;
 
 public enum TileType {
 
-    PASSABLE(' '), NOT_PASSABLE('X'), PLAYER('P'), ENEMY('E'), GOAL('G');
+    EMPTY(' '), WALL('X'), PLAYER('P'), ENEMY('E'), GOAL('G');
 
     static final String INVALID_CHARACTER_PROVIDED_MESSAGE = "Invalid character provided: ";
     private final char asChar;
 
-    private TileType(char asChar) {
+    TileType(char asChar) {
         this.asChar = asChar;
     }
 

@@ -1,17 +1,24 @@
 package parser;
 
+import BoardPiece.BoardPiece;
+import BoardPiece.BoardPieceFactory;
+import BoardPiece.Empty;
+import BoardPiece.Wall;
+import engine.GameBoard;
 import engine.GameEngine;
-import tiles.TileType;
+import enums.TileType;
 
+import java.awt.*;
 import java.util.Random;
 
-public class RandomLevelCreator implements LevelCreator {
+public class RandomLevelCreator extends LevelCreator {
     private final Random random;
     private final int xDimension;
     private final int yDimension;
     private final int seed;
 
-    public RandomLevelCreator(final Random random, final int seed, final int xDimension, final int yDimension) {
+    public RandomLevelCreator(final BoardPieceFactory boardPieceFactory, final Random random, final int seed, final int xDimension, final int yDimension) {
+        super(boardPieceFactory);
         this.random = random;
         this.seed = seed;
         this.xDimension = xDimension;
@@ -20,34 +27,39 @@ public class RandomLevelCreator implements LevelCreator {
 
     @Override
     public void createLevel(final GameEngine gameEngine, final int level) {
-        final TileType[][] gameBoard = new TileType[xDimension][yDimension];
+        GameBoard gameBoard = new GameBoard();
+        final BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
+        gameBoard.setBoardPieces(boardPieces);
+        gameEngine.setGameBoard(gameBoard);
         random.setSeed((long) seed + level);
-        for (int x = 0; x < gameBoard.length; x++) {
-            for (int y = 0; y < gameBoard[x].length; y++) {
+        for (int x = 0; x < boardPieces.length; x++) {
+            for (int y = 0; y < boardPieces[x].length; y++) {
                 if (x == 0 || y == 0 || x == xDimension - 1 || y == yDimension - 1) {
-                    gameBoard[x][y] = TileType.NOT_PASSABLE;
+                    boardPieces[x][y] = new Wall(new Point(x, y));
                 } else {
-                    gameBoard[x][y] = TileType.PASSABLE;
+                    boardPieces[x][y] = new Empty(new Point(x, y));
                 }
             }
         }
 
-        generateAndAddCoordinate(gameBoard, gameEngine, TileType.PLAYER);
-        generateAndAddCoordinate(gameBoard, gameEngine, TileType.ENEMY);
-        generateAndAddCoordinate(gameBoard, gameEngine, TileType.GOAL);
+        generateAndAddCoordinate(boardPieces, gameBoard, TileType.PLAYER);
+        generateAndAddCoordinate(boardPieces, gameBoard, TileType.ENEMY);
+        generateAndAddCoordinate(boardPieces, gameBoard, TileType.GOAL);
 
-        gameEngine.setBoard(gameBoard);
+        gameBoard.setBoardPieces(boardPieces);
     }
 
-    private void generateAndAddCoordinate(final TileType[][] gameBoard, final GameEngine gameEngine, final TileType tileType) {
+    private void generateAndAddCoordinate(final BoardPiece[][] boardPieces, final GameBoard gameBoard, final TileType tileType) {
         int xCoordinate;
         int yCoordinate;
+
         do {
             xCoordinate = random.nextInt(xDimension - 2) + 1;
             yCoordinate = random.nextInt(yDimension - 2) + 1;
-        } while (gameBoard[xCoordinate][yCoordinate] != TileType.PASSABLE);
+        } while (boardPieces[xCoordinate][yCoordinate].getTileType() != TileType.EMPTY);
 
-        gameBoard[xCoordinate][yCoordinate] = tileType;
-        gameEngine.setPlayableObject(xCoordinate, yCoordinate, tileType);
+        final BoardPiece boardPiece = boardPieceFactory.getBoardPiece(tileType, new Point(xCoordinate, yCoordinate));
+        boardPieces[xCoordinate][yCoordinate] = boardPiece;
+        setBoardPiece(gameBoard, boardPiece);
     }
 }

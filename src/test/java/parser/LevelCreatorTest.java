@@ -1,5 +1,6 @@
 package parser;
 
+import BoardPiece.BoardPieceFactory;
 import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class LevelCreatorTest {
     public void setUp() {
         gameEngine = Mockito.mock(GameEngine.class);
         readerWrapper = Mockito.mock(ReaderWrapper.class);
-        levelCreator = new FileLevelCreator(FILE_LOCATION_PREFIX, readerWrapper);
+        levelCreator = new FileLevelCreator(FILE_LOCATION_PREFIX, readerWrapper, new BoardPieceFactory());
     }
 
     @Test

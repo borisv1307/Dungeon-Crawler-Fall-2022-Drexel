@@ -1,12 +1,13 @@
 package parser;
 
+import BoardPiece.BoardPieceFactory;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.java.StepDefAnnotation;
 import engine.GameEngine;
+import enums.TileType;
 import org.mockito.Mockito;
-import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -48,7 +49,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
     public void i_randomly_generate_a_level_with_obstacles_an_x_of_and_a_y_of(int x, int y) throws Throwable {
         Random random = new Random();
         random.setSeed(seed);
-        RandomLevelCreator levelCreator = new RandomLevelCreator(random, seed, x, y);
+        RandomLevelCreator levelCreator = new RandomLevelCreator(new BoardPieceFactory(), random, seed, x, y);
 
         try {
             gameEngine = new GameEngine(levelCreator);
@@ -60,7 +61,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
     @When("^I create the level$")
     public void i_create_the_level() throws Throwable {
         LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
-                new ReaderWrapper());
+                new ReaderWrapper(), new BoardPieceFactory());
         try {
             gameEngine = new GameEngine(levelCreator);
         } catch (Exception e) {
@@ -75,7 +76,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
-        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper, new BoardPieceFactory());
         gameEngine = new GameEngine(levelCreator);
     }
 

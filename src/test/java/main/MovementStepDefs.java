@@ -1,12 +1,14 @@
 package main;
 
+import BoardPiece.BoardPieceFactory;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import enums.Direction;
+import enums.TileType;
 import parser.FileLevelCreator;
 import parser.LevelCreationStepDefHelper;
-import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -25,7 +27,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     public void the_level_design_is(int level, List<String> levelStrings) throws FileNotFoundException, UnsupportedEncodingException {
         writeLevelFile(level, levelStrings);
         gameEngine = new GameEngine(
-                new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+                new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(), new BoardPieceFactory()));
     }
 
     @Then("^the goal is located at \\((\\d+), (\\d+)\\)$")
@@ -36,42 +38,42 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     @When("^the enemy moves left$")
     public void the_enemy_moves_left() {
-        gameEngine.keyLeft(TileType.ENEMY);
+        gameEngine.movement(TileType.ENEMY, Direction.LEFT);
     }
 
     @When("^the enemy moves right$")
     public void the_enemy_moves_right() {
-        gameEngine.keyRight(TileType.ENEMY);
+        gameEngine.movement(TileType.ENEMY, Direction.RIGHT);
     }
 
     @When("^the enemy moves up$")
     public void the_enemy_moves_up() {
-        gameEngine.keyUp(TileType.ENEMY);
+        gameEngine.movement(TileType.ENEMY, Direction.UP);
     }
 
     @When("^the enemy moves down$")
     public void the_enemy_moves_down() {
-        gameEngine.keyDown(TileType.ENEMY);
+        gameEngine.movement(TileType.ENEMY, Direction.DOWN);
     }
 
     @When("^the player moves left$")
     public void the_player_moves_left() {
-        gameEngine.keyLeft(TileType.PLAYER);
+        gameEngine.movement(TileType.PLAYER, Direction.LEFT);
     }
 
     @When("^the player moves right$")
     public void the_player_moves_right() {
-        gameEngine.keyRight(TileType.PLAYER);
+        gameEngine.movement(TileType.PLAYER, Direction.RIGHT);
     }
 
     @When("^the player moves up$")
     public void the_player_moves_up() {
-        gameEngine.keyUp(TileType.PLAYER);
+        gameEngine.movement(TileType.PLAYER, Direction.UP);
     }
 
     @When("^the player moves down$")
     public void the_player_moves_down() {
-        gameEngine.keyDown(TileType.PLAYER);
+        gameEngine.movement(TileType.PLAYER, Direction.DOWN);
     }
 
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")

@@ -1,8 +1,9 @@
 package parser;
 
+import BoardPiece.BoardPieceFactory;
 import engine.GameEngine;
+import enums.TileType;
 import org.mockito.Mockito;
-import tiles.TileType;
 import values.TestingTunableParameters;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
@@ -47,7 +48,7 @@ public class LevelCreatorITHelper {
 
     protected void createLevel() throws Throwable {
         LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
-                new ReaderWrapper());
+                new ReaderWrapper(), new BoardPieceFactory());
         try {
             gameEngine = new GameEngine(levelCreator);
         } catch (IllegalArgumentException e) {
@@ -88,7 +89,7 @@ public class LevelCreatorITHelper {
         BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
-        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
+        LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper, new BoardPieceFactory());
         gameEngine = new GameEngine(levelCreator);
     }
 

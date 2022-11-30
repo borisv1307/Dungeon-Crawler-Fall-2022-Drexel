@@ -1,28 +1,27 @@
 package values;
 
-import static org.junit.Assert.assertSame;
+import enums.TileType;
+import org.junit.Test;
 
 import java.awt.*;
 
-import org.junit.Test;
-
-import tiles.TileType;
+import static org.junit.Assert.assertSame;
 
 public class TileColorMapTest {
 
-	@Test
-	public void passable() {
-		assertSame(Color.WHITE, TileColorMap.get(TileType.PASSABLE));
-	}
+    @Test
+    public void passable() {
+        assertSame(Color.WHITE, TileColorMap.get(TileType.EMPTY));
+    }
 
-	@Test
-	public void not_passable() {
-		assertSame(Color.BLACK, TileColorMap.get(TileType.NOT_PASSABLE));
-	}
+    @Test
+    public void not_passable() {
+        assertSame(Color.BLACK, TileColorMap.get(TileType.WALL));
+    }
 
-	@Test
-	public void player() {
-		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
-	}
+    @Test
+    public void player() {
+        assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
+    }
 
 }

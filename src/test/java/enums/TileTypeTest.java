@@ -1,4 +1,4 @@
-package tiles;
+package enums;
 
 import org.junit.Test;
 
@@ -13,13 +13,13 @@ public class TileTypeTest {
 
     @Test
     public void value_of() {
-        assertThat(TileType.valueOf(TileType.PASSABLE.name()), equalTo(TileType.PASSABLE));
+        assertThat(TileType.valueOf(TileType.EMPTY.name()), equalTo(TileType.EMPTY));
     }
 
     @Test
     public void get_tile_type_by_char_valid_char() {
         TileType actual = TileType.getTileTypeByChar(VALID_CHAR);
-        assertEquals(TileType.PASSABLE, actual);
+        assertEquals(TileType.EMPTY, actual);
     }
 
     @Test

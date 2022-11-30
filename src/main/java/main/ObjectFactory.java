@@ -1,5 +1,6 @@
 package main;
 
+import BoardPiece.BoardPieceFactory;
 import engine.GameEngine;
 import parser.FileLevelCreator;
 import parser.LevelCreator;
@@ -14,32 +15,32 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
-	private static LevelCreator defaultLevelCreator = new FileLevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
-			new ReaderWrapper());
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
-	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
-			new WindowAdapterSystemExit(defaultGameEngine));
-	private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
-			TunableParameters.TARGET_FPS, new SystemWrapper());
+    private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
+    private static LevelCreator defaultLevelCreator = new FileLevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
+            new ReaderWrapper(), new BoardPieceFactory());
+    private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+    private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
+            new WindowAdapterSystemExit(defaultGameEngine));
+    private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
+            TunableParameters.TARGET_FPS, new SystemWrapper());
 
-	private ObjectFactory() {
-	}
+    private ObjectFactory() {
+    }
 
-	public static ThreadWrapper getDefaultThreadWrapper() {
-		return defaultThreadWrapper;
-	}
+    public static ThreadWrapper getDefaultThreadWrapper() {
+        return defaultThreadWrapper;
+    }
 
-	public static GameEngine getDefaultGameEngine() {
-		return defaultGameEngine;
-	}
+    public static GameEngine getDefaultGameEngine() {
+        return defaultGameEngine;
+    }
 
-	public static GameFrame getDefaultGameFrame() {
-		return defaultGameFrame;
-	}
+    public static GameFrame getDefaultGameFrame() {
+        return defaultGameFrame;
+    }
 
-	public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
-		return defaultFramesPerSecondHandler;
-	}
+    public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
+        return defaultFramesPerSecondHandler;
+    }
 
 }

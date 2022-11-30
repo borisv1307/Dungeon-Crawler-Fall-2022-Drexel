@@ -1,4 +1,4 @@
-@Ignore
+@IntegrationTest
 Feature: Move the enemy into player
 
   Scenario: Move enemy right into player
@@ -10,7 +10,7 @@ Feature: Move the enemy into player
       | X EPX |
       | X   X |
       | XXXXX |
-    When the player moves right
+    When the enemy moves right
     Then level 1 is generated
     And win count is 0
     And lose count is 1

@@ -1,7 +1,8 @@
 package ui;
 
 import engine.GameEngine;
-import tiles.TileType;
+import enums.Direction;
+import enums.TileType;
 
 import java.awt.*;
 
@@ -50,13 +51,13 @@ public class GamePanel extends Panel {
     @Override
     public boolean keyDown(Event evt, int key) {
         if (key == Event.LEFT) {
-            gameEngine.keyLeft(TileType.PLAYER);
+            gameEngine.movement(TileType.PLAYER, Direction.LEFT);
         } else if (key == Event.RIGHT) {
-            gameEngine.keyRight(TileType.PLAYER);
+            gameEngine.movement(TileType.PLAYER, Direction.RIGHT);
         } else if (key == Event.UP) {
-            gameEngine.keyUp(TileType.PLAYER);
+            gameEngine.movement(TileType.PLAYER, Direction.UP);
         } else if (key == Event.DOWN) {
-            gameEngine.keyDown(TileType.PLAYER);
+            gameEngine.movement(TileType.PLAYER, Direction.DOWN);
         }
 
         return true;

@@ -1,10 +1,11 @@
 package ui;
 
 import engine.GameEngine;
+import enums.Direction;
+import enums.TileType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import tiles.TileType;
 
 import java.awt.*;
 
@@ -73,25 +74,25 @@ public class GamePanelTest {
     @Test
     public void key_left() {
         gamePanel.keyDown(null, Event.LEFT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyLeft(TileType.PLAYER);
+        Mockito.verify(gameEngine, Mockito.times(1)).movement(TileType.PLAYER, Direction.LEFT);
     }
 
     @Test
     public void key_right() {
         gamePanel.keyDown(null, Event.RIGHT);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyRight(TileType.PLAYER);
+        Mockito.verify(gameEngine, Mockito.times(1)).movement(TileType.PLAYER, Direction.RIGHT);
     }
 
     @Test
     public void key_up() {
         gamePanel.keyDown(null, Event.UP);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyUp(TileType.PLAYER);
+        Mockito.verify(gameEngine, Mockito.times(1)).movement(TileType.PLAYER, Direction.UP);
     }
 
     @Test
     public void key_down() {
         gamePanel.keyDown(null, Event.DOWN);
-        Mockito.verify(gameEngine, Mockito.times(1)).keyDown(TileType.PLAYER);
+        Mockito.verify(gameEngine, Mockito.times(1)).movement(TileType.PLAYER, Direction.DOWN);
     }
 
     @Test

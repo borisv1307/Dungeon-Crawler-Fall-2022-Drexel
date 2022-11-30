@@ -1,24 +1,29 @@
 package parser;
 
+import BoardPiece.BoardPiece;
+import BoardPiece.BoardPieceFactory;
+import engine.GameBoard;
 import engine.GameEngine;
-import tiles.TileType;
+import enums.TileType;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FileLevelCreator implements LevelCreator {
+public class FileLevelCreator extends LevelCreator {
     private static final Logger LOGGER = Logger.getLogger(LevelCreator.class.getName());
 
     final String fileLocationPrefix;
     final String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
     final ReaderWrapper readerWrapper;
 
-    public FileLevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper) {
+    public FileLevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper, BoardPieceFactory boardPieceFactory) {
+        super(boardPieceFactory);
         this.fileLocationPrefix = fileLocationPrefix;
         this.readerWrapper = readerWrapper;
     }
@@ -45,21 +50,24 @@ public class FileLevelCreator implements LevelCreator {
             if (line != null) {
                 yDimension = Integer.parseInt(line);
             }
-            final TileType[][] gameBoard = new TileType[xDimension][yDimension];
+            GameBoard gameBoard = new GameBoard();
+            final BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
+            gameBoard.setBoardPieces(boardPieces);
+            gameEngine.setGameBoard(gameBoard);
+
             int y = 0;
             while ((line = reader.readLine()) != null) {
                 int x = 0;
                 for (char ch : line.toCharArray()) {
                     final TileType tileType = TileType.getTileTypeByChar(ch);
-                    gameBoard[x][y] = TileType.getTileTypeByChar(ch);
-                    if (tileType != TileType.PASSABLE && tileType != TileType.NOT_PASSABLE) {
-                        gameEngine.setPlayableObject(x, y, tileType);
-                    }
+                    final Point location = new Point(x, y);
+                    final BoardPiece boardPiece = boardPieceFactory.getBoardPiece(tileType, location);
+                    boardPieces[x][y] = boardPieceFactory.getBoardPiece(tileType, location);
+                    setBoardPiece(gameBoard, boardPiece);
                     x++;
                 }
                 y++;
             }
-            gameEngine.setBoard(gameBoard);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
             gameEngine.setExit(true);

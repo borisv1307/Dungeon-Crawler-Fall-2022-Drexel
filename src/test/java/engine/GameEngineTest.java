@@ -1,17 +1,20 @@
 package engine;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
-import java.awt.*;
-
+import BoardPiece.BoardPiece;
+import BoardPiece.Enemy;
+import BoardPiece.Goal;
+import BoardPiece.Player;
+import enums.TileType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import parser.LevelCreator;
-import tiles.TileType;
 import ui.GameFrame;
+
+import java.awt.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GameEngineTest {
 
@@ -19,28 +22,29 @@ public class GameEngineTest {
     private static final int ONE = 1;
     private static final int TWO = 2;
 
-	GameEngine gameEngine;
+    GameEngine gameEngine;
 
-	@Before
-	public void setUp() throws Exception {
-		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
-		int level = 1;
-		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
-	}
+    @Before
+    public void setUp() {
+        LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+        gameEngine = new GameEngine(levelCreator);
+        gameEngine.setGameBoard(new GameBoard());
+        int level = 1;
+        Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
+    }
 
-	@Test
-	public void run() {
-		GameFrame gameFrame = Mockito.mock(GameFrame.class);
-		Component component = Mockito.mock(Component.class);
-		Mockito.when(gameFrame.getComponents()).thenReturn(new Component[] { component });
-		gameEngine.run(gameFrame);
-		Mockito.verify(component, Mockito.times(1)).repaint();
-	}
+    @Test
+    public void run() {
+        GameFrame gameFrame = Mockito.mock(GameFrame.class);
+        Component component = Mockito.mock(Component.class);
+        Mockito.when(gameFrame.getComponents()).thenReturn(new Component[]{component});
+        gameEngine.run(gameFrame);
+        Mockito.verify(component, Mockito.times(1)).repaint();
+    }
 
     @Test
     public void set_and_get_dimension() {
-        gameEngine.setBoard(new TileType[ONE][TWO]);
+        gameEngine.getGameBoard().setBoardPieces(new BoardPiece[ONE][TWO]);
         int actualVertical = gameEngine.getLevelVerticalDimension();
         int actualHorizontal = gameEngine.getLevelHorizontalDimension();
         assertThat(actualVertical, equalTo(TWO));
@@ -50,7 +54,7 @@ public class GameEngineTest {
     @Test
     public void add_and_get_player_coordinates() {
         TileType tileType = TileType.PLAYER;
-        gameEngine.setPlayableObject(ZERO, ONE, tileType);
+        gameEngine.getGameBoard().setPlayer(new Player(new Point(ZERO, ONE)));
         int actualX = gameEngine.getXCoordinate(tileType);
         int actualY = gameEngine.getYCoordinate(tileType);
         assertThat(actualX, equalTo(ZERO));
@@ -60,7 +64,7 @@ public class GameEngineTest {
     @Test
     public void add_and_get_enemy_coordinates() {
         TileType tileType = TileType.ENEMY;
-        gameEngine.setPlayableObject(ZERO, ONE, tileType);
+        gameEngine.getGameBoard().setEnemy(new Enemy(new Point(ZERO, ONE)));
         int actualX = gameEngine.getXCoordinate(tileType);
         int actualY = gameEngine.getYCoordinate(tileType);
         assertThat(actualX, equalTo(ZERO));
@@ -70,7 +74,7 @@ public class GameEngineTest {
     @Test
     public void add_and_get_goal_coordinates() {
         TileType tileType = TileType.GOAL;
-        gameEngine.setPlayableObject(ZERO, ONE, tileType);
+        gameEngine.getGameBoard().setGoal(new Goal(new Point(ZERO, ONE)));
         int actualX = gameEngine.getXCoordinate(tileType);
         int actualY = gameEngine.getYCoordinate(tileType);
         assertThat(actualX, equalTo(ZERO));
