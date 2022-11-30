@@ -4,6 +4,7 @@ import entities.*;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+    private final SystemWrapper systemWrapper;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -27,6 +29,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        systemWrapper = new SystemWrapper();
     }
 
     public void run(GameFrame gameFrame) {
@@ -206,9 +209,9 @@ public class GameEngine {
     }
 
     private int getNonRandomInt(int limit) {
-        long milliseconds = System.currentTimeMillis();
-        int digit = (int) Math.abs(milliseconds % 100);
-        
+        long nanoTime = systemWrapper.milliTime();
+        int digit = (int) Math.abs(nanoTime % 1000);
+
         return digit % -limit;
     }
 
