@@ -50,9 +50,14 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         assertThat(gameEngine.isPlayerHasKey(), equalTo(true));
     }
 
-    @Then("^the player has achieved the goal$")
-    public void the_player_has_achieved_the_goal() throws Throwable {
-        assertThat(gameEngine.isGoalAchieved(), equalTo(true));
+    @Then("^the player does not have key$")
+    public void the_player_does_not_have_key() throws Throwable {
+        assertThat(gameEngine.isPlayerHasKey(), equalTo(false));
+    }
+
+    @When("^the current level is (\\d+)$")
+    public void the_current_level_is(int level) throws Throwable {
+        assertThat(gameEngine.getCurrentLevel(), equalTo(level));
     }
 
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")

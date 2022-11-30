@@ -113,13 +113,28 @@ public class GameEngineTest {
     }
 
     @Test
-    public void goal_achieved() {
+    public void load_next_level_once_goal_is_achieved() {
         gameEngine.addTile(ZERO, ONE, TileType.KEY);
         gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
         gameEngine.addTile(ONE, ONE, TileType.DOOR);
+        gameEngine.addTile(ONE, TWO, TileType.GOAL);
         gameEngine.keyUp();
         gameEngine.keyRight();
-        assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(TileType.PASSABLE));
+        gameEngine.keyDown();
+        assertThat(gameEngine.getCurrentLevel(), equalTo(2));
+    }
+
+    @Test
+    public void exit_game_once_last_level_goal_is_achieved() {
+        gameEngine.setCurrentLevel(5);
+        gameEngine.addTile(ZERO, ONE, TileType.KEY);
+        gameEngine.addTile(ZERO, TWO, TileType.PLAYER);
+        gameEngine.addTile(ONE, ONE, TileType.DOOR);
+        gameEngine.addTile(ONE, TWO, TileType.GOAL);
+        gameEngine.keyUp();
+        gameEngine.keyRight();
+        gameEngine.keyDown();
+        assertThat(gameEngine.isExit(), equalTo(true));
     }
 
     @Test

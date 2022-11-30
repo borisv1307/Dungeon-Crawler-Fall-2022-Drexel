@@ -12,14 +12,13 @@ public class GameEngine {
 
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
-    private final int level;
+    private final int lastLevel = 5;
+    private int level;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
     private boolean playerHasKey;
-
-    private boolean goalAchieved;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -102,11 +101,10 @@ public class GameEngine {
         }
         if (isTileDoor(attemptedLocation) && isPlayerHasKey()) {
             setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-            setPlayerHasKey(false);
         }
         if (isTileGoal(attemptedLocation)) {
-            setGoalAchieved(true);
-            // TODO: Take user to next level when user achieve GOAL.
+            setTilePassableAndMovePlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            loadNextLevel();
         }
     }
 
@@ -122,7 +120,7 @@ public class GameEngine {
         return attemptedTile.equals(TileType.DOOR);
     }
 
-    public boolean isTileGoal(TileType attemptedTile) {
+    private boolean isTileGoal(TileType attemptedTile) {
         return attemptedTile.equals(TileType.GOAL);
     }
 
@@ -139,12 +137,21 @@ public class GameEngine {
         this.playerHasKey = playerHasKey;
     }
 
-    public boolean isGoalAchieved() {
-        return goalAchieved;
+    public void loadNextLevel() {
+        setPlayerHasKey(false);
+        if (getCurrentLevel() < lastLevel) {
+            levelCreator.createLevel(this, ++level);
+        } else {
+            this.setExit(true);
+        }
     }
 
-    public void setGoalAchieved(boolean goalAchieved) {
-        this.goalAchieved = goalAchieved;
+    public int getCurrentLevel() {
+        return level;
+    }
+
+    public void setCurrentLevel(int level) {
+        this.level = level;
     }
 
     public boolean isExit() {
