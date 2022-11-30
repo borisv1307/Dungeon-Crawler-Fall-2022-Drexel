@@ -41,27 +41,27 @@ public abstract class Entity extends Point {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object object) {
         try {
-            Entity entityObj = (Entity) obj;
-            return compareObjectProperties(entityObj);
+            Entity entityObject = (Entity) object;
+            return compareObjectProperties(entityObject);
         } catch (ClassCastException e) {
-            return super.equals(obj);
+            return super.equals(object);
         }
     }
 
-    private boolean compareObjectProperties(Entity entityObj) {
-        if (this.hitPoints != entityObj.hitPoints) {
+    private boolean compareObjectProperties(Entity entityObect) {
+        if (this.hitPoints != entityObect.hitPoints) {
             return false;
         }
-        if (this.armorClass != entityObj.armorClass) {
+        if (this.armorClass != entityObect.armorClass) {
             return false;
         }
-        if (this.attackValue != entityObj.attackValue) {
+        if (this.attackValue != entityObect.attackValue) {
             return false;
         }
 
-        return this.tileType == entityObj.tileType;
+        return this.tileType == entityObect.tileType;
     }
 
     private int dealDamageWithAC(int attackValue) {

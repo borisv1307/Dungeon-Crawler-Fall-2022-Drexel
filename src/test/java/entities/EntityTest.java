@@ -65,6 +65,20 @@ public class EntityTest {
     }
 
     @Test
+    public void player_not_equal_to_other_player() {
+        Entity player = new Player(0, 0);
+        Entity playerOther = new Player(1, 1);
+        assertEquals(false, player.equals(playerOther));
+    }
+
+    @Test
+    public void player_equal_to_player() {
+        Entity player = new Player(0, 0);
+        Entity playerOther = new Player(0, 0);
+        assertEquals(true, player.equals(playerOther));
+    }
+
+    @Test
     public void get_tile_type_from_enemy_object() {
         Color tileColor = TileColorMap.get(TileType.KOBOLD);
         Color actual = TileColorMap.get(enemy.getTileType());

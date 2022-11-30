@@ -31,4 +31,20 @@ public class Player extends Entity {
         return originY;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        try {
+            Player playerObject = (Player) object;
+            return compareObjectProperties(playerObject);
+        } catch (ClassCastException e) {
+            return super.equals(object);
+        }
+    }
+
+    private boolean compareObjectProperties(Player playerObject) {
+        if (this.originX != playerObject.originX) {
+            return false;
+        }
+        return this.originY == playerObject.originY;
+    }
 }
