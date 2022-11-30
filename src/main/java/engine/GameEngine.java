@@ -118,6 +118,7 @@ public class GameEngine {
     private void setPlayer(int x, int y) {
         if (player == null) {
             player = new Player(x, y);
+            System.out.println(x + " : " + y);
         } else {
             player = player.copyPlayerToNewLocation(x, y);
         }
@@ -136,7 +137,9 @@ public class GameEngine {
             int playerHP = player.receiveDamage(enemy.getAttackValue());
 
             System.out.println(enemyHP + " : " + playerHP);
-
+            if (playerHP <= 0) {
+                playerKilled(getPlayerXCoordinate(), getPlayerYCoordinate());
+            }
             if (enemyHP <= 0) {
                 enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
             }
@@ -198,4 +201,8 @@ public class GameEngine {
         }
     }
 
+    public void playerKilled(int x, int y) {
+        removeTile(x, y);
+        player = new Player(player.getOriginX(), player.getOriginY());
+    }
 }

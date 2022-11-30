@@ -101,16 +101,18 @@ public class GameEngineTest {
         assertFalse(actualX == previousX && actualY == previousY);
     }
 
-//    @Test
-//    public void player_respawns_on_death() {
-//        createPlayerTile();
-//        int previousX = gameEngine.getPlayerXCoordinate();
-//        int previousY = gameEngine.getPlayerYCoordinate();
-//        gameEngine.playerKilled(previousX, previousY);
-//        int actualX = gameEngine.getPlayerXCoordinate();
-//        int actualY = gameEngine.getPlayerXCoordinate();
-//        assertFalse(actualX == previousX && actualY == previousY);
-//    }
+    @Test
+    public void player_respawns_on_death() {
+        createPlayerTile();
+        int previousX = gameEngine.getPlayerXCoordinate();
+        int previousY = gameEngine.getPlayerYCoordinate();
+        gameEngine.playerKilled(previousX, previousY);
+        int actualX = gameEngine.getPlayerXCoordinate();
+        int actualY = gameEngine.getPlayerXCoordinate();
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ZERO));
+        assertFalse(actualX == previousX && actualY == previousY);
+    }
 
     @Test
     public void set_and_get_exit() {
