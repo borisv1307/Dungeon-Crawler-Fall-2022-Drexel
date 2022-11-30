@@ -10,5 +10,7 @@ public class ProjectileShooter {
         this.xDiff = xDiff;
         this.yDiff = yDiff;
         this.engine = engine;
+
+        engine.addTile(xDiff, yDiff, TileType.NOT_PASSABLE);
     }
 }
