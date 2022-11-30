@@ -36,7 +36,7 @@ public class ActionHandler {
         }
     }
 
-    private boolean playerIsNextToEnemy() {
+    public boolean playerIsNextToEnemy() {
         return true;
     }
 
