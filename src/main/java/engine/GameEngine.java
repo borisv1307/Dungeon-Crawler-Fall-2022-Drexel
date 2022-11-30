@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class GameEngine {
 
+    private final static int lastLevel = 5;
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
-    private final int lastLevel = 5;
     private int level;
     private boolean exit;
     private int levelHorizontalDimension;
