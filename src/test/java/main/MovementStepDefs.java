@@ -81,4 +81,39 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         assertThat(gameEngine.getTileFromCoordinates(gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate()),
                 equalTo(TileType.valueOf(currentTile)));
     }
+
+    @Then("^the player has regen (.+)$")
+    public void the_player_regen_status(String regenStatus) throws Throwable {
+        assertThat(gameEngine.getPlayerRegenStatus(), equalTo(regenStatus.equalsIgnoreCase("on")));
+    }
+
+    @Then("^the regen counter is (\\d+)$")
+    public void the_player_regen_counter_is(int regenCounter) {
+        assertThat(gameEngine.getRegenCounter(), equalTo(regenCounter));
+    }
+
+    @When("^the player moves in a circle after moving down")
+    public void the_player_moves_down_then_in_a_circle() throws Throwable {
+        gameEngine.keyDown();
+        gameEngine.keyLeft();
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        gameEngine.keyRight();
+        gameEngine.keyRight();
+        gameEngine.keyDown();
+        gameEngine.keyDown();
+        gameEngine.keyLeft();
+    }
+
+    @When("^the player moves down, then around")
+    public void the_player_moves_down_then_around() throws Throwable {
+        gameEngine.keyDown();
+        gameEngine.keyLeft();
+        gameEngine.keyUp();
+        gameEngine.keyUp();
+        gameEngine.keyRight();
+        gameEngine.keyRight();
+        gameEngine.keyDown();
+        gameEngine.keyDown();
+    }
 }
