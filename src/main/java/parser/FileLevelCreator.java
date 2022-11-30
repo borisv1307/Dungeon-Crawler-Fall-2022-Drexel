@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 
 public class FileLevelCreator extends LevelCreator {
     private static final Logger LOGGER = Logger.getLogger(FileLevelCreator.class.getName());
-    final static String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
-    final String fileLocationPrefix;
-    final ReaderWrapper readerWrapper;
+    private static final String FILE_NAME_SUFFIX = TunableParameters.FILE_NAME_SUFFIX;
+    private final String fileLocationPrefix;
+    private final ReaderWrapper readerWrapper;
 
     public FileLevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper, BoardPieceFactory boardPieceFactory) {
         super(boardPieceFactory);
@@ -85,6 +85,6 @@ public class FileLevelCreator extends LevelCreator {
     }
 
     String getFilePath(int level) {
-        return fileLocationPrefix + level + fileNameSuffix;
+        return fileLocationPrefix + level + FILE_NAME_SUFFIX;
     }
 }

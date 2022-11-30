@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public abstract class MovableBoardPiece extends BoardPiece {
-    public MovableBoardPiece(Point location, TileType tileType) {
+    protected MovableBoardPiece(Point location, TileType tileType) {
         super(location, tileType);
     }
 
