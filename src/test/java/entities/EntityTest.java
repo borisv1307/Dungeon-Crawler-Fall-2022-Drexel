@@ -46,7 +46,14 @@ public class EntityTest {
     public void kobold_not_equal_to_orc(){
         Entity kobold = new Kobold(0, 0);
         Entity orc = new Orc(0,0);
-        assertFalse(kobold.equals(orc));
+        assertEquals(kobold.equals(orc), false);
+    }
+
+    @Test
+    public void kobold_equals_kobold(){
+        Entity kobold = new Kobold(0, 0);
+        Entity koboldOther = new Kobold(0,0);
+        assertEquals(kobold.equals(koboldOther), true);
     }
 
     @Test

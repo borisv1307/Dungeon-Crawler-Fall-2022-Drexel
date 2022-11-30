@@ -64,7 +64,7 @@ public abstract class Entity extends Point {
         if (this.attackValue != entityObj.attackValue){
             return false;
         }
-        if (this.tileType == entityObj.tileType){
+        if (this.tileType != entityObj.tileType){
             return false;
         }
         return true;
