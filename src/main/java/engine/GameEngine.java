@@ -115,6 +115,10 @@ public class GameEngine {
                 healPlayer();
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
+            case TRANSIENT_DAMAGE:
+                damagePlayer();
+                addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
+                break;
 
         }
 
