@@ -6,14 +6,16 @@ import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameEngine {
 
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
-    private Random random = new Random();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -133,16 +135,19 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         } else if (locationHasEnemy(attemptedLocation)) {
-            int enemyHP = enemy.receiveDamage(player.getAttackValue());
-            int playerHP = player.receiveDamage(enemy.getAttackValue());
+            doCombat();
+        }
+    }
 
-            System.out.println(enemyHP + " : " + playerHP);
-            if (playerHP <= 0) {
-                playerKilled(getPlayerXCoordinate(), getPlayerYCoordinate());
-            }
-            if (enemyHP <= 0) {
-                enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
-            }
+    private void doCombat() {
+        int enemyHP = enemy.receiveDamage(player.getAttackValue());
+        int playerHP = player.receiveDamage(enemy.getAttackValue());
+
+        if (playerHP <= 0) {
+            playerKilled(getPlayerXCoordinate(), getPlayerYCoordinate());
+        }
+        if (enemyHP <= 0) {
+            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
         }
     }
 
@@ -179,7 +184,7 @@ public class GameEngine {
     }
 
     private int getRandomNewCoordinate(int dimensionLimit) {
-        return random.nextInt(dimensionLimit);
+        return getNonRandomInt(dimensionLimit);
     }
 
     private void createNewEnemy(int x, int y) {
@@ -189,9 +194,9 @@ public class GameEngine {
 
     private Enemy getRandomEnemy(int x, int y) {
         int numberOfEnemyTypes = 3;
-        int randomInt = random.nextInt(numberOfEnemyTypes);
+        int nextMonsterInt = getNonRandomInt(numberOfEnemyTypes);
 
-        switch (randomInt) {
+        switch (nextMonsterInt) {
             case 1:
                 return new Kobold(x, y);
             case 2:
@@ -199,6 +204,14 @@ public class GameEngine {
             default:
                 return new Slime(x, y);
         }
+    }
+
+    private int getNonRandomInt(int limit) {
+        long milliseconds = System.currentTimeMillis();
+        int digit = (int) Math.abs(milliseconds % 100);
+        int nonRandomInt = digit % -limit;
+
+        return nonRandomInt;
     }
 
     public void playerKilled(int x, int y) {
