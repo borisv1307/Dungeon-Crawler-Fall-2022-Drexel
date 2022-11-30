@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import parser.LevelCreator;
 
+import values.TunableParameters;
 import wrappers.ReaderWrapper;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class ActionHandlerTest {
 
     @Before
     public void setUp() {
-        LevelCreator levelCreator = new LevelCreator("src/main/resources/levels/", new ReaderWrapper());
+        LevelCreator levelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
         gameEngine = new GameEngine(levelCreator);
         actionHandler = new ActionHandler(gameEngine);
     }
