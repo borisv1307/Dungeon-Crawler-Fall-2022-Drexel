@@ -65,31 +65,12 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
-    private void setPlayer(int x, int y) {
-        player = new Player(x, y);
-    }
-
-    private boolean isEnemyTile(TileType tileType) {
-        switch (tileType) {
-            case KOBOLD:
-            case SLIME:
-            case ORC:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
 
     public int getPlayerYCoordinate() {
         return (int) player.getY();
-    }
-
-    private void setEnemy(int x, int y) {
-        enemy = new Slime(x, y);
     }
 
     public int getEnemyXCoordinate() {
@@ -116,28 +97,10 @@ public class GameEngine {
         movement(0, 1);
     }
 
-    private void movement(int deltaX, int deltaY) {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-        } else if (locationHasEnemy(attemptedLocation)) {
-            int enemyHP = enemy.receiveDamage(player.getAttackValue());
-            int playerHP = player.receiveDamage(enemy.getAttackValue());
-
-            if (enemyHP <= 0) {
-                enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
-            }
-        }
-    }
-
     public void enemyKilled(int x, int y) {
         ArrayList<Integer> newCoordinates = getNewCoordinates();
         removeTile(x, y);
         createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-    }
-
-    private boolean locationHasEnemy(TileType attemptedLocation) {
-        return enemy != null && isEnemyTile(attemptedLocation);
     }
 
     public boolean isExit() {
@@ -150,6 +113,49 @@ public class GameEngine {
 
     public void removeTile(int x, int y) {
         tiles.put(new Point(x, y), TileType.PASSABLE);
+    }
+
+    private void setPlayer(int x, int y) {
+        if (player == null) {
+            player = new Player(x, y);
+        } else {
+            player = player.copyPlayerToNewLocation(x, y);
+        }
+    }
+
+    private void setEnemy(int x, int y) {
+        enemy = new Slime(x, y);
+    }
+
+    private void movement(int deltaX, int deltaY) {
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        } else if (locationHasEnemy(attemptedLocation)) {
+            int enemyHP = enemy.receiveDamage(player.getAttackValue());
+            int playerHP = player.receiveDamage(enemy.getAttackValue());
+
+            System.out.println(enemyHP + " : " + playerHP);
+
+            if (enemyHP <= 0) {
+                enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
+            }
+        }
+    }
+
+    private boolean isEnemyTile(TileType tileType) {
+        switch (tileType) {
+            case KOBOLD:
+            case SLIME:
+            case ORC:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private boolean locationHasEnemy(TileType attemptedLocation) {
+        return enemy != null && isEnemyTile(attemptedLocation);
     }
 
     private ArrayList<Integer> getNewCoordinates() {
@@ -191,6 +197,5 @@ public class GameEngine {
                 return new Slime(x, y);
         }
     }
-
 
 }

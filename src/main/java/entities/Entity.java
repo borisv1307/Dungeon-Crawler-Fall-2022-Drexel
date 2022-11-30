@@ -20,14 +20,6 @@ public abstract class Entity extends Point {
         return hitPoints;
     }
 
-    private int dealDamageWithAC(int attackValue) {
-        int damageToTake = attackValue - armorClass;
-        if (damageToTake > 0) {
-            return damageToTake;
-        }
-        return 0;
-    }
-
     public int getAttackValue() {
         return attackValue;
     }
@@ -71,4 +63,13 @@ public abstract class Entity extends Point {
 
         return this.tileType == entityObj.tileType;
     }
+
+    private int dealDamageWithAC(int attackValue) {
+        int damageToTake = attackValue - armorClass;
+        if (damageToTake > 0) {
+            return damageToTake;
+        }
+        return 0;
+    }
+
 }

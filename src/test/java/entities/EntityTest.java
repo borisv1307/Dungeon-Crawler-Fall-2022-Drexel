@@ -8,8 +8,7 @@ import values.TileColorMap;
 import java.awt.*;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class EntityTest {
     Entity enemy;
@@ -39,6 +38,16 @@ public class EntityTest {
         int newHitPoints = currentHitPoints - (attackValue - playerArmorClass);
         int actualHitPoints = player.receiveDamage(attackValue);
         assertThat(newHitPoints, equalTo(actualHitPoints));
+    }
+
+    @Test
+    public void copy_player_to_new_location() {
+        int x = 2;
+        int y = 2;
+        Player newPlayer = ((Player) player).copyPlayerToNewLocation(x, y);
+        assertEquals(true, newPlayer.equals(player));
+        assertNotEquals(player.getX(), newPlayer.getX());
+        assertNotEquals(player.getY(), newPlayer.getY());
     }
 
     @Test
