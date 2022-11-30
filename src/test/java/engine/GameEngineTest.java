@@ -86,4 +86,16 @@ public class GameEngineTest {
         assertThat(actual, equalTo(exit));
     }
 
+    @Test
+    public void get_player_caught() {
+        boolean playerCaught = true;
+        TileType tileTypeP = TileType.PLAYER;
+        gameEngine.addTile(ZERO, ONE, tileTypeP);
+        TileType tileTypeE = TileType.ENEMY;
+        gameEngine.addTile(ZERO, ZERO, tileTypeE);
+        gameEngine.keyUp();
+        boolean actual = gameEngine.isPlayerCaught();
+        assertThat(actual, equalTo(playerCaught));
+    }
+
 }

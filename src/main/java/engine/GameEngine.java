@@ -120,4 +120,15 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
+    public boolean isPlayerCaught() {
+        int playerX = getPlayerXCoordinate();
+        int playerY = getPlayerYCoordinate();
+        int enemyX = getEnemyXCoordinate();
+        int enemyY = getEnemyYCoordinate();
+        if (playerX == enemyX && playerY == enemyY) {
+            return true;
+        }
+        return false;
+    }
 }
