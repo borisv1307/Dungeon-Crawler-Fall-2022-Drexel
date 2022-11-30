@@ -10,10 +10,10 @@ import java.util.*;
 
 public class GameEngine {
 
-    private Random random = new Random();
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+    private Random random = new Random();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -37,11 +37,10 @@ public class GameEngine {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
             tiles.put(player, TileType.PASSABLE);
-        } else if (isEnemyTile(tileType)){
+        } else if (isEnemyTile(tileType)) {
             setEnemy(x, y);
             tiles.put(enemy, enemy.getTileType());
-        }
-        else {
+        } else {
             tiles.put(new Point(x, y), tileType);
         }
     }
@@ -70,7 +69,7 @@ public class GameEngine {
         player = new Player(x, y);
     }
 
-    private boolean isEnemyTile(TileType tileType){
+    private boolean isEnemyTile(TileType tileType) {
         switch (tileType) {
             case KOBOLD:
             case SLIME:
@@ -80,6 +79,7 @@ public class GameEngine {
                 return false;
         }
     }
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
@@ -88,7 +88,9 @@ public class GameEngine {
         return (int) player.getY();
     }
 
-    private void setEnemy(int x, int y) {enemy = new Kobold(x, y);}
+    private void setEnemy(int x, int y) {
+        enemy = new Slime(x, y);
+    }
 
     public int getEnemyXCoordinate() {
         return (int) enemy.getX();
@@ -118,13 +120,20 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-        }
-        else if (locationHasEnemy(attemptedLocation)) {
-            int newHP = enemy.receiveDamage(player.getAttackValue());
-            if (newHP <= 0 ){
+        } else if (locationHasEnemy(attemptedLocation)) {
+            int enemyHP = enemy.receiveDamage(player.getAttackValue());
+            int playerHP = player.receiveDamage(enemy.getAttackValue());
+
+            if (enemyHP <= 0) {
                 enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
             }
         }
+    }
+
+    public void enemyKilled(int x, int y) {
+        ArrayList<Integer> newCoordinates = getNewCoordinates();
+        removeTile(x, y);
+        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
     }
 
     private boolean locationHasEnemy(TileType attemptedLocation) {
@@ -143,17 +152,11 @@ public class GameEngine {
         tiles.put(new Point(x, y), TileType.PASSABLE);
     }
 
-    public void enemyKilled(int x, int y) {
-        ArrayList<Integer> newCoordinates = getNewCoordinates();
-        removeTile(x, y);
-        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-    }
-
-    private ArrayList<Integer> getNewCoordinates(){
+    private ArrayList<Integer> getNewCoordinates() {
         int newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
         int newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
 
-        while (!newPointIsValid(newXCoordinate, newYCoordinate)){
+        while (!newPointIsValid(newXCoordinate, newYCoordinate)) {
             newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
             newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
         }
@@ -161,25 +164,25 @@ public class GameEngine {
         return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
     }
 
-    private boolean newPointIsValid(int x, int y){
+    private boolean newPointIsValid(int x, int y) {
         TileType tileType = getTileFromCoordinates(x, y);
         return (tileType == TileType.PASSABLE);
     }
 
-    private int getRandomNewCoordinate(int dimensionLimit){
+    private int getRandomNewCoordinate(int dimensionLimit) {
         return random.nextInt(dimensionLimit);
     }
 
-    private void createNewEnemy(int x, int y){
+    private void createNewEnemy(int x, int y) {
         enemy = getRandomEnemy(x, y);
         tiles.put(enemy, enemy.getTileType());
     }
 
-    private Enemy getRandomEnemy(int x, int y){
+    private Enemy getRandomEnemy(int x, int y) {
         int numberOfEnemyTypes = 3;
         int randomInt = random.nextInt(numberOfEnemyTypes);
 
-        switch (randomInt){
+        switch (randomInt) {
             case 1:
                 return new Kobold(x, y);
             case 2:
@@ -188,4 +191,6 @@ public class GameEngine {
                 return new Slime(x, y);
         }
     }
+
+
 }

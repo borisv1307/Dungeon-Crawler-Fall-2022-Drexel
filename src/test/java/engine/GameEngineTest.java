@@ -80,7 +80,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void despawn_enemy_tile(){
+    public void despawn_enemy_tile() {
         createKoboldTile();
         gameEngine.removeTile(ZERO, TWO);
         TileType actualTileType = gameEngine.getTileFromCoordinates(ZERO, TWO);
@@ -88,7 +88,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void spawn_new_enemy_on_defeat(){
+    public void spawn_new_enemy_on_defeat() {
         gameEngine.setLevelVerticalDimension(TWO);
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
@@ -98,8 +98,19 @@ public class GameEngineTest {
         gameEngine.enemyKilled(previousX, previousY);
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
-        assertFalse(actualX == previousX && actualY == previousY );
+        assertFalse(actualX == previousX && actualY == previousY);
     }
+
+//    @Test
+//    public void player_respawns_on_death() {
+//        createPlayerTile();
+//        int previousX = gameEngine.getPlayerXCoordinate();
+//        int previousY = gameEngine.getPlayerYCoordinate();
+//        gameEngine.playerKilled(previousX, previousY);
+//        int actualX = gameEngine.getPlayerXCoordinate();
+//        int actualY = gameEngine.getPlayerXCoordinate();
+//        assertFalse(actualX == previousX && actualY == previousY);
+//    }
 
     @Test
     public void set_and_get_exit() {
@@ -108,10 +119,12 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
+
     private void createPlayerTile() {
         TileType tileType = TileType.PLAYER;
         gameEngine.addTile(ZERO, ONE, tileType);
     }
+
     private void createKoboldTile() {
         TileType tileType = TileType.KOBOLD;
         gameEngine.addTile(ZERO, TWO, tileType);

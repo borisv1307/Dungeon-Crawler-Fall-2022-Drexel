@@ -10,17 +10,17 @@ public abstract class Entity extends Point {
     int armorClass;
     int attackValue;
 
-    Entity(int x, int y){
+    Entity(int x, int y) {
         super(x, y);
     }
 
-    public int receiveDamage(int attackValue){
+    public int receiveDamage(int attackValue) {
         int damageToDeal = dealDamageWithAC(attackValue);
         hitPoints = hitPoints - damageToDeal;
         return hitPoints;
     }
 
-    private int dealDamageWithAC(int attackValue){
+    private int dealDamageWithAC(int attackValue) {
         int damageToTake = attackValue - armorClass;
         if (damageToTake > 0) {
             return damageToTake;
@@ -28,43 +28,44 @@ public abstract class Entity extends Point {
         return 0;
     }
 
-    public int getAttackValue(){
+    public int getAttackValue() {
         return attackValue;
     }
 
-    public int getHitPoints(){
+    public int getHitPoints() {
         return hitPoints;
     }
 
-    public int getArmorClass(){
+    public int getArmorClass() {
         return armorClass;
     }
 
-    public TileType getTileType() {return tileType;}
+    public TileType getTileType() {
+        return tileType;
+    }
 
-    public void setTileType(TileType tileType){
+    public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
 
     @Override
-    public boolean equals(Object obj){
-        try{
+    public boolean equals(Object obj) {
+        try {
             Entity entityObj = (Entity) obj;
             return compareObjectProperties(entityObj);
-        }
-        catch (ClassCastException e){
+        } catch (ClassCastException e) {
             return super.equals(obj);
         }
     }
 
-    private boolean compareObjectProperties(Entity entityObj){
-        if (this.hitPoints != entityObj.hitPoints){
+    private boolean compareObjectProperties(Entity entityObj) {
+        if (this.hitPoints != entityObj.hitPoints) {
             return false;
         }
-        if (this.armorClass != entityObj.armorClass){
+        if (this.armorClass != entityObj.armorClass) {
             return false;
         }
-        if (this.attackValue != entityObj.attackValue){
+        if (this.attackValue != entityObj.attackValue) {
             return false;
         }
 

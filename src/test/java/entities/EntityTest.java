@@ -1,16 +1,15 @@
 package entities;
 
-import gherkin.lexer.En;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.matchers.Or;
 import tiles.TileType;
 import values.TileColorMap;
 
 import java.awt.*;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class EntityTest {
     Entity enemy;
@@ -18,7 +17,7 @@ public class EntityTest {
 
     @Before
     public void setUp() throws Exception {
-        enemy = new Kobold(0,0);
+        enemy = new Kobold(0, 0);
         player = new Player(1, 1);
     }
 
@@ -43,21 +42,21 @@ public class EntityTest {
     }
 
     @Test
-    public void kobold_not_equal_to_orc(){
+    public void kobold_not_equal_to_orc() {
         Entity kobold = new Kobold(0, 0);
-        Entity orc = new Orc(0,0);
+        Entity orc = new Orc(0, 0);
         assertEquals(false, kobold.equals(orc));
     }
 
     @Test
-    public void kobold_equals_kobold(){
+    public void kobold_equals_kobold() {
         Entity kobold = new Kobold(0, 0);
-        Entity koboldOther = new Kobold(0,0);
+        Entity koboldOther = new Kobold(0, 0);
         assertEquals(true, kobold.equals(koboldOther));
     }
 
     @Test
-    public void get_tile_type_from_enemy_object(){
+    public void get_tile_type_from_enemy_object() {
         Color tileColor = TileColorMap.get(TileType.KOBOLD);
         Color actual = TileColorMap.get(enemy.getTileType());
         assertThat(tileColor, equalTo(actual));
