@@ -39,6 +39,13 @@ public class DungeonCrawlerTest {
 	}
 
 	@Test
+	public void terminate_if_player_caught_is_true() {
+		Mockito.when(gameEngine.isPlayerCaught()).thenReturn(true);
+		dungeonCrawler.run();
+		Mockito.verify(gameFrame).dispose();
+	}
+
+	@Test
 	public void do_not_run_if_not_enough_time_has_elapsed() {
 		Mockito.when(framesPerSecondHandler.hasEnoughTimeElapsed()).thenReturn(false);
 		dungeonCrawler.run();

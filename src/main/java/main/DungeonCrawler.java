@@ -28,7 +28,7 @@ public class DungeonCrawler implements Runnable {
 
 	@Override
 	public void run() {
-		while (!gameEngine.isExit()) {
+		while (!gameEngine.isExit() && !gameEngine.isPlayerCaught()) {
 			try {
 				runIfEnoughTimeHasElapsed();
 			} catch (InterruptedException e) {
