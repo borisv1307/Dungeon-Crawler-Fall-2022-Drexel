@@ -6,6 +6,7 @@ import cucumber.api.java.en.When;
 import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
+import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -75,4 +76,9 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         gameEngine.keyRight();
     }
 
+    @Then("^the player is on a (.+) tile$")
+    public void the_player_is_on(String currentTile) throws Throwable {
+        assertThat(gameEngine.getTileFromCoordinates(gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate()),
+                equalTo(TileType.valueOf(currentTile)));
+    }
 }
