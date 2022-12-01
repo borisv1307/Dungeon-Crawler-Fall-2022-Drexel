@@ -1,6 +1,7 @@
 package engine;
 
 import parser.LevelCreator;
+import player.Player;
 import tiles.TileType;
 import ui.GameFrame;
 
@@ -16,7 +17,8 @@ public class GameEngine {
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
-    private Point player;
+    private Player myPlayer;
+    //private Point player;
     private int playerHP;
     private int maxPlayerHP;
     private boolean playerRegenOn;
@@ -29,6 +31,8 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        myPlayer = new Player();
+        System.out.println(myPlayer);
         playerHP = 10;
         maxPlayerHP = 50;
         playerRegenOn = false;
@@ -73,15 +77,15 @@ public class GameEngine {
     }
 
     private void setPlayer(int x, int y) {
-        player = new Point(x, y);
+        myPlayer.setPoint(x, y);
     }
 
     public int getPlayerXCoordinate() {
-        return (int) player.getX();
+        return myPlayer.getX();
     }
 
     public int getPlayerYCoordinate() {
-        return (int) player.getY();
+        return myPlayer.getY();
     }
 
     public void keyLeft() {
@@ -105,94 +109,49 @@ public class GameEngine {
                 getPlayerYCoordinate() + deltaY);
         if (!(attemptedLocation.equals(TileType.NOT_PASSABLE))) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-            updateRegen();
-            updateDrain();
+            myPlayer.move(deltaX, deltaY);
+
             checkForSpecialTile(getPlayerXCoordinate(), getPlayerYCoordinate());
         }
     }
 
-    private void updateDrain() {
-        if (playerDrainOn) {
-            damagePlayer(2);
-            playerDrainRemaining--;
-        }
-        if (playerDrainRemaining == 0) {
-            setDrain(false, 0);
-        }
-    }
-
-    private void updateRegen() {
-        if (playerRegenOn) {
-            healPlayer(2);
-            playerRegenRemaining--;
-        }
-        if (playerRegenRemaining == 0) {
-            setRegen(false, 0);
-        }
-    }
 
     private void checkForSpecialTile(int playerXCoordinate, int playerYCoordinate) {
         TileType currentLocation = getTileFromCoordinates(playerXCoordinate,
                 playerYCoordinate);
         switch (currentLocation) {
             case HEALING:
-                healPlayer(5);
+                myPlayer.changeHealth(5);
                 break;
             case DAMAGE:
-                damagePlayer(5);
+                myPlayer.changeHealth(-5);
                 break;
             case TRANSIENT_HEALING:
-                healPlayer(5);
+                myPlayer.changeHealth(5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case TRANSIENT_DAMAGE:
-                damagePlayer(5);
+                myPlayer.changeHealth(-5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case REGEN:
-                setRegen(true, 5);
+                myPlayer.setRegen(true, 5);
                 break;
             case DRAIN:
-                setDrain(true, 5);
+                myPlayer.setDrain(true, 5);
                 break;
             case TRANSIENT_REGEN:
-                setRegen(true, 5);
+                myPlayer.setRegen(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case TRANSIENT_DRAIN:
-                setDrain(true, 5);
+                myPlayer.setDrain(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             default:
                 break;
         }
 
-    }
-
-    private void setDrain(boolean drainStatus, int drainCounter) {
-        playerDrainOn = drainStatus;
-        playerDrainRemaining = drainCounter;
-    }
-
-    private void setRegen(boolean regenStatus, int regenCounter) {
-        playerRegenOn = regenStatus;
-        playerRegenRemaining = regenCounter;
-    }
-
-    private void healPlayer(int healAmount) {
-        if (playerHP + healAmount <= maxPlayerHP) {
-            playerHP += healAmount;
-        } else {
-            playerHP = maxPlayerHP;
-        }
-    }
-
-    private void damagePlayer(int damageAmount) {
-        if (playerHP - damageAmount >= 0) {
-            playerHP -= damageAmount;
-        } else {
-            playerHP = 0;
-        }
     }
 
     public boolean isExit() {
@@ -208,18 +167,18 @@ public class GameEngine {
     }
 
     public boolean getPlayerRegenStatus() {
-        return playerRegenOn;
+        return myPlayer.isRegenOn();
     }
 
-    public int getRegenCounter() {
-        return playerRegenRemaining;
+    public int getPlayerRegenCounter() {
+        return myPlayer.getRegenRemaining();
     }
 
     public boolean getPlayerDrainStatus() {
-        return playerDrainOn;
+        return myPlayer.isDrainOn();
     }
 
-    public int getDrainCounter() {
-        return playerDrainRemaining;
+    public int getPlayerDrainCounter() {
+        return myPlayer.getDrainRemaining();
     }
 }

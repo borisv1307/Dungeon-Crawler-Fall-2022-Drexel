@@ -116,7 +116,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     @Then("^the regen counter is (\\d+)$")
     public void the_player_regen_counter_is(int regenCounter) {
-        assertThat(gameEngine.getRegenCounter(), equalTo(regenCounter));
+        assertThat(gameEngine.getPlayerRegenCounter(), equalTo(regenCounter));
     }
 
     @Then("^the player has drain (.+)$")
@@ -126,7 +126,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     @Then("^the drain counter is (\\d+)$")
     public void the_player_drain_counter_is(int drainCounter) {
-        assertThat(gameEngine.getDrainCounter(), equalTo(drainCounter));
+        assertThat(gameEngine.getPlayerDrainCounter(), equalTo(drainCounter));
     }
 
 }
