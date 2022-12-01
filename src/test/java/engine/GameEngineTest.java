@@ -125,7 +125,7 @@ public class GameEngineTest {
     public void player_dies_updates_status() {
         createPlayerTile();
         gameEngine.playerKilled(0, 0);
-        assertEquals(GameStatus.playerDefeated, gameEngine.getGameStatus());
+        assertEquals(GameStatus.PLAYER_DEFEATED, gameEngine.getGameStatus());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class GameEngineTest {
         createPlayerTile();
         createSlimeTile();
         gameEngine.enemyKilled(gameEngine.getEnemyXCoordinate(), gameEngine.getEnemyYCoordinate());
-        String expected = String.format(GameStatus.enemyDefeated, "Slime");
+        String expected = String.format(GameStatus.ENEMY_DEFEATED, "Slime");
         assertEquals(expected, gameEngine.getGameStatus());
     }
 

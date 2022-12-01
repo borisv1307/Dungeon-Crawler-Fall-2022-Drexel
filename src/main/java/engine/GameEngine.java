@@ -30,7 +30,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        gameStatus = GameStatus.respawn;
+        gameStatus = GameStatus.PLAYER_RESPAWNED;
     }
 
     public void run(GameFrame gameFrame) {
@@ -106,7 +106,7 @@ public class GameEngine {
     public void enemyKilled(int x, int y) {
         ArrayList<Integer> newCoordinates = getNewCoordinates();
         removeTile(x, y);
-        gameStatus = String.format(GameStatus.enemyDefeated, enemy.getName());
+        gameStatus = String.format(GameStatus.ENEMY_DEFEATED, enemy.getName());
         createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
     }
 
@@ -158,7 +158,7 @@ public class GameEngine {
     }
 
     private String getCombatStatus() {
-        return String.format(GameStatus.damageToEnemy, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
+        return String.format(GameStatus.DAMAGE_TO_ENEMY, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
     }
 
     private boolean isEnemyTile(TileType tileType) {
@@ -201,7 +201,7 @@ public class GameEngine {
     public void playerKilled(int x, int y) {
         removeTile(x, y);
         player = new Player(player.getOriginX(), player.getOriginY());
-        gameStatus = GameStatus.playerDefeated;
+        gameStatus = GameStatus.PLAYER_DEFEATED;
     }
 
     public String getGameStatus() {

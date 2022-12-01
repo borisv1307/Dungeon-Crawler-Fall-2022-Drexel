@@ -9,6 +9,10 @@ import wrappers.SystemWrapper;
 public class Randomizer {
     static SystemWrapper systemWrapper = new SystemWrapper();
 
+    private Randomizer() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static int getNonRandomInt(int limit) {
         long nanoTime = systemWrapper.milliTime();
         int digit = (int) Math.abs(nanoTime % 100);
