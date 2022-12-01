@@ -18,5 +18,6 @@ public abstract class Screen extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(320, 127, 600, 400);
         setResizable(false);
+
     }
 }
