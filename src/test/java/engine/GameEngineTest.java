@@ -2,7 +2,6 @@ package engine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
@@ -11,19 +10,18 @@ import ui.GameFrame;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static engine.GameEngineTestFactory.initializeSimpleGameEngine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
     GameEngine gameEngine;
-
-    @Mock
-    private Point player;
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +35,7 @@ public class GameEngineTest {
     public void run() {
         GameFrame gameFrame = mock(GameFrame.class);
         Component component = mock(Component.class);
-        Mockito.when(gameFrame.getComponents()).thenReturn(new Component[]{component});
+        when(gameFrame.getComponents()).thenReturn(new Component[]{component});
         gameEngine.run(gameFrame);
         Mockito.verify(component, Mockito.times(1)).repaint();
     }
@@ -87,29 +85,23 @@ public class GameEngineTest {
         ArrayList<Point> expected = new ArrayList<>();
         expected.add(new Point(0, 1));
         expected.add(new Point(1, 1));
-        gameEngine.setLevelVerticalDimension(2);
-        gameEngine.setLevelHorizontalDimension(2);
-        gameEngine.addTile(0, 0, TileType.NOT_PASSABLE);
-        gameEngine.addTile(0, 1, TileType.PASSABLE);
-        gameEngine.addTile(1, 1, TileType.PASSABLE);
-        gameEngine.addTile(1, 0, TileType.NOT_PASSABLE);
+        initializeSimpleGameEngine(gameEngine);
         ArrayList<Point> actual = gameEngine.getAllPassableTiles();
         assertArrayEquals(expected.toArray(), actual.toArray());
     }
 
     @Test
     public void no_random_passable_tile() {
-        gameEngine.addTile(0, 0, TileType.NOT_PASSABLE);
-        Point randomPassablePoint = gameEngine.getRandomPassableTile();
+        ArrayList<Point> allPassableTiles = new ArrayList<>();
+        Point randomPassablePoint = gameEngine.getRandomPassableTile(allPassableTiles);
         assertNull(randomPassablePoint);
     }
 
     @Test
     public void get_random_passable_tile() {
-        gameEngine.setLevelVerticalDimension(1);
-        gameEngine.setLevelHorizontalDimension(1);
-        gameEngine.addTile(0, 0, TileType.PASSABLE);
-        Point randomPassablePoint = gameEngine.getRandomPassableTile();
+        ArrayList<Point> allPassableTiles = new ArrayList<>();
+        allPassableTiles.add(new Point(1, 1));
+        Point randomPassablePoint = gameEngine.getRandomPassableTile(allPassableTiles);
         assertNotNull(randomPassablePoint);
     }
 
@@ -133,7 +125,7 @@ public class GameEngineTest {
     @Test
     public void remove_previously_added_objects() {
         gameEngine.addTile(1, 1, TileType.PASSABLE);
-        gameEngine.addObjectToTile();
+        gameEngine.addObjectToTile(new Point(1, 1));
         gameEngine.removePreviouslyAddedObjects();
 
         TileType actualTileType = gameEngine.getTileFromCoordinates(1, 1);
@@ -141,7 +133,15 @@ public class GameEngineTest {
     }
 
     @Test
-    public void activate_game_timer() {
+    public void refresh_collectable_objects() {
+        initializeSimpleGameEngine(gameEngine);
+        gameEngine.addObjectToTile(new Point(1, 1));
+        gameEngine.refreshCollectableObjects();
+        assertEquals(TileType.PASSABLE, gameEngine.getTileFromCoordinates(1, 1));
+    }
 
+    @Test
+    public void activate_game_timer() {
+        gameEngine.activateGameTimer(1);
     }
 }

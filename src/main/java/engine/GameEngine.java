@@ -14,12 +14,12 @@ public class GameEngine {
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     private final RandomWrapper randomWrapper;
-    //    private ArrayList<CollectableObject> collectableObjects = new ArrayList<>();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
     private ArrayList<Point> collectableObjects;
+    //private ArrayList<Point> passableTiles;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -28,7 +28,7 @@ public class GameEngine {
         this.levelCreator.createLevel(this, level);
         this.randomWrapper = new RandomWrapper();
         collectableObjects = new ArrayList<>();
-
+        //passableTiles = getAllPassableTiles();
         activateGameTimer(10);
 
     }
@@ -129,45 +129,46 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    public void initializeRandomObjects() {
-        //TODO - make constants
-        int min = 1;
-        int max = 4;
-        int numberOfRandomObjects = randomWrapper.getRandomIntInRange(min, max);
-        System.out.println("adding " + numberOfRandomObjects + " objects");
-        for (int i = 0; i < numberOfRandomObjects; i++) {
-            addObjectToTile();
+    public ArrayList<Point> getPassableTiles(int numberOfTilesNeeded) {
+        ArrayList<Point> tilesToBeUpdated = new ArrayList<>();
+        ArrayList<Point> passableTiles = getAllPassableTiles();
+        for (int i = 0; i < numberOfTilesNeeded; i++) {
+            Point passableTile = getRandomPassableTile(passableTiles);
+            if (!tilesToBeUpdated.contains(passableTile)) {
+                tilesToBeUpdated.add(passableTile);
+            }
+        }
+        return tilesToBeUpdated;
+    }
+
+    public void addObjectsToTheGame(ArrayList<Point> tilesToBeUpdated) {
+        for (Point tileToBeUpdated : tilesToBeUpdated) {
+            addObjectToTile(tileToBeUpdated);
         }
     }
 
-    public void addObjectToTile() {
-        Point passableTile = getRandomPassableTile();
-        TileType oldTileType = tiles.get(passableTile);
-        tiles.replace(passableTile, oldTileType, TileType.OBJECT);
-        collectableObjects.add(passableTile);
+    public void addObjectToTile(Point tileToBeUpdated) {
+        TileType oldTileType = tiles.get(tileToBeUpdated);
+        tiles.replace(tileToBeUpdated, oldTileType, TileType.OBJECT);
+        collectableObjects.add(tileToBeUpdated);
     }
 
     public ArrayList<Point> getAllPassableTiles() {
         ArrayList<Point> emptyTiles = new ArrayList<>();
-        for (int x = 0; x < levelVerticalDimension; x++) {
-            for (int y = 0; y < levelHorizontalDimension; y++) {
-                TileType tileType = getTileFromCoordinates(x, y);
-                if (tileType != null && tileType.equals(TileType.PASSABLE)) {
-                    Point passablePoint = new Point(x, y);
-                    emptyTiles.add(passablePoint);
-                }
+        for (Map.Entry<Point, TileType> singleTile : tiles.entrySet()) {
+            TileType singleTileType = singleTile.getValue();
+            if (singleTileType.equals(TileType.PASSABLE)) {
+                emptyTiles.add(singleTile.getKey());
             }
         }
         return emptyTiles;
     }
 
-    public Point getRandomPassableTile() {
-        ArrayList<Point> passableTiles = getAllPassableTiles();
-        int min = 0;
-        int max = passableTiles.size();
-        if (min != max) {
-            int randomIndex = randomWrapper.getRandomIntInRange(min, max);
-            return passableTiles.get(randomIndex);
+    public Point getRandomPassableTile(ArrayList<Point> allPassableTiles) {
+        int numberOfPassableTiles = allPassableTiles.size();
+        if (numberOfPassableTiles > 0) {
+            int randomIndex = randomWrapper.getRandomIntInRange(0, numberOfPassableTiles);
+            return allPassableTiles.get(randomIndex);
         } else {
             return null;
         }
@@ -185,14 +186,20 @@ public class GameEngine {
         collectableObjects.clear();
     }
 
+    public void refreshCollectableObjects() {
+        int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
+        ArrayList<Point> tilesToBeUpdated = getPassableTiles(randomNumberOfObjects);
+        if (collectableObjects != null) {
+            removePreviouslyAddedObjects();
+        }
+        addObjectsToTheGame(tilesToBeUpdated);
+    }
+
     public void activateGameTimer(int numberOfSeconds) {
         TimerTask objectTimer = new TimerTask() {
             @Override
             public void run() {
-                if (collectableObjects.size() > 0) {
-                    removePreviouslyAddedObjects();
-                }
-                initializeRandomObjects();
+                refreshCollectableObjects();
             }
         };
 
