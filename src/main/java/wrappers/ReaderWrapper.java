@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class ReaderWrapper {
-	
+
 	FileReader createFileReader(String fileName) throws FileNotFoundException {
 		FileReader fileReader = null;
 		fileReader = new FileReader(fileName);

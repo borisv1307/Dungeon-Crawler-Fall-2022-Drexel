@@ -17,11 +17,11 @@ import wrappers.ReaderWrapper;
 
 public class LevelCreatorTest {
 
+	private final String FILE_LOCATION_PREFIX = "FILE_LOCATION_PREFIX";
+	private final int LEVEL = 1;
 	private GameEngine gameEngine;
 	private LevelCreator levelCreator;
-	private final String FILE_LOCATION_PREFIX = "FILE_LOCATION_PREFIX";
 	private ReaderWrapper readerWrapper;
-	private final int LEVEL = 1;
 
 	@Before
 	public void setUp() {
