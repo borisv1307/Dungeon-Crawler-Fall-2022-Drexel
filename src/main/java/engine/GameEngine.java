@@ -40,6 +40,10 @@ public class GameEngine {
 		this.scorePanel.incrementScore();
 	}
 
+	public void decrementLives() {
+		this.scorePanel.decrementLives();
+	}
+
 	public ScorePanel getScorePanel() {
 		return scorePanel;
 	}
@@ -111,7 +115,7 @@ public class GameEngine {
 		int nextX = getPlayerXCoordinate() + deltaX;
 		int nextY = getPlayerYCoordinate() + deltaY;
 		TileType attemptedLocation = getTileFromCoordinates(nextX, nextY);
-		if (attemptedLocation.equals(TileType.ENEMY)) {
+		if (attemptedLocation.equals(TileType.ENEMY) || attemptedLocation.equals(TileType.ENEMY_PROJECTILE)) {
 			addTile(nextX, nextY, TileType.PASSABLE);
 			setPlayer(nextX, nextY);
 			scorePanel.decrementLives();
@@ -124,7 +128,6 @@ public class GameEngine {
 		if (attemptedLocation.equals(TileType.PASSABLE) || attemptedLocation.equals(TileType.PROJECTILE)) {
 			setPlayer(nextX, nextY);
 		}
-
 	}
 
 	public void shoot() {

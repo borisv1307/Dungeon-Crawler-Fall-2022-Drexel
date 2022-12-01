@@ -36,6 +36,11 @@ public class TileColorMapTest {
 	}
 
 	@Test
+	public void enemy_projectile() {
+		assertSame(Color.GRAY, TileColorMap.get(TileType.ENEMY_PROJECTILE));
+	}
+
+	@Test
 	public void fives_lives_is_green() {
 		assertSame(Color.GREEN, TileColorMap.getPlayerColor(5));
 	}

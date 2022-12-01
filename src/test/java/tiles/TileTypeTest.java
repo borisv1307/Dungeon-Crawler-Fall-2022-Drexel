@@ -12,6 +12,7 @@ public class TileTypeTest {
 	private static final char VALID_CHAR = ' ';
 	private static final char PROJECTILE = 'O';
 	private static final char ENEMY = 'E';
+	private static final char ENEMY_PROJECTILE = 'I';
 
 	@Test
 	public void value_of() {
@@ -43,5 +44,11 @@ public class TileTypeTest {
 	public void enemy_is_E() {
 		TileType enemy = TileType.getTileTypeByChar(ENEMY);
 		assertEquals(TileType.ENEMY, enemy);
+	}
+
+	@Test
+	public void enemy_projectile_is_I() {
+		TileType enemy_projectile = TileType.getTileTypeByChar(ENEMY_PROJECTILE);
+		assertEquals(TileType.ENEMY_PROJECTILE, enemy_projectile);
 	}
 }

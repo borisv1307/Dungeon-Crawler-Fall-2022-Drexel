@@ -3,6 +3,7 @@ package ui;
 import java.awt.*;
 
 import engine.GameEngine;
+import tiles.ProjectileHandler;
 import tiles.TileType;
 import values.TileColorMap;
 import values.TunableParameters;
@@ -10,8 +11,8 @@ import wrappers.RandomWrapper;
 
 public class TilePainter {
 
+	public ProjectileHandler projectileHandler = new ProjectileHandler();
 	private RandomWrapper randomWrapper;
-
 	private int enemyCountDown = 0;
 
 	public void setRandomWrapper(RandomWrapper randomWrapper) {
@@ -22,11 +23,11 @@ public class TilePainter {
 		return enemyCountDown;
 	}
 
-	public void incrementCountDown() {
+	public void incrementEnemySpawnCountDown() {
 		enemyCountDown++;
 	}
 
-	public void resetCountDown() {
+	public void resetEnemySpawnCountDown() {
 		enemyCountDown = 0;
 	}
 
@@ -35,33 +36,18 @@ public class TilePainter {
 			for (int y = 0; y < game.getLevelVerticalDimension(); y++) {
 				TileType tileType = game.getTileFromCoordinates(x, y);
 				if (tileType == TileType.PROJECTILE) {
-					this.advanceProjectile(game, x, y);
+					projectileHandler.advanceProjectile(game, x, y);
 				}
 				paintTile(graphics, tileWidth, tileHeight, x, y, tileType, game);
 			}
 		}
-
+		projectileHandler.moveEnemyProjectiles(game);
 		paintEnemies(game);
 	}
 
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType,
 			GameEngine gameEngine) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType, gameEngine);
-	}
-
-	void advanceProjectile(GameEngine gameEngine, int x, int y) {
-		int newY = y - 1;
-		TileType nextTile = gameEngine.getTileFromCoordinates(x, newY);
-		if (nextTile == TileType.PASSABLE || nextTile == TileType.PROJECTILE) {
-			gameEngine.addTile(x, y, TileType.PASSABLE);
-			gameEngine.addTile(x, newY, TileType.PROJECTILE);
-		} else if (nextTile == TileType.NOT_PASSABLE) {
-			gameEngine.addTile(x, y, TileType.PASSABLE);
-		} else if (nextTile == TileType.ENEMY) {
-			gameEngine.addTile(x, newY, TileType.PASSABLE);
-			gameEngine.addTile(x, y, TileType.PASSABLE);
-			gameEngine.incrementScore();
-		}
 	}
 
 	void addRandomEnemy(GameEngine game) {
@@ -103,9 +89,9 @@ public class TilePainter {
 		if (!game.isLost()) {
 			if (enemyCountDown == TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES) {
 				addRandomEnemy(game);
-				resetCountDown();
+				resetEnemySpawnCountDown();
 			} else {
-				incrementCountDown();
+				incrementEnemySpawnCountDown();
 			}
 		}
 	}

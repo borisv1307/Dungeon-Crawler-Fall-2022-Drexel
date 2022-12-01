@@ -17,6 +17,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.PLAYER, Color.GREEN);
 		tileColors.put(TileType.PROJECTILE, Color.BLUE);
 		tileColors.put(TileType.ENEMY, Color.RED);
+		tileColors.put(TileType.ENEMY_PROJECTILE, Color.GRAY);
 	}
 
 	static {

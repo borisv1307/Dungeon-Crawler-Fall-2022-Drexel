@@ -123,7 +123,7 @@ public class TilePainterTest {
 		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.advanceProjectile(game, 1, 2);
+		tilePainter.projectileHandler.advanceProjectile(game, 1, 2);
 
 		Mockito.verify(game, Mockito.times(1)).addTile(1, 2, TileType.PASSABLE);
 	}
@@ -202,7 +202,7 @@ public class TilePainterTest {
 		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.advanceProjectile(game, 1, 2);
+		tilePainter.projectileHandler.advanceProjectile(game, 1, 2);
 
 		Mockito.verify(game, Mockito.times(1)).addTile(1, 1, TileType.PASSABLE);
 	}
@@ -217,24 +217,24 @@ public class TilePainterTest {
 		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		tilePainter.advanceProjectile(game, 1, 2);
+		tilePainter.projectileHandler.advanceProjectile(game, 1, 2);
 
 		Mockito.verify(game, Mockito.times(1)).incrementScore();
 	}
 
 	@Test
 	public void increment_count_down() {
-		tilePainter.incrementCountDown();
+		tilePainter.incrementEnemySpawnCountDown();
 		assertEquals(1, tilePainter.getEnemyCountDown());
 	}
 
 	@Test
 	public void reset_count_down() {
-		tilePainter.incrementCountDown();
-		tilePainter.incrementCountDown();
-		tilePainter.incrementCountDown();
+		tilePainter.incrementEnemySpawnCountDown();
+		tilePainter.incrementEnemySpawnCountDown();
+		tilePainter.incrementEnemySpawnCountDown();
 
-		tilePainter.resetCountDown();
+		tilePainter.resetEnemySpawnCountDown();
 		assertEquals(0, tilePainter.getEnemyCountDown());
 	}
 
@@ -273,7 +273,7 @@ public class TilePainterTest {
 		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
 
 		tilePainter.setRandomWrapper(randomWrapper);
-		this.incrementCountDown(TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES);
+		incrementCountDown(TunableParameters.ENEMY_SPAWN_EVERY_N_FRAMES);
 		tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
 
 		assertEquals(0, tilePainter.getEnemyCountDown());
@@ -321,9 +321,147 @@ public class TilePainterTest {
 		Mockito.verify(randomWrapper, Mockito.times(0)).getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt());
 	}
 
+	@Test
+	public void advance_enemy_projectiles() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PASSABLE);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 2, TileType.ENEMY_PROJECTILE);
+	}
+
+	@Test
+	public void enemy_projectile_can_pass_through_player_projectiles() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PROJECTILE);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 2, TileType.ENEMY_PROJECTILE);
+	}
+
+	@Test
+	public void player_projectile_can_pass_through_enemy_projectile() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PLAYER);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 0, TileType.PROJECTILE);
+	}
+
+	@Test
+	public void enemy_projectile_cannot_pass_through_walls() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.NOT_PASSABLE);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 1, TileType.PASSABLE);
+		Mockito.verify(game, Mockito.times(0)).addTile(0, 2, TileType.ENEMY_PROJECTILE);
+	}
+
+	@Test
+	public void enemy_projectile_can_pass_through_enemy_projectile() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.ENEMY_PROJECTILE);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 1, TileType.PASSABLE);
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 2, TileType.ENEMY_PROJECTILE);
+	}
+
+	@Test
+	public void enemy_projectiles_do_not_pass_through_enemies() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.ENEMY);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 1, TileType.PASSABLE);
+	}
+
+	@Test
+	public void enemy_projectile_kills_player() {
+		GameEngine game = setup_game();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.getRandomNumberInRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(0);
+
+		Mockito.when(game.getLevelHorizontalDimension()).thenReturn(1);
+		Mockito.when(game.getLevelVerticalDimension()).thenReturn(3);
+
+		Mockito.when(game.getTileFromCoordinates(0, 0)).thenReturn(TileType.ENEMY);
+		Mockito.when(game.getTileFromCoordinates(0, 1)).thenReturn(TileType.ENEMY_PROJECTILE);
+		Mockito.when(game.getTileFromCoordinates(0, 2)).thenReturn(TileType.PASSABLE);
+		Mockito.when(game.getPlayerXCoordinate()).thenReturn(0);
+		Mockito.when(game.getPlayerYCoordinate()).thenReturn(2);
+
+		tilePainter.setRandomWrapper(randomWrapper);
+		tilePainter.projectileHandler.advanceEnemyProjectile(game, 0, 1);
+
+		Mockito.verify(game, Mockito.times(1)).addTile(0, 1, TileType.PASSABLE);
+		Mockito.verify(game, Mockito.times(1)).decrementLives();
+	}
+
 	private void incrementCountDown(int numTimes) {
 		for (int i = 0; i < numTimes; i++) {
-			tilePainter.incrementCountDown();
+			tilePainter.incrementEnemySpawnCountDown();
 		}
 	}
 
