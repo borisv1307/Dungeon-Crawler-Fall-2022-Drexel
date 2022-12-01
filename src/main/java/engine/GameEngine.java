@@ -18,13 +18,6 @@ public class GameEngine {
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
-    //private Point player;
-    private int playerHP;
-    private int maxPlayerHP;
-    private boolean playerRegenOn;
-    private int playerRegenRemaining;
-    private boolean playerDrainOn;
-    private int playerDrainRemaining;
 
     public GameEngine(LevelCreator levelCreator, Player player) {
         exit = false;
@@ -32,13 +25,6 @@ public class GameEngine {
         this.player = player;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        System.out.println(this.player);
-        playerHP = 10;
-        maxPlayerHP = 50;
-        playerRegenOn = false;
-        playerRegenRemaining = 0;
-        playerDrainOn = false;
-        playerDrainRemaining = 0;
     }
 
     public void run(GameFrame gameFrame) {
