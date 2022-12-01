@@ -11,7 +11,7 @@ import wrappers.RandomWrapper;
 
 public class TilePainter {
 
-	public ProjectileHandler projectileHandler = new ProjectileHandler();
+	public static final ProjectileHandler projectileHandler = new ProjectileHandler();
 	private RandomWrapper randomWrapper;
 	private int enemyCountDown = 0;
 
