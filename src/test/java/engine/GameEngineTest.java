@@ -15,19 +15,21 @@ import static engine.GameEngineTestFactory.initializeSimpleGameEngine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
     GameEngine gameEngine;
+    RandomWrapper randomWrapperMock;
+
     RandomWrapper randomWrapper;
 
     @Before
     public void setUp() throws Exception {
-        randomWrapper = mock(RandomWrapper.class);
+        randomWrapper = new RandomWrapper();
+        randomWrapperMock = mock(RandomWrapper.class);
         LevelCreator levelCreator = mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
         int level = 1;
@@ -36,7 +38,7 @@ public class GameEngineTest {
 
     @Test
     public void run() {
-        randomWrapper = Mockito.mock(RandomWrapper.class);
+        randomWrapperMock = Mockito.mock(RandomWrapper.class);
         GameFrame gameFrame = mock(GameFrame.class);
         Component component = mock(Component.class);
         when(gameFrame.getComponents()).thenReturn(new Component[]{component});
@@ -97,16 +99,27 @@ public class GameEngineTest {
     @Test
     public void no_random_passable_tile() {
         ArrayList<Point> allPassableTiles = new ArrayList<>();
-        Point randomPassablePoint = randomWrapper.getRandomPassableTile(allPassableTiles);
+        randomWrapperMock.setAllPassableTiles(allPassableTiles);
+        Point randomPassablePoint = randomWrapperMock.getRandomPassableTile();
         assertNull(randomPassablePoint);
+    }
+
+    @Test
+    public void set_passable_tiles() {
+        ArrayList<Point> points = new ArrayList<>();
+        points.add(new Point(1, 1));
+        points.add(new Point(0, 0));
+        randomWrapper.setAllPassableTiles(points);
+        assertTrue(randomWrapper.getAllPassableTiles().size() > 0);
     }
 
     @Test
     public void get_random_passable_tile() {
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1, 1));
-        points.add(new Point(0, 0));
-        Point randomPassablePoint = randomWrapper.getRandomPassableTile(points);
+        randomWrapper.setAllPassableTiles(points);
+        randomWrapperMock = spy(randomWrapper);
+        Point randomPassablePoint = randomWrapper.getRandomPassableTile();
         assertNotNull(randomPassablePoint);
     }
 

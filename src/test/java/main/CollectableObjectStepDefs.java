@@ -38,7 +38,8 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
         ArrayList<Point> allPassableTiles = new ArrayList<>();
         Point point = new Point(1, 1);
         allPassableTiles.add(point);
-        when(randomWrapper.getRandomPassableTile(allPassableTiles)).thenReturn(point);
+        randomWrapper.setAllPassableTiles(allPassableTiles);
+        when(randomWrapper.getRandomPassableTile()).thenReturn(point);
     }
 
     @Then("^an object will be placed on that tile$")
@@ -68,5 +69,12 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
     public void anObjectWillBeLocatedAt(int xCoordinate, int yCoordinate) {
         TileType actual = gameEngine.getTileFromCoordinates(xCoordinate, yCoordinate);
         assertEquals(TileType.OBJECT, actual);
+    }
+
+    @When("^(\\d+) is returned as the random number of objects$")
+    public void isReturnedAsTheRandomNumberOfObjects(int numberOfObjects) {
+        when(randomWrapper.getRandomNumberOfObjects()).thenReturn(numberOfObjects);
+        int actualNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
+        assertEquals(2, actualNumberOfObjects);
     }
 }
