@@ -14,7 +14,7 @@ public abstract class Screen extends JFrame {
     GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
     FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
 
-    public Screen() {
+    protected Screen() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(320, 127, 600, 400);
         setResizable(false);
