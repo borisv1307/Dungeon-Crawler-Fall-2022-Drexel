@@ -130,7 +130,7 @@ public class GameEngine implements Serializable {
         if (attemptedLocation == TileType.PORTAL) {
             getPlayerHasEntered(true);
 
-            if (level == 5) {
+            if (level == 6) {
                 new EndScreen();
 
             } else {

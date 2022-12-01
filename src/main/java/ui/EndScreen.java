@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EndScreen extends JFrame implements ActionListener {
-    private static final long serialVersionUID = 1L;
+public class EndScreen extends Screen implements ActionListener {
     JRadioButton[] end = new JRadioButton[1];
     String[] endStrings = {"EXIT!"};
     EndScreenPanel endButtonPanel;
@@ -14,17 +13,13 @@ public class EndScreen extends JFrame implements ActionListener {
 
     public EndScreen() {
         endButtonPanel = new EndScreenPanel();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(320, 127, 600, 400);
-        setResizable(false);
-
-        endButtonPanel.setBackground(Color.WHITE);
+        endButtonPanel.setBackground(Color.BLACK);
 
         for (int i = 0; i < end.length; i++) {
             end[i] = new JRadioButton(endStrings[i]);
             end[i].addActionListener(this);
             end[i].setBackground(Color.WHITE);
-            end[i].setBounds(230, 200 + i * 50, 200, 30);
+            end[i].setBounds(230, 200 + i * 50, 130, 30);
             endButtonPanel.add(end[i]);
         }
 
@@ -54,7 +49,7 @@ public class EndScreen extends JFrame implements ActionListener {
             Graphics2D graphics2D = (Graphics2D) g;
 
             graphics2D.setColor(Color.BLUE);
-            graphics2D.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+            graphics2D.setFont(new Font("Times New Roman", Font.BOLD, 25));
             graphics2D.drawString("CONGRATULATIONS YOU WIN!!", 135, 85);
         }
 

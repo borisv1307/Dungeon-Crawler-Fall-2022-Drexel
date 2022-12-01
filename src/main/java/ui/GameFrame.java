@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class GameFrame extends Frame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private final MenuItem newGameMenuItem;
+    private final MenuItem pauseGameMenuItem;
     private final MenuItem exitGameMenuItem;
 
 
@@ -29,16 +29,16 @@ public class GameFrame extends Frame implements ActionListener {
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
 
-        newGameMenuItem = new MenuItem("New Game");
+        pauseGameMenuItem = new MenuItem("Pause");
         exitGameMenuItem = new MenuItem("Exit");
 
-        fileMenu.add(newGameMenuItem);
+        fileMenu.add(pauseGameMenuItem);
         fileMenu.add(exitGameMenuItem);
 
         menuBar.add(fileMenu);
         setMenuBar(menuBar);
 
-        newGameMenuItem.addActionListener(this);
+        pauseGameMenuItem.addActionListener(this);
         exitGameMenuItem.addActionListener(this);
 
         setVisible(true);
@@ -49,9 +49,9 @@ public class GameFrame extends Frame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if (source == newGameMenuItem) {
+        if (source == pauseGameMenuItem) {
             setVisible(true);
-            new MainScreen();
+            new PauseScreen();
 
         }
 
