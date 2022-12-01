@@ -1,10 +1,11 @@
 package engine;
 
-import entities.*;
+import entities.Enemy;
+import entities.Player;
+import entities.Slime;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
-    private final SystemWrapper systemWrapper = new SystemWrapper();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -108,7 +108,6 @@ public class GameEngine {
         removeTile(x, y);
         gameStatus = String.format(GameStatus.enemyDefeated, enemy.getName());
         createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-
     }
 
     public boolean isExit() {
@@ -178,12 +177,12 @@ public class GameEngine {
     }
 
     private ArrayList<Integer> getNewCoordinates() {
-        int newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
-        int newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
+        int newXCoordinate = Randomizer.getRandomNewCoordinate(getLevelHorizontalDimension());
+        int newYCoordinate = Randomizer.getRandomNewCoordinate(getLevelVerticalDimension());
 
         while (!newPointIsValid(newXCoordinate, newYCoordinate)) {
-            newXCoordinate = getRandomNewCoordinate(getLevelHorizontalDimension());
-            newYCoordinate = getRandomNewCoordinate(getLevelVerticalDimension());
+            newXCoordinate = Randomizer.getRandomNewCoordinate(getLevelHorizontalDimension());
+            newYCoordinate = Randomizer.getRandomNewCoordinate(getLevelVerticalDimension());
         }
 
         return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
@@ -194,34 +193,9 @@ public class GameEngine {
         return (tileType == TileType.PASSABLE);
     }
 
-    private int getRandomNewCoordinate(int dimensionLimit) {
-        return getNonRandomInt(dimensionLimit);
-    }
-
     private void createNewEnemy(int x, int y) {
-        enemy = getRandomEnemy(x, y);
+        enemy = Randomizer.getRandomEnemy(x, y);
         tiles.put(enemy, enemy.getTileType());
-    }
-
-    private Enemy getRandomEnemy(int x, int y) {
-        int numberOfEnemyTypes = 3;
-        int nextMonsterInt = getNonRandomInt(numberOfEnemyTypes);
-
-        switch (nextMonsterInt) {
-            case 1:
-                return new Kobold(x, y);
-            case 2:
-                return new Orc(x, y);
-            default:
-                return new Slime(x, y);
-        }
-    }
-
-    private int getNonRandomInt(int limit) {
-        long nanoTime = systemWrapper.milliTime();
-        int digit = (int) Math.abs(nanoTime % 100);
-
-        return digit % -limit;
     }
 
     public void playerKilled(int x, int y) {
