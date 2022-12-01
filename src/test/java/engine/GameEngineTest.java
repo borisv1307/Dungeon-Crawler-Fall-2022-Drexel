@@ -71,7 +71,7 @@ public class GameEngineTest {
 
     @Test
     public void add_and_get_enemy_coordinates() {
-        createKoboldTile();
+        createSlimeTile();
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
         assertThat(actualX, equalTo(ZERO));
@@ -80,7 +80,7 @@ public class GameEngineTest {
 
     @Test
     public void despawn_enemy_tile() {
-        createKoboldTile();
+        createSlimeTile();
         gameEngine.removeTile(ZERO, TWO);
         TileType actualTileType = gameEngine.getTileFromCoordinates(ZERO, TWO);
         assertNotEquals(actualTileType, TileType.KOBOLD);
@@ -91,7 +91,7 @@ public class GameEngineTest {
         gameEngine.setLevelVerticalDimension(TWO);
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
-        createKoboldTile();
+        createSlimeTile();
         int previousX = gameEngine.getEnemyXCoordinate();
         int previousY = gameEngine.getEnemyYCoordinate();
         gameEngine.enemyKilled(previousX, previousY);
@@ -133,9 +133,10 @@ public class GameEngineTest {
         gameEngine.setLevelVerticalDimension(TWO);
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
-        createKoboldTile();
+        createSlimeTile();
         gameEngine.enemyKilled(gameEngine.getEnemyXCoordinate(), gameEngine.getEnemyYCoordinate());
-        assertEquals(GameStatus.enemyDefeated, gameEngine.getGameStatus());
+        String expected = String.format(GameStatus.enemyDefeated, "Slime");
+        assertEquals(expected, gameEngine.getGameStatus());
     }
 
     private void createPlayerTile() {
@@ -143,8 +144,8 @@ public class GameEngineTest {
         gameEngine.addTile(ZERO, ONE, tileType);
     }
 
-    private void createKoboldTile() {
-        TileType tileType = TileType.KOBOLD;
+    private void createSlimeTile() {
+        TileType tileType = TileType.SLIME;
         gameEngine.addTile(ZERO, TWO, tileType);
     }
 }

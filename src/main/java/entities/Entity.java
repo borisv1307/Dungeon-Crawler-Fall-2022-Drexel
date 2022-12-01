@@ -57,7 +57,7 @@ public abstract class Entity extends Point {
     }
 
     private boolean compareObjectProperties(Entity entityObect) {
-        if (this.name != entityObect.name) {
+        if (this.name == null || !this.name.equals(entityObect.name)) {
             return false;
         }
         if (this.hitPoints != entityObect.hitPoints) {
