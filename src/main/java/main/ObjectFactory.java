@@ -2,6 +2,7 @@ package main;
 
 import engine.GameEngine;
 import parser.LevelCreator;
+import player.Player;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import ui.GamePanel;
@@ -16,7 +17,7 @@ public abstract class ObjectFactory {
     private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
     private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
             new ReaderWrapper());
-    private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+    private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, new Player());
     private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
             new WindowAdapterSystemExit(defaultGameEngine));
     private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(

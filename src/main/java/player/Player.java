@@ -18,7 +18,6 @@ public class Player {
         regenRemaining = 0;
         drainOn = false;
         drainRemaining = 0;
-        playerPoint = new Point(0, 0);
     }
 
     public void move(int deltaX, int deltaY) {
@@ -95,5 +94,9 @@ public class Player {
 
     public int getDrainRemaining() {
         return drainRemaining;
+    }
+
+    public int getHP() {
+        return health;
     }
 }

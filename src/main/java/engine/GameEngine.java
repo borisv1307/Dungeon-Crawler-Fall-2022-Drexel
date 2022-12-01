@@ -14,10 +14,10 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+    private Player player;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
-    private Player myPlayer;
     //private Point player;
     private int playerHP;
     private int maxPlayerHP;
@@ -26,13 +26,13 @@ public class GameEngine {
     private boolean playerDrainOn;
     private int playerDrainRemaining;
 
-    public GameEngine(LevelCreator levelCreator) {
+    public GameEngine(LevelCreator levelCreator, Player player) {
         exit = false;
         level = 1;
+        this.player = player;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        myPlayer = new Player();
-        System.out.println(myPlayer);
+        System.out.println(this.player);
         playerHP = 10;
         maxPlayerHP = 50;
         playerRegenOn = false;
@@ -77,15 +77,15 @@ public class GameEngine {
     }
 
     private void setPlayer(int x, int y) {
-        myPlayer.setPoint(x, y);
+        player.setPoint(x, y);
     }
 
     public int getPlayerXCoordinate() {
-        return myPlayer.getX();
+        return player.getX();
     }
 
     public int getPlayerYCoordinate() {
-        return myPlayer.getY();
+        return player.getY();
     }
 
     public void keyLeft() {
@@ -108,9 +108,7 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
                 getPlayerYCoordinate() + deltaY);
         if (!(attemptedLocation.equals(TileType.NOT_PASSABLE))) {
-            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-            myPlayer.move(deltaX, deltaY);
-
+            player.move(deltaX, deltaY);
             checkForSpecialTile(getPlayerXCoordinate(), getPlayerYCoordinate());
         }
     }
@@ -121,31 +119,31 @@ public class GameEngine {
                 playerYCoordinate);
         switch (currentLocation) {
             case HEALING:
-                myPlayer.changeHealth(5);
+                player.changeHealth(5);
                 break;
             case DAMAGE:
-                myPlayer.changeHealth(-5);
+                player.changeHealth(-5);
                 break;
             case TRANSIENT_HEALING:
-                myPlayer.changeHealth(5);
+                player.changeHealth(5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case TRANSIENT_DAMAGE:
-                myPlayer.changeHealth(-5);
+                player.changeHealth(-5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case REGEN:
-                myPlayer.setRegen(true, 5);
+                player.setRegen(true, 5);
                 break;
             case DRAIN:
-                myPlayer.setDrain(true, 5);
+                player.setDrain(true, 5);
                 break;
             case TRANSIENT_REGEN:
-                myPlayer.setRegen(true, 5);
+                player.setRegen(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             case TRANSIENT_DRAIN:
-                myPlayer.setDrain(true, 5);
+                player.setDrain(true, 5);
                 addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
                 break;
             default:
@@ -163,22 +161,22 @@ public class GameEngine {
     }
 
     public int getPlayerHP() {
-        return playerHP;
+        return player.getHP();
     }
 
     public boolean getPlayerRegenStatus() {
-        return myPlayer.isRegenOn();
+        return player.isRegenOn();
     }
 
     public int getPlayerRegenCounter() {
-        return myPlayer.getRegenRemaining();
+        return player.getRegenRemaining();
     }
 
     public boolean getPlayerDrainStatus() {
-        return myPlayer.isDrainOn();
+        return player.isDrainOn();
     }
 
     public int getPlayerDrainCounter() {
-        return myPlayer.getDrainRemaining();
+        return player.getDrainRemaining();
     }
 }
