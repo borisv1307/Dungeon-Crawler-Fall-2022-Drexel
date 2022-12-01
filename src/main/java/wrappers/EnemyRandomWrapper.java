@@ -15,7 +15,7 @@ public class EnemyRandomWrapper {
         int max = enemy.getLevel() * 10;
         int min = (int) (max * 0.8);
 
-        enemy.setHealthPoint(random.nextInt(max - min) + min);
+        enemy.setMaxHealthPoint(random.nextInt(max - min) + min);
         enemy.setAttackPoint(random.nextInt(max - min) + min);
 
     }

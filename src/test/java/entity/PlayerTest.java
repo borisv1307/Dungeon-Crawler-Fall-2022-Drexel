@@ -15,9 +15,10 @@ public class PlayerTest {
     }
 
     @Test
-    public void create_basic_player() {
-        assertEquals(10, player.getHealthPoint());
+    public void create_basic_player_object() {
+        assertEquals(10, player.getMaxHealthPoint());
         assertEquals(10, player.getAttackPoint());
+        assertEquals(player.getMaxHealthPoint(), player.getCurrentHealthPoint());
     }
 
     @Test
@@ -47,21 +48,29 @@ public class PlayerTest {
     @Test
     public void level_1_player_stats() {
         assertEquals(10, player.getAttackPoint());
-        assertEquals(10, player.getHealthPoint());
+        assertEquals(10, player.getMaxHealthPoint());
+        assertEquals(10, player.getCurrentHealthPoint());
+
     }
 
     @Test
     public void level_3_player_stats() {
         levelUpXTime(2);
-        assertEquals(25, player.getHealthPoint());
+        assertEquals(25, player.getMaxHealthPoint());
         assertEquals(16, player.getAttackPoint());
     }
 
     @Test
     public void level_100_player_stats() {
         levelUpXTime(99);
-        assertEquals(510, player.getHealthPoint());
+        assertEquals(510, player.getMaxHealthPoint());
         assertEquals(210, player.getAttackPoint());
+    }
+
+    @Test
+    public void player_take_damage(){
+        player.takeDamage(5);
+        assertEquals(5, player.getCurrentHealthPoint());
     }
 
     private void levelUpXTime(int level) {

@@ -13,7 +13,7 @@ public class Player extends CharacterObject {
 
     private void levelStatChange() {
         int baseState = 10;
-        setHealthPoint(baseState + level * 5);
+        setMaxHealthPoint(baseState + level * 5);
         setAttackPoint(baseState + level * 2);
     }
 

@@ -2,25 +2,36 @@ package entity;
 
 public abstract class CharacterObject {
     int level;
-    int healthPoint;
+    int maxHealthPoint;
+    int currentHealthPoint;
     int attackPoint;
+
 
     CharacterObject() {
         level = 1;
-        healthPoint = 10;
+        maxHealthPoint = 10;
         attackPoint = 10;
+        currentHealthPoint = maxHealthPoint;
     }
 
     public int getLevel() {
         return level;
     }
 
-    public int getHealthPoint() {
-        return healthPoint;
+    public int getMaxHealthPoint() {
+        return maxHealthPoint;
     }
 
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
+    public void setMaxHealthPoint(int maxHealthPoint) {
+        this.maxHealthPoint = maxHealthPoint;
+    }
+
+    public int getCurrentHealthPoint() {
+        return currentHealthPoint;
+    }
+
+    public void takeDamage(int healthPointLost) {
+        currentHealthPoint-=healthPointLost;
     }
 
     public int getAttackPoint() {

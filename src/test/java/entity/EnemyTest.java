@@ -39,7 +39,7 @@ public class EnemyTest {
 
     @Test
     public void level_5_enemy_health_is_between_max_and_min() {
-        assertTrue(enemy.getHealthPoint() < maxExpected);
-        assertTrue(enemy.getHealthPoint() >= minExpected);
+        assertTrue(enemy.getMaxHealthPoint() < maxExpected);
+        assertTrue(enemy.getMaxHealthPoint() >= minExpected);
     }
 }
