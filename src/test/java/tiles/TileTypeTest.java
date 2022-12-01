@@ -10,6 +10,7 @@ public class TileTypeTest {
 
 	private static final char INVALID_CHAR = 'Z';
 	private static final char VALID_CHAR = ' ';
+	private static final char PORTAL_CHAR = 'O';
 
 	@Test
 	public void value_of() {
@@ -20,6 +21,12 @@ public class TileTypeTest {
 	public void get_tile_type_by_char_valid_char() {
 		TileType actual = TileType.getTileTypeByChar(VALID_CHAR);
 		assertEquals(TileType.PASSABLE, actual);
+	}
+
+	@Test
+	public void get_tile_type_by_char_portal_char() {
+		TileType actual = TileType.getTileTypeByChar(PORTAL_CHAR);
+		assertEquals(TileType.PORTAL, actual);
 	}
 
 	@Test
