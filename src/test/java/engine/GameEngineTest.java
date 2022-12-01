@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,9 +23,11 @@ public class GameEngineTest {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     GameEngine gameEngine;
+    RandomWrapper randomWrapper;
 
     @Before
     public void setUp() throws Exception {
+        randomWrapper = mock(RandomWrapper.class);
         LevelCreator levelCreator = mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
         int level = 1;
@@ -33,6 +36,7 @@ public class GameEngineTest {
 
     @Test
     public void run() {
+        randomWrapper = Mockito.mock(RandomWrapper.class);
         GameFrame gameFrame = mock(GameFrame.class);
         Component component = mock(Component.class);
         when(gameFrame.getComponents()).thenReturn(new Component[]{component});
@@ -93,15 +97,16 @@ public class GameEngineTest {
     @Test
     public void no_random_passable_tile() {
         ArrayList<Point> allPassableTiles = new ArrayList<>();
-        Point randomPassablePoint = gameEngine.getRandomPassableTile(allPassableTiles);
+        Point randomPassablePoint = randomWrapper.getRandomPassableTile(allPassableTiles);
         assertNull(randomPassablePoint);
     }
 
     @Test
     public void get_random_passable_tile() {
-        ArrayList<Point> allPassableTiles = new ArrayList<>();
-        allPassableTiles.add(new Point(1, 1));
-        Point randomPassablePoint = gameEngine.getRandomPassableTile(allPassableTiles);
+        ArrayList<Point> points = new ArrayList<>();
+        points.add(new Point(1, 1));
+        points.add(new Point(0, 0));
+        Point randomPassablePoint = randomWrapper.getRandomPassableTile(points);
         assertNotNull(randomPassablePoint);
     }
 
@@ -140,8 +145,4 @@ public class GameEngineTest {
         assertEquals(TileType.PASSABLE, gameEngine.getTileFromCoordinates(1, 1));
     }
 
-    @Test
-    public void activate_game_timer() {
-        gameEngine.activateGameTimer(1);
-    }
 }

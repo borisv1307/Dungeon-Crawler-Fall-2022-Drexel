@@ -19,7 +19,6 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
     private ArrayList<Point> collectableObjects;
-    //private ArrayList<Point> passableTiles;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -28,9 +27,7 @@ public class GameEngine {
         this.levelCreator.createLevel(this, level);
         this.randomWrapper = new RandomWrapper();
         collectableObjects = new ArrayList<>();
-        //passableTiles = getAllPassableTiles();
         activateGameTimer(10);
-
     }
 
     public void run(GameFrame gameFrame) {
@@ -117,7 +114,7 @@ public class GameEngine {
         }
     }
 
-    private boolean isSpacePassable(TileType attemptedLocation) {
+    public boolean isSpacePassable(TileType attemptedLocation) {
         return attemptedLocation.equals(TileType.PASSABLE) || attemptedLocation.equals(TileType.OBJECT);
     }
 
@@ -133,7 +130,7 @@ public class GameEngine {
         ArrayList<Point> tilesToBeUpdated = new ArrayList<>();
         ArrayList<Point> passableTiles = getAllPassableTiles();
         for (int i = 0; i < numberOfTilesNeeded; i++) {
-            Point passableTile = getRandomPassableTile(passableTiles);
+            Point passableTile = randomWrapper.getRandomPassableTile(passableTiles);
             if (!tilesToBeUpdated.contains(passableTile)) {
                 tilesToBeUpdated.add(passableTile);
             }
@@ -162,16 +159,6 @@ public class GameEngine {
             }
         }
         return emptyTiles;
-    }
-
-    public Point getRandomPassableTile(ArrayList<Point> allPassableTiles) {
-        int numberOfPassableTiles = allPassableTiles.size();
-        if (numberOfPassableTiles > 0) {
-            int randomIndex = randomWrapper.getRandomIntInRange(0, numberOfPassableTiles);
-            return allPassableTiles.get(randomIndex);
-        } else {
-            return null;
-        }
     }
 
     public void removeObjectFromTile(Point objectTile) {
