@@ -11,8 +11,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class GameEngineTest {
 
@@ -120,6 +119,23 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
+    }
+
+    @Test
+    public void player_dies_updates_status() {
+        createPlayerTile();
+        gameEngine.playerKilled(0, 0);
+        assertEquals(GameStatus.playerDefeated, gameEngine.getGameStatus());
+    }
+
+    @Test
+    public void enemy_dies_updates_status() {
+        gameEngine.setLevelVerticalDimension(TWO);
+        gameEngine.setLevelHorizontalDimension(TWO);
+        createPlayerTile();
+        createKoboldTile();
+        gameEngine.enemyKilled(gameEngine.getEnemyXCoordinate(), gameEngine.getEnemyYCoordinate());
+        assertEquals(GameStatus.enemyDefeated, gameEngine.getGameStatus());
     }
 
     private void createPlayerTile() {

@@ -17,19 +17,20 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
-    private final SystemWrapper systemWrapper;
+    private final SystemWrapper systemWrapper = new SystemWrapper();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Player player;
     private Enemy enemy;
+    private String gameStatus;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        systemWrapper = new SystemWrapper();
+        gameStatus = GameStatus.respawn;
     }
 
     public void run(GameFrame gameFrame) {
@@ -105,7 +106,9 @@ public class GameEngine {
     public void enemyKilled(int x, int y) {
         ArrayList<Integer> newCoordinates = getNewCoordinates();
         removeTile(x, y);
+        gameStatus = String.format(GameStatus.enemyDefeated, enemy.getName());
         createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
+
     }
 
     public boolean isExit() {
@@ -144,13 +147,19 @@ public class GameEngine {
     private void doCombat() {
         int enemyHP = enemy.receiveDamage(player.getAttackValue());
         int playerHP = player.receiveDamage(enemy.getAttackValue());
+        gameStatus = getCombatStatus();
+
+        if (enemyHP <= 0) {
+            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
+        }
 
         if (playerHP <= 0) {
             playerKilled(getPlayerXCoordinate(), getPlayerYCoordinate());
         }
-        if (enemyHP <= 0) {
-            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
-        }
+    }
+
+    private String getCombatStatus() {
+        return String.format(GameStatus.damageToEnemy, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
     }
 
     private boolean isEnemyTile(TileType tileType) {
@@ -210,7 +219,7 @@ public class GameEngine {
 
     private int getNonRandomInt(int limit) {
         long nanoTime = systemWrapper.milliTime();
-        int digit = (int) Math.abs(nanoTime % 1000);
+        int digit = (int) Math.abs(nanoTime % 100);
 
         return digit % -limit;
     }
@@ -218,5 +227,10 @@ public class GameEngine {
     public void playerKilled(int x, int y) {
         removeTile(x, y);
         player = new Player(player.getOriginX(), player.getOriginY());
+        gameStatus = GameStatus.playerDefeated;
+    }
+
+    public String getGameStatus() {
+        return this.gameStatus;
     }
 }

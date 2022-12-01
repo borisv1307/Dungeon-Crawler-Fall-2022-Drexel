@@ -7,5 +7,6 @@ public class Slime extends Enemy {
         super(x, y);
         setStartingStats(2, 0, 2);
         setTileType(TileType.SLIME);
+        this.name = "Slime";
     }
 }

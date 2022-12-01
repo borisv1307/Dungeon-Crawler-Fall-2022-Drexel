@@ -84,4 +84,10 @@ public class EntityTest {
         Color actual = TileColorMap.get(enemy.getTileType());
         assertThat(tileColor, equalTo(actual));
     }
+
+    @Test
+    public void kobold_name_is_kobold() {
+        assertEquals("Kobold", enemy.getName());
+    }
+
 }

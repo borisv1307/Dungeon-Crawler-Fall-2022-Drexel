@@ -7,5 +7,6 @@ public class Kobold extends Enemy {
         super(x, y);
         setStartingStats(3, 1, 3);
         setTileType(TileType.KOBOLD);
+        this.name = "Kobold";
     }
 }

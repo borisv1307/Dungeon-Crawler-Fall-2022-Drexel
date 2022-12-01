@@ -28,6 +28,10 @@ public class TilePainter {
 
     private void handleTile(Graphics graphics, TileType tileType) {
         graphics.setColor(TileColorMap.get(tileType));
+    }
 
+    public void paintMessage(Graphics graphics, int x, int y, String string) {
+        graphics.setColor(Color.ORANGE);
+        graphics.drawString(string, x, y);
     }
 }

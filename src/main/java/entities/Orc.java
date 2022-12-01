@@ -7,5 +7,6 @@ public class Orc extends Enemy {
         super(x, y);
         setStartingStats(5, 2, 4);
         setTileType(TileType.ORC);
+        this.name = "Orc";
     }
 }

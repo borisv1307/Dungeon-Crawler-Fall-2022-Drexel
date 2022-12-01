@@ -10,6 +10,8 @@ public abstract class Entity extends Point {
     int armorClass;
     int attackValue;
 
+    String name;
+
     Entity(int x, int y) {
         super(x, y);
     }
@@ -32,6 +34,10 @@ public abstract class Entity extends Point {
         return armorClass;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public TileType getTileType() {
         return tileType;
     }
@@ -51,6 +57,9 @@ public abstract class Entity extends Point {
     }
 
     private boolean compareObjectProperties(Entity entityObect) {
+        if (this.name != entityObect.name) {
+            return false;
+        }
         if (this.hitPoints != entityObect.hitPoints) {
             return false;
         }
