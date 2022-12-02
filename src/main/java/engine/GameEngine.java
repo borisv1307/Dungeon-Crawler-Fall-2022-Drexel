@@ -18,6 +18,8 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Point projectile;
+//	private int projectileFrequency = 1 * TunableParameters.TARGET_FPS;
+//	private int framesCount = 0;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -27,6 +29,12 @@ public class GameEngine {
 	}
 
 	public void run(GameFrame gameFrame) {
+//		framesCount++;
+//		if (framesCount % projectileFrequency == 0) {
+//			System.out.println("Tick");
+//			moveProjectileRight();
+//			framesCount = 0;
+//		}
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
 		}
