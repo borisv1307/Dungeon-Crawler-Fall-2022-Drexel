@@ -1,6 +1,7 @@
 package engine;
 
 import entities.Enemy;
+import entities.Entity;
 import entities.Player;
 import entities.Slime;
 import parser.LevelCreator;
@@ -20,6 +21,7 @@ public class GameEngine {
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
+
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -27,6 +29,7 @@ public class GameEngine {
     private Enemy enemy;
     private String gameStatus;
     private RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
+    CombatEngine combatEngine = new CombatEngine(randomizerWrapper);
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -54,10 +57,6 @@ public class GameEngine {
         }
     }
 
-    boolean newPointIsOpen(int x, int y) {
-        TileType tileType = getTileFromCoordinates(x, y);
-        return (tileType == TileType.PASSABLE);
-    }
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;
@@ -148,52 +147,56 @@ public class GameEngine {
         return enemy != null && isEnemyTile(attemptedLocation);
     }
 
-
     public String getGameStatus() {
         return this.gameStatus;
-    }
-
-    public void setGameStatus(String string) {
-        this.gameStatus = string;
     }
 
     public Enemy getEnemy() {
         return this.enemy;
     }
 
-    public void setNewEnemy(Enemy enemy) {
-        this.enemy = enemy;
-        tiles.put(enemy, enemy.getTileType());
-    }
-
     public Player getPlayer() {
         return this.player;
     }
 
-    public void setNewPlayer(Player player) {
-        this.player = player;
-    }
-
-    void killPlayer(Player player) {
-        int x = getPlayerXCoordinate();
-        int y = getPlayerYCoordinate();
-        removeTile(x, y);
-        setNewPlayer(new Player(player.getOriginX(), player.getOriginY()));
-        setGameStatus(GameStatus.PLAYER_DEFEATED);
-    }
-
-
     public void doCombat(Player player, Enemy enemy) {
-        int enemyHP = enemy.receiveDamage(player.getAttackValue());
-        int playerHP = player.receiveDamage(enemy.getAttackValue());
-        setGameStatus(getCombatStatus(player, enemy));
+        CombatObject combatObject = new CombatObject(player, enemy);
+        CombatObject returnObject = combatEngine.doCombat(combatObject);
+        unpackCombatObject(returnObject);
+    }
 
-        if (enemyHP <= 0) {
-            killEnemy(enemy);
+    private void unpackCombatObject(CombatObject combatObject) {
+        if (!ifEntityIsInSameLocation(player, combatObject.player)) {
+            removeTile(getPlayerXCoordinate(), getPlayerYCoordinate());
+            player = combatObject.player;
         }
 
-        if (playerHP <= 0) {
-            killPlayer(player);
+        if (ifEntityIsInSameLocation(enemy, combatObject.enemy)) {
+            enemy = combatObject.enemy;
+        } else {
+            removeTile(getEnemyXCoordinate(), getEnemyYCoordinate());
+            enemy = combatObject.enemy;
+            ArrayList<Integer> newCoordinates = getNewCoordinates();
+            enemy.move(newCoordinates.get(0), newCoordinates.get(1));
+            tiles.put(enemy, enemy.getTileType());
+        }
+
+        gameStatus = combatObject.gameStatusString;
+    }
+
+    private boolean ifEntityIsInSameLocation(Entity entityOriginal, Entity entityNew) {
+        boolean result = ((int) entityOriginal.getX() == (int) entityNew.getX() && (int) entityOriginal.getY() == (int) entityNew.getY());
+        return result;
+    }
+
+    boolean isEnemyTile(TileType tileType) {
+        switch (tileType) {
+            case KOBOLD:
+            case SLIME:
+            case ORC:
+                return true;
+            default:
+                return false;
         }
     }
 
@@ -209,33 +212,8 @@ public class GameEngine {
         return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
     }
 
-
-    void killEnemy(Enemy enemy) {
-        ArrayList<Integer> newCoordinates = getNewCoordinates();
-        int x = getEnemyXCoordinate();
-        int y = getEnemyYCoordinate();
-        removeTile(x, y);
-        setGameStatus(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
-        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-    }
-
-    private void createNewEnemy(int x, int y) {
-        setNewEnemy(randomizerWrapper.getRandomEnemy(x, y));
-    }
-
-    private String getCombatStatus(Player player, Enemy enemy) {
-        return String.format(GameStatus.DAMAGE_TO_ENEMY, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
-    }
-
-
-    boolean isEnemyTile(TileType tileType) {
-        switch (tileType) {
-            case KOBOLD:
-            case SLIME:
-            case ORC:
-                return true;
-            default:
-                return false;
-        }
+    boolean newPointIsOpen(int x, int y) {
+        TileType tileType = getTileFromCoordinates(x, y);
+        return (tileType == TileType.PASSABLE);
     }
 }

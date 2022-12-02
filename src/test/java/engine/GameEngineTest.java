@@ -13,7 +13,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 public class GameEngineTest {
 
@@ -22,12 +22,13 @@ public class GameEngineTest {
     private static final int TWO = 2;
 
     GameEngine gameEngine;
+    CombatEngine combatEngine;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
+        combatEngine = new CombatEngine(new RandomizerWrapper(new SystemWrapper()));
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
@@ -89,32 +90,19 @@ public class GameEngineTest {
         assertNotEquals(actualTileType, TileType.KOBOLD);
     }
 
-    @Test
-    public void spawn_new_enemy_on_defeat() {
-        gameEngine.setLevelVerticalDimension(TWO);
-        gameEngine.setLevelHorizontalDimension(TWO);
-        createPlayerTile();
-        createSlimeTile();
-        int previousX = gameEngine.getEnemyXCoordinate();
-        int previousY = gameEngine.getEnemyYCoordinate();
-        gameEngine.killEnemy(gameEngine.getEnemy());
-        int actualX = gameEngine.getEnemyXCoordinate();
-        int actualY = gameEngine.getEnemyYCoordinate();
-        assertFalse(actualX == previousX && actualY == previousY);
-    }
-
-    @Test
-    public void player_respawns_on_death() {
-        createPlayerTile();
-        int previousX = gameEngine.getPlayerXCoordinate();
-        int previousY = gameEngine.getPlayerYCoordinate();
-        gameEngine.killPlayer(gameEngine.getPlayer());
-        int actualX = gameEngine.getPlayerXCoordinate();
-        int actualY = gameEngine.getPlayerXCoordinate();
-        assertThat(actualX, equalTo(ZERO));
-        assertThat(actualY, equalTo(ZERO));
-        assertFalse(actualX == previousX && actualY == previousY);
-    }
+//    @Test
+//    public void spawn_new_enemy_on_defeat() {
+//        gameEngine.setLevelVerticalDimension(TWO);
+//        gameEngine.setLevelHorizontalDimension(TWO);
+//        createPlayerTile();
+//        createSlimeTile();
+//        int previousX = gameEngine.getEnemyXCoordinate();
+//        int previousY = gameEngine.getEnemyYCoordinate();
+//        combatEngine.killEnemy(gameEngine.getEnemy());
+//        int actualX = gameEngine.getEnemyXCoordinate();
+//        int actualY = gameEngine.getEnemyYCoordinate();
+//        assertFalse(actualX == previousX && actualY == previousY);
+//    }
 
     @Test
     public void set_and_get_exit() {
@@ -122,24 +110,6 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
-    }
-
-    @Test
-    public void player_dies_updates_status() {
-        createPlayerTile();
-        gameEngine.killPlayer(gameEngine.getPlayer());
-        assertEquals(GameStatus.PLAYER_DEFEATED, gameEngine.getGameStatus());
-    }
-
-    @Test
-    public void enemy_dies_updates_status() {
-        gameEngine.setLevelVerticalDimension(TWO);
-        gameEngine.setLevelHorizontalDimension(TWO);
-        createPlayerTile();
-        createSlimeTile();
-        gameEngine.killEnemy(gameEngine.getEnemy());
-        String expected = String.format(GameStatus.ENEMY_DEFEATED, "Slime");
-        assertEquals(expected, gameEngine.getGameStatus());
     }
 
     private void createPlayerTile() {
