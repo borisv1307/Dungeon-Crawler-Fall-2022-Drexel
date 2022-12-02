@@ -1,4 +1,4 @@
-@IntegrationTest
+@Ignore
 Feature: Move the enemy into player
 
   Scenario: Move enemy right into player

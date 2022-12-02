@@ -1,6 +1,8 @@
 package main;
 
+import board.piece.BoardPiece;
 import board.piece.BoardPieceFactory;
+import board.piece.Empty;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
@@ -31,9 +34,8 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     }
 
     @Then("^the goal is located at \\((\\d+), (\\d+)\\)$")
-    public void the_goal_is_located_at(int goalX, int goalY) throws Throwable {
-        assertThat(gameEngine.getXCoordinate(TileType.GOAL), equalTo(goalX - COORDINATE_OFFSET));
-        assertThat(gameEngine.getYCoordinate(TileType.GOAL), equalTo(goalY - COORDINATE_OFFSET));
+    public void the_goal_is_located_at(int goalX, int goalY) {
+        verifyTileTypeLocation(TileType.GOAL, goalX, goalY);
     }
 
     @When("^the enemy moves left$")
@@ -78,14 +80,12 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")
     public void the_player_is_located_at(int playerX, int playerY) {
-        assertThat(gameEngine.getXCoordinate(TileType.PLAYER), equalTo(playerX - COORDINATE_OFFSET));
-        assertThat(gameEngine.getYCoordinate(TileType.PLAYER), equalTo(playerY - COORDINATE_OFFSET));
+        verifyTileTypeLocation(TileType.PLAYER, playerX, playerY);
     }
 
     @Then("^the enemy is located at \\((\\d+), (\\d+)\\)$")
     public void the_enemy_is_located_at(int enemyX, int enemyY) {
-        assertThat(gameEngine.getXCoordinate(TileType.ENEMY), equalTo(enemyX - COORDINATE_OFFSET));
-        assertThat(gameEngine.getYCoordinate(TileType.ENEMY), equalTo(enemyY - COORDINATE_OFFSET));
+        verifyTileTypeLocation(TileType.ENEMY, enemyX, enemyY);
     }
 
     @Then("^level (\\d+) is generated$")
@@ -101,5 +101,16 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     @Then("^lose count is (\\d+)$")
     public void lose_count_is(int losses) {
         assertThat(gameEngine.getLossCount(), equalTo(losses));
+    }
+
+    @Then("^space \\((\\d+), (\\d+)\\) is Empty$")
+    public void space_is_Empty(int xCoordinate, int yCoordinate) {
+        BoardPiece boardPiece = gameEngine.getGameBoard().getBoardPieceFromCoordinates(xCoordinate - COORDINATE_OFFSET, yCoordinate - COORDINATE_OFFSET);
+        assertEquals(Empty.class, boardPiece.getClass());
+    }
+
+    private void verifyTileTypeLocation(final TileType expectedTileType, final int xCoordinate, final int yCoordinate) {
+        TileType tileType = gameEngine.getGameBoard().getBoardPieceFromCoordinates(xCoordinate - COORDINATE_OFFSET, yCoordinate - COORDINATE_OFFSET).getTileType();
+        assertThat(tileType, equalTo(expectedTileType));
     }
 }

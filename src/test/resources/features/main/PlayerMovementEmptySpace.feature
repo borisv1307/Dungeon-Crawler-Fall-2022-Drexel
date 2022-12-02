@@ -12,6 +12,7 @@ Feature: Move the player into empty space
       | XXXXX |
     When the player moves <direction>
     Then the player is located at <point>
+    And space (3, 3) is Empty
     Examples:
       | direction | point  |
       | left      | (2, 3) |

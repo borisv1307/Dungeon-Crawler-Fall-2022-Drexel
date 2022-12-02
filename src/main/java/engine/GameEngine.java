@@ -49,7 +49,7 @@ public class GameEngine {
     }
 
     public TileType getTileFromCoordinates(final int x, final int y) {
-        return gameBoard.getTileFromCoordinates(x, y);
+        return gameBoard.getBoardPieceFromCoordinates(x, y).getTileType();
     }
 
     public void movement(final TileType tileType, final Direction direction) {
@@ -71,11 +71,11 @@ public class GameEngine {
     }
 
     public int getXCoordinate(final TileType tileType) {
-        return gameBoard.getBoardPiecePoint(tileType).x;
+        return gameBoard.getMovableBoardPiece(tileType).getLocation().x;
     }
 
     public int getYCoordinate(final TileType tileType) {
-        return gameBoard.getBoardPiecePoint(tileType).y;
+        return gameBoard.getMovableBoardPiece(tileType).getLocation().y;
     }
 
     public int getLevel() {

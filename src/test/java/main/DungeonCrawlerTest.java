@@ -9,7 +9,6 @@ import ui.GameFrame;
 import wrappers.ThreadWrapper;
 
 public class DungeonCrawlerTest {
-
     private static final long SLEEP_TIME = 100;
     private ThreadWrapper threadWrapper;
     private GameEngine gameEngine;

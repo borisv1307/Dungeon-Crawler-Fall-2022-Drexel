@@ -1,6 +1,6 @@
 package parser;
 
-import board.piece.BoardPieceFactory;
+import board.piece.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,7 +20,7 @@ import java.util.Random;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 @StepDefAnnotation
 public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
@@ -82,74 +82,85 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 
     @When("^I randomly generate level (\\d+)$")
     public void i_randomly_generate_level(int level) {
-        originalEnemyLocation = new Point(gameEngine.getXCoordinate(TileType.ENEMY), gameEngine.getYCoordinate(TileType.ENEMY));
-        originalPlayerLocation = new Point(gameEngine.getXCoordinate(TileType.PLAYER), gameEngine.getYCoordinate(TileType.PLAYER));
-        originalGoalLocation = new Point(gameEngine.getXCoordinate(TileType.GOAL), gameEngine.getYCoordinate(TileType.GOAL));
+        originalEnemyLocation = gameEngine.getGameBoard().getMovableBoardPiece(TileType.ENEMY).getLocation();
+        originalPlayerLocation = gameEngine.getGameBoard().getMovableBoardPiece(TileType.PLAYER).getLocation();
+        originalGoalLocation = getGoalLocation();
         gameEngine.regenerateLevel(level);
+    }
+
+    @Then("^the board dimensions are x = (\\d+) and y = (\\d+)$")
+    public void the_board_dimensions_are_x_and_y(int xDimension, int yDimension) {
+        int actualXDimension = gameEngine.getLevelHorizontalDimension();
+        int actualYDimension = gameEngine.getLevelVerticalDimension();
+
+        assertEquals(xDimension, actualXDimension);
+        assertEquals(yDimension, actualYDimension);
+    }
+
+    @Then("^\\((\\d+), (\\d+)\\) is a Wall$")
+    public void is_a_Wall(int xCoordinate, int yCoordinate) {
+        BoardPiece boardPiece = getBoardPiece(xCoordinate, yCoordinate);
+        assertSame(Wall.class, boardPiece.getClass());
+    }
+
+    @Then("^\\((\\d+), (\\d+)\\) is Empty$")
+    public void is_Empty(int xCoordinate, int yCoordinate) throws Throwable {
+        BoardPiece boardPiece = getBoardPiece(xCoordinate, yCoordinate);
+        assertSame(Empty.class, boardPiece.getClass());
+    }
+
+    @Then("^\\((\\d+), (\\d+)\\) is a Player$")
+    public void is_a_Player(int xCoordinate, int yCoordinate) throws Throwable {
+        BoardPiece boardPiece = getBoardPiece(xCoordinate, yCoordinate);
+        assertSame(Player.class, boardPiece.getClass());
+    }
+
+    @Then("^\\((\\d+), (\\d+)\\) is an Enemy$")
+    public void is_an_Enemy(int xCoordinate, int yCoordinate) throws Throwable {
+        BoardPiece boardPiece = getBoardPiece(xCoordinate, yCoordinate);
+        assertSame(Enemy.class, boardPiece.getClass());
+    }
+
+    @Then("^\\((\\d+), (\\d+)\\) is a Goal$")
+    public void is_a_Goal(int xCoordinate, int yCoordinate) throws Throwable {
+        BoardPiece boardPiece = getBoardPiece(xCoordinate, yCoordinate);
+        assertSame(Goal.class, boardPiece.getClass());
     }
 
     @Then("^the enemy locations are different$")
     public void the_enemy_locations_are_different() {
-        assertPointsAreNotEqual(originalEnemyLocation, TileType.ENEMY);
+        assertMovableBoardPiecePointsAreNotEqual(originalEnemyLocation, TileType.ENEMY);
     }
 
     @Then("^the goal locations are different$")
     public void the_goal_locations_are_different() {
-        assertPointsAreNotEqual(originalGoalLocation, TileType.GOAL);
+        Point actualGoalLocation = getGoalLocation();
+        assertNotEquals(originalGoalLocation, actualGoalLocation);
     }
 
     @Then("^the player locations are different$")
     public void the_player_locations_are_different() {
-        assertPointsAreNotEqual(originalPlayerLocation, TileType.PLAYER);
+        assertMovableBoardPiecePointsAreNotEqual(originalPlayerLocation, TileType.PLAYER);
     }
 
     @Then("^the enemy locations are the same$")
-    public void the_enemy_locations_are_the_same() throws Throwable {
-        assertPointsAreEqual(originalEnemyLocation, TileType.ENEMY);
+    public void the_enemy_locations_are_the_same() {
+        assertMovableBoardPiecePointsAreEqual(originalEnemyLocation, TileType.ENEMY);
     }
 
     @Then("^the goal locations are the same$")
-    public void the_goal_locations_are_the_same() throws Throwable {
-        assertPointsAreEqual(originalGoalLocation, TileType.GOAL);
+    public void the_goal_locations_are_the_same() {
+        Point actualGoalLocation = getGoalLocation();
+        assertEquals(originalGoalLocation, actualGoalLocation);
     }
 
     @Then("^the player locations are the same$")
-    public void the_player_locations_are_the_same() throws Throwable {
-        assertPointsAreEqual(originalPlayerLocation, TileType.PLAYER);
+    public void the_player_locations_are_the_same() {
+        assertMovableBoardPiecePointsAreEqual(originalPlayerLocation, TileType.PLAYER);
     }
 
     @Then("^starting from the top-left:$")
     public void starting_from_the_top_left() {
-    }
-
-    @Then("^the player's x coordinate is (\\d+)$")
-    public void player_x_is(int playerX) {
-        compareXCoordinate(TileType.PLAYER, playerX);
-    }
-
-    @Then("^the player's y coordinate is (\\d+)$")
-    public void player_y_is(int playerY) {
-        compareYCoordinate(TileType.PLAYER, playerY);
-    }
-
-    @Then("^the enemy's x coordinate is (\\d+)$")
-    public void enemy_x_is(int enemyX) {
-        compareXCoordinate(TileType.ENEMY, enemyX);
-    }
-
-    @Then("^the enemy's y coordinate is (\\d+)$")
-    public void enemy_y_is(int enemyY) {
-        compareYCoordinate(TileType.ENEMY, enemyY);
-    }
-
-    @Then("^the goal's x coordinate is (\\d+)$")
-    public void goal_x_is(int goalX) {
-        compareXCoordinate(TileType.GOAL, goalX);
-    }
-
-    @Then("^the goal's y coordinate is (\\d+)$")
-    public void goal_y_is(int goalY) {
-        compareYCoordinate(TileType.GOAL, goalY);
     }
 
     @Then("^\\((\\d+), (\\d+)\\) is \"([^\"]*)\"$")
@@ -175,19 +186,27 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         assertThat(true, equalTo(gameEngine.isExit()));
     }
 
-    private void compareXCoordinate(TileType tileType, int xCoordinate) {
-        assertThat(gameEngine.getXCoordinate(tileType), equalTo(xCoordinate - COORDINATE_OFFSET));
-    }
-
-    private void compareYCoordinate(TileType tileType, int yCoordinate) {
-        assertThat(gameEngine.getYCoordinate(tileType), equalTo(yCoordinate - COORDINATE_OFFSET));
-    }
-
-    private void assertPointsAreEqual(Point originalPoint, TileType tileType) {
+    private void assertMovableBoardPiecePointsAreEqual(Point originalPoint, TileType tileType) {
         assertThat(new Point(gameEngine.getXCoordinate(tileType), gameEngine.getYCoordinate(tileType)), equalTo(originalPoint));
     }
 
-    private void assertPointsAreNotEqual(Point originalPoint, TileType tileType) {
+    private void assertMovableBoardPiecePointsAreNotEqual(Point originalPoint, TileType tileType) {
         assertThat(new Point(gameEngine.getXCoordinate(tileType), gameEngine.getYCoordinate(tileType)), not(equalTo(originalPoint)));
+    }
+
+    private BoardPiece getBoardPiece(int xCoordinate, int yCoordinate) {
+        return gameEngine.getGameBoard().getBoardPieceFromCoordinates(xCoordinate - COORDINATE_OFFSET, yCoordinate - COORDINATE_OFFSET);
+    }
+
+    private Point getGoalLocation() {
+        for (int x = 0; x < gameEngine.getLevelHorizontalDimension(); x++) {
+            for (int y = 0; y < gameEngine.getLevelVerticalDimension(); y++) {
+                BoardPiece boardPiece = gameEngine.getGameBoard().getBoardPieceFromCoordinates(x, y);
+                if (boardPiece.getTileType() == TileType.GOAL) {
+                    return boardPiece.getLocation();
+                }
+            }
+        }
+        throw new AssertionError("Failed to find Goal on board");
     }
 }

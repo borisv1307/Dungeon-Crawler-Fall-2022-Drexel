@@ -1,8 +1,8 @@
 package parser;
 
 import board.GameBoard;
-import board.piece.BoardPiece;
 import board.piece.BoardPieceFactory;
+import board.piece.MovableBoardPiece;
 import engine.GameEngine;
 import enums.TileType;
 import values.TunableParameters;
@@ -12,6 +12,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,41 +39,47 @@ public class FileLevelCreator extends LevelCreator {
             gameEngine.setExit(true);
             return;
         }
-        try {
-            String line;
-            int xDimension = 0;
-            int yDimension = 0;
-            line = reader.readLine();
-            if (line != null) {
-                xDimension = Integer.parseInt(line);
-            }
-            line = reader.readLine();
-            if (line != null) {
-                yDimension = Integer.parseInt(line);
-            }
-            GameBoard gameBoard = new GameBoard();
-            final BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
-            gameBoard.setBoardPieces(boardPieces);
-            gameEngine.setGameBoard(gameBoard);
 
-            int y = 0;
-            while ((line = reader.readLine()) != null) {
-                int x = 0;
-                for (char ch : line.toCharArray()) {
-                    final TileType tileType = TileType.getTileTypeByChar(ch);
-                    final Point location = new Point(x, y);
-                    final BoardPiece boardPiece = boardPieceFactory.getBoardPiece(tileType, location);
-                    boardPieces[x][y] = boardPieceFactory.getBoardPiece(tileType, location);
-                    setBoardPiece(gameBoard, boardPiece);
-                    x++;
-                }
-                y++;
-            }
+        readGameBoard(reader, gameEngine);
+    }
+
+    private void readGameBoard(BufferedReader reader, GameEngine gameEngine) {
+        final Map<TileType, MovableBoardPiece> movableBoardPieces = new HashMap<>();
+        try {
+            final int xDimension = getNextInteger(reader);
+            final int yDimension = getNextInteger(reader);
+            final GameBoard gameBoard = new GameBoard(boardPieceFactory, xDimension, yDimension);
+            fillBoardPieces(reader, gameBoard);
+            gameEngine.setGameBoard(gameBoard);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
             gameEngine.setExit(true);
         } finally {
             closeBufferedReader(reader, gameEngine);
+        }
+    }
+
+    private int getNextInteger(BufferedReader reader) throws IOException {
+        int integer = 0;
+        String line = reader.readLine();
+        if (line != null) {
+            integer = Integer.parseInt(line);
+        }
+        return integer;
+    }
+
+    private void fillBoardPieces(BufferedReader reader, GameBoard gameBoard) throws IOException {
+        String line;
+        int y = 0;
+        while ((line = reader.readLine()) != null) {
+            int x = 0;
+            for (char ch : line.toCharArray()) {
+                final TileType tileType = TileType.getTileTypeByChar(ch);
+                final Point location = new Point(x, y);
+                gameBoard.addBoardPiece(tileType, location);
+                x++;
+            }
+            y++;
         }
     }
 

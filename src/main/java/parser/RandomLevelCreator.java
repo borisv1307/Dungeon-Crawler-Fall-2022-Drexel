@@ -27,39 +27,50 @@ public class RandomLevelCreator extends LevelCreator {
 
     @Override
     public void createLevel(final GameEngine gameEngine, final int level) {
-        GameBoard gameBoard = new GameBoard();
-        final BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
-        gameBoard.setBoardPieces(boardPieces);
+        final GameBoard gameBoard = new GameBoard(boardPieceFactory, xDimension, yDimension);
+        random.setSeed(seed + level);
+
+        generateAndAddBoardPiece(gameBoard, TileType.PLAYER);
+        generateAndAddBoardPiece(gameBoard, TileType.ENEMY);
+        generateAndAddBoardPiece(gameBoard, TileType.GOAL);
+
+
         gameEngine.setGameBoard(gameBoard);
-        random.setSeed((long) seed + level);
+    }
+
+    private void generateAndAddBoardPiece(GameBoard gameBoard, final TileType tileType) {
+        int xCoordinate;
+        int yCoordinate;
+
+        do {
+            xCoordinate = generateNumberBetweenInclusive(1, xDimension - 1);
+            yCoordinate = generateNumberBetweenInclusive(1, yDimension - 1);
+        } while (gameBoard.getBoardPieceFromCoordinates(xCoordinate, yCoordinate).getTileType() != TileType.EMPTY);
+
+        Point location = new Point(xCoordinate, yCoordinate);
+        gameBoard.addBoardPiece(tileType, location);
+
+    }
+
+    private BoardPiece[][] generateBasicBoard() {
+        BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
         for (int x = 0; x < boardPieces.length; x++) {
             for (int y = 0; y < boardPieces[x].length; y++) {
-                if (x == 0 || y == 0 || x == xDimension - 1 || y == yDimension - 1) {
+                if (isEdge(x, y)) {
                     boardPieces[x][y] = new Wall(new Point(x, y));
                 } else {
                     boardPieces[x][y] = new Empty(new Point(x, y));
                 }
             }
         }
-
-        generateAndAddCoordinate(boardPieces, gameBoard, TileType.PLAYER);
-        generateAndAddCoordinate(boardPieces, gameBoard, TileType.ENEMY);
-        generateAndAddCoordinate(boardPieces, gameBoard, TileType.GOAL);
-
-        gameBoard.setBoardPieces(boardPieces);
+        return boardPieces;
     }
 
-    private void generateAndAddCoordinate(final BoardPiece[][] boardPieces, final GameBoard gameBoard, final TileType tileType) {
-        int xCoordinate;
-        int yCoordinate;
+    private boolean isEdge(int x, int y) {
+        return x == 0 || y == 0 || x == xDimension - 1 || y == yDimension - 1;
+    }
 
-        do {
-            xCoordinate = random.nextInt(xDimension - 2) + 1;
-            yCoordinate = random.nextInt(yDimension - 2) + 1;
-        } while (boardPieces[xCoordinate][yCoordinate].getTileType() != TileType.EMPTY);
-
-        final BoardPiece boardPiece = boardPieceFactory.getBoardPiece(tileType, new Point(xCoordinate, yCoordinate));
-        boardPieces[xCoordinate][yCoordinate] = boardPiece;
-        setBoardPiece(gameBoard, boardPiece);
+    private int generateNumberBetweenInclusive(int lower, int upper) {
+        return random.nextInt(upper - lower) + lower;
     }
 }
