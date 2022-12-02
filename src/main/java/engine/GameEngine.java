@@ -48,7 +48,6 @@ public class GameEngine {
     public void addTile(int x, int y, TileType tileType) {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
-            tiles.put(player, TileType.PASSABLE);
         } else if (isEnemyTile(tileType)) {
             setEnemy(x, y);
             tiles.put(enemy, enemy.getTileType());
@@ -126,9 +125,12 @@ public class GameEngine {
         if (player == null) {
             player = new Player(x, y);
         } else {
+            int previousX = getPlayerXCoordinate();
+            int previousY = getPlayerYCoordinate();
             player.move(x, y);
-            tiles.put(player, TileType.PASSABLE);
+            removeTile(previousX, previousY);
         }
+        tiles.put(player, TileType.PASSABLE);
     }
 
     private void setEnemy(int x, int y) {
