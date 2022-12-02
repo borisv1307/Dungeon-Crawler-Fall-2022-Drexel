@@ -24,4 +24,13 @@ public class TileColorMapTest {
         assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
     }
 
+    @Test
+    public void enemy() {
+        assertSame(Color.RED, TileColorMap.get(TileType.ENEMY));
+    }
+    
+    @Test
+    public void goal() {
+        assertSame(Color.YELLOW, TileColorMap.get(TileType.GOAL));
+    }
 }

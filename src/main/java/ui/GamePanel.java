@@ -52,12 +52,16 @@ public class GamePanel extends Panel {
     public boolean keyDown(Event evt, int key) {
         if (key == Event.LEFT) {
             gameEngine.movement(TileType.PLAYER, Direction.LEFT);
+            repaint();
         } else if (key == Event.RIGHT) {
             gameEngine.movement(TileType.PLAYER, Direction.RIGHT);
+            repaint();
         } else if (key == Event.UP) {
             gameEngine.movement(TileType.PLAYER, Direction.UP);
+            repaint();
         } else if (key == Event.DOWN) {
             gameEngine.movement(TileType.PLAYER, Direction.DOWN);
+            repaint();
         }
 
         return true;

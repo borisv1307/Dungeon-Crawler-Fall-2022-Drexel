@@ -12,6 +12,8 @@ public final class TileColorMap {
         tileColors.put(TileType.EMPTY, Color.WHITE);
         tileColors.put(TileType.WALL, Color.BLACK);
         tileColors.put(TileType.PLAYER, Color.GREEN);
+        tileColors.put(TileType.GOAL, Color.YELLOW);
+        tileColors.put(TileType.ENEMY, Color.RED);
     }
 
     private TileColorMap() {
