@@ -12,6 +12,7 @@ import java.util.Random;
 public class GameEngine {
 
     private final LevelCreator levelCreator;
+    private final Random random;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     private boolean exit;
@@ -25,6 +26,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        random = new Random();
     }
 
     public void run(GameFrame gameFrame) {
@@ -126,7 +128,6 @@ public class GameEngine {
     }
 
     public void moveEnemy() {
-        Random random = new Random();
         int opt = random.nextInt(4);
         if (opt == 0) {
             enemyMovement(-1, 0);
