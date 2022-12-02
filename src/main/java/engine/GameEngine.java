@@ -10,6 +10,8 @@ import wrappers.RandomizerWrapper;
 import wrappers.SystemWrapper;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,6 @@ public class GameEngine {
     private Enemy enemy;
     private String gameStatus;
     private RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-    private EntityHandler entityHandler;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -33,7 +34,6 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
-        entityHandler = new EntityHandler(this, this.randomizerWrapper);
     }
 
     public void run(GameFrame gameFrame) {
@@ -44,16 +44,20 @@ public class GameEngine {
 
     public void addTile(int x, int y, TileType tileType) {
         if (tileType.equals(TileType.PLAYER)) {
-            setPlayer(x, y);
+            setNewPlayer(x, y);
             tiles.put(player, TileType.PASSABLE);
         } else if (isEnemyTile(tileType)) {
-            setEnemy(x, y);
+            setNewEnemy(x, y);
             tiles.put(enemy, enemy.getTileType());
         } else {
             tiles.put(new Point(x, y), tileType);
         }
     }
 
+    boolean newPointIsOpen(int x, int y) {
+        TileType tileType = getTileFromCoordinates(x, y);
+        return (tileType == TileType.PASSABLE);
+    }
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;
@@ -119,7 +123,7 @@ public class GameEngine {
         tiles.put(new Point(x, y), TileType.PASSABLE);
     }
 
-    private void setPlayer(int x, int y) {
+    private void setNewPlayer(int x, int y) {
         if (player == null) {
             player = new Player(x, y);
         } else {
@@ -127,16 +131,16 @@ public class GameEngine {
         }
     }
 
-    private void setEnemy(int x, int y) {
+    private void setNewEnemy(int x, int y) {
         enemy = new Slime(x, y);
     }
 
     private void movement(int deltaX, int deltaY) {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            setNewPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         } else if (locationHasEnemy(attemptedLocation)) {
-            entityHandler.doCombat(player, enemy);
+            doCombat(player, enemy);
         }
     }
 
@@ -144,16 +148,6 @@ public class GameEngine {
         return enemy != null && isEnemyTile(attemptedLocation);
     }
 
-    boolean isEnemyTile(TileType tileType) {
-        switch (tileType) {
-            case KOBOLD:
-            case SLIME:
-            case ORC:
-                return true;
-            default:
-                return false;
-        }
-    }
 
     public String getGameStatus() {
         return this.gameStatus;
@@ -167,7 +161,7 @@ public class GameEngine {
         return this.enemy;
     }
 
-    public void setEnemy(Enemy enemy) {
+    public void setNewEnemy(Enemy enemy) {
         this.enemy = enemy;
         tiles.put(enemy, enemy.getTileType());
     }
@@ -176,7 +170,72 @@ public class GameEngine {
         return this.player;
     }
 
-    public void setPlayer(Player player) {
+    public void setNewPlayer(Player player) {
         this.player = player;
+    }
+
+    void killPlayer(Player player) {
+        int x = getPlayerXCoordinate();
+        int y = getPlayerYCoordinate();
+        removeTile(x, y);
+        setNewPlayer(new Player(player.getOriginX(), player.getOriginY()));
+        setGameStatus(GameStatus.PLAYER_DEFEATED);
+    }
+
+
+    public void doCombat(Player player, Enemy enemy) {
+        int enemyHP = enemy.receiveDamage(player.getAttackValue());
+        int playerHP = player.receiveDamage(enemy.getAttackValue());
+        setGameStatus(getCombatStatus(player, enemy));
+
+        if (enemyHP <= 0) {
+            killEnemy(enemy);
+        }
+
+        if (playerHP <= 0) {
+            killPlayer(player);
+        }
+    }
+
+    ArrayList<Integer> getNewCoordinates() {
+        int newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
+        int newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
+
+        while (!newPointIsOpen(newXCoordinate, newYCoordinate)) {
+            newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
+            newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
+        }
+
+        return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
+    }
+
+
+    void killEnemy(Enemy enemy) {
+        ArrayList<Integer> newCoordinates = getNewCoordinates();
+        int x = getEnemyXCoordinate();
+        int y = getEnemyYCoordinate();
+        removeTile(x, y);
+        setGameStatus(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
+        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
+    }
+
+    private void createNewEnemy(int x, int y) {
+        setNewEnemy(randomizerWrapper.getRandomEnemy(x, y));
+    }
+
+    private String getCombatStatus(Player player, Enemy enemy) {
+        return String.format(GameStatus.DAMAGE_TO_ENEMY, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
+    }
+
+
+    boolean isEnemyTile(TileType tileType) {
+        switch (tileType) {
+            case KOBOLD:
+            case SLIME:
+            case ORC:
+                return true;
+            default:
+                return false;
+        }
     }
 }
