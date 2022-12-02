@@ -7,8 +7,6 @@ public class ProjectileHandler {
 
 	RandomWrapper randomWrapper;
 	GameEngine gameEngine;
-	private int maxX;
-	private int maxY;
 
 	public ProjectileHandler(GameEngine gameEngine, RandomWrapper randomWrapper) {
 		this.gameEngine = gameEngine;
@@ -16,12 +14,12 @@ public class ProjectileHandler {
 	}
 
 	int getYValue() {
-		maxY = gameEngine.getLevelVerticalDimension() - 2;
+		int maxY = gameEngine.getLevelVerticalDimension() - 2;
 		return randomWrapper.nextInt(maxY) + 1;
 	}
 
 	int getXValue() {
-		maxX = gameEngine.getLevelHorizontalDimension() - 2;
+		int maxX = gameEngine.getLevelHorizontalDimension() - 2;
 		return randomWrapper.nextInt(maxX) + 1;
 	}
 
