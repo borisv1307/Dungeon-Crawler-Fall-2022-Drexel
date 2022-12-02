@@ -15,9 +15,9 @@ public class RandomLevelCreator extends LevelCreator {
     private final Random random;
     private final int xDimension;
     private final int yDimension;
-    private final int seed;
+    private final long seed;
 
-    public RandomLevelCreator(final BoardPieceFactory boardPieceFactory, final Random random, final int seed, final int xDimension, final int yDimension) {
+    public RandomLevelCreator(final BoardPieceFactory boardPieceFactory, final Random random, final long seed, final int xDimension, final int yDimension) {
         super(boardPieceFactory);
         this.random = random;
         this.seed = seed;
