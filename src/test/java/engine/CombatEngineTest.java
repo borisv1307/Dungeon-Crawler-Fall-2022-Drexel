@@ -36,7 +36,7 @@ public class CombatEngineTest {
         assertThat(actualX, equalTo(ZERO));
         assertThat(actualY, equalTo(ZERO));
         assertFalse(actualX == previousX && actualY == previousY);
-        assertEquals(true, initialPlayer.equals(respawnedPlayer));
+        assertEquals(false, initialPlayer.equals(respawnedPlayer));
     }
 
     @Test

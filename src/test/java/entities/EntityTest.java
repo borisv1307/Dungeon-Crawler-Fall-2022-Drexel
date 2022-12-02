@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class EntityTest {
     Entity enemy;
-    Entity player;
+    Player player;
 
     @Before
     public void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class EntityTest {
     public void copy_player_to_new_location() {
         int x = 2;
         int y = 2;
-        Player newPlayer = ((Player) player).copyPlayerToNewLocation(x, y);
+        Player newPlayer = player.copyPlayerToNewLocation(x, y);
         assertEquals(true, newPlayer.equals(player));
         assertNotEquals(player.getX(), newPlayer.getX());
         assertNotEquals(player.getY(), newPlayer.getY());
@@ -58,24 +58,17 @@ public class EntityTest {
     }
 
     @Test
-    public void kobold_equals_kobold() {
+    public void kobold_does_not_equal_new_kobold() {
         Entity kobold = new Kobold(0, 0);
         Entity koboldOther = new Kobold(0, 0);
-        assertEquals(true, kobold.equals(koboldOther));
+        assertEquals(false, kobold.equals(koboldOther));
     }
 
     @Test
-    public void player_not_equal_to_other_player() {
-        Entity player = new Player(0, 0);
-        Entity playerOther = new Player(1, 1);
-        assertEquals(false, player.equals(playerOther));
-    }
-
-    @Test
-    public void player_equal_to_player() {
+    public void player_not_equal_to_new_player() {
         Entity player = new Player(0, 0);
         Entity playerOther = new Player(0, 0);
-        assertEquals(true, player.equals(playerOther));
+        assertEquals(false, player.equals(playerOther));
     }
 
     @Test

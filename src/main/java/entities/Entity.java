@@ -3,17 +3,19 @@ package entities;
 import tiles.TileType;
 
 import java.awt.*;
+import java.util.UUID;
 
 public abstract class Entity extends Point {
     TileType tileType;
     int hitPoints;
     int armorClass;
     int attackValue;
-
     String name;
+    UUID uniqueId;
 
     Entity(int x, int y) {
         super(x, y);
+        uniqueId = UUID.randomUUID();
     }
 
     public int receiveDamage(int attackValue) {
@@ -56,21 +58,25 @@ public abstract class Entity extends Point {
         }
     }
 
-    private boolean compareObjectProperties(Entity entityObect) {
-        if (this.name == null || !this.name.equals(entityObect.name)) {
-            return false;
-        }
-        if (this.hitPoints != entityObect.hitPoints) {
-            return false;
-        }
-        if (this.armorClass != entityObect.armorClass) {
-            return false;
-        }
-        if (this.attackValue != entityObect.attackValue) {
+    private boolean compareObjectProperties(Entity entityObject) {
+        if (this.uniqueId != entityObject.uniqueId) {
             return false;
         }
 
-        return this.tileType == entityObect.tileType;
+        if (this.name == null || !this.name.equals(entityObject.name)) {
+            return false;
+        }
+        if (this.hitPoints != entityObject.hitPoints) {
+            return false;
+        }
+        if (this.armorClass != entityObject.armorClass) {
+            return false;
+        }
+        if (this.attackValue != entityObject.attackValue) {
+            return false;
+        }
+
+        return this.tileType == entityObject.tileType;
     }
 
     private int dealDamageWithAC(int attackValue) {

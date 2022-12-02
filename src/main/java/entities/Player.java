@@ -35,7 +35,7 @@ public class Player extends Entity {
     public boolean equals(Object object) {
         try {
             Player playerObject = (Player) object;
-            return compareObjectProperties(playerObject);
+            return super.equals(playerObject) && compareObjectProperties(playerObject);
         } catch (ClassCastException e) {
             return super.equals(object);
         }
