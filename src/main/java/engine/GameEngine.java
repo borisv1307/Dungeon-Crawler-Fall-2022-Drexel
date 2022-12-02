@@ -10,8 +10,6 @@ import wrappers.RandomizerWrapper;
 import wrappers.SystemWrapper;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class GameEngine {
     private Enemy enemy;
     private String gameStatus;
     private RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-    private CombatEngine combatEngine;
+    private EntityHandler entityHandler;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -35,7 +33,7 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
-        combatEngine = new CombatEngine(this);
+        entityHandler = new EntityHandler(this);
     }
 
     public void run(GameFrame gameFrame) {
@@ -55,6 +53,7 @@ public class GameEngine {
             tiles.put(new Point(x, y), tileType);
         }
     }
+
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;
@@ -137,12 +136,15 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         } else if (locationHasEnemy(attemptedLocation)) {
-            combatEngine.doCombat(player, enemy);
+            entityHandler.doCombat(player, enemy);
         }
     }
 
+    boolean locationHasEnemy(TileType attemptedLocation) {
+        return enemy != null && isEnemyTile(attemptedLocation);
+    }
 
-    private boolean isEnemyTile(TileType tileType) {
+    boolean isEnemyTile(TileType tileType) {
         switch (tileType) {
             case KOBOLD:
             case SLIME:
@@ -153,10 +155,6 @@ public class GameEngine {
         }
     }
 
-    private boolean locationHasEnemy(TileType attemptedLocation) {
-        return enemy != null && isEnemyTile(attemptedLocation);
-    }
-
     public String getGameStatus() {
         return this.gameStatus;
     }
@@ -165,43 +163,20 @@ public class GameEngine {
         this.gameStatus = string;
     }
 
-    public void playerKilled() {
-        int x = getPlayerXCoordinate();
-        int y = getPlayerYCoordinate();
-        removeTile(x, y);
-        player = new Player(player.getOriginX(), player.getOriginY());
-        setGameStatus(GameStatus.PLAYER_DEFEATED);
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 
-    private ArrayList<Integer> getNewCoordinates() {
-        int newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
-        int newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
-
-        while (!newPointIsValid(newXCoordinate, newYCoordinate)) {
-            newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
-            newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
-        }
-
-        return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
-    }
-
-    private boolean newPointIsValid(int x, int y) {
-        TileType tileType = getTileFromCoordinates(x, y);
-        return (tileType == TileType.PASSABLE);
-    }
-
-    public void enemyKilled() {
-        ArrayList<Integer> newCoordinates = getNewCoordinates();
-        int x = getEnemyXCoordinate();
-        int y = getEnemyYCoordinate();
-        removeTile(x, y);
-        setGameStatus(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
-        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-    }
-
-
-    private void createNewEnemy(int x, int y) {
-        enemy = randomizerWrapper.getRandomEnemy(x, y);
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
         tiles.put(enemy, enemy.getTileType());
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

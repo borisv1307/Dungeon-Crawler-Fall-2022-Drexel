@@ -20,13 +20,13 @@ public class GameEngineTest {
     private static final int TWO = 2;
 
     GameEngine gameEngine;
-    CombatEngine combatEngine;
+    EntityHandler entityHandler;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
-        combatEngine = new CombatEngine(gameEngine);
+        entityHandler = new EntityHandler(gameEngine);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
@@ -96,7 +96,7 @@ public class GameEngineTest {
         createSlimeTile();
         int previousX = gameEngine.getEnemyXCoordinate();
         int previousY = gameEngine.getEnemyYCoordinate();
-        gameEngine.enemyKilled();
+        entityHandler.killEnemy(gameEngine.getEnemy());
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
         assertFalse(actualX == previousX && actualY == previousY);
@@ -107,7 +107,7 @@ public class GameEngineTest {
         createPlayerTile();
         int previousX = gameEngine.getPlayerXCoordinate();
         int previousY = gameEngine.getPlayerYCoordinate();
-        gameEngine.playerKilled();
+        entityHandler.killPlayer(gameEngine.getPlayer());
         int actualX = gameEngine.getPlayerXCoordinate();
         int actualY = gameEngine.getPlayerXCoordinate();
         assertThat(actualX, equalTo(ZERO));
@@ -126,7 +126,7 @@ public class GameEngineTest {
     @Test
     public void player_dies_updates_status() {
         createPlayerTile();
-        gameEngine.playerKilled();
+        entityHandler.killPlayer(gameEngine.getPlayer());
         assertEquals(GameStatus.PLAYER_DEFEATED, gameEngine.getGameStatus());
     }
 
@@ -136,7 +136,7 @@ public class GameEngineTest {
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
         createSlimeTile();
-        gameEngine.enemyKilled();
+        entityHandler.killEnemy(gameEngine.getEnemy());
         String expected = String.format(GameStatus.ENEMY_DEFEATED, "Slime");
         assertEquals(expected, gameEngine.getGameStatus());
     }
