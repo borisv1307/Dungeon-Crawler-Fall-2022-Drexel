@@ -69,6 +69,8 @@ public class GameBoard {
             result = Result.WIN;
         } else if (tileType == TileType.ENEMY && displacedTileType == TileType.PLAYER) {
             result = Result.LOSE;
+        } else if (tileType == TileType.PLAYER && displacedTileType == TileType.ENEMY) {
+            result = Result.LOSE;
         }
 
         return result;

@@ -85,6 +85,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     @Then("^the enemy is located at \\((\\d+), (\\d+)\\)$")
     public void the_enemy_is_located_at(int enemyX, int enemyY) {
+
         verifyTileTypeLocation(TileType.ENEMY, enemyX, enemyY);
     }
 
