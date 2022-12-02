@@ -1,7 +1,6 @@
 package engine;
 
 import entities.Enemy;
-import entities.Entity;
 import entities.Player;
 import wrappers.RandomizerWrapper;
 
@@ -46,14 +45,6 @@ public class CombatEngine {
 
     private String getCombatStatus(Player player, Enemy enemy) {
         return String.format(GameStatus.DAMAGE_TO_ENEMY, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
-    }
-
-    private int getEntityXCoordinates(Entity entity) {
-        return (int) entity.getX();
-    }
-
-    private int getEntityYCoordinates(Entity entity) {
-        return (int) entity.getY();
     }
 
     Player killPlayer(Player player) {

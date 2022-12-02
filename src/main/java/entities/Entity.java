@@ -48,6 +48,10 @@ public abstract class Entity extends Point {
         this.tileType = tileType;
     }
 
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
     @Override
     public boolean equals(Object object) {
         try {

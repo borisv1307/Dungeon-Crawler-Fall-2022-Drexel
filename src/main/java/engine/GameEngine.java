@@ -144,10 +144,6 @@ public class GameEngine {
         }
     }
 
-    Enemy getEnemy() {
-        return this.enemy;
-    }
-
     boolean locationHasEnemy(TileType attemptedLocation) {
         return enemy != null && isEnemyTile(attemptedLocation);
     }
@@ -163,12 +159,12 @@ public class GameEngine {
     }
 
     private void unpackCombatObject(CombatObject combatObject) {
-        if (!ifEntityIsInSameLocation(player, combatObject.player)) {
+        if (!ifEntityIsTheSame(player, combatObject.player)) {
             removeTile(getPlayerXCoordinate(), getPlayerYCoordinate());
             player = combatObject.player;
         }
 
-        if (ifEntityIsInSameLocation(enemy, combatObject.enemy)) {
+        if (ifEntityIsTheSame(enemy, combatObject.enemy)) {
             enemy = combatObject.enemy;
         } else {
             removeTile(getEnemyXCoordinate(), getEnemyYCoordinate());
@@ -181,9 +177,11 @@ public class GameEngine {
         gameStatus = combatObject.gameStatusString;
     }
 
-    private boolean ifEntityIsInSameLocation(Entity entityOriginal, Entity entityNew) {
-        boolean result = ((int) entityOriginal.getX() == (int) entityNew.getX() && (int) entityOriginal.getY() == (int) entityNew.getY());
-        return result;
+    private boolean ifEntityIsTheSame(Entity entityOriginal, Entity entityNew) {
+        String originalUniqueId = entityOriginal.getUniqueId().toString();
+        String newUniqueId = entityNew.getUniqueId().toString();
+
+        return originalUniqueId.equals(newUniqueId);
     }
 
     boolean isEnemyTile(TileType tileType) {

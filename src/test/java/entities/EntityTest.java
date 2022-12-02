@@ -48,8 +48,8 @@ public class EntityTest {
         String playerUniqueId = player.uniqueId.toString();
         player.move(x, y);
         String playerMovedUniqueId = player.uniqueId.toString();
-        assertNotEquals(0, player.getX());
-        assertNotEquals(0, player.getY());
+        assertNotEquals(0, (int) player.getX());
+        assertNotEquals(0, (int) player.getY());
         assertEquals(playerUniqueId, playerMovedUniqueId);
     }
 

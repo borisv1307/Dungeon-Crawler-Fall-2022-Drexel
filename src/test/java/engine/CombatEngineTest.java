@@ -51,14 +51,10 @@ public class CombatEngineTest {
     public void spawn_new_enemy_on_defeat() {
         Enemy enemy = createSlime();
         Player player = createPlayer();
-        int previousX = (int) enemy.getX();
-        int previousY = (int) enemy.getY();
         CombatObject combatObject = new CombatObject(player, enemy);
         CombatObject returnObject = combatEngine.doCombat(combatObject);
         Enemy newEnemy = returnObject.enemy;
-        int actualX = (int) newEnemy.getX();
-        int actualY = (int) newEnemy.getY();
-        assertFalse(enemy.equals(newEnemy));
+        assertEquals(false, enemy.equals(newEnemy));
     }
 
     @Test
