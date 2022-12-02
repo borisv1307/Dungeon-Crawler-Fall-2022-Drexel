@@ -4,7 +4,6 @@ import entities.Enemy;
 import entities.Player;
 import tiles.TileType;
 import wrappers.RandomizerWrapper;
-import wrappers.SystemWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +12,9 @@ public class EntityHandler {
     GameEngine gameEngine;
     RandomizerWrapper randomizerWrapper;
 
-    EntityHandler(GameEngine gameEngine) {
+    EntityHandler(GameEngine gameEngine, RandomizerWrapper randomizerWrapper) {
         this.gameEngine = gameEngine;
-        randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
+        this.randomizerWrapper = randomizerWrapper;
     }
 
     public void doCombat(Player player, Enemy enemy) {

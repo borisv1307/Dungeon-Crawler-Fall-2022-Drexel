@@ -33,7 +33,7 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
-        entityHandler = new EntityHandler(this);
+        entityHandler = new EntityHandler(this, this.randomizerWrapper);
     }
 
     public void run(GameFrame gameFrame) {
