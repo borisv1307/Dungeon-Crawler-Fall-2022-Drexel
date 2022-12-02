@@ -6,11 +6,14 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
+import wrappers.SystemWrapper;
 
 import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 public class GameEngineTest {
 
@@ -18,11 +21,14 @@ public class GameEngineTest {
     private static final int ONE = 1;
 
     GameEngine gameEngine;
+    RandomWrapper randomWrapper;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-        gameEngine = new GameEngine(levelCreator);
+        randomWrapper = Mockito.mock(RandomWrapper.class);
+        Mockito.when(randomWrapper.mathRandom()).thenReturn(.2);
+        gameEngine = new GameEngine(levelCreator, randomWrapper);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
@@ -74,6 +80,19 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
+    }
+
+    @Test
+    public void random_number() {
+        assertEquals(3, gameEngine.getBombXCoordinate());
+    }
+
+    @Test
+    public void print_COLLISION_when_collision() {
+        SystemWrapper systemWrapper = Mockito.mock(SystemWrapper.class);
+        TileType attemptedLocation = gameEngine.getTileFromCoordinates(2, 2);
+        Mockito.verify(systemWrapper).printLn("Collision");
+
     }
 
 }
