@@ -63,6 +63,14 @@ public class ProjectileTest {
         Assert.assertTrue(playerBackAtStart());
     }
 
+    @Test
+    public void projectile_shooter_test() {
+        new LeftProjectileShooter(7, 0, 2000, 1000, gameEngine);
+        Mockito.timeout(2001);
+        Assert.assertTrue(gameEngine.getProjectiles().size() == 1);
+    }
+
+
     private void addProjectileToEngine(int x, int y) {
         Projectile projectile = new Projectile(x, y, 1, 1, 100, gameEngine);
         gameEngine.addProjectile(projectile);
