@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.Player;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -25,7 +26,8 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		actionHandler = new ActionHandler(this);
+		Player playerObject = new Player();
+		actionHandler = new ActionHandler(this, levelCreator, playerObject);
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -106,7 +108,11 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 			if (tileIsNextLevel) {
 				level = getLevel() + 1;
+				if(level==3){
+					level=1;
+				}
 				levelCreator.createLevel(this, level);
+
 			}
 		}
 	}
