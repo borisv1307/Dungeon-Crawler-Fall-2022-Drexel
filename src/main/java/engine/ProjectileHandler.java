@@ -14,26 +14,26 @@ public class ProjectileHandler {
 	}
 
 	public void createLeftEdgeProjectile() {
-		int maxY = gameEngine.getLevelVerticalDimension();
-		int yValue = randomWrapper.nextInt(maxY);
+		int maxY = gameEngine.getLevelVerticalDimension() - 2;
+		int yValue = randomWrapper.nextInt(maxY) + 1;
 		gameEngine.addTile(0, yValue, TileType.PROJECTILE);
 	}
 
 	public void createRightEdgeProjectile() {
-		int maxY = gameEngine.getLevelVerticalDimension();
-		int yValue = randomWrapper.nextInt(maxY);
+		int maxY = gameEngine.getLevelVerticalDimension() - 2;
+		int yValue = randomWrapper.nextInt(maxY) + 1;
 		gameEngine.addTile(gameEngine.getLevelHorizontalDimension(), yValue, TileType.PROJECTILE);
 	}
 
 	public void createTopEdgeProjectile() {
-		int maxX = gameEngine.getLevelHorizontalDimension();
-		int xValue = randomWrapper.nextInt(maxX);
+		int maxX = gameEngine.getLevelHorizontalDimension() - 2;
+		int xValue = randomWrapper.nextInt(maxX) + 1;
 		gameEngine.addTile(xValue, 0, TileType.PROJECTILE);
 	}
 
 	public void createBottomEdgeProjectile() {
-		int maxX = gameEngine.getLevelHorizontalDimension();
-		int xValue = randomWrapper.nextInt(maxX);
+		int maxX = gameEngine.getLevelHorizontalDimension() - 2;
+		int xValue = randomWrapper.nextInt(maxX) + 1;
 		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension(), TileType.PROJECTILE);
 	}
 }
