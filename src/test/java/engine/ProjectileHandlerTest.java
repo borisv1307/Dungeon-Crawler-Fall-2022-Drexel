@@ -58,7 +58,7 @@ public class ProjectileHandlerTest {
 
 	@Test
 	public void random_vertical_value_is_greater_than_zero() {
-		Mockito.when(randomWrapper.nextInt(gameEngine.getLevelVerticalDimension())).thenReturn(0);
+		Mockito.when(randomWrapper.nextInt(maxY)).thenReturn(0);
 		projectileHandler.createLeftEdgeProjectile();
 		Mockito.verify(gameEngine).addTile(0, 1, TileType.PROJECTILE);
 	}
@@ -66,7 +66,7 @@ public class ProjectileHandlerTest {
 	@Test
 	public void random_vertical_value_is_less_than_max_dimension() {
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(10);
-		projectileHandler.createRightEdgeProjectile();
+		projectileHandler.getYValue();
 		Mockito.verify(randomWrapper).nextInt(8);
 	}
 
@@ -80,7 +80,7 @@ public class ProjectileHandlerTest {
 	@Test
 	public void random_horizontal_value_is_less_than_max_dimension() {
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(20);
-		projectileHandler.createBottomEdgeProjectile();
+		projectileHandler.getXValue();
 		Mockito.verify(randomWrapper).nextInt(18);
 	}
 
