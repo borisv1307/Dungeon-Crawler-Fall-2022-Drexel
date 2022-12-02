@@ -1,106 +1,148 @@
 package engine;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
 import parser.LevelCreator;
+import projectile.Projectile;
 import tiles.TileType;
 import ui.GameFrame;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class GameEngine {
 
-	private final LevelCreator levelCreator;
-	private final Map<Point, TileType> tiles = new HashMap<>();
-	private final int level;
-	private boolean exit;
-	private int levelHorizontalDimension;
-	private int levelVerticalDimension;
-	private Point player;
+    private final LevelCreator levelCreator;
+    private final Map<Point, TileType> tiles = new HashMap<>();
+    private final int level;
+    private boolean exit;
+    private int levelHorizontalDimension;
+    private int levelVerticalDimension;
+    private int startX, startY;
+    private Point player;
+    private List<Projectile> projectiles;
 
-	public GameEngine(LevelCreator levelCreator) {
-		exit = false;
-		level = 1;
-		this.levelCreator = levelCreator;
-		this.levelCreator.createLevel(this, level);
-	}
+    public GameEngine(LevelCreator levelCreator) {
+        exit = false;
+        level = 1;
+        this.projectiles = new ArrayList<>();
+        this.levelCreator = levelCreator;
+        this.levelCreator.createLevel(this, level);
+    }
 
-	public void run(GameFrame gameFrame) {
-		for (Component component : gameFrame.getComponents()) {
-			component.repaint();
-		}
-	}
+    public void run(GameFrame gameFrame) {
+        for (Component component : gameFrame.getComponents()) {
+            component.repaint();
+        }
+    }
 
-	public void addTile(int x, int y, TileType tileType) {
-		if (tileType.equals(TileType.PLAYER)) {
-			setPlayer(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else {
-			tiles.put(new Point(x, y), tileType);
-		}
-	}
+    public void addTile(int x, int y, TileType tileType) {
+        if (tileType.equals(TileType.PLAYER)) {
+            setPlayer(x, y);
+            startX = x;
+            startY = y;
+            tiles.put(new Point(x, y), TileType.PASSABLE);
+        } else {
+            tiles.put(new Point(x, y), tileType);
+        }
+    }
 
-	public int getLevelHorizontalDimension() {
-		return levelHorizontalDimension;
-	}
+    public void addProjectile(Projectile projectile) {
+        projectiles.add(projectile);
+    }
 
-	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
-		this.levelHorizontalDimension = levelHorizontalDimension;
-	}
+    public List<Projectile> getProjectiles() {
+        return projectiles;
+    }
 
-	public int getLevelVerticalDimension() {
-		return levelVerticalDimension;
-	}
+    public int getLevelHorizontalDimension() {
+        return levelHorizontalDimension;
+    }
 
-	public void setLevelVerticalDimension(int levelVerticalDimension) {
-		this.levelVerticalDimension = levelVerticalDimension;
-	}
+    public void setLevelHorizontalDimension(int levelHorizontalDimension) {
+        this.levelHorizontalDimension = levelHorizontalDimension;
+    }
 
-	public TileType getTileFromCoordinates(int x, int y) {
-		return tiles.get(new Point(x, y));
-	}
+    public int getLevelVerticalDimension() {
+        return levelVerticalDimension;
+    }
 
-	private void setPlayer(int x, int y) {
-		player = new Point(x, y);
-	}
+    public void setLevelVerticalDimension(int levelVerticalDimension) {
+        this.levelVerticalDimension = levelVerticalDimension;
+    }
 
-	public int getPlayerXCoordinate() {
-		return (int) player.getX();
-	}
+    public TileType getTileFromCoordinates(int x, int y) {
+        return tiles.get(new Point(x, y));
+    }
 
-	public int getPlayerYCoordinate() {
-		return (int) player.getY();
-	}
+    private void setPlayer(int x, int y) {
+        player = new Point(x, y);
+    }
 
-	public void keyLeft() {
-		movement(-1, 0);
-	}
+    public int getPlayerXCoordinate() {
+        return (int) player.getX();
+    }
 
-	public void keyRight() {
-		movement(1, 0);
-	}
+    public int getPlayerYCoordinate() {
+        return (int) player.getY();
+    }
 
-	public void keyUp() {
-		movement(0, -1);
-	}
+    public void keyLeft() {
+        movement(-1, 0);
+    }
 
-	public void keyDown() {
-		movement(0, 1);
-	}
+    public void keyRight() {
+        movement(1, 0);
+    }
 
-	private void movement(int deltaX, int deltaY) {
-		TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
-				getPlayerYCoordinate() + deltaY);
-		if (attemptedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-		}
-	}
+    public void keyUp() {
+        movement(0, -1);
+    }
 
-	public boolean isExit() {
-		return exit;
-	}
+    public void keyDown() {
+        movement(0, 1);
+    }
 
-	public void setExit(boolean exit) {
-		this.exit = exit;
-	}
+    private void movement(int deltaX, int deltaY) {
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
+                getPlayerYCoordinate() + deltaY);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            checkCollision();
+        }
+    }
+
+    private void checkCollision() {
+        for (int i = 0; i < projectiles.size(); i++) {
+            if (projectileCollision(projectiles.get(i))) {
+                resetPlayer();
+            }
+        }
+    }
+
+    public void notifyProjectileMovement(Projectile projectile) {
+        if (projectileCollision(projectile)) {
+            resetPlayer();
+        } else if (getTileFromCoordinates(projectile.getX(), projectile.getY()).equals(TileType.PASSABLE) == false) {
+            projectiles.remove(projectile);
+        }
+    }
+
+    private boolean projectileCollision(Projectile projectile) {
+        return projectile.getX() == getPlayerXCoordinate() && projectile.getY() == getPlayerYCoordinate();
+    }
+
+    protected void resetPlayer() {
+        System.out.println("Player reset.");
+        setPlayer(startX, startY);
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
+
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
 }
