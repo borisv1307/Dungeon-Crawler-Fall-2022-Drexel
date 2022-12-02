@@ -66,7 +66,8 @@ public class TilePainterTest {
         GameEngine engine = ObjectFactory.getDefaultGameEngine();
         engine.addProjectile(new Projectile(1, 1, 1, 1, 10000, engine));
         tilePainter.paintProjectiles(graphics, TILE_WIDTH, TILE_HEIGHT, engine);
-        Mockito.verify(graphics).fillOval(TILE_WIDTH, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+        int diff = TILE_HEIGHT - TILE_WIDTH;
+        Mockito.verify(graphics).fillOval(TILE_WIDTH, TILE_HEIGHT + (diff / 2), TILE_WIDTH, TILE_WIDTH);
     }
 
 }
