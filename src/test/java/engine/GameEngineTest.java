@@ -20,11 +20,13 @@ public class GameEngineTest {
     private static final int TWO = 2;
 
     GameEngine gameEngine;
+    CombatEngine combatEngine;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
+        combatEngine = new CombatEngine(gameEngine);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
@@ -94,7 +96,7 @@ public class GameEngineTest {
         createSlimeTile();
         int previousX = gameEngine.getEnemyXCoordinate();
         int previousY = gameEngine.getEnemyYCoordinate();
-        gameEngine.enemyKilled(previousX, previousY);
+        gameEngine.enemyKilled();
         int actualX = gameEngine.getEnemyXCoordinate();
         int actualY = gameEngine.getEnemyYCoordinate();
         assertFalse(actualX == previousX && actualY == previousY);
@@ -105,7 +107,7 @@ public class GameEngineTest {
         createPlayerTile();
         int previousX = gameEngine.getPlayerXCoordinate();
         int previousY = gameEngine.getPlayerYCoordinate();
-        gameEngine.playerKilled(previousX, previousY);
+        gameEngine.playerKilled();
         int actualX = gameEngine.getPlayerXCoordinate();
         int actualY = gameEngine.getPlayerXCoordinate();
         assertThat(actualX, equalTo(ZERO));
@@ -124,7 +126,7 @@ public class GameEngineTest {
     @Test
     public void player_dies_updates_status() {
         createPlayerTile();
-        gameEngine.playerKilled(0, 0);
+        gameEngine.playerKilled();
         assertEquals(GameStatus.PLAYER_DEFEATED, gameEngine.getGameStatus());
     }
 
@@ -134,7 +136,7 @@ public class GameEngineTest {
         gameEngine.setLevelHorizontalDimension(TWO);
         createPlayerTile();
         createSlimeTile();
-        gameEngine.enemyKilled(gameEngine.getEnemyXCoordinate(), gameEngine.getEnemyYCoordinate());
+        gameEngine.enemyKilled();
         String expected = String.format(GameStatus.ENEMY_DEFEATED, "Slime");
         assertEquals(expected, gameEngine.getGameStatus());
     }

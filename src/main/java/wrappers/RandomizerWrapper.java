@@ -1,26 +1,25 @@
-package engine;
+package wrappers;
 
 import entities.Enemy;
 import entities.Kobold;
 import entities.Orc;
 import entities.Slime;
-import wrappers.SystemWrapper;
 
-public class Randomizer {
-    static SystemWrapper systemWrapper = new SystemWrapper();
+public class RandomizerWrapper {
+    SystemWrapper systemWrapper;
 
-    private Randomizer() {
-        throw new IllegalStateException("Utility class");
+    public RandomizerWrapper(SystemWrapper systemWrapper) {
+        this.systemWrapper = systemWrapper;
     }
 
-    private static int getNonRandomInt(int limit) {
+    public int getNonRandomInt(int limit) {
         long nanoTime = systemWrapper.milliTime();
         int digit = (int) Math.abs(nanoTime % 100);
 
         return digit % -limit;
     }
 
-    static Enemy getRandomEnemy(int x, int y) {
+    public Enemy getRandomEnemy(int x, int y) {
         int numberOfEnemyTypes = 3;
         int nextMonsterInt = getNonRandomInt(numberOfEnemyTypes);
 
@@ -34,7 +33,7 @@ public class Randomizer {
         }
     }
 
-    static int getRandomNewCoordinate(int dimensionLimit) {
-        return Randomizer.getNonRandomInt(dimensionLimit);
+    public int getRandomNewCoordinate(int dimensionLimit) {
+        return getNonRandomInt(dimensionLimit);
     }
 }

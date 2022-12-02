@@ -6,6 +6,8 @@ import entities.Slime;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomizerWrapper;
+import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class GameEngine {
     private Player player;
     private Enemy enemy;
     private String gameStatus;
+    private RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
+    private CombatEngine combatEngine;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -31,6 +35,7 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
+        combatEngine = new CombatEngine(this);
     }
 
     public void run(GameFrame gameFrame) {
@@ -103,13 +108,6 @@ public class GameEngine {
         movement(0, 1);
     }
 
-    public void enemyKilled(int x, int y) {
-        ArrayList<Integer> newCoordinates = getNewCoordinates();
-        removeTile(x, y);
-        gameStatus = String.format(GameStatus.ENEMY_DEFEATED, enemy.getName());
-        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
-    }
-
     public boolean isExit() {
         return exit;
     }
@@ -139,27 +137,10 @@ public class GameEngine {
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         } else if (locationHasEnemy(attemptedLocation)) {
-            doCombat();
+            combatEngine.doCombat(player, enemy);
         }
     }
 
-    private void doCombat() {
-        int enemyHP = enemy.receiveDamage(player.getAttackValue());
-        int playerHP = player.receiveDamage(enemy.getAttackValue());
-        gameStatus = getCombatStatus();
-
-        if (enemyHP <= 0) {
-            enemyKilled(getEnemyXCoordinate(), getEnemyYCoordinate());
-        }
-
-        if (playerHP <= 0) {
-            playerKilled(getPlayerXCoordinate(), getPlayerYCoordinate());
-        }
-    }
-
-    private String getCombatStatus() {
-        return String.format(GameStatus.DAMAGE_TO_ENEMY, enemy.getName(), player.getAttackValue(), enemy.getArmorClass());
-    }
 
     private boolean isEnemyTile(TileType tileType) {
         switch (tileType) {
@@ -176,13 +157,29 @@ public class GameEngine {
         return enemy != null && isEnemyTile(attemptedLocation);
     }
 
+    public String getGameStatus() {
+        return this.gameStatus;
+    }
+
+    public void setGameStatus(String string) {
+        this.gameStatus = string;
+    }
+
+    public void playerKilled() {
+        int x = getPlayerXCoordinate();
+        int y = getPlayerYCoordinate();
+        removeTile(x, y);
+        player = new Player(player.getOriginX(), player.getOriginY());
+        setGameStatus(GameStatus.PLAYER_DEFEATED);
+    }
+
     private ArrayList<Integer> getNewCoordinates() {
-        int newXCoordinate = Randomizer.getRandomNewCoordinate(getLevelHorizontalDimension());
-        int newYCoordinate = Randomizer.getRandomNewCoordinate(getLevelVerticalDimension());
+        int newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
+        int newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
 
         while (!newPointIsValid(newXCoordinate, newYCoordinate)) {
-            newXCoordinate = Randomizer.getRandomNewCoordinate(getLevelHorizontalDimension());
-            newYCoordinate = Randomizer.getRandomNewCoordinate(getLevelVerticalDimension());
+            newXCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelHorizontalDimension());
+            newYCoordinate = randomizerWrapper.getRandomNewCoordinate(getLevelVerticalDimension());
         }
 
         return new ArrayList<>(Arrays.asList(newXCoordinate, newYCoordinate));
@@ -193,18 +190,18 @@ public class GameEngine {
         return (tileType == TileType.PASSABLE);
     }
 
-    private void createNewEnemy(int x, int y) {
-        enemy = Randomizer.getRandomEnemy(x, y);
-        tiles.put(enemy, enemy.getTileType());
-    }
-
-    public void playerKilled(int x, int y) {
+    public void enemyKilled() {
+        ArrayList<Integer> newCoordinates = getNewCoordinates();
+        int x = getEnemyXCoordinate();
+        int y = getEnemyYCoordinate();
         removeTile(x, y);
-        player = new Player(player.getOriginX(), player.getOriginY());
-        gameStatus = GameStatus.PLAYER_DEFEATED;
+        setGameStatus(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
+        createNewEnemy(newCoordinates.get(0), newCoordinates.get(1));
     }
 
-    public String getGameStatus() {
-        return this.gameStatus;
+
+    private void createNewEnemy(int x, int y) {
+        enemy = randomizerWrapper.getRandomEnemy(x, y);
+        tiles.put(enemy, enemy.getTileType());
     }
 }
