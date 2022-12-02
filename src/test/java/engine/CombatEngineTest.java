@@ -8,7 +8,8 @@ import org.junit.Test;
 import wrappers.RandomizerWrapper;
 import wrappers.SystemWrapper;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.*;
 
 public class CombatEngineTest {
     private static final int ZERO = 0;
@@ -16,7 +17,6 @@ public class CombatEngineTest {
     private static final int TWO = 2;
     GameEngine gameEngine;
     CombatEngine combatEngine;
-    CombatObject combatObject;
 
     @Before
     public void setUp() throws Exception {
@@ -24,20 +24,20 @@ public class CombatEngineTest {
         combatEngine = new CombatEngine(randomizerWrapper);
     }
 
-//    @Test
-//    public void player_respawns_on_death() {
-//        Player initialPlayer = createPlayer();
-//        initialPlayer.move(ZERO, ONE);
-//        int previousX = (int) initialPlayer.getX();
-//        int previousY = (int) initialPlayer.getY();
-//        Player respawnedPlayer = combatEngine.killPlayer(initialPlayer);
-//        int actualX = (int) respawnedPlayer.getX();
-//        int actualY = (int) respawnedPlayer.getY();
-//        assertThat(actualX, equalTo(ZERO));
-//        assertThat(actualY, equalTo(ZERO));
-//        assertFalse(actualX == previousX && actualY == previousY);
-//        assertFalse(initialPlayer.equals(respawnedPlayer));
-//    }
+    @Test
+    public void player_respawns_on_death() {
+        Player initialPlayer = createPlayer();
+        initialPlayer.move(ZERO, ONE);
+        int previousX = (int) initialPlayer.getX();
+        int previousY = (int) initialPlayer.getY();
+        Player respawnedPlayer = combatEngine.killPlayer(initialPlayer);
+        int actualX = (int) respawnedPlayer.getX();
+        int actualY = (int) respawnedPlayer.getY();
+        assertThat(actualX, equalTo(ZERO));
+        assertThat(actualY, equalTo(ZERO));
+        assertFalse(actualX == previousX && actualY == previousY);
+        assertEquals(true, initialPlayer.equals(respawnedPlayer));
+    }
 
     @Test
     public void enemy_dies_updates_status() {
@@ -45,6 +45,20 @@ public class CombatEngineTest {
         combatEngine.killEnemy(enemy);
         String expected = String.format(GameStatus.ENEMY_DEFEATED, "Slime");
         assertEquals(expected, combatEngine.getGameStatusString());
+    }
+
+    @Test
+    public void spawn_new_enemy_on_defeat() {
+        Enemy enemy = createSlime();
+        Player player = createPlayer();
+        int previousX = (int) enemy.getX();
+        int previousY = (int) enemy.getY();
+        CombatObject combatObject = new CombatObject(player, enemy);
+        CombatObject returnObject = combatEngine.doCombat(combatObject);
+        Enemy newEnemy = returnObject.enemy;
+        int actualX = (int) newEnemy.getX();
+        int actualY = (int) newEnemy.getY();
+        assertFalse(enemy.equals(newEnemy));
     }
 
     @Test

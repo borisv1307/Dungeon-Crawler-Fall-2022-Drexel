@@ -90,20 +90,6 @@ public class GameEngineTest {
         assertNotEquals(actualTileType, TileType.KOBOLD);
     }
 
-//    @Test
-//    public void spawn_new_enemy_on_defeat() {
-//        gameEngine.setLevelVerticalDimension(TWO);
-//        gameEngine.setLevelHorizontalDimension(TWO);
-//        createPlayerTile();
-//        createSlimeTile();
-//        int previousX = gameEngine.getEnemyXCoordinate();
-//        int previousY = gameEngine.getEnemyYCoordinate();
-//        combatEngine.killEnemy(gameEngine.getEnemy());
-//        int actualX = gameEngine.getEnemyXCoordinate();
-//        int actualY = gameEngine.getEnemyYCoordinate();
-//        assertFalse(actualX == previousX && actualY == previousY);
-//    }
-
     @Test
     public void set_and_get_exit() {
         boolean exit = true;

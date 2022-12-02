@@ -47,10 +47,10 @@ public class GameEngine {
 
     public void addTile(int x, int y, TileType tileType) {
         if (tileType.equals(TileType.PLAYER)) {
-            setNewPlayer(x, y);
+            setPlayer(x, y);
             tiles.put(player, TileType.PASSABLE);
         } else if (isEnemyTile(tileType)) {
-            setNewEnemy(x, y);
+            setEnemy(x, y);
             tiles.put(enemy, enemy.getTileType());
         } else {
             tiles.put(new Point(x, y), tileType);
@@ -122,7 +122,7 @@ public class GameEngine {
         tiles.put(new Point(x, y), TileType.PASSABLE);
     }
 
-    private void setNewPlayer(int x, int y) {
+    private void setPlayer(int x, int y) {
         if (player == null) {
             player = new Player(x, y);
         } else {
@@ -130,17 +130,21 @@ public class GameEngine {
         }
     }
 
-    private void setNewEnemy(int x, int y) {
+    private void setEnemy(int x, int y) {
         enemy = new Slime(x, y);
     }
 
     private void movement(int deltaX, int deltaY) {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
-            setNewPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         } else if (locationHasEnemy(attemptedLocation)) {
             doCombat(player, enemy);
         }
+    }
+
+    Enemy getEnemy() {
+        return this.enemy;
     }
 
     boolean locationHasEnemy(TileType attemptedLocation) {
@@ -149,14 +153,6 @@ public class GameEngine {
 
     public String getGameStatus() {
         return this.gameStatus;
-    }
-
-    public Enemy getEnemy() {
-        return this.enemy;
-    }
-
-    public Player getPlayer() {
-        return this.player;
     }
 
     public void doCombat(Player player, Enemy enemy) {
