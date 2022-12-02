@@ -126,7 +126,8 @@ public class GameEngine {
         if (player == null) {
             player = new Player(x, y);
         } else {
-            player = player.copyPlayerToNewLocation(x, y);
+            player.move(x, y);
+            tiles.put(player, TileType.PASSABLE);
         }
     }
 

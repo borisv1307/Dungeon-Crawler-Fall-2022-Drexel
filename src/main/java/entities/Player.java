@@ -13,16 +13,6 @@ public class Player extends Entity {
         this.originY = y;
     }
 
-    public Player copyPlayerToNewLocation(int x, int y) {
-        Player newPlayer = new Player(x, y);
-        newPlayer.hitPoints = this.hitPoints;
-        newPlayer.armorClass = this.armorClass;
-        newPlayer.attackValue = this.attackValue;
-        newPlayer.originX = this.originX;
-        newPlayer.originY = this.originY;
-        return newPlayer;
-    }
-
     public int getOriginX() {
         return originX;
     }

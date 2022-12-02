@@ -44,10 +44,13 @@ public class EntityTest {
     public void copy_player_to_new_location() {
         int x = 2;
         int y = 2;
-        Player newPlayer = player.copyPlayerToNewLocation(x, y);
-        assertEquals(true, newPlayer.equals(player));
-        assertNotEquals(player.getX(), newPlayer.getX());
-        assertNotEquals(player.getY(), newPlayer.getY());
+        Player player = new Player(0, 0);
+        String playerUniqueId = player.uniqueId.toString();
+        player.move(x, y);
+        String playerMovedUniqueId = player.uniqueId.toString();
+        assertNotEquals(0, player.getX());
+        assertNotEquals(0, player.getY());
+        assertEquals(playerUniqueId, playerMovedUniqueId);
     }
 
     @Test
