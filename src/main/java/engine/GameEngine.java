@@ -7,6 +7,7 @@ import ui.GameFrame;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class GameEngine {
 
@@ -110,6 +111,34 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+        }
+        moveEnemy();
+    }
+
+    public void enemyMovement(int deltaX, int deltaY) {
+       TileType attemptedLocation = getTileFromCoordinates(getEnemyXCoordinate() + deltaX, getEnemyYCoordinate() + deltaY);
+        if (attemptedLocation.equals(TileType.PASSABLE)) {
+            setEnemy(getEnemyXCoordinate() + deltaX, getEnemyYCoordinate() + deltaY);
+        }
+        else {
+            moveEnemy();
+        }
+    }
+
+    public void moveEnemy() {
+        Random random = new Random();
+        int opt = random.nextInt(4);
+        if (opt == 0) {
+            enemyMovement(-1, 0);
+        }
+        else if (opt == 1) {
+            enemyMovement(1, 0);
+        }
+        else if (opt == 2) {
+            enemyMovement(0, -1);
+        }
+        else if (opt == 3) {
+            enemyMovement(0, 1);
         }
     }
 

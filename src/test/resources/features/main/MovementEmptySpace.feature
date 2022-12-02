@@ -3,11 +3,11 @@ Feature: Move the player into empty space
 
   Background:
     Given the level design is:
-      | XXXXX |
-      | X   X |
-      | X P X |
-      | X   X |
-      | XXXXX |
+      | XXXXXX  |
+      | X   X X |
+      | X P XEX |
+      | X   XX  |
+      | XXXXX   |
 
   Scenario: Move left into empty space
     When the player moves left
