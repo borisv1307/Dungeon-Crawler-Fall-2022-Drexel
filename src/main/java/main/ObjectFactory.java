@@ -2,22 +2,22 @@ package main;
 
 import board.piece.BoardPieceFactory;
 import engine.GameEngine;
-import parser.FileLevelCreator;
 import parser.LevelCreator;
+import parser.RandomLevelCreator;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import ui.GamePanel;
 import ui.TilePainter;
 import ui.WindowAdapterSystemExit;
 import values.TunableParameters;
-import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
+import java.util.Random;
+
 public abstract class ObjectFactory {
     private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
-    private static LevelCreator defaultLevelCreator = new FileLevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
-            new ReaderWrapper(), new BoardPieceFactory());
+    private static LevelCreator defaultLevelCreator = new RandomLevelCreator(new BoardPieceFactory(), new Random(), 5, 20, 20);
     private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
     private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
             new WindowAdapterSystemExit(defaultGameEngine));
