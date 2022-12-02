@@ -1,10 +1,7 @@
 package parser;
 
 import board.GameBoard;
-import board.piece.BoardPiece;
 import board.piece.BoardPieceFactory;
-import board.piece.Empty;
-import board.piece.Wall;
 import engine.GameEngine;
 import enums.TileType;
 
@@ -30,6 +27,7 @@ public class RandomLevelCreator extends LevelCreator {
         final GameBoard gameBoard = new GameBoard(boardPieceFactory, xDimension, yDimension);
         random.setSeed(seed + level);
 
+        generateBasicBoard(gameBoard);
         generateAndAddBoardPiece(gameBoard, TileType.PLAYER);
         generateAndAddBoardPiece(gameBoard, TileType.ENEMY);
         generateAndAddBoardPiece(gameBoard, TileType.GOAL);
@@ -52,18 +50,14 @@ public class RandomLevelCreator extends LevelCreator {
 
     }
 
-    private BoardPiece[][] generateBasicBoard() {
-        BoardPiece[][] boardPieces = new BoardPiece[xDimension][yDimension];
-        for (int x = 0; x < boardPieces.length; x++) {
-            for (int y = 0; y < boardPieces[x].length; y++) {
-                if (isEdge(x, y)) {
-                    boardPieces[x][y] = new Wall(new Point(x, y));
-                } else {
-                    boardPieces[x][y] = new Empty(new Point(x, y));
-                }
+    private void generateBasicBoard(GameBoard gameBoard) {
+        for (int x = 0; x < xDimension; x++) {
+            for (int y = 0; y < yDimension; y++) {
+                Point point = new Point(x, y);
+                TileType tileType = isEdge(x, y) ? TileType.WALL : TileType.EMPTY;
+                gameBoard.addBoardPiece(tileType, point);
             }
         }
-        return boardPieces;
     }
 
     private boolean isEdge(int x, int y) {

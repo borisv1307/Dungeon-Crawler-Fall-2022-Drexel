@@ -2,7 +2,6 @@ package parser;
 
 import board.GameBoard;
 import board.piece.BoardPieceFactory;
-import board.piece.MovableBoardPiece;
 import engine.GameEngine;
 import enums.TileType;
 import values.TunableParameters;
@@ -12,8 +11,6 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,7 +41,6 @@ public class FileLevelCreator extends LevelCreator {
     }
 
     private void readGameBoard(BufferedReader reader, GameEngine gameEngine) {
-        final Map<TileType, MovableBoardPiece> movableBoardPieces = new HashMap<>();
         try {
             final int xDimension = getNextInteger(reader);
             final int yDimension = getNextInteger(reader);

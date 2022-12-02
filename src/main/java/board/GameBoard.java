@@ -8,7 +8,7 @@ import enums.Result;
 import enums.TileType;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class GameBoard {
 
     public GameBoard(BoardPieceFactory boardPieceFactory, int xDimension, int yDimension) {
         this.boardPieces = new BoardPiece[xDimension][yDimension];
-        this.movableBoardPieces = new HashMap<>();
+        this.movableBoardPieces = new EnumMap<>(TileType.class);
         this.boardPieceFactory = boardPieceFactory;
     }
 
