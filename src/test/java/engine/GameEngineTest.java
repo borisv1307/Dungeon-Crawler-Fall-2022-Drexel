@@ -16,7 +16,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNotEquals;
 
 public class GameEngineTest {
-
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
