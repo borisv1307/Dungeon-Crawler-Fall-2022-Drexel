@@ -84,14 +84,6 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    public int getXCoordinate(final TileType tileType) {
-        return gameBoard.getMovableBoardPiece(tileType).getLocation().x;
-    }
-
-    public int getYCoordinate(final TileType tileType) {
-        return gameBoard.getMovableBoardPiece(tileType).getLocation().y;
-    }
-
     public int getLevel() {
         return level;
     }

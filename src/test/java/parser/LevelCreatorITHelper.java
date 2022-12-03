@@ -1,6 +1,8 @@
 package parser;
 
+import board.piece.BoardPiece;
 import board.piece.BoardPieceFactory;
+import board.piece.Player;
 import engine.GameEngine;
 import enums.TileType;
 import org.mockito.Mockito;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertTrue;
 
 public class LevelCreatorITHelper {
 
@@ -57,16 +60,8 @@ public class LevelCreatorITHelper {
     }
 
     protected void playerIsLocatedAt(int playerX, int playerY) throws Throwable {
-        checkPlayerXCoordinate(playerX);
-        checkPlayerYCoordinate(playerY);
-    }
-
-    protected void checkPlayerXCoordinate(int playerX) throws Throwable {
-        assertThat(gameEngine.getXCoordinate(TileType.PLAYER), equalTo(playerX));
-    }
-
-    protected void checkPlayerYCoordinate(int playerY) throws Throwable {
-        assertThat(gameEngine.getYCoordinate(TileType.PLAYER), equalTo(playerY));
+        BoardPiece boardPiece = gameEngine.getGameBoard().getBoardPieceFromCoordinates(playerX, playerY);
+        assertTrue(boardPiece instanceof Player);
     }
 
     protected void checkTileTypeByLocation(int x, int y, char tileChar) throws Throwable {

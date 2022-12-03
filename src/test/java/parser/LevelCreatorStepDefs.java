@@ -18,7 +18,6 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 @StepDefAnnotation
@@ -37,22 +36,6 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
     @Given("^level is:$")
     public void level_is(List<String> levelStrings) throws Throwable {
         writeLevelFile(1, levelStrings);
-    }
-
-    @Given("^I have a seed of (\\d+)$")
-    public void i_have_a_seed_of(int seed) throws Throwable {
-        this.seed = seed;
-    }
-
-    @When("^I randomly generate level 1 with an x of (\\d+) and a y of (\\d+)$")
-    public void i_randomly_generate_a_level_with_obstacles_an_x_of_and_a_y_of(int x, int y) throws Throwable {
-        RandomLevelCreator levelCreator = new RandomLevelCreator(new BoardPieceFactory(), seed, x, y);
-
-        try {
-            gameEngine = new GameEngine(levelCreator);
-        } catch (IllegalArgumentException e) {
-            exceptionMessage = e.getMessage();
-        }
     }
 
     @When("^I create the level$")
@@ -75,14 +58,6 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
         LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper, new BoardPieceFactory());
         gameEngine = new GameEngine(levelCreator);
-    }
-
-    @When("^I randomly generate level (\\d+)$")
-    public void i_randomly_generate_level(int level) {
-        originalEnemyLocation = gameEngine.getGameBoard().getMovableBoardPiece(TileType.ENEMY).getLocation();
-        originalPlayerLocation = gameEngine.getGameBoard().getMovableBoardPiece(TileType.PLAYER).getLocation();
-        originalGoalLocation = getGoalLocation();
-        gameEngine.regenerateLevel(level);
     }
 
     @Then("^the board dimensions are x = (\\d+) and y = (\\d+)$")
@@ -124,38 +99,6 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         assertSame(Goal.class, boardPiece.getClass());
     }
 
-    @Then("^the enemy locations are different$")
-    public void the_enemy_locations_are_different() {
-        assertMovableBoardPiecePointsAreNotEqual(originalEnemyLocation, TileType.ENEMY);
-    }
-
-    @Then("^the goal locations are different$")
-    public void the_goal_locations_are_different() {
-        Point actualGoalLocation = getGoalLocation();
-        assertNotEquals(originalGoalLocation, actualGoalLocation);
-    }
-
-    @Then("^the player locations are different$")
-    public void the_player_locations_are_different() {
-        assertMovableBoardPiecePointsAreNotEqual(originalPlayerLocation, TileType.PLAYER);
-    }
-
-    @Then("^the enemy locations are the same$")
-    public void the_enemy_locations_are_the_same() {
-        assertMovableBoardPiecePointsAreEqual(originalEnemyLocation, TileType.ENEMY);
-    }
-
-    @Then("^the goal locations are the same$")
-    public void the_goal_locations_are_the_same() {
-        Point actualGoalLocation = getGoalLocation();
-        assertEquals(originalGoalLocation, actualGoalLocation);
-    }
-
-    @Then("^the player locations are the same$")
-    public void the_player_locations_are_the_same() {
-        assertMovableBoardPiecePointsAreEqual(originalPlayerLocation, TileType.PLAYER);
-    }
-
     @Then("^starting from the top-left:$")
     public void starting_from_the_top_left() {
     }
@@ -183,27 +126,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         assertThat(true, equalTo(gameEngine.isExit()));
     }
 
-    private void assertMovableBoardPiecePointsAreEqual(Point originalPoint, TileType tileType) {
-        assertThat(new Point(gameEngine.getXCoordinate(tileType), gameEngine.getYCoordinate(tileType)), equalTo(originalPoint));
-    }
-
-    private void assertMovableBoardPiecePointsAreNotEqual(Point originalPoint, TileType tileType) {
-        assertThat(new Point(gameEngine.getXCoordinate(tileType), gameEngine.getYCoordinate(tileType)), not(equalTo(originalPoint)));
-    }
-
     private BoardPiece getBoardPiece(int xCoordinate, int yCoordinate) {
         return gameEngine.getGameBoard().getBoardPieceFromCoordinates(xCoordinate - COORDINATE_OFFSET, yCoordinate - COORDINATE_OFFSET);
-    }
-
-    private Point getGoalLocation() {
-        for (int x = 0; x < gameEngine.getLevelHorizontalDimension(); x++) {
-            for (int y = 0; y < gameEngine.getLevelVerticalDimension(); y++) {
-                BoardPiece boardPiece = gameEngine.getGameBoard().getBoardPieceFromCoordinates(x, y);
-                if (boardPiece.getTileType() == TileType.GOAL) {
-                    return boardPiece.getLocation();
-                }
-            }
-        }
-        throw new AssertionError("Failed to find Goal on board");
     }
 }
