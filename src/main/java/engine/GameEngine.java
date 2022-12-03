@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.*;
 
 public class GameEngine {
-
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
@@ -138,7 +137,6 @@ public class GameEngine {
                     tilesToBeUpdated.add(passableTile);
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -183,7 +181,7 @@ public class GameEngine {
     public void refreshCollectableObjects() {
         int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
         List<Point> tilesToBeUpdated = getTilesForObjects(randomNumberOfObjects);
-        if (collectableObjects.size() > 0) {
+        if (collectableObjects.isEmpty()) {
             removePreviouslyAddedObjects();
         }
         addObjectsToTheGame(tilesToBeUpdated);
