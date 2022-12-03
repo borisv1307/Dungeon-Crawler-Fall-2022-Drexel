@@ -23,7 +23,8 @@ public class TilePainter {
     }
 
     void paintProjectiles(Graphics graphics, int tileWidth, int tileHeight, GameEngine game) {
-        int x, y;
+        int x;
+        int y;
         graphics.setColor(TileColorMap.projectileColor());
         for (Projectile i : game.getProjectiles()) {
             x = i.getX();

@@ -6,7 +6,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Projectile {
-    private int x, y, deltaX, deltaY, interval, totalIterations, iterations;
+    private int x;
+    private int y;
+    private int deltaX;
+    private int deltaY;
+    private int interval;
+    private int totalIterations;
+    private int iterations;
     private GameEngine engine;
     private Timer timer;
 

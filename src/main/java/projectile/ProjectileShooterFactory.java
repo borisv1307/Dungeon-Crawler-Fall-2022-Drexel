@@ -27,7 +27,8 @@ public class ProjectileShooterFactory {
 
             case RIGHT_SHOOTER:
                 return new RightProjectileShooter(x, y, interval, projectileInterval, engine);
+            default:
+                throw new IllegalArgumentException("Invalid TileType");
         }
-        throw new IllegalArgumentException("Invalid TileType");
     }
 }

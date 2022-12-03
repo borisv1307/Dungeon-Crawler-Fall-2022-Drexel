@@ -132,7 +132,7 @@ public class GameEngine {
     public void notifyProjectileMovement(Projectile projectile) {
         if (projectileCollision(projectile)) {
             resetPlayer();
-        } else if (getTileFromCoordinates(projectile.getX(), projectile.getY()).equals(TileType.PASSABLE) == false) {
+        } else if (!getTileFromCoordinates(projectile.getX(), projectile.getY()).equals(TileType.PASSABLE)) {
             projectile.stop();
             projectiles.remove(projectile);
         }
