@@ -38,7 +38,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        bomb = new Point((int) (randomNumber * 17) + 1, 1);
+        bomb = new Point((int) (randomNumber * 18) + 1, 1);
         ticker = 0;
     }
 
@@ -130,13 +130,13 @@ public class GameEngine {
     public int getBombYCoordinate() {
         ticker++;
         int y = (int) bomb.getY();
-        if (ticker % 50 == 0) {
+        if (ticker % 10 == 0) {
             y++;
             int x = (int) bomb.getX();
             TileType attemptedLocation = getTileFromCoordinates(x, y);
             if (attemptedLocation.equals(TileType.NOT_PASSABLE)) {
                 randomNumber = randomWrapper.mathRandom();
-                x = (int) (randomNumber * 17) + 1;
+                x = (int) (randomNumber * 18) + 1;
                 y = 1;
             }
             bomb = new Point(x, y);

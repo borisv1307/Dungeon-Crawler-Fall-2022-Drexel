@@ -3,11 +3,11 @@ Feature: Move the player into empty space
 
   Background:
     Given the level design is:
-      | XXXXXXXXXXXXXXXX |
-      | X              X |
-      | X              X |
-      | X      P       X |
-      | XXXXXXXXXXXXXXXX |
+      | XXXXXXXXXXXXXXXXXXXX |
+      | X                  X |
+      | X                  X |
+      | X      P           X |
+      | XXXXXXXXXXXXXXXXXXXX |
 
   Scenario: Move player into bomb
     When the player hits bomb
