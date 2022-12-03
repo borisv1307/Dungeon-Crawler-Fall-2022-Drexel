@@ -92,7 +92,7 @@ public class GameEngineTest {
         expected.add(new Point(0, 1));
         expected.add(new Point(1, 1));
         initializeSimpleGameEngine(gameEngine);
-        ArrayList<Point> actual = gameEngine.getAllPassableTiles();
+        ArrayList<Point> actual = (ArrayList<Point>) gameEngine.getAllPassableTiles();
         assertArrayEquals(expected.toArray(), actual.toArray());
     }
 

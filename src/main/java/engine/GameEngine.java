@@ -127,11 +127,11 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    public List<Point> getPassableTiles(int numberOfTilesNeeded) {
+    public List<Point> getTilesForObjects(int numberOfTilesNeeded) {
         ArrayList<Point> tilesToBeUpdated = new ArrayList<>();
-        ArrayList<Point> passableTiles = getAllPassableTiles();
+        List<Point> passableTiles = getAllPassableTiles();
         for (int i = 0; i < numberOfTilesNeeded; i++) {
-            randomWrapper.setAllPassableTiles(passableTiles);
+            randomWrapper.setAllPassableTiles((ArrayList<Point>) passableTiles);
             Point passableTile = randomWrapper.getRandomPassableTile();
             if (!tilesToBeUpdated.contains(passableTile)) {
                 tilesToBeUpdated.add(passableTile);
@@ -152,7 +152,7 @@ public class GameEngine {
         collectableObjects.add(tileToBeUpdated);
     }
 
-    public ArrayList<Point> getAllPassableTiles() {
+    public List<Point> getAllPassableTiles() {
         ArrayList<Point> emptyTiles = new ArrayList<>();
         for (Map.Entry<Point, TileType> singleTile : tiles.entrySet()) {
             TileType singleTileType = singleTile.getValue();
@@ -177,7 +177,7 @@ public class GameEngine {
 
     public void refreshCollectableObjects() {
         int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
-        List<Point> tilesToBeUpdated = getPassableTiles(randomNumberOfObjects);
+        List<Point> tilesToBeUpdated = getTilesForObjects(randomNumberOfObjects);
         if (collectableObjects != null) {
             removePreviouslyAddedObjects();
         }
