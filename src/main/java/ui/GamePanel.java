@@ -45,7 +45,6 @@ public class GamePanel extends Panel {
         paint(dbg);
         graphics.drawImage(dbImage, 0, 0, this);
         graphics.setColor(Color.WHITE);
-        //graphics.drawString("Hitpoints: " + gameEngine.getPlayerHitpoints(), 5, 15);
     }
 
     @Override

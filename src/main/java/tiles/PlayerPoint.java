@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class PlayerPoint extends Point {
     private int hitpoints;
@@ -31,6 +32,11 @@ public class PlayerPoint extends Point {
         if (hitpoints > 10) {
             hitpoints = 10;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), hitpoints);
     }
 
     @Override
