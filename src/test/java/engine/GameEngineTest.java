@@ -113,6 +113,50 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void projectile_move_right() {
+		TileType tileType = TileType.PROJECTILE;
+		gameEngine.addTile(ZERO, ONE, tileType, "right");
+		gameEngine.moveProjectileRight();
+		int actualX = gameEngine.getProjectileXCoordinate("right");
+		int actualY = gameEngine.getProjectileYCoordinate("right");
+		assertThat(actualX, equalTo(ONE));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void projectile_move_left() {
+		TileType tileType = TileType.PROJECTILE;
+		gameEngine.addTile(ONE, ONE, tileType, "left");
+		gameEngine.moveProjectileLeft();
+		int actualX = gameEngine.getProjectileXCoordinate("left");
+		int actualY = gameEngine.getProjectileYCoordinate("left");
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void projectile_move_down() {
+		TileType tileType = TileType.PROJECTILE;
+		gameEngine.addTile(ZERO, ZERO, tileType, "down");
+		gameEngine.moveProjectileDown();
+		int actualX = gameEngine.getProjectileXCoordinate("down");
+		int actualY = gameEngine.getProjectileYCoordinate("down");
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void projectile_move_up() {
+		TileType tileType = TileType.PROJECTILE;
+		gameEngine.addTile(ZERO, ONE, tileType, "up");
+		gameEngine.moveProjectileUp();
+		int actualX = gameEngine.getProjectileXCoordinate("up");
+		int actualY = gameEngine.getProjectileYCoordinate("up");
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ZERO));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);
