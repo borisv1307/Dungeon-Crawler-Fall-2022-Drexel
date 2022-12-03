@@ -5,14 +5,15 @@ import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 public class GameEngine {
 
     private final LevelCreator levelCreator;
-    private final Random random;
+    private final SecureRandom random;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     private boolean exit;
@@ -26,7 +27,7 @@ public class GameEngine {
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
-        random = new Random();
+        random = new SecureRandom();
     }
 
     public void run(GameFrame gameFrame) {
