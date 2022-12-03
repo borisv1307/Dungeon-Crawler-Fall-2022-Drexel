@@ -24,4 +24,8 @@ public final class TileColorMap {
     public static Color get(TileType key) {
         return tileColors.get(key);
     }
+
+    public static Color projectileColor() {
+        return Color.blue;
+    }
 }
