@@ -52,15 +52,5 @@ public class TilePainterTest {
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.EMPTY));
         inOrder.verify(graphics).fillRect(10, 20, 10, 20);
         inOrder.verify(graphics).fillRect(10, 40, 10, 20);
-
     }
-
-    @Test
-    public void paint_player() {
-
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
-
-        Mockito.verify(graphics).fillRect(20, 60, 10, 20);
-    }
-
 }

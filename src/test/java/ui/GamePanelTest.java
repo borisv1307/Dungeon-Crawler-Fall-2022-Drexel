@@ -25,7 +25,7 @@ public class GamePanelTest {
     TilePainter tilePainter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         gameEngine = Mockito.mock(GameEngine.class);
         tilePainter = Mockito.mock(TilePainter.class);
         Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
@@ -38,14 +38,8 @@ public class GamePanelTest {
     @Test
     public void paint() {
         Graphics graphics = Mockito.mock(Graphics.class);
-        int playerXCoordinate = 2;
-        int playerYCoordinate = 3;
-        Mockito.when(gameEngine.getXCoordinate(TileType.PLAYER)).thenReturn(playerXCoordinate);
-        Mockito.when(gameEngine.getYCoordinate(TileType.PLAYER)).thenReturn(playerYCoordinate);
         gamePanel.paint(graphics);
         Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-        Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
-                TileType.PLAYER);
     }
 
     @Test
