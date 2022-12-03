@@ -3,6 +3,7 @@ package engine;
 import entity.Enemy;
 import entity.Player;
 import parser.LevelCreator;
+import values.TileColorMap;
 
 public class CombatManagement {
     private GameEngine gameEngine;
@@ -28,11 +29,20 @@ public class CombatManagement {
             if (enemyCurrentHealth <= 0) {
                 break;
             }
-            playerCurrentHealth -= enemy.getAttackPoint();
+            managePlayerHealth(enemy);
         }
 
-        if (playerCurrentHealth <= 0) {
-            levelCreator.createLevel(gameEngine, 4);
+        battlerResult();
+    }
+
+    void managePlayerHealth(Enemy enemy) {
+        player.takeDamage(enemy.getAttackPoint());
+        TileColorMap.changePlayerHpBar(player);
+    }
+
+    private void battlerResult() {
+        if (player.getCurrentHealthPoint() <= 0) {
+            lose();
         } else {
             win();
         }
@@ -41,5 +51,10 @@ public class CombatManagement {
     private void win() {
         player.levelUp();
         levelCreator.createLevel(gameEngine, 1);
+    }
+
+    private void lose() {
+        levelCreator.createLevel(gameEngine, 4);
+        player.resetPlayerStatus();
     }
 }

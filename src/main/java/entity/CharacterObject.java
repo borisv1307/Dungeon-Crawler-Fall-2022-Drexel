@@ -8,11 +8,16 @@ public abstract class CharacterObject {
 
 
     CharacterObject() {
+        setToDefaultStatus();
+    }
+
+    void setToDefaultStatus() {
         level = 1;
         maxHealthPoint = 10;
         attackPoint = 10;
         currentHealthPoint = maxHealthPoint;
     }
+
 
     public int getLevel() {
         return level;
@@ -31,7 +36,7 @@ public abstract class CharacterObject {
     }
 
     public void takeDamage(int healthPointLost) {
-        currentHealthPoint-=healthPointLost;
+        currentHealthPoint -= healthPointLost;
     }
 
     public int getAttackPoint() {

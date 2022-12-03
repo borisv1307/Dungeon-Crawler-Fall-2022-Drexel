@@ -15,7 +15,7 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent event) {
-        //The InputListener class do not need to implement this method
+        //The InputListener class do not need to implement this method: SonarCloud will give code smell if left empty
 
     }
 
@@ -28,7 +28,7 @@ public class InputListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent event) {
-        //The InputListener class do not need to implement this method
+        //The InputListener class do not need to implement this method: SonarCloud will give code smell if left empty
     }
 
     void performAction(int key) {
