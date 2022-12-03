@@ -178,7 +178,7 @@ public class GameEngine {
     public void refreshCollectableObjects() {
         int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
         List<Point> tilesToBeUpdated = getTilesForObjects(randomNumberOfObjects);
-        if (collectableObjects != null) {
+        if (collectableObjects.size() > 0) {
             removePreviouslyAddedObjects();
         }
         addObjectsToTheGame(tilesToBeUpdated);
