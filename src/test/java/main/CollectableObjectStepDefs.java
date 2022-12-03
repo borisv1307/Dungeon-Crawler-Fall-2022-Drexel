@@ -44,12 +44,6 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
         when(randomWrapper.getRandomPassableTile()).thenReturn(point);
     }
 
-//    @Then("^an object will be placed on that tile$")
-//    public void an_object_will_be_placed_on_that_tile() {
-//        Point pointToUpdate = mock(Point.class);
-//        gameEngine.addObjectToTile(pointToUpdate);
-//    }
-
     @When("^the game has been active for (\\d+) seconds$")
     public void theGameHasBeenActiveForSeconds(int numberOfSeconds) {
         gameEngine.activateGameTimer(numberOfSeconds);
