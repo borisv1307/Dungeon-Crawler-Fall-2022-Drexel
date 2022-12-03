@@ -9,6 +9,7 @@ import wrappers.RandomizerWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EnemySpawner {
     private RandomizerWrapper randomizerWrapper;
@@ -42,7 +43,7 @@ public class EnemySpawner {
     }
 
     boolean isNotPlayerSpawn(int x, int y) {
-        ArrayList<Integer> playerSpawnCoordinates = gameEngine.getPlayerSpawnPoint();
+        List<Integer> playerSpawnCoordinates = gameEngine.getPlayerSpawnPoint();
         if (playerSpawnCoordinates != null && playerSpawnCoordinates.size() == 2) {
             return (playerSpawnCoordinates.get(0) != x && playerSpawnCoordinates.get(1) != y);
         }

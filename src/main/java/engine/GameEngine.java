@@ -9,9 +9,9 @@ import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameEngine {
@@ -76,8 +76,8 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
-    public ArrayList<Integer> getPlayerSpawnPoint() {
-        return new ArrayList<>(Arrays.asList(player.getSpawnCoordinateX(), player.getSpawnCoordinateY()));
+    public List<Integer> getPlayerSpawnPoint() {
+        return Arrays.asList(player.getSpawnCoordinateX(), player.getSpawnCoordinateY());
     }
 
     public int getPlayerXCoordinate() {
