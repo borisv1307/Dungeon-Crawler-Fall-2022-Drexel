@@ -1,7 +1,5 @@
 package entity;
 
-import engine.CombatManagement;
-
 public class Player extends CharacterObject {
 
     public Player() {
@@ -12,6 +10,7 @@ public class Player extends CharacterObject {
         level += 1;
         levelStatChange();
     }
+
     private void levelStatChange() {
         int baseState = 10;
         setMaxHealthPoint(baseState + level * 5);
