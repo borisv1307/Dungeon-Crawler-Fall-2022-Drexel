@@ -35,7 +35,7 @@ public class GameBoard {
         return boardPieces[x][y];
     }
 
-    public Result movement(final TileType tileType, final Direction direction) {
+    public Result moveBoardPiece(final TileType tileType, final Direction direction) {
         final MovableBoardPiece movableBoardPiece = getMovableBoardPiece(tileType);
         final Point startingLocation = movableBoardPiece.getLocation();
         final Point attemptedLocation = new Point(startingLocation.x + direction.getDeltaX(), startingLocation.y + direction.getDeltaY());
@@ -54,11 +54,16 @@ public class GameBoard {
         final List<Point> validMoves = movableBoardPiece.getValidMoves(boardPieces);
         Result result = Result.CONTINUE;
         if (validMoves.contains(attemptedLocation)) {
-            Point startingLocation = movableBoardPiece.getLocation();
-            TileType displacedTileType = movableBoardPiece.setLocation(attemptedLocation, boardPieces).getTileType();
-            addBoardPiece(TileType.EMPTY, startingLocation);
-            result = handleLevelCompletion(movableBoardPiece.getTileType(), displacedTileType);
+            result = move(movableBoardPiece, attemptedLocation);
         }
+        return result;
+    }
+
+    private Result move(MovableBoardPiece movableBoardPiece, Point attemptedLocation) {
+        Point startingLocation = movableBoardPiece.getLocation();
+        TileType displacedTileType = movableBoardPiece.setLocation(attemptedLocation, boardPieces).getTileType();
+        addBoardPiece(TileType.EMPTY, startingLocation);
+        Result result = handleLevelCompletion(movableBoardPiece.getTileType(), displacedTileType);
         return result;
     }
 

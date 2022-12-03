@@ -16,12 +16,14 @@ public class GameEngine {
     private int level;
     private int wins;
     private boolean exit;
+    private int playerMovesSinceLastEnemyMove;
 
     public GameEngine(final LevelCreator levelCreator) {
         exit = false;
         level = 1;
         wins = 0;
         losses = 0;
+        playerMovesSinceLastEnemyMove = 0;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
     }
@@ -53,8 +55,16 @@ public class GameEngine {
     }
 
     public void movement(final TileType tileType, final Direction direction) {
-        final Result result = gameBoard.movement(tileType, direction);
+        if (tileType == TileType.PLAYER) {
+            playerMovesSinceLastEnemyMove++;
+        }
+        final Result result = gameBoard.moveBoardPiece(tileType, direction);
         handleLevelCompletion(result);
+
+        if (playerMovesSinceLastEnemyMove == 2) {
+            gameBoard.moveBoardPiece(tileType.ENEMY, Direction.RIGHT);
+            playerMovesSinceLastEnemyMove = 0;
+        }
     }
 
     public void regenerateLevel(final int level) {

@@ -28,15 +28,14 @@ public class RandomLevelCreator extends LevelCreator {
         random.setSeed(seed + level);
 
         generateBasicBoard(gameBoard);
-        generateAndAddBoardPiece(gameBoard, TileType.PLAYER);
-        generateAndAddBoardPiece(gameBoard, TileType.ENEMY);
-        generateAndAddBoardPiece(gameBoard, TileType.GOAL);
-
-
+        generateBoardPiece(gameBoard, TileType.PLAYER);
+        generateBoardPiece(gameBoard, TileType.ENEMY);
+        generateBoardPiece(gameBoard, TileType.GOAL);
+        
         gameEngine.setGameBoard(gameBoard);
     }
 
-    private void generateAndAddBoardPiece(GameBoard gameBoard, final TileType tileType) {
+    private void generateBoardPiece(GameBoard gameBoard, final TileType tileType) {
         int xCoordinate;
         int yCoordinate;
 

@@ -61,7 +61,6 @@ Feature: Create a Level with randomly generated objects
     And the goal locations are different
     And the player locations are different
 
-
   Scenario: Randomly generate level 1 twice with the same seed produces the same level
     Given I have a seed of 8
     When I randomly generate level 1 with an x of 5 and a y of 5
