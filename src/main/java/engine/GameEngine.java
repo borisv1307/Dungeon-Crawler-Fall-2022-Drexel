@@ -108,7 +108,7 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 			if (tileIsNextLevel) {
 				level = getLevel() + 1;
-				if(level==3){
+				if(level==4){
 					level=1;
 				}
 				levelCreator.createLevel(this, level);

@@ -13,7 +13,7 @@ public class ActionHandler {
     private LevelCreator levelCreator;
     private Player player;
 
-    public ActionHandler(GameEngine gameEngine, LevelCreator  levelCreator, Player player) {
+    public ActionHandler(GameEngine gameEngine, LevelCreator levelCreator, Player player) {
         this.gameEngine = gameEngine;
         this.levelCreator = levelCreator;
         this.player = player;
@@ -33,10 +33,10 @@ public class ActionHandler {
 
     public void interactWithObject() {
         if (playerIsNextToEnemy()) {
-            Enemy enemy = new Enemy(gameEngine.getLevel());
+            Enemy enemy = new Enemy(player.getLevel());
             enemy.createEnemy(new EnemyRandomWrapper());
             enemy.createEnemy(new EnemyRandomWrapper());
-            CombatManagement combatManagement = new CombatManagement(gameEngine,levelCreator, player, enemy, this);
+            CombatManagement combatManagement = new CombatManagement(gameEngine, levelCreator, player);
             enemy.attackedBy(combatManagement);
         }
     }

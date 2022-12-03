@@ -5,46 +5,40 @@ import entity.Player;
 import parser.LevelCreator;
 
 public class CombatManagement {
-   private GameEngine gameEngine;
+    private GameEngine gameEngine;
 
-   private LevelCreator levelCreator;
+    private LevelCreator levelCreator;
 
     private Player player;
 
-    private Enemy enemy;
 
-    private ActionHandler actionHandler;
-
-
-    public CombatManagement(GameEngine gameEngine, LevelCreator levelCreator, Player player, Enemy enemy, ActionHandler actionHandler){
+    public CombatManagement(GameEngine gameEngine, LevelCreator levelCreator, Player player) {
         this.gameEngine = gameEngine;
         this.levelCreator = levelCreator;
         this.player = player;
-        this.enemy = enemy;
-        this.actionHandler = actionHandler;
     }
-    
-    public void attack(Enemy enemy){
-        if(actionHandler.playerIsNextToEnemy()){
-            int playerCurrentHealth = player.getCurrentHealthPoint();
-            int enemyCurrentHealth = enemy.getCurrentHealthPoint();
 
-            while (playerCurrentHealth != 0 && enemyCurrentHealth != 0) {
-                playerCurrentHealth -= enemy.getAttackPoint();
-                enemyCurrentHealth -= player.getAttackPoint();
-            }
+    public void attack(Enemy enemy) {
+        int playerCurrentHealth = player.getCurrentHealthPoint();
+        int enemyCurrentHealth = enemy.getCurrentHealthPoint();
 
-            if (playerCurrentHealth <= 0) {
-                System.out.println("You lost");
-            } else {
-                win();
-                System.out.println("You win");
+        while (playerCurrentHealth != 0 && enemyCurrentHealth != 0) {
+            enemyCurrentHealth -= player.getAttackPoint();
+
+            if (enemyCurrentHealth <= 0) {
+                break;
             }
+            playerCurrentHealth -= enemy.getAttackPoint();
         }
 
+        if (playerCurrentHealth <= 0) {
+            levelCreator.createLevel(gameEngine, 4);
+        } else {
+            win();
+        }
     }
 
-     public void win() {
+    private void win() {
         player.levelUp();
         levelCreator.createLevel(gameEngine, 1);
     }
