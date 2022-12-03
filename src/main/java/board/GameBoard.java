@@ -63,8 +63,7 @@ public class GameBoard {
         Point startingLocation = movableBoardPiece.getLocation();
         TileType displacedTileType = movableBoardPiece.setLocation(attemptedLocation, boardPieces).getTileType();
         addBoardPiece(TileType.EMPTY, startingLocation);
-        Result result = handleLevelCompletion(movableBoardPiece.getTileType(), displacedTileType);
-        return result;
+        return handleLevelCompletion(movableBoardPiece.getTileType(), displacedTileType);
     }
 
     public Result moveEnemy() {

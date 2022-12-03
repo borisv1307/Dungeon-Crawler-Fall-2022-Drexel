@@ -28,7 +28,7 @@ public class Enemy extends MovableBoardPiece {
         final List<Point> nextPossibleMoves = getMovesTowardsPlayer(boardPieces, playerLocation);
         final List<Point> directionClosestToGoal = getMovesTowardsPlayerClosestToGoal(boardPieces, goalLocation, nextPossibleMoves);
 
-        if (directionClosestToGoal.size() == 0) {
+        if (directionClosestToGoal.isEmpty()) {
             return location;
         } else {
             return getMoveInPriorityOrder(surroundingMovesToEnemy, directionClosestToGoal);
@@ -59,7 +59,7 @@ public class Enemy extends MovableBoardPiece {
         List<Point> currentDepthLocations = getListOfGoalLocation(moveTowards);
         List<Point> possibleMoves = new ArrayList<>();
 
-        while (currentDepthLocations.size() > 0 && possibleMoves.size() == 0) {
+        while (!currentDepthLocations.isEmpty() && possibleMoves.isEmpty()) {
             List<Point> nextDepthLocations = new ArrayList<>();
             for (Point currentLocation : currentDepthLocations) {
                 int currentStepsFromPlayer = stepsToLocation[currentLocation.x][currentLocation.y] + 1;
