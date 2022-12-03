@@ -2,7 +2,7 @@ package values;
 
 import static org.junit.Assert.assertSame;
 
-import java.awt.Color;
+import java.awt.*;
 
 import org.junit.Test;
 
