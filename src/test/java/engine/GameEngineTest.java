@@ -7,7 +7,6 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.RandomWrapper;
-import wrappers.SystemWrapper;
 
 import java.awt.*;
 
@@ -19,7 +18,7 @@ public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
-
+    private final String FILE_LOCATION_PREFIX = "FILE_LOCATION_PREFIX";
     GameEngine gameEngine;
     RandomWrapper randomWrapper;
 
@@ -84,15 +83,8 @@ public class GameEngineTest {
 
     @Test
     public void random_number() {
-        assertEquals(3, gameEngine.getBombXCoordinate());
+        assertEquals(4, gameEngine.getBombXCoordinate());
     }
 
-    @Test
-    public void print_COLLISION_when_collision() {
-        SystemWrapper systemWrapper = Mockito.mock(SystemWrapper.class);
-        TileType attemptedLocation = gameEngine.getTileFromCoordinates(2, 2);
-        Mockito.verify(systemWrapper).printLn("Collision");
-
-    }
 
 }

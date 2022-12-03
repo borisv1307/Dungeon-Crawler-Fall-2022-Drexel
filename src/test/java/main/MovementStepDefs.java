@@ -18,14 +18,17 @@ import static org.hamcrest.Matchers.equalTo;
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
     private GameEngine gameEngine;
+    private int playerX;
+    private int bombX;
+    private int playerY;
+    private int bombY;
 
     @Given("^the level design is:$")
     public void level_is(List<String> levelStrings) throws Throwable {
         writeLevelFile(levelStrings);
         gameEngine = new GameEngine(
                 new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()),
-                new RandomWrapper()
-        );
+                new RandomWrapper());
     }
 
     @When("^the player moves left$")
@@ -52,5 +55,33 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
         assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
         assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
+    }
+
+    @When("^the player hits bomb$")
+    public void thePlayerHitsBomb() {
+        playerX = gameEngine.getPlayerXCoordinate();
+        bombX = gameEngine.getBombXCoordinate();
+        if (playerX > bombX) {
+            for (int i = 0; i < playerX - bombX; i++) {
+                gameEngine.keyLeft();
+            }
+        }
+        if (playerX < bombX) {
+            for (int i = 0; i < bombX - playerX; i++) {
+                gameEngine.keyRight();
+            }
+        }
+        playerY = gameEngine.getPlayerYCoordinate();
+        bombY = gameEngine.getBombYCoordinate();
+
+        for (int i = 0; i < playerY - bombY; i++) {
+            gameEngine.keyUp();
+        }
+    }
+
+    @Then("^bomb and player same coordinate$")
+    public void theBombHitsPlayerAndCollisionPrints() {
+        assertThat(gameEngine.getPlayerXCoordinate(), equalTo(gameEngine.getBombXCoordinate()));
+        assertThat(gameEngine.getPlayerYCoordinate(), equalTo(gameEngine.getBombYCoordinate()));
     }
 }
