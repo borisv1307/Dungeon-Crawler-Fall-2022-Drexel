@@ -35,11 +35,11 @@ Feature: Create a Level
   Scenario: Invalid level
     Given level is:
       | XXXX |
-      | X+PX |
+      | XZPX |
       | XXXX |
     When I create the level
     Then the invalid character error message is displayed
-    And the message is: "Invalid character provided: +"
+    And the message is: "Invalid character provided: Z"
 
   Scenario: The file reader malfunctions
     Given level is:
