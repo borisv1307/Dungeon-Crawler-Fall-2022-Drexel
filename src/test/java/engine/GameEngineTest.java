@@ -2,6 +2,7 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.*;
 
@@ -155,6 +156,14 @@ public class GameEngineTest {
 		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.UP);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ZERO));
+	}
+
+	@Test
+	public void projectile_hits_player() {
+		Point projectile = new Point(ONE, ZERO);
+		Point player = new Point(ONE, ZERO);
+		boolean collision = gameEngine.checkCollision(player, projectile);
+		assertEquals(true, collision);
 	}
 
 	@Test

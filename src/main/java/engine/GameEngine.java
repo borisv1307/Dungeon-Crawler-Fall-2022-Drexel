@@ -29,8 +29,17 @@ public class GameEngine {
 
 	public void run(GameFrame gameFrame, ProjectileHandler projectileHandler) {
 		projectileHandler.runProjectileTimer();
+		this.checkIfGameIsOver();
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
+		}
+	}
+
+	private void checkIfGameIsOver() {
+		for (Point projectile : projectiles.values()) {
+			if (checkCollision(player, projectile)) {
+				setExit(true);
+			}
 		}
 	}
 
@@ -109,6 +118,10 @@ public class GameEngine {
 		if (attemptedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 		}
+	}
+
+	boolean checkCollision(Point player, Point projectile) {
+		return player.getX() == projectile.getX() && player.getY() == projectile.getY();
 	}
 
 	public boolean isExit() {
