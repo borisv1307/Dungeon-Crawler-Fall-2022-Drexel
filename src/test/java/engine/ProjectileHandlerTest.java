@@ -38,7 +38,7 @@ public class ProjectileHandlerTest {
 		Mockito.when(randomWrapper.nextInt(maxY)).thenReturn(5);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(20);
 		projectileHandler.createRightEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(20, 6, TileType.PROJECTILE);
+		Mockito.verify(gameEngine).addTile(19, 6, TileType.PROJECTILE);
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class ProjectileHandlerTest {
 		Mockito.when(randomWrapper.nextInt(maxX)).thenReturn(9);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(10);
 		projectileHandler.createBottomEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(10, 10, TileType.PROJECTILE);
+		Mockito.verify(gameEngine).addTile(10, 9, TileType.PROJECTILE);
 	}
 
 	@Test

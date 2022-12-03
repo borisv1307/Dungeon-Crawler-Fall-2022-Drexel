@@ -7,6 +7,8 @@ public class ProjectileHandler {
 
 	RandomWrapper randomWrapper;
 	GameEngine gameEngine;
+	private int frameTimer = 0;
+	private int projectileTimer = 0;
 
 	public ProjectileHandler(GameEngine gameEngine, RandomWrapper randomWrapper) {
 		this.gameEngine = gameEngine;
@@ -30,7 +32,7 @@ public class ProjectileHandler {
 
 	public void createRightEdgeProjectile() {
 		int yValue = getYValue();
-		gameEngine.addTile(gameEngine.getLevelHorizontalDimension(), yValue, TileType.PROJECTILE);
+		gameEngine.addTile(gameEngine.getLevelHorizontalDimension() - 1, yValue, TileType.PROJECTILE);
 	}
 
 	public void createTopEdgeProjectile() {
@@ -40,6 +42,23 @@ public class ProjectileHandler {
 
 	public void createBottomEdgeProjectile() {
 		int xValue = getXValue();
-		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension(), TileType.PROJECTILE);
+		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension() - 1, TileType.PROJECTILE);
+	}
+
+//	void handleProjectiles() {
+//		createRightEdgeProjectile();
+//		createBottomEdgeProjectile();
+//		createTopEdgeProjectile();
+//		createLeftEdgeProjectile();
+////		projectileTimer++;
+//
+//	}
+
+	public void runProjectileTimer() {
+//		frameTimer++;
+//		if (frameTimer % 45 == 0) {
+//			handleProjectiles();
+//			frameTimer = 0;
+//		}
 	}
 }

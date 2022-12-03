@@ -1,4 +1,4 @@
-@IntegrationTest
+@Adhoc
 Feature: Move the Projectile in empty Space
 
   Background:

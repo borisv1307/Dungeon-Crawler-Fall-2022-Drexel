@@ -73,7 +73,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^the projectile is located at \\((\\d+), (\\d+)\\)$")
 	public void the_projectile_is_located_at(int projectileX, int projectileY) throws Throwable {
-		assertThat(gameEngine.getProjectileXCoordinate(), equalTo(projectileX - COORDINATE_OFFSET));
-		assertThat(gameEngine.getProjectileYCoordinate(), equalTo(projectileY - COORDINATE_OFFSET));
+		assertThat(gameEngine.getProjectileXCoordinate("up"), equalTo(projectileX - COORDINATE_OFFSET));
+		assertThat(gameEngine.getProjectileYCoordinate("up"), equalTo(projectileY - COORDINATE_OFFSET));
 	}
 }

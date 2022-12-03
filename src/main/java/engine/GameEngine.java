@@ -7,6 +7,7 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
 
 public class GameEngine {
 
@@ -17,16 +18,26 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Map<String, Point> projectiles = new HashMap<>();
 	private Point projectile;
+	private ProjectileHandler projectileHandler;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		setProjectileHandler(new ProjectileHandler(this, new RandomWrapper()));
+
+	}
+
+	void setProjectileHandler(ProjectileHandler projectileHandler) {
+		this.projectileHandler = projectileHandler;
+//		this.projectileHandler.handleProjectiles();
 	}
 
 	public void run(GameFrame gameFrame) {
+		projectileHandler.runProjectileTimer();
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
 		}
@@ -36,9 +47,20 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else if (tileType.equals(TileType.PROJECTILE)) {
-			setProjectile(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
+		}
+//		else if (tileType.equals(TileType.PROJECTILE)) {
+//			setProjectile(x, y);
+//			tiles.put(new Point(x, y), TileType.PASSABLE);
+//		} 
+		else {
+			tiles.put(new Point(x, y), tileType);
+		}
+	}
+
+	public void addTile(int x, int y, TileType tileType, String direction) {
+		if (tileType.equals(TileType.PROJECTILE)) {
+			setProjectile(x, y, direction);
+//			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -68,8 +90,8 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
-	private void setProjectile(int x, int y) {
-		projectile = new Point(x, y);
+	private void setProjectile(int x, int y, String direction) {
+		projectiles.put(direction, new Point(x, y));
 	}
 
 	public int getPlayerXCoordinate() {
@@ -112,27 +134,27 @@ public class GameEngine {
 		this.exit = exit;
 	}
 
-	public int getProjectileXCoordinate() {
-		return (int) projectile.getX();
+	public int getProjectileXCoordinate(String direction) {
+		return (int) projectiles.get(direction).getX();
 	}
 
-	public int getProjectileYCoordinate() {
-		return (int) projectile.getY();
+	public int getProjectileYCoordinate(String direction) {
+		return (int) projectiles.get(direction).getY();
 	}
 
 	public void moveProjectileRight() {
-		setProjectile(getProjectileXCoordinate() + 1, getProjectileYCoordinate());
+		setProjectile(getProjectileXCoordinate("right") + 1, getProjectileYCoordinate("right"), "right");
 	}
 
 	public void moveProjectileLeft() {
-		setProjectile(getProjectileXCoordinate() - 1, getProjectileYCoordinate());
+		setProjectile(getProjectileXCoordinate("left") - 1, getProjectileYCoordinate("left"), "left");
 	}
 
 	public void moveProjectileDown() {
-		setProjectile(getProjectileXCoordinate(), getProjectileYCoordinate() + 1);
+		setProjectile(getProjectileXCoordinate("down"), getProjectileYCoordinate("down") + 1, "down");
 	}
 
 	public void moveProjectileUp() {
-		setProjectile(getProjectileXCoordinate(), getProjectileYCoordinate() - 1);
+		setProjectile(getProjectileXCoordinate("up"), getProjectileYCoordinate("up") - 1, "up");
 	}
 }

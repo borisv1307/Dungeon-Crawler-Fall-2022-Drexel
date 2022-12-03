@@ -44,8 +44,8 @@ public class GamePanelTest {
 		int projectileYCoordinate = 5;
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
-		Mockito.when(gameEngine.getProjectileXCoordinate()).thenReturn(projectileXCoordinate);
-		Mockito.when(gameEngine.getProjectileYCoordinate()).thenReturn(projectileYCoordinate);
+		Mockito.when(gameEngine.getProjectileXCoordinate("up")).thenReturn(projectileXCoordinate);
+		Mockito.when(gameEngine.getProjectileYCoordinate("up")).thenReturn(projectileYCoordinate);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,

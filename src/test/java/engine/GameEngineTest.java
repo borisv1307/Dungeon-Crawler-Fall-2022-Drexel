@@ -32,9 +32,12 @@ public class GameEngineTest {
 	public void run() {
 		GameFrame gameFrame = Mockito.mock(GameFrame.class);
 		Component component = Mockito.mock(Component.class);
+		ProjectileHandler projectileHandler = Mockito.mock(ProjectileHandler.class);
 		Mockito.when(gameFrame.getComponents()).thenReturn(new Component[] { component });
+		gameEngine.setProjectileHandler(projectileHandler);
 		gameEngine.run(gameFrame);
 		Mockito.verify(component, Mockito.times(1)).repaint();
+		Mockito.verify(projectileHandler, Mockito.times(1)).runProjectileTimer();
 	}
 
 	@Test
@@ -72,9 +75,9 @@ public class GameEngineTest {
 	@Test
 	public void add_and_get_projectile_coordinates() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType);
-		int actualX = gameEngine.getProjectileXCoordinate();
-		int actualY = gameEngine.getProjectileYCoordinate();
+		gameEngine.addTile(ZERO, ONE, tileType, "up");
+		int actualX = gameEngine.getProjectileXCoordinate("up");
+		int actualY = gameEngine.getProjectileYCoordinate("up");
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}

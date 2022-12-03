@@ -4,6 +4,7 @@ import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 
 public class GamePanel extends Panel {
 
@@ -32,8 +33,10 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
-		tilePainter.paintPlayer(graphics, gameEngine.getProjectileXCoordinate(), gameEngine.getProjectileYCoordinate(),
-				tileWidth, tileHeight, TileType.PROJECTILE);
+		for (String direction : TunableParameters.DIRECTIONS) {
+			tilePainter.paintPlayer(graphics, gameEngine.getProjectileXCoordinate(direction),
+					gameEngine.getProjectileYCoordinate(direction), tileWidth, tileHeight, TileType.PROJECTILE);
+		}
 	}
 
 	@Override

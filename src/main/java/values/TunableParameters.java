@@ -6,6 +6,8 @@ public final class TunableParameters {
 	public static final int TARGET_FPS = 45;
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 	public static final String FILE_NAME_SUFFIX = ".txt";
+	public static final String[] DIRECTIONS = { "left", "right", "up", "down" };
+
 	private TunableParameters() {
 	}
 }
