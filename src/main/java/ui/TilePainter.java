@@ -18,7 +18,6 @@ public class TilePainter {
     }
 
     void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType, int hitpoints) {
-        //paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 
         graphics.setColor(Color.white);
         graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);

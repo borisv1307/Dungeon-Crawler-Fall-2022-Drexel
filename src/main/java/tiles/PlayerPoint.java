@@ -32,4 +32,8 @@ public class PlayerPoint extends Point {
             hitpoints = 10;
         }
     }
+
+    public boolean equals(PlayerPoint player) {
+        return (this.x == player.x && this.y == player.y && this.hitpoints == player.hitpoints);
+    }
 }
