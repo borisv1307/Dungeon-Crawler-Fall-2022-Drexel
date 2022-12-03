@@ -23,10 +23,8 @@ public class TilePainter {
     }
 
     void paintProjectiles(Graphics graphics, int tileWidth, int tileHeight, GameEngine game) {
-        //TODO
-        //Remove color hard coding here
         int x, y;
-        graphics.setColor(Color.BLUE);
+        graphics.setColor(TileColorMap.projectileColor());
         for (Projectile i : game.getProjectiles()) {
             x = i.getX();
             y = i.getY();
@@ -39,7 +37,6 @@ public class TilePainter {
         handleTile(graphics, tileType);
         graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
-
 
     private void handleTile(Graphics graphics, TileType tileType) {
         graphics.setColor(TileColorMap.get(tileType));

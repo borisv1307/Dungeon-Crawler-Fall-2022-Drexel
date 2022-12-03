@@ -21,4 +21,8 @@ public enum TileType {
 
         throw new IllegalArgumentException(INVALID_CHARACTER_PROVIDED_MESSAGE + ch);
     }
+
+    public static boolean isShooter(TileType tileType) {
+        return tileType == RIGHT_SHOOTER || tileType == LEFT_SHOOTER || tileType == UP_SHOOTER || tileType == DOWN_SHOOTER;
+    }
 }
