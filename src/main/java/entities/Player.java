@@ -1,24 +1,24 @@
 package entities;
 
 public class Player extends Entity {
-    int originX;
-    int originY;
+    int spawnCoordinateX;
+    int spawnCoordinateY;
 
     public Player(int x, int y) {
         super(x, y);
         this.hitPoints = 10;
         this.armorClass = 2;
         this.attackValue = 4;
-        this.originX = x;
-        this.originY = y;
+        this.spawnCoordinateX = x;
+        this.spawnCoordinateY = y;
     }
 
-    public int getOriginX() {
-        return originX;
+    public int getSpawnCoordinateX() {
+        return spawnCoordinateX;
     }
 
-    public int getOriginY() {
-        return originY;
+    public int getSpawnCoordinateY() {
+        return spawnCoordinateY;
     }
 
     @Override
@@ -32,9 +32,9 @@ public class Player extends Entity {
     }
 
     private boolean compareObjectProperties(Player playerObject) {
-        if (this.originX != playerObject.originX) {
+        if (this.spawnCoordinateX != playerObject.spawnCoordinateX) {
             return false;
         }
-        return this.originY == playerObject.originY;
+        return this.spawnCoordinateY == playerObject.spawnCoordinateY;
     }
 }

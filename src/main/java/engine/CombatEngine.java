@@ -35,10 +35,10 @@ public class CombatEngine {
         setGameStatusString(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
         return createNewEnemy(0, 0);
     }
-    
+
     Player killPlayer(Player player) {
         setGameStatusString(GameStatus.PLAYER_DEFEATED);
-        return new Player(player.getOriginX(), player.getOriginY());
+        return new Player(player.getSpawnCoordinateX(), player.getSpawnCoordinateY());
     }
 
     String getGameStatusString() {

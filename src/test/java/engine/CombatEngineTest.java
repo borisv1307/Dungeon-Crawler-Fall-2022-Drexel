@@ -15,7 +15,6 @@ public class CombatEngineTest {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
-    GameEngine gameEngine;
     CombatEngine combatEngine;
 
     @Before
@@ -71,5 +70,4 @@ public class CombatEngineTest {
     private Slime createSlime() {
         return new Slime(ZERO, TWO);
     }
-
 }
