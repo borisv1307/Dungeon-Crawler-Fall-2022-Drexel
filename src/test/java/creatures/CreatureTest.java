@@ -1,4 +1,4 @@
-package entities;
+package creatures;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,10 +10,10 @@ import java.awt.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
-public class EntityTest {
+public class CreatureTest {
     private static final int ZERO = 0;
     private static final int ONE = 1;
-    private Entity enemy;
+    private Creature enemy;
     private Player player;
 
     @Before
@@ -57,22 +57,22 @@ public class EntityTest {
 
     @Test
     public void kobold_not_equal_to_orc() {
-        Entity kobold = new Kobold(ZERO, ZERO);
-        Entity orc = new Orc(ZERO, ZERO);
+        Creature kobold = new Kobold(ZERO, ZERO);
+        Creature orc = new Orc(ZERO, ZERO);
         assertEquals(false, kobold.equals(orc));
     }
 
     @Test
     public void kobold_does_not_equal_new_kobold() {
-        Entity kobold = new Kobold(ZERO, ZERO);
-        Entity koboldOther = new Kobold(ZERO, ZERO);
+        Creature kobold = new Kobold(ZERO, ZERO);
+        Creature koboldOther = new Kobold(ZERO, ZERO);
         assertEquals(false, kobold.equals(koboldOther));
     }
 
     @Test
     public void player_not_equal_to_new_player() {
-        Entity player = new Player(ZERO, ZERO);
-        Entity playerOther = new Player(ZERO, ZERO);
+        Creature player = new Player(ZERO, ZERO);
+        Creature playerOther = new Player(ZERO, ZERO);
         assertEquals(false, player.equals(playerOther));
     }
 

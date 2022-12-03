@@ -1,11 +1,11 @@
-package entities;
+package creatures;
 
 import tiles.TileType;
 
 import java.awt.*;
 import java.util.UUID;
 
-public abstract class Entity extends Point {
+public abstract class Creature extends Point {
     TileType tileType;
     int hitPoints;
     int armorClass;
@@ -13,7 +13,7 @@ public abstract class Entity extends Point {
     String name;
     UUID uniqueId;
 
-    Entity(int x, int y) {
+    Creature(int x, int y) {
         super(x, y);
         uniqueId = UUID.randomUUID();
     }
@@ -55,32 +55,32 @@ public abstract class Entity extends Point {
     @Override
     public boolean equals(Object object) {
         try {
-            Entity entityObject = (Entity) object;
-            return compareObjectProperties(entityObject);
+            Creature creatureObject = (Creature) object;
+            return compareObjectProperties(creatureObject);
         } catch (ClassCastException e) {
             return super.equals(object);
         }
     }
 
-    private boolean compareObjectProperties(Entity entityObject) {
-        if (this.uniqueId != entityObject.uniqueId) {
+    private boolean compareObjectProperties(Creature creatureObject) {
+        if (this.uniqueId != creatureObject.uniqueId) {
             return false;
         }
 
-        if (this.name == null || !this.name.equals(entityObject.name)) {
+        if (this.name == null || !this.name.equals(creatureObject.name)) {
             return false;
         }
-        if (this.hitPoints != entityObject.hitPoints) {
+        if (this.hitPoints != creatureObject.hitPoints) {
             return false;
         }
-        if (this.armorClass != entityObject.armorClass) {
+        if (this.armorClass != creatureObject.armorClass) {
             return false;
         }
-        if (this.attackValue != entityObject.attackValue) {
+        if (this.attackValue != creatureObject.attackValue) {
             return false;
         }
 
-        return this.tileType == entityObject.tileType;
+        return this.tileType == creatureObject.tileType;
     }
 
     private int dealDamageWithAC(int attackValue) {

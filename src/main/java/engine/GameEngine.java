@@ -1,14 +1,16 @@
 package engine;
 
-import entities.Enemy;
-import entities.Entity;
-import entities.Player;
-import entities.Slime;
+import creatures.Creature;
+import creatures.Enemy;
+import creatures.Player;
+import creatures.Slime;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +76,10 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
+    public ArrayList<Integer> getPlayerSpawnPoint() {
+        return new ArrayList<>(Arrays.asList(player.getSpawnCoordinateX(), player.getSpawnCoordinateY()));
+    }
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
@@ -118,13 +124,29 @@ public class GameEngine {
         tiles.put(new Point(x, y), TileType.PASSABLE);
     }
 
+    public String getGameStatus() {
+        return this.gameStatus;
+    }
+
+    public void doCombat(Player player, Enemy enemy) {
+        CombatObject combatObject = new CombatObject(player, enemy);
+        CombatObject returnObject = combatEngine.doCombat(combatObject);
+        unpackCombatObject(returnObject);
+    }
+
+    boolean locationHasEnemy(TileType attemptedLocation) {
+        return enemy != null && isEnemyTile(attemptedLocation);
+    }
+
     private void setPlayer(int x, int y) {
         if (player == null) {
             player = new Player(x, y);
+            tiles.put(player, TileType.PASSABLE);
         } else {
             updatePlayersLocation(x, y);
+            tiles.put(player, TileType.PLAYER);
         }
-        tiles.put(player, TileType.PASSABLE);
+
     }
 
     private void updatePlayersLocation(int x, int y) {
@@ -147,20 +169,6 @@ public class GameEngine {
         }
     }
 
-    boolean locationHasEnemy(TileType attemptedLocation) {
-        return enemy != null && isEnemyTile(attemptedLocation);
-    }
-
-    public String getGameStatus() {
-        return this.gameStatus;
-    }
-
-    public void doCombat(Player player, Enemy enemy) {
-        CombatObject combatObject = new CombatObject(player, enemy);
-        CombatObject returnObject = combatEngine.doCombat(combatObject);
-        unpackCombatObject(returnObject);
-    }
-
     private void unpackCombatObject(CombatObject combatObject) {
         if (ifEntityIsNew(player, combatObject.player)) {
             removeTile(getPlayerXCoordinate(), getPlayerYCoordinate());
@@ -168,6 +176,7 @@ public class GameEngine {
         }
 
         if (ifEntityIsNew(enemy, combatObject.enemy)) {
+            tiles.remove(enemy);
             removeTile(getEnemyXCoordinate(), getEnemyYCoordinate());
         }
 
@@ -176,9 +185,9 @@ public class GameEngine {
         gameStatus = combatObject.gameStatusString;
     }
 
-    private boolean ifEntityIsNew(Entity entityOriginal, Entity entityNew) {
-        String originalUniqueId = entityOriginal.getUniqueId().toString();
-        String newUniqueId = entityNew.getUniqueId().toString();
+    private boolean ifEntityIsNew(Creature creatureOriginal, Creature creatureNew) {
+        String originalUniqueId = creatureOriginal.getUniqueId().toString();
+        String newUniqueId = creatureNew.getUniqueId().toString();
 
         return !originalUniqueId.equals(newUniqueId);
     }

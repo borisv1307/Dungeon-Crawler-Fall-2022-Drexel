@@ -1,8 +1,8 @@
-package entities;
+package creatures;
 
-public class Enemy extends Entity{
-    Enemy(int x, int y){
-        super(x,y);
+public class Enemy extends Creature {
+    Enemy(int x, int y) {
+        super(x, y);
     }
 
     public void setStartingStats(int hitPoints, int armorClass, int attackValue) {

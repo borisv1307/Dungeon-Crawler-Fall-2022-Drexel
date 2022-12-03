@@ -1,6 +1,6 @@
-package entities;
+package creatures;
 
-public class Player extends Entity {
+public class Player extends Creature {
     int spawnCoordinateX;
     int spawnCoordinateY;
 

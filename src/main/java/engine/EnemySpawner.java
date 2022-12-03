@@ -1,9 +1,9 @@
 package engine;
 
-import entities.Enemy;
-import entities.Kobold;
-import entities.Orc;
-import entities.Slime;
+import creatures.Enemy;
+import creatures.Kobold;
+import creatures.Orc;
+import creatures.Slime;
 import tiles.TileType;
 import wrappers.RandomizerWrapper;
 
@@ -34,8 +34,19 @@ public class EnemySpawner {
     }
 
     boolean newPointIsOpen(int x, int y) {
-        TileType tileType = gameEngine.getTileFromCoordinates(x, y);
-        return (tileType == TileType.PASSABLE);
+        return isTilePassable(x, y) && isNotPlayerSpawn(x, y);
+    }
+
+    boolean isTilePassable(int x, int y) {
+        return gameEngine.getTileFromCoordinates(x, y) == TileType.PASSABLE;
+    }
+
+    boolean isNotPlayerSpawn(int x, int y) {
+        ArrayList<Integer> playerSpawnCoordinates = gameEngine.getPlayerSpawnPoint();
+        if (playerSpawnCoordinates != null && playerSpawnCoordinates.size() == 2) {
+            return (playerSpawnCoordinates.get(0) != x && playerSpawnCoordinates.get(1) != y);
+        }
+        return true;
     }
 
     Enemy getRandomEnemy(int x, int y) {

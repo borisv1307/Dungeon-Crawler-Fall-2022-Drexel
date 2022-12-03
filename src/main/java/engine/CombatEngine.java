@@ -1,7 +1,7 @@
 package engine;
 
-import entities.Enemy;
-import entities.Player;
+import creatures.Enemy;
+import creatures.Player;
 
 public class CombatEngine {
     private EnemySpawner enemySpawner;
@@ -22,7 +22,6 @@ public class CombatEngine {
         if (enemyHP <= 0) {
             enemy = killEnemy(enemy);
         }
-
         if (playerHP <= 0) {
             player = killPlayer(player);
         }

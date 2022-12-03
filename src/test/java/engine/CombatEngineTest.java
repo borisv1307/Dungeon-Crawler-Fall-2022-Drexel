@@ -1,8 +1,8 @@
 package engine;
 
-import entities.Enemy;
-import entities.Player;
-import entities.Slime;
+import creatures.Enemy;
+import creatures.Player;
+import creatures.Slime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -1,7 +1,7 @@
 package engine;
 
-import entities.Enemy;
-import entities.Player;
+import creatures.Enemy;
+import creatures.Player;
 
 public class CombatObject {
     Player player;

@@ -19,7 +19,13 @@ public class EnemySpawnerTest {
 
     @Test
     public void game_engine_location_is_checked() {
-        enemySpawner.newPointIsOpen(1, 1);
+        enemySpawner.isTilePassable(1, 1);
         Mockito.verify(gameEngine, Mockito.atLeastOnce()).getTileFromCoordinates(1, 1);
+    }
+
+    @Test
+    public void game_engine_get_player_spawn_point_called() {
+        enemySpawner.isNotPlayerSpawn(1, 1);
+        Mockito.verify(gameEngine, Mockito.atLeastOnce()).getPlayerSpawnPoint();
     }
 }
