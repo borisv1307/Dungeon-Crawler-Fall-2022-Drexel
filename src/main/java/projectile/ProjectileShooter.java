@@ -15,7 +15,7 @@ public abstract class ProjectileShooter {
     private GameEngine engine;
     private Timer timer;
 
-    public ProjectileShooter(int x, int y, int deltaX, int deltaY, int interval, int projectileInterval, GameEngine engine) {
+    protected ProjectileShooter(int x, int y, int deltaX, int deltaY, int interval, int projectileInterval, GameEngine engine) {
         this.x = x;
         this.y = y;
         this.deltaX = deltaX;

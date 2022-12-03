@@ -21,7 +21,8 @@ public class GameEngine {
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
-    private int startX, startY;
+    private int startX;
+    private int startY;
     private Point player;
     private List<Projectile> projectiles;
     private List<ProjectileShooter> shooters;
@@ -58,6 +59,10 @@ public class GameEngine {
 
     public void addProjectile(Projectile projectile) {
         projectiles.add(projectile);
+    }
+
+    public void removeProjectile(Projectile projectile) {
+        projectiles.remove(projectile);
     }
 
     public List<Projectile> getProjectiles() {
@@ -134,7 +139,7 @@ public class GameEngine {
             resetPlayer();
         } else if (!getTileFromCoordinates(projectile.getX(), projectile.getY()).equals(TileType.PASSABLE)) {
             projectile.stop();
-            projectiles.remove(projectile);
+            removeProjectile(projectile);
         }
     }
 

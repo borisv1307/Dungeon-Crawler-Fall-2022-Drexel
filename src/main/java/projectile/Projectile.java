@@ -34,7 +34,7 @@ public class Projectile {
 
             @Override
             public void run() {
-                if (iterations == totalIterations) {
+                if (iterations >= totalIterations) {
                     stop();
                     return;
                 }
@@ -54,6 +54,7 @@ public class Projectile {
         } else if (deltaX < 0) {
             xIterations = x;
         }
+
         if (deltaY > 0) {
             yIterations = engine.getLevelVerticalDimension() - y - 1;
         } else if (deltaY < 0) {
@@ -63,11 +64,15 @@ public class Projectile {
         if (xIterations >= 0 && yIterations == 0) {
             return xIterations;
         }
-        return yIterations;
+        if (yIterations >= 0 && xIterations == 0) {
+            return yIterations;
+        }
+        return 1;
     }
 
     public void stop() {
         timer.cancel();
+        engine.removeProjectile(this);
     }
 
     public int getX() {
