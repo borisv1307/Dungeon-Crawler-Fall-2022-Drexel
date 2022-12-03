@@ -7,7 +7,6 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.RandomizerWrapper;
-import wrappers.SystemWrapper;
 
 import java.awt.*;
 
@@ -19,15 +18,13 @@ public class GameEngineTest {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
-
-    GameEngine gameEngine;
-    CombatEngine combatEngine;
+    private GameEngine gameEngine;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-        gameEngine = new GameEngine(levelCreator);
-        combatEngine = new CombatEngine(new RandomizerWrapper(new SystemWrapper()));
+        RandomizerWrapper randomizerWrapper = Mockito.mock(RandomizerWrapper.class);
+        gameEngine = new GameEngine(levelCreator, randomizerWrapper);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }

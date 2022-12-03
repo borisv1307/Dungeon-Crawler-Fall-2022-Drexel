@@ -8,7 +8,6 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.RandomizerWrapper;
-import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameEngine {
-
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
@@ -28,15 +26,17 @@ public class GameEngine {
     private Player player;
     private Enemy enemy;
     private String gameStatus;
-    private RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-    CombatEngine combatEngine = new CombatEngine(randomizerWrapper);
+    private RandomizerWrapper randomizerWrapper;
+    private CombatEngine combatEngine;
 
-    public GameEngine(LevelCreator levelCreator) {
+    public GameEngine(LevelCreator levelCreator, RandomizerWrapper randomizerWrapper) {
         exit = false;
         level = 1;
+        this.randomizerWrapper = randomizerWrapper;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
+        combatEngine = new CombatEngine(randomizerWrapper);
     }
 
     public void run(GameFrame gameFrame) {
@@ -55,7 +55,6 @@ public class GameEngine {
             tiles.put(new Point(x, y), tileType);
         }
     }
-
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;

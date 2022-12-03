@@ -5,7 +5,9 @@ import org.mockito.Mockito;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import values.TunableParameters;
+import wrappers.RandomizerWrapper;
 import wrappers.ReaderWrapper;
+import wrappers.SystemWrapper;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -46,8 +48,9 @@ public class LevelCreatorITHelper {
     protected void createLevel() throws Throwable {
         LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
                 new ReaderWrapper());
+        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
         try {
-            gameEngine = new GameEngine(levelCreator);
+            gameEngine = new GameEngine(levelCreator, randomizerWrapper);
         } catch (IllegalArgumentException e) {
             exceptionMessage = e.getMessage();
         }
@@ -87,7 +90,7 @@ public class LevelCreatorITHelper {
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
         LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-        gameEngine = new GameEngine(levelCreator);
+        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
+        gameEngine = new GameEngine(levelCreator, randomizerWrapper);
     }
-
 }
