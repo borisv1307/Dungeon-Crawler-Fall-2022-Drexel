@@ -37,12 +37,7 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		}
-//		else if (tileType.equals(TileType.PROJECTILE)) {
-//			setProjectile(x, y);
-//			tiles.put(new Point(x, y), TileType.PASSABLE);
-//		} 
-		else {
+		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
 	}
@@ -50,7 +45,6 @@ public class GameEngine {
 	public void addTile(int x, int y, TileType tileType, String direction) {
 		if (tileType.equals(TileType.PROJECTILE)) {
 			setProjectile(x, y, direction);
-//			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}

@@ -84,4 +84,13 @@ public class ProjectileHandlerTest {
 		Mockito.verify(randomWrapper).nextInt(18);
 	}
 
+	@Test
+	public void move_projectiles() {
+		projectileHandler.moveProjectiles();
+		Mockito.verify(gameEngine).moveProjectileRight();
+		Mockito.verify(gameEngine).moveProjectileLeft();
+		Mockito.verify(gameEngine).moveProjectileDown();
+		Mockito.verify(gameEngine).moveProjectileUp();
+	}
+
 }

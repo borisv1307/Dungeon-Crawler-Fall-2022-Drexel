@@ -50,14 +50,32 @@ public class ProjectileHandler {
 		createBottomEdgeProjectile();
 		createTopEdgeProjectile();
 		createLeftEdgeProjectile();
+	}
 
+	public void moveProjectiles() {
+		gameEngine.moveProjectileUp();
+		gameEngine.moveProjectileLeft();
+		gameEngine.moveProjectileDown();
+		gameEngine.moveProjectileRight();
 	}
 
 	public void runProjectileTimer() {
-//		frameTimer++;
-//		if (frameTimer % 45 == 0) {
-//			handleProjectiles();
-//			frameTimer = 0;
-//		}
+		frameTimer++;
+		if (frameTimer % 45 == 0) {
+			this.moveProjectiles();
+			frameTimer = 0;
+		}
+	}
+
+	public void setFrameTimer() {
+		this.frameTimer++;
+	}
+
+	public void resetFrameTimer() {
+		this.frameTimer = 0;
+	}
+
+	public int getFrameTimer() {
+		return this.frameTimer;
 	}
 }
