@@ -22,6 +22,6 @@ Feature: Add an object to the board
     Then an object will be located at (1,4)
 
   Scenario: After 10 seconds objects will be placed
-    When the game has been active for 10 seconds
+    When the game has been active for 5 seconds
     And (1,1) is selected as the randomly passable tile
     Then an object will be located at (1,1)

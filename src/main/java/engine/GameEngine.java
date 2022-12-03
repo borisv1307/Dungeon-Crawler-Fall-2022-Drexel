@@ -27,7 +27,7 @@ public class GameEngine {
         this.levelCreator.createLevel(this, level);
         this.randomWrapper = new RandomWrapper();
         collectableObjects = new ArrayList<>();
-        activateGameTimer(10);
+        activateGameTimer(5);
     }
 
     public void run(GameFrame gameFrame) {
