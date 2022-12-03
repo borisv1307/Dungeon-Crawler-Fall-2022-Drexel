@@ -45,35 +45,10 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		gameEngine.keyDown();
 	}
 
-	@When("^the projectile moves left$")
-	public void the_projectile_moves_left() throws Throwable {
-		gameEngine.moveProjectileLeft();
-	}
-
-	@When("^the projectile moves right$")
-	public void the_projectile_moves_right() throws Throwable {
-		gameEngine.moveProjectileRight();
-	}
-
-	@When("^the projectile moves up$")
-	public void the_projectile_moves_up() throws Throwable {
-		gameEngine.moveProjectileUp();
-	}
-
-	@When("^the projectile moves down$")
-	public void the_projectile_moves_down() throws Throwable {
-		gameEngine.moveProjectileDown();
-	}
-
 	@Then("^the player is located at \\((\\d+), (\\d+)\\)$")
 	public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
-	@Then("^the projectile is located at \\((\\d+), (\\d+)\\)$")
-	public void the_projectile_is_located_at(int projectileX, int projectileY) throws Throwable {
-		assertThat(gameEngine.getProjectileXCoordinate("up"), equalTo(projectileX - COORDINATE_OFFSET));
-		assertThat(gameEngine.getProjectileYCoordinate("up"), equalTo(projectileY - COORDINATE_OFFSET));
-	}
 }
