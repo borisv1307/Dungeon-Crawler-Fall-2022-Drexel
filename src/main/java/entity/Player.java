@@ -1,5 +1,7 @@
 package entity;
 
+import values.TileColorMap;
+
 public class Player extends CharacterObject {
 
     public Player() {
@@ -17,5 +19,9 @@ public class Player extends CharacterObject {
         setAttackPoint(baseState + level * 2);
     }
 
+    public void resetPlayerStatus() {
+        setToDefaultStatus();
+        TileColorMap.changePlayerHpBar(this);
+    }
 
 }

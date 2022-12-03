@@ -2,6 +2,10 @@ package entity;
 
 import org.junit.Before;
 import org.junit.Test;
+import tiles.TileType;
+import values.TileColorMap;
+
+import java.awt.*;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -68,9 +72,39 @@ public class PlayerTest {
     }
 
     @Test
-    public void player_take_damage(){
+    public void player_take_damage() {
         player.takeDamage(5);
         assertEquals(5, player.getCurrentHealthPoint());
+    }
+
+    @Test
+    public void reset_player_status_level() {
+        player.resetPlayerStatus();
+        assertEquals(1, player.getLevel());
+    }
+
+    @Test
+    public void reset_player_status_attack() {
+        player.resetPlayerStatus();
+        assertEquals(10, player.getAttackPoint());
+    }
+
+    @Test
+    public void reset_player_status_max_health_point() {
+        player.resetPlayerStatus();
+        assertEquals(10, player.getMaxHealthPoint());
+    }
+
+    @Test
+    public void reset_player_status_current_health_point() {
+        player.resetPlayerStatus();
+        assertEquals(10, player.getCurrentHealthPoint());
+    }
+
+    @Test
+    public void reset_player_status_player_color_green() {
+        player.resetPlayerStatus();
+        assertEquals(Color.GREEN, TileColorMap.get(TileType.PLAYER));
     }
 
     private void levelUpXTime(int level) {
