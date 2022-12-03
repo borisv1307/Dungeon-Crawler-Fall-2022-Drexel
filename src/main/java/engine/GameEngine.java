@@ -6,6 +6,7 @@ import ui.GameFrame;
 import wrappers.RandomWrapper;
 
 import java.awt.*;
+import java.util.List;
 import java.util.*;
 
 public class GameEngine {
@@ -126,7 +127,7 @@ public class GameEngine {
         this.exit = exit;
     }
 
-    public ArrayList<Point> getPassableTiles(int numberOfTilesNeeded) {
+    public List<Point> getPassableTiles(int numberOfTilesNeeded) {
         ArrayList<Point> tilesToBeUpdated = new ArrayList<>();
         ArrayList<Point> passableTiles = getAllPassableTiles();
         for (int i = 0; i < numberOfTilesNeeded; i++) {
@@ -139,7 +140,7 @@ public class GameEngine {
         return tilesToBeUpdated;
     }
 
-    public void addObjectsToTheGame(ArrayList<Point> tilesToBeUpdated) {
+    public void addObjectsToTheGame(List<Point> tilesToBeUpdated) {
         for (Point tileToBeUpdated : tilesToBeUpdated) {
             addObjectToTile(tileToBeUpdated);
         }
@@ -176,7 +177,7 @@ public class GameEngine {
 
     public void refreshCollectableObjects() {
         int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
-        ArrayList<Point> tilesToBeUpdated = getPassableTiles(randomNumberOfObjects);
+        List<Point> tilesToBeUpdated = getPassableTiles(randomNumberOfObjects);
         if (collectableObjects != null) {
             removePreviouslyAddedObjects();
         }

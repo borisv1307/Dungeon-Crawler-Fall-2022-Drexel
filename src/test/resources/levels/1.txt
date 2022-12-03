@@ -1,5 +1,3 @@
-XXXXX
-X   X
-X P X
-X   X
-XXXXX
+XXXX
+X+PX
+XXXX
