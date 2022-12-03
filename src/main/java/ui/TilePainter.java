@@ -17,8 +17,8 @@ public class TilePainter {
         }
     }
 
-    void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType, int hitpoints) {
-
+    void paintPlayer(int hitpoints, Graphics graphics, int x, int y, int tileWidth, int tileHeight) {
+        //paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
         graphics.setColor(Color.white);
         graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         graphics.setColor(Color.green);
@@ -28,6 +28,8 @@ public class TilePainter {
         g2d.setColor(Color.blue);
         g2d.drawRect(x * tileWidth + 2, y * tileHeight + 2, tileWidth - 5, tileHeight - 5);
 
+        graphics.setColor(Color.black);
+        graphics.drawString(hitpoints + "", x * tileWidth + 5, y * tileHeight + 15);
     }
 
     private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {

@@ -56,7 +56,7 @@ public class TilePainterTest {
     @Test
     public void paint_player() {
 
-        tilePainter.paintPlayer(graphics2D, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 10);
+        tilePainter.paintPlayer(10, graphics2D, X, Y, TILE_WIDTH, TILE_HEIGHT);
 
         Mockito.verify(graphics2D).fillRect(20, 60, 10, 20);
     }

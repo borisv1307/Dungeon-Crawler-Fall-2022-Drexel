@@ -1,7 +1,6 @@
 package ui;
 
 import engine.GameEngine;
-import tiles.TileType;
 
 import java.awt.*;
 
@@ -30,8 +29,8 @@ public class GamePanel extends Panel {
         super.paint(graphics);
         requestFocusInWindow();
         tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-        tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
-                tileWidth, tileHeight, TileType.PLAYER, gameEngine.getPlayerHitpoints());
+        tilePainter.paintPlayer(gameEngine.getPlayerHitpoints(), graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
+                tileWidth, tileHeight);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class GamePanel extends Panel {
         paint(dbg);
         graphics.drawImage(dbImage, 0, 0, this);
         graphics.setColor(Color.WHITE);
-        graphics.drawString("Hitpoints: " + gameEngine.getPlayerHitpoints(), 5, 10);
+        //graphics.drawString("Hitpoints: " + gameEngine.getPlayerHitpoints(), 5, 15);
     }
 
     @Override

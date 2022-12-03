@@ -43,7 +43,6 @@ public class GameEngine {
 
     public int getLevelHorizontalDimension() {
         return levelHorizontalDimension;
-
     }
 
     public void setLevelHorizontalDimension(int levelHorizontalDimension) {
