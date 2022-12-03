@@ -1,7 +1,6 @@
 package projectile;
 
 import engine.GameEngine;
-import main.ObjectFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,33 +13,28 @@ import static org.mockito.Mockito.timeout;
 public class ProjectileTest {
 
     GameEngine gameEngine;
-    GameEngine mockGameEngine;
     int startX, startY;
 
     @Before
     public void init() {
-        mockGameEngine = Mockito.mock(GameEngine.class);
-        gameEngine = ObjectFactory.getDefaultGameEngine();
+        gameEngine = Mockito.mock(GameEngine.class);
         startX = gameEngine.getPlayerXCoordinate();
         startY = gameEngine.getPlayerYCoordinate();
     }
 
     @Test
-    public void projectile_shooter_test() {
-        int playerX = mockGameEngine.getPlayerXCoordinate();
-        int playerY = mockGameEngine.getPlayerYCoordinate();
-        mockGameEngine.keyRight();
-        ProjectileShooterFactory.getInstance().getProjectileShooter(playerX + 2, playerY, 10, 20, mockGameEngine, TileType.LEFT_SHOOTER);
-        Mockito.verify(mockGameEngine, timeout(100).atLeastOnce()).notifyProjectileMovement(any());
+    public void projectile_movement_test() {
+        int playerX = gameEngine.getPlayerXCoordinate();
+        int playerY = gameEngine.getPlayerYCoordinate();
+        gameEngine.keyRight();
+        ProjectileShooterFactory.getInstance().getProjectileShooter(playerX + 2, playerY, 10, 20, gameEngine, TileType.LEFT_SHOOTER);
+        Mockito.verify(gameEngine, timeout(100).atLeastOnce()).notifyProjectileMovement(any());
     }
 
     @Test
     public void add_projectile() {
-        int original = gameEngine.getProjectiles().size();
-        addProjectileToEngine(startX + 1, startY);
-        addProjectileToEngine(startX + 1, startY);
-        addProjectileToEngine(startX + 1, startY);
-        Assert.assertEquals(original + 3, gameEngine.getProjectiles().size());
+        ProjectileShooterFactory.getInstance().getProjectileShooter(1, 1, 10, 20, gameEngine, TileType.LEFT_SHOOTER);
+        Mockito.verify(gameEngine, timeout(100).atLeastOnce()).addProjectile(any());
     }
 
     @Test

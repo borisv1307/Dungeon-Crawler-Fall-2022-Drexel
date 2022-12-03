@@ -1,14 +1,12 @@
 package ui;
 
 import engine.GameEngine;
-import main.ObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
 import org.mockito.InOrder;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-import projectile.Projectile;
 import tiles.TileType;
 import values.TileColorMap;
 
@@ -63,11 +61,8 @@ public class TilePainterTest {
 
     @Test
     public void paint_projectile() {
-        GameEngine engine = ObjectFactory.getDefaultGameEngine();
-        engine.addProjectile(new Projectile(1, 1, 1, 1, 10000, engine));
+        GameEngine engine = Mockito.mock(GameEngine.class);
         tilePainter.paintProjectiles(graphics, TILE_WIDTH, TILE_HEIGHT, engine);
-        int diff = TILE_HEIGHT - TILE_WIDTH;
-        Mockito.verify(graphics).fillOval(TILE_WIDTH, TILE_HEIGHT + (diff / 2), TILE_WIDTH, TILE_WIDTH);
+        Mockito.verify(engine).getProjectiles();
     }
-
 }
