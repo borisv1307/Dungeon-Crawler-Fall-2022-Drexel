@@ -128,22 +128,22 @@ public class GameEngine {
 	}
 
 	public void moveProjectileRight() {
-		String RIGHT = TunableParameters.RIGHT;
-		setProjectile(getProjectileXCoordinate(RIGHT) + 1, getProjectileYCoordinate(RIGHT), RIGHT);
+		String right = TunableParameters.RIGHT;
+		setProjectile(getProjectileXCoordinate(right) + 1, getProjectileYCoordinate(right), right);
 	}
 
 	public void moveProjectileLeft() {
-		String LEFT = TunableParameters.LEFT;
-		setProjectile(getProjectileXCoordinate(LEFT) - 1, getProjectileYCoordinate(LEFT), LEFT);
+		String left = TunableParameters.LEFT;
+		setProjectile(getProjectileXCoordinate(left) - 1, getProjectileYCoordinate(left), left);
 	}
 
 	public void moveProjectileDown() {
-		String DOWN = TunableParameters.DOWN;
-		setProjectile(getProjectileXCoordinate(DOWN), getProjectileYCoordinate(DOWN) + 1, DOWN);
+		String down = TunableParameters.DOWN;
+		setProjectile(getProjectileXCoordinate(down), getProjectileYCoordinate(down) + 1, down);
 	}
 
 	public void moveProjectileUp() {
-		String UP = TunableParameters.UP;
-		setProjectile(getProjectileXCoordinate(UP), getProjectileYCoordinate(UP) - 1, UP);
+		String up = TunableParameters.UP;
+		setProjectile(getProjectileXCoordinate(up), getProjectileYCoordinate(up) - 1, up);
 	}
 }
