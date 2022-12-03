@@ -3,6 +3,7 @@ package wrappers;
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RandomWrapper {
 
@@ -22,7 +23,7 @@ public class RandomWrapper {
     }
 
     public Point getRandomPassableTile() {
-        ArrayList<Point> passableTiles = getAllPassableTiles();
+        ArrayList<Point> passableTiles = (ArrayList<Point>) getAllPassableTiles();
         int numberOfPassableTiles = passableTiles.size();
         if (numberOfPassableTiles > 0) {
             int randomIndex = getRandomIntInRange(numberOfPassableTiles);
@@ -32,11 +33,11 @@ public class RandomWrapper {
         }
     }
 
-    public ArrayList<Point> getAllPassableTiles() {
+    public List<Point> getAllPassableTiles() {
         return allPassableTiles;
     }
 
-    public void setAllPassableTiles(ArrayList<Point> allPassableTiles) {
-        this.allPassableTiles = allPassableTiles;
+    public void setAllPassableTiles(List<Point> allPassableTiles) {
+        this.allPassableTiles = (ArrayList<Point>) allPassableTiles;
     }
 }

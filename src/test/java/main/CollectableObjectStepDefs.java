@@ -90,6 +90,6 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
     public void thePlayerWillBeLocatedAt(int xCoordinate, int yCoordinate) {
         assertEquals(xCoordinate, gameEngine.getPlayerXCoordinate());
         assertEquals(yCoordinate, gameEngine.getPlayerYCoordinate());
-        assertNotSame(gameEngine.getTileFromCoordinates(2, 1), TileType.OBJECT);
+        assertNotSame(TileType.OBJECT, gameEngine.getTileFromCoordinates(2, 1));
     }
 }
