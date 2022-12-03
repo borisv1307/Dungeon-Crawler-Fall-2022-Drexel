@@ -6,28 +6,23 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import wrappers.RandomWrapper;
 
 import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 
 public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
-    private final String FILE_LOCATION_PREFIX = "FILE_LOCATION_PREFIX";
+
     GameEngine gameEngine;
-    RandomWrapper randomWrapper;
 
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-        randomWrapper = Mockito.mock(RandomWrapper.class);
-        Mockito.when(randomWrapper.mathRandom()).thenReturn(.2);
-        gameEngine = new GameEngine(levelCreator, randomWrapper);
+        gameEngine = new GameEngine(levelCreator);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }
@@ -80,11 +75,5 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
-
-    @Test
-    public void random_number() {
-        assertEquals(4, gameEngine.getBombXCoordinate());
-    }
-
 
 }

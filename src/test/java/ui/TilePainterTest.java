@@ -1,6 +1,6 @@
 package ui;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 import org.junit.Before;
 import org.junit.Test;
