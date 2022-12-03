@@ -9,7 +9,7 @@ public class ProjectileHandler {
 	RandomWrapper randomWrapper;
 	GameEngine gameEngine;
 	private int frameTimer = 0;
-	private int projectileTimer = 0;
+//	private int projectileTimer = 0;
 
 	public ProjectileHandler(GameEngine gameEngine, RandomWrapper randomWrapper) {
 		this.gameEngine = gameEngine;
