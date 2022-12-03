@@ -3,6 +3,8 @@ package engine;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
+import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -18,11 +20,26 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
-    public GameEngine(LevelCreator levelCreator) {
+    private Point bomb;
+
+    private int ticker;
+
+    private double randomNumber;
+
+    private SystemWrapper systemWrapper;
+
+    private RandomWrapper randomWrapper;
+
+    public GameEngine(LevelCreator levelCreator, RandomWrapper randomWrapper) {
+        this.randomWrapper = randomWrapper;
+        randomNumber = randomWrapper.mathRandom();
+        systemWrapper = new SystemWrapper();
         exit = false;
         level = 1;
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
+        bomb = new Point((int) (randomNumber * 17) + 1, 1);
+        ticker = 0;
     }
 
     public void run(GameFrame gameFrame) {
@@ -92,6 +109,9 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            if (collision()) {
+                systemWrapper.printLn("COLLISION");
+            }
         }
     }
 
@@ -101,5 +121,30 @@ public class GameEngine {
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public int getBombXCoordinate() {
+        return (int) bomb.getX();
+    }
+
+    public int getBombYCoordinate() {
+        ticker++;
+        int y = (int) bomb.getY();
+        if (ticker % 30 == 0) {
+            y++;
+            int x = (int) bomb.getX();
+            TileType attemptedLocation = getTileFromCoordinates(x, y);
+            if (attemptedLocation.equals(TileType.NOT_PASSABLE)) {
+                randomNumber = randomWrapper.mathRandom();
+                x = (int) (randomNumber * 17) + 1;
+                y = 1;
+            }
+            bomb = new Point(x, y);
+        }
+        return y;
+    }
+
+    public boolean collision() {
+        return player.equals(bomb);
     }
 }
