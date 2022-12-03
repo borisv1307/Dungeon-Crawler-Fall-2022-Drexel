@@ -78,6 +78,11 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
         gameEngine.movement(TileType.PLAYER, Direction.DOWN);
     }
 
+    @When("^the enemy moves$")
+    public void the_enemy_moves() {
+        gameEngine.moveEnemy();
+    }
+
     @Then("^the player is located at \\((\\d+), (\\d+)\\)$")
     public void the_player_is_located_at(int playerX, int playerY) {
         verifyTileTypeLocation(TileType.PLAYER, playerX, playerY);

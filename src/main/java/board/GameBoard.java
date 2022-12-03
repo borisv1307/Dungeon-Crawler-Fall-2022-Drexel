@@ -1,8 +1,6 @@
 package board;
 
-import board.piece.BoardPiece;
-import board.piece.BoardPieceFactory;
-import board.piece.MovableBoardPiece;
+import board.piece.*;
 import enums.Direction;
 import enums.Result;
 import enums.TileType;
@@ -16,6 +14,8 @@ public class GameBoard {
     private final BoardPiece[][] boardPieces;
     private final BoardPieceFactory boardPieceFactory;
     private final Map<TileType, MovableBoardPiece> movableBoardPieces;
+
+    private Point goal;
 
     public GameBoard(BoardPieceFactory boardPieceFactory, int xDimension, int yDimension) {
         this.boardPieces = new BoardPiece[xDimension][yDimension];
@@ -67,6 +67,19 @@ public class GameBoard {
         return result;
     }
 
+    public Result moveEnemy() {
+        Enemy enemy = (Enemy) getMovableBoardPiece(TileType.ENEMY);
+        Point startingLocation = enemy.getLocation();
+
+        Point attemptedLocation = enemy.getNextMove(boardPieces, getMovableBoardPiece(TileType.PLAYER).getLocation(), goal);
+
+        Result result = Result.CONTINUE;
+        if (attemptedLocation != startingLocation) {
+            result = move(enemy, attemptedLocation);
+        }
+        return result;
+    }
+
     private Result handleLevelCompletion(TileType tileType, TileType displacedTileType) {
         Result result = Result.CONTINUE;
 
@@ -86,6 +99,8 @@ public class GameBoard {
         boardPieces[location.x][location.y] = boardPieceFactory.getBoardPiece(tileType, location);
         if (boardPiece instanceof MovableBoardPiece) {
             movableBoardPieces.put(tileType, (MovableBoardPiece) boardPiece);
+        } else if (boardPiece instanceof Goal) {
+            goal = boardPiece.getLocation();
         }
     }
 }

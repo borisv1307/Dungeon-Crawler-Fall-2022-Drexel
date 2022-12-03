@@ -1,7 +1,7 @@
-@Ignore
+@IntegrationTest
 Feature: Move the enemy toward player without obstacles
 
-  Scenario: Move enemy towards player on shortest path (y move)
+  Scenario: Move enemy towards player on shortest path (y move) (moves down when priority in a tie is up)
     Given the level 1 design is:
       | 5     |
       | 5     |
@@ -11,9 +11,9 @@ Feature: Move the enemy toward player without obstacles
       | X  PX |
       | XXXXX |
     When the enemy moves
-    Then the enemy is located at (3, 4)
+    Then the enemy is located at (2, 4)
 
-  Scenario: Move enemy towards player on shortest path (x move)
+  Scenario: Move enemy towards player on shortest path (x move) (moves right when priority in a tie is left)
     Given the level 1 design is:
       | 5     |
       | 5     |
@@ -61,14 +61,14 @@ Feature: Move the enemy toward player without obstacles
     When the enemy moves
     Then the enemy is located at (2, 2)
 
-  Scenario: Move enemy on path closest to goal when 2 paths are equidistant to player
+  Scenario: Enemy doesn't move when surrounded by obstacles
     Given the level 1 design is:
       | 7       |
       | 5       |
       | XXXXXXX |
-      | X E   X |
-      | X X  GX |
+      | XXEG  X |
+      | X X   X |
       | X P   X |
       | XXXXXXX |
     When the enemy moves
-    Then the enemy is located at (4, 2)
+    Then the enemy is located at (3, 2)

@@ -21,11 +21,15 @@ public abstract class MovableBoardPiece extends BoardPiece {
     }
 
     public List<Point> getValidMoves(BoardPiece[][] gameBoard) {
+        return getSurroundingMoves(gameBoard, location);
+    }
+
+    protected List<Point> getSurroundingMoves(BoardPiece[][] gameBoard, Point point) {
         List<Point> validMoves = new ArrayList<>();
-        validMoves.add(keyLeft());
-        validMoves.add(keyRight());
-        validMoves.add(keyDown());
-        validMoves.add(keyUp());
+        validMoves.add(keyLeft(point));
+        validMoves.add(keyRight(point));
+        validMoves.add(keyDown(point));
+        validMoves.add(keyUp(point));
 
         validMoves.removeIf(attemptedLocation -> !isValidMove(gameBoard, attemptedLocation));
         return validMoves;
@@ -37,23 +41,23 @@ public abstract class MovableBoardPiece extends BoardPiece {
         return gameBoard[location.x][location.y].getTileType();
     }
 
-    private Point keyLeft() {
-        return getPoint(-1, 0);
+    private Point keyLeft(Point point) {
+        return getPoint(point, -1, 0);
     }
 
-    private Point keyRight() {
-        return getPoint(1, 0);
+    private Point keyRight(Point point) {
+        return getPoint(point, 1, 0);
     }
 
-    private Point keyUp() {
-        return getPoint(0, -1);
+    private Point keyUp(Point point) {
+        return getPoint(point, 0, -1);
     }
 
-    private Point keyDown() {
-        return getPoint(0, 1);
+    private Point keyDown(Point point) {
+        return getPoint(point, 0, 1);
     }
 
-    private Point getPoint(int deltaX, int deltaY) {
-        return new Point(location.x + deltaX, location.y + deltaY);
+    private Point getPoint(Point point, int deltaX, int deltaY) {
+        return new Point(point.x + deltaX, point.y + deltaY);
     }
 }

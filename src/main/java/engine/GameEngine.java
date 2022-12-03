@@ -58,13 +58,17 @@ public class GameEngine {
         if (tileType == TileType.PLAYER) {
             playerMovesSinceLastEnemyMove++;
         }
-        final Result result = gameBoard.moveBoardPiece(tileType, direction);
+        Result result = gameBoard.moveBoardPiece(tileType, direction);
         handleLevelCompletion(result);
-
         if (playerMovesSinceLastEnemyMove == 2) {
-            gameBoard.moveBoardPiece(tileType.ENEMY, Direction.RIGHT);
-            playerMovesSinceLastEnemyMove = 0;
+            moveEnemy();
         }
+    }
+
+    public void moveEnemy() {
+        Result result = gameBoard.moveEnemy();
+        handleLevelCompletion(result);
+        playerMovesSinceLastEnemyMove = 0;
     }
 
     public void regenerateLevel(final int level) {
