@@ -27,32 +27,31 @@ public class ProjectileHandler {
 
 	public void createLeftEdgeProjectile() {
 		int yValue = getYValue();
-		gameEngine.addTile(0, yValue, TileType.PROJECTILE);
+		gameEngine.addTile(0, yValue, TileType.PROJECTILE, "right");
 	}
 
 	public void createRightEdgeProjectile() {
 		int yValue = getYValue();
-		gameEngine.addTile(gameEngine.getLevelHorizontalDimension() - 1, yValue, TileType.PROJECTILE);
+		gameEngine.addTile(gameEngine.getLevelHorizontalDimension() - 1, yValue, TileType.PROJECTILE, "left");
 	}
 
 	public void createTopEdgeProjectile() {
 		int xValue = getXValue();
-		gameEngine.addTile(xValue, 0, TileType.PROJECTILE);
+		gameEngine.addTile(xValue, 0, TileType.PROJECTILE, "down");
 	}
 
 	public void createBottomEdgeProjectile() {
 		int xValue = getXValue();
-		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension() - 1, TileType.PROJECTILE);
+		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension() - 1, TileType.PROJECTILE, "up");
 	}
 
-//	void handleProjectiles() {
-//		createRightEdgeProjectile();
-//		createBottomEdgeProjectile();
-//		createTopEdgeProjectile();
-//		createLeftEdgeProjectile();
-////		projectileTimer++;
-//
-//	}
+	public void createProjectiles() {
+		createRightEdgeProjectile();
+		createBottomEdgeProjectile();
+		createTopEdgeProjectile();
+		createLeftEdgeProjectile();
+
+	}
 
 	public void runProjectileTimer() {
 //		frameTimer++;

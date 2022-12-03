@@ -19,11 +19,13 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
+	ProjectileHandler projectileHandler;
 
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
 		gameEngine = new GameEngine(levelCreator);
+		projectileHandler = Mockito.mock(ProjectileHandler.class);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
@@ -32,10 +34,8 @@ public class GameEngineTest {
 	public void run() {
 		GameFrame gameFrame = Mockito.mock(GameFrame.class);
 		Component component = Mockito.mock(Component.class);
-		ProjectileHandler projectileHandler = Mockito.mock(ProjectileHandler.class);
 		Mockito.when(gameFrame.getComponents()).thenReturn(new Component[] { component });
-		gameEngine.setProjectileHandler(projectileHandler);
-		gameEngine.run(gameFrame);
+		gameEngine.run(gameFrame, projectileHandler);
 		Mockito.verify(component, Mockito.times(1)).repaint();
 		Mockito.verify(projectileHandler, Mockito.times(1)).runProjectileTimer();
 	}

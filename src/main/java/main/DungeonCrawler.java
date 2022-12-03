@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import engine.GameEngine;
+import engine.ProjectileHandler;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;
@@ -16,18 +17,22 @@ public class DungeonCrawler implements Runnable {
 	private final GameEngine gameEngine;
 	private final GameFrame gameFrame;
 	private final FramesPerSecondHandler framesPerSecondHandler;
+	private final ProjectileHandler projectileHandler;
 
 	public DungeonCrawler(ThreadWrapper threadWrapper, GameEngine gameEngine, GameFrame gameFrame,
-			FramesPerSecondHandler framesPerSecondHandler) {
+			FramesPerSecondHandler framesPerSecondHandler, ProjectileHandler projectileHandler) {
 		this.threadWrapper = threadWrapper;
 		this.gameEngine = gameEngine;
 		this.gameFrame = gameFrame;
 		this.framesPerSecondHandler = framesPerSecondHandler;
 		this.threadWrapper.createNewThreadWithDungeonCrawler(this);
+		this.projectileHandler = projectileHandler;
+
 	}
 
 	@Override
 	public void run() {
+		projectileHandler.createProjectiles();
 		while (!gameEngine.isExit()) {
 			try {
 				runIfEnoughTimeHasElapsed();
@@ -54,7 +59,7 @@ public class DungeonCrawler implements Runnable {
 	private void runIfEnoughTimeHasElapsed() throws InterruptedException {
 		if (framesPerSecondHandler.hasEnoughTimeElapsed()) {
 			framesPerSecondHandler.resetLastRunTimer();
-			gameEngine.run(gameFrame);
+			gameEngine.run(gameFrame, projectileHandler);
 			threadWrapper.sleep(framesPerSecondHandler.calculateSleepDurationInMilliSeconds());
 		}
 	}

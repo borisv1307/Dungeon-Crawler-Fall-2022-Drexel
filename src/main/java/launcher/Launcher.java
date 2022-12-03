@@ -1,6 +1,7 @@
 package launcher;
 
 import engine.GameEngine;
+import engine.ProjectileHandler;
 import main.DungeonCrawler;
 import main.ObjectFactory;
 import timer.FramesPerSecondHandler;
@@ -14,7 +15,8 @@ public class Launcher {
 		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
 		GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
+		ProjectileHandler projectileHandler = ObjectFactory.getDefaultProjectileHandler();
 
-		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler, projectileHandler);
 	}
 }

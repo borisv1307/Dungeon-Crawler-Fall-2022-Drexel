@@ -7,7 +7,6 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import wrappers.RandomWrapper;
 
 public class GameEngine {
 
@@ -19,24 +18,15 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Map<String, Point> projectiles = new HashMap<>();
-	private Point projectile;
-	private ProjectileHandler projectileHandler;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		setProjectileHandler(new ProjectileHandler(this, new RandomWrapper()));
-
 	}
 
-	void setProjectileHandler(ProjectileHandler projectileHandler) {
-		this.projectileHandler = projectileHandler;
-//		this.projectileHandler.handleProjectiles();
-	}
-
-	public void run(GameFrame gameFrame) {
+	public void run(GameFrame gameFrame, ProjectileHandler projectileHandler) {
 		projectileHandler.runProjectileTimer();
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
