@@ -7,8 +7,8 @@ import java.util.List;
 
 public class RandomWrapper {
 
-    private static final int minNumberOfObjects = 1;
-    private static final int maxNumberOfObjects = 5;
+    private static final int MIN_NUMBER_OF_OBJECTS = 1;
+    private static final int MAX_NUMBER_OF_OBJECTS = 5;
     ArrayList<Point> allPassableTiles;
     SecureRandom secureRandom;
 
@@ -18,7 +18,7 @@ public class RandomWrapper {
     }
 
     public int getRandomNumberOfObjects() {
-        return secureRandom.nextInt(maxNumberOfObjects - minNumberOfObjects + 1) + minNumberOfObjects;
+        return secureRandom.nextInt(MAX_NUMBER_OF_OBJECTS - MIN_NUMBER_OF_OBJECTS + 1) + MIN_NUMBER_OF_OBJECTS;
     }
 
     public int getRandomIntInRange(int max) {

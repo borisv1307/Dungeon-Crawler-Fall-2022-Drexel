@@ -16,21 +16,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameEngineTest {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
     GameEngine gameEngine;
-    RandomWrapper randomWrapperMock;
 
     RandomWrapper randomWrapper;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         randomWrapper = new RandomWrapper();
-        randomWrapperMock = mock(RandomWrapper.class);
         LevelCreator levelCreator = mock(LevelCreator.class);
         gameEngine = new GameEngine(levelCreator);
         int level = 1;
@@ -39,7 +38,6 @@ public class GameEngineTest {
 
     @Test
     public void run() {
-        randomWrapperMock = Mockito.mock(RandomWrapper.class);
         GameFrame gameFrame = mock(GameFrame.class);
         Component component = mock(Component.class);
         when(gameFrame.getComponents()).thenReturn(new Component[]{component});
@@ -119,7 +117,6 @@ public class GameEngineTest {
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1, 1));
         randomWrapper.setAllPassableTiles(points);
-        randomWrapperMock = spy(randomWrapper);
         Point randomPassablePoint = randomWrapper.getRandomPassableTile();
         assertNotNull(randomPassablePoint);
     }

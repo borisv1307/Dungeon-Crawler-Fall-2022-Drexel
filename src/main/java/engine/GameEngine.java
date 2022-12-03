@@ -8,8 +8,12 @@ import wrappers.RandomWrapper;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameEngine {
+
+    private final static Logger LOGGER = Logger.getLogger(GameEngine.class.getName());
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
@@ -137,7 +141,7 @@ public class GameEngine {
                     tilesToBeUpdated.add(passableTile);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.log(Level.WARNING, e.getMessage());
             }
         }
         return tilesToBeUpdated;
@@ -181,7 +185,7 @@ public class GameEngine {
     public void refreshCollectableObjects() {
         int randomNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
         List<Point> tilesToBeUpdated = getTilesForObjects(randomNumberOfObjects);
-        if (collectableObjects.isEmpty()) {
+        if (!collectableObjects.isEmpty()) {
             removePreviouslyAddedObjects();
         }
         addObjectsToTheGame(tilesToBeUpdated);
