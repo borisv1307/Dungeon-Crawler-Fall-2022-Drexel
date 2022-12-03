@@ -15,11 +15,11 @@ public class GameEngine {
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     private final RandomWrapper randomWrapper;
+    private final ArrayList<Point> collectableObjects;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
-    private ArrayList<Point> collectableObjects;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -131,7 +131,7 @@ public class GameEngine {
         ArrayList<Point> tilesToBeUpdated = new ArrayList<>();
         List<Point> passableTiles = getAllPassableTiles();
         for (int i = 0; i < numberOfTilesNeeded; i++) {
-            randomWrapper.setAllPassableTiles((ArrayList<Point>) passableTiles);
+            randomWrapper.setAllPassableTiles(passableTiles);
             Point passableTile = randomWrapper.getRandomPassableTile();
             if (!tilesToBeUpdated.contains(passableTile)) {
                 tilesToBeUpdated.add(passableTile);
