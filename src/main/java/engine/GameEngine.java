@@ -18,6 +18,7 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Random coordinate = new Random();
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -112,7 +113,6 @@ public class GameEngine {
 	}
 
 	private int generateCoordinate(int dimension) {
-		Random coordinate = new Random();
 		return coordinate.nextInt(dimension);
 	}
 
