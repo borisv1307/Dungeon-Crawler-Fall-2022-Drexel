@@ -1,5 +1,7 @@
 package engine;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -92,6 +94,14 @@ public class ProjectileHandlerTest {
 		Mockito.verify(gameEngine).moveProjectileLeft();
 		Mockito.verify(gameEngine).moveProjectileDown();
 		Mockito.verify(gameEngine).moveProjectileUp();
+	}
+
+	@Test
+	public void increase_difficulty_when_projectiles_reach_end() {
+		projectileHandler.setDifficultyFactor(1);
+		projectileHandler.increaseDifficulty();
+		assertEquals(0.5, projectileHandler.getDifficultyFactor(), 0.1);
+
 	}
 
 }

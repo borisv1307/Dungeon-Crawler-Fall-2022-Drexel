@@ -9,11 +9,15 @@ public class ProjectileHandler {
 	RandomWrapper randomWrapper;
 	GameEngine gameEngine;
 	private int frameTimer = 0;
+	private int moveCount = 0;
+	private double difficultyFactor = 1;
+	private double projectileSpeed;
 //	private int projectileTimer = 0;
 
 	public ProjectileHandler(GameEngine gameEngine, RandomWrapper randomWrapper) {
 		this.gameEngine = gameEngine;
 		this.randomWrapper = randomWrapper;
+		this.projectileSpeed = difficultyFactor * TunableParameters.TARGET_FPS;
 	}
 
 	int getYValue() {
@@ -55,30 +59,38 @@ public class ProjectileHandler {
 		createLeftEdgeProjectile();
 	}
 
+	public void increaseDifficulty() {
+		this.difficultyFactor = this.difficultyFactor / 2;
+		projectileSpeed = this.difficultyFactor * TunableParameters.TARGET_FPS;
+	}
+
 	public void moveProjectiles() {
+		moveCount++;
 		gameEngine.moveProjectileUp();
 		gameEngine.moveProjectileLeft();
 		gameEngine.moveProjectileDown();
 		gameEngine.moveProjectileRight();
+		if (moveCount > gameEngine.getLevelHorizontalDimension()) {
+			increaseDifficulty();
+			createProjectiles();
+			moveCount = 0;
+		}
 	}
 
 	public void runProjectileTimer() {
 		frameTimer++;
-		if (frameTimer % 45 == 0) {
+		if (frameTimer > projectileSpeed) {
 			this.moveProjectiles();
 			frameTimer = 0;
 		}
 	}
 
-	public void setFrameTimer() {
-		this.frameTimer++;
+	double getDifficultyFactor() {
+		return difficultyFactor;
 	}
 
-	public void resetFrameTimer() {
-		this.frameTimer = 0;
+	void setDifficultyFactor(double difficultyFactor) {
+		this.difficultyFactor = difficultyFactor;
 	}
 
-	public int getFrameTimer() {
-		return this.frameTimer;
-	}
 }
