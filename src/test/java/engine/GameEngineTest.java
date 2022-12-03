@@ -1,5 +1,6 @@
 package engine;
 
+import main.EnemyHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -11,6 +12,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 public class GameEngineTest {
 
@@ -74,6 +76,19 @@ public class GameEngineTest {
         gameEngine.setExit(exit);
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
+    }
+
+    @Test
+    public void lasers_destroy_enemies(){
+        gameEngine.setLevelVerticalDimension(2);
+        gameEngine.setLevelHorizontalDimension(2);
+        TileType tileType = TileType.PLAYER;
+        gameEngine.addTile(ZERO, ONE, tileType);
+        gameEngine.spawnEnemy(ZERO, ZERO);
+        assertEquals(1, EnemyHandler.getEnemies().size());
+        gameEngine.keySpace();
+        gameEngine.destroyHitEnemies();
+        assertEquals(0, EnemyHandler.getEnemies().size());
     }
 
 }

@@ -22,12 +22,16 @@ public class LaserHandler {
             Laser laser = lasers.get(i);
             laser.setY(laser.getY() - (1));
             if(laser.getY() < 5){
-                lasers.remove(lasers.get(i));
+                destroy(lasers.get(i));
             }
         }
     }
     public List<Laser> getLasers(){
         return this.lasers;
+    }
+
+    public void destroy(Laser laser) {
+        lasers.remove(laser);
     }
 
     public class Laser {

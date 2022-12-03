@@ -16,11 +16,12 @@ import java.util.Map;
 
 public class GameEngine {
 
+    public final LaserHandler laserHandler;
+    public final EnemyHandler enemyHandler;
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
-    public final LaserHandler laserHandler;
-    public final EnemyHandler enemyHandler;
+    public boolean playerHasLost = false;
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
@@ -42,14 +43,23 @@ public class GameEngine {
     }
 
     public void run(GameFrame gameFrame) {
-        if(!laserHandler.getLasers().isEmpty()){
-            laserHandler.progressLasers();
-        }
-        if(enemyHandler.enemyWillSpawn(randomWrapper)){
-            spawnEnemyAtRandomX(randomHandler);
-        }
-        if(!EnemyHandler.getEnemies().isEmpty()){
-            enemyHandler.progressEnemies();
+        boolean laserExists = !laserHandler.getLasers().isEmpty();
+        boolean enemyExists = !EnemyHandler.getEnemies().isEmpty();
+
+        if (!playerHasLost) {
+            if (enemyExists && laserExists) {
+                destroyHitEnemies();
+            }
+            if (laserExists) {
+                laserHandler.progressLasers();
+            }
+            if (enemyHandler.enemyWillSpawn(randomWrapper)) {
+                spawnEnemyAtRandomX(randomHandler);
+            }
+            if (enemyExists) {
+                enemyHandler.progressEnemies();
+                hasPlayerLost();
+            }
         }
         for (Component component : gameFrame.getComponents()) {
             component.repaint();
@@ -134,6 +144,7 @@ public class GameEngine {
         laserHandler.laserFactory(getPlayerXCoordinate() * TunableParameters.TILE_TO_LASER_WIDTH,
                 getPlayerYCoordinate() * TunableParameters.TILE_TO_LASER_HEIGHT);
     }
+
     public EnemyHandler.Enemy spawnEnemy(int x, int y) {
         return enemyHandler.createEnemy(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
@@ -145,5 +156,45 @@ public class GameEngine {
 
     public List<LaserHandler.Laser> getLasers() {
         return laserHandler.getLasers();
+    }
+
+    public void destroyHitEnemies() {
+        List<LaserHandler.Laser> lasers = laserHandler.getLasers();
+        List<EnemyHandler.Enemy> enemies = EnemyHandler.getEnemies();
+        for (int i = 0; i < enemies.size(); i++) {
+            int xBlockEnemy = enemies.get(i).getX() / tileWidth;
+            int yPixelEnemyTop = enemies.get(i).getY();
+            int yPixelEnemyBottom = yPixelEnemyTop + enemies.get(i).getHeight();
+            for (int j = 0; j < lasers.size(); j++) {
+                int xBlockLaser = lasers.get(j).getX() / TunableParameters.TILE_TO_LASER_WIDTH;
+                if (xBlockLaser == xBlockEnemy) {
+                    int yPixelLaser = (lasers.get(j).getY() / TunableParameters.TILE_TO_LASER_HEIGHT) * tileHeight;
+                    if (yPixelEnemyBottom >= yPixelLaser && yPixelEnemyTop <= yPixelLaser) {
+                        laserHandler.destroy(lasers.get(j));
+                        enemyHandler.destroy(enemies.get(i));
+                        EnemyHandler.incrementKillCount();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void hasPlayerLost() {
+        List<EnemyHandler.Enemy> enemies = EnemyHandler.getEnemies();
+        for (EnemyHandler.Enemy enemy : enemies) {
+            int xBlockEnemy = enemy.getX() / tileWidth;
+            int yPixelEnemyTop = enemy.getY();
+            int yPixelEnemyBottom = yPixelEnemyTop + enemy.getHeight();
+            if (getPlayerXCoordinate() == xBlockEnemy) {
+                int yPixelPlayerTop = getPlayerYCoordinate() * tileHeight;
+                int yPixelPlayerBottom = yPixelPlayerTop + tileHeight;
+                if (yPixelEnemyBottom >= yPixelPlayerTop && yPixelEnemyBottom <= yPixelPlayerBottom) {
+                    playerHasLost = true;
+                } else if (yPixelEnemyTop <= yPixelPlayerBottom && yPixelEnemyTop >= yPixelPlayerTop) {
+                    playerHasLost = true;
+                }
+            }
+        }
     }
 }

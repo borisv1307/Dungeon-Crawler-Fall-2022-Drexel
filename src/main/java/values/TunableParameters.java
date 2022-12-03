@@ -14,5 +14,5 @@ public final class TunableParameters {
 	public static final String FILE_LOCATION_PREFIX = "src/main/resources/levels/";
 	public static final String FILE_NAME_SUFFIX = ".txt";
 
-	public static final double INITIAL_CHANCE_OF_SPAWN = .01;
+	public static final double INITIAL_CHANCE_OF_SPAWN = .02;
 }

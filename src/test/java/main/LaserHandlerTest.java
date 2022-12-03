@@ -84,6 +84,5 @@ public class LaserHandlerTest {
     public LaserHandler.Laser createAndGetFirstLaser(){
         gameEngine.keySpace();
         return gameEngine.laserHandler.getLasers().get(0);
-
     }
 }
