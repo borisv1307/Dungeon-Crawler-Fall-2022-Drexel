@@ -104,7 +104,7 @@ public class GameEngine {
         return losses;
     }
 
-    private void handleLevelCompletion(Result result) {
+    public void handleLevelCompletion(Result result) {
         if (result == Result.WIN) {
             wins++;
             level++;

@@ -15,7 +15,6 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -47,9 +46,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 
     @When("^I randomly generate level 1 with an x of (\\d+) and a y of (\\d+)$")
     public void i_randomly_generate_a_level_with_obstacles_an_x_of_and_a_y_of(int x, int y) throws Throwable {
-        Random random = new Random();
-        random.setSeed(seed);
-        RandomLevelCreator levelCreator = new RandomLevelCreator(new BoardPieceFactory(), random, seed, x, y);
+        RandomLevelCreator levelCreator = new RandomLevelCreator(new BoardPieceFactory(), seed, x, y);
 
         try {
             gameEngine = new GameEngine(levelCreator);
