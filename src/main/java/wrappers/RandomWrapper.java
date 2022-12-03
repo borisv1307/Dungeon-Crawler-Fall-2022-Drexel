@@ -3,7 +3,7 @@ package wrappers;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static java.lang.Math.random;
+import static java.util.concurrent.ThreadLocalRandom.current;
 
 public class RandomWrapper {
 
@@ -12,11 +12,11 @@ public class RandomWrapper {
     public int getRandomNumberOfObjects() {
         int min = 1;
         int max = 5;
-        return (int) ((random() * (max - min)) + min);
+        return current().nextInt(min, max + 1);
     }
 
     public int getRandomIntInRange(int min, int max) {
-        return (int) ((random() * (max - min)) + min);
+        return current().nextInt(min, max + 1);
     }
 
     public Point getRandomPassableTile() {
