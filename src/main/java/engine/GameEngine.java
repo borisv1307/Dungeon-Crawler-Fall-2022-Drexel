@@ -14,10 +14,6 @@ public class GameEngine {
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private final int level;
-	String UP = TunableParameters.UP;
-	String DOWN = TunableParameters.DOWN;
-	String LEFT = TunableParameters.LEFT;
-	String RIGHT = TunableParameters.RIGHT;
 	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
@@ -132,18 +128,22 @@ public class GameEngine {
 	}
 
 	public void moveProjectileRight() {
+		String RIGHT = TunableParameters.RIGHT;
 		setProjectile(getProjectileXCoordinate(RIGHT) + 1, getProjectileYCoordinate(RIGHT), RIGHT);
 	}
 
 	public void moveProjectileLeft() {
+		String LEFT = TunableParameters.LEFT;
 		setProjectile(getProjectileXCoordinate(LEFT) - 1, getProjectileYCoordinate(LEFT), LEFT);
 	}
 
 	public void moveProjectileDown() {
+		String DOWN = TunableParameters.DOWN;
 		setProjectile(getProjectileXCoordinate(DOWN), getProjectileYCoordinate(DOWN) + 1, DOWN);
 	}
 
 	public void moveProjectileUp() {
+		String UP = TunableParameters.UP;
 		setProjectile(getProjectileXCoordinate(UP), getProjectileYCoordinate(UP) - 1, UP);
 	}
 }
