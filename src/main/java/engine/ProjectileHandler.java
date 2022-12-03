@@ -1,6 +1,7 @@
 package engine;
 
 import tiles.TileType;
+import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 public class ProjectileHandler {
@@ -27,22 +28,24 @@ public class ProjectileHandler {
 
 	public void createLeftEdgeProjectile() {
 		int yValue = getYValue();
-		gameEngine.addTile(0, yValue, TileType.PROJECTILE, "right");
+		gameEngine.addTile(0, yValue, TileType.PROJECTILE, TunableParameters.RIGHT);
 	}
 
 	public void createRightEdgeProjectile() {
 		int yValue = getYValue();
-		gameEngine.addTile(gameEngine.getLevelHorizontalDimension() - 1, yValue, TileType.PROJECTILE, "left");
+		gameEngine.addTile(gameEngine.getLevelHorizontalDimension() - 1, yValue, TileType.PROJECTILE,
+				TunableParameters.LEFT);
 	}
 
 	public void createTopEdgeProjectile() {
 		int xValue = getXValue();
-		gameEngine.addTile(xValue, 0, TileType.PROJECTILE, "down");
+		gameEngine.addTile(xValue, 0, TileType.PROJECTILE, TunableParameters.DOWN);
 	}
 
 	public void createBottomEdgeProjectile() {
 		int xValue = getXValue();
-		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension() - 1, TileType.PROJECTILE, "up");
+		gameEngine.addTile(xValue, gameEngine.getLevelVerticalDimension() - 1, TileType.PROJECTILE,
+				TunableParameters.UP);
 	}
 
 	public void createProjectiles() {

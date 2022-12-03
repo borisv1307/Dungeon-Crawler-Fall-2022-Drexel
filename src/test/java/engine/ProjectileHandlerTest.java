@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import tiles.TileType;
+import values.TunableParameters;
 import wrappers.RandomWrapper;
 
 public class ProjectileHandlerTest {
@@ -30,7 +31,7 @@ public class ProjectileHandlerTest {
 	public void generate_projectile_left_side() {
 		Mockito.when(randomWrapper.nextInt(maxY)).thenReturn(5);
 		projectileHandler.createLeftEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(0, 6, TileType.PROJECTILE, "right");
+		Mockito.verify(gameEngine).addTile(0, 6, TileType.PROJECTILE, TunableParameters.RIGHT);
 	}
 
 	@Test
@@ -38,14 +39,14 @@ public class ProjectileHandlerTest {
 		Mockito.when(randomWrapper.nextInt(maxY)).thenReturn(5);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(20);
 		projectileHandler.createRightEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(19, 6, TileType.PROJECTILE, "left");
+		Mockito.verify(gameEngine).addTile(19, 6, TileType.PROJECTILE, TunableParameters.LEFT);
 	}
 
 	@Test
 	public void generate_projectile_top_side() {
 		Mockito.when(randomWrapper.nextInt(maxX)).thenReturn(9);
 		projectileHandler.createTopEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(10, 0, TileType.PROJECTILE, "down");
+		Mockito.verify(gameEngine).addTile(10, 0, TileType.PROJECTILE, TunableParameters.DOWN);
 	}
 
 	@Test
@@ -53,14 +54,14 @@ public class ProjectileHandlerTest {
 		Mockito.when(randomWrapper.nextInt(maxX)).thenReturn(9);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(10);
 		projectileHandler.createBottomEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(10, 9, TileType.PROJECTILE, "up");
+		Mockito.verify(gameEngine).addTile(10, 9, TileType.PROJECTILE, TunableParameters.UP);
 	}
 
 	@Test
 	public void random_vertical_value_is_greater_than_zero() {
 		Mockito.when(randomWrapper.nextInt(maxY)).thenReturn(0);
 		projectileHandler.createLeftEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(0, 1, TileType.PROJECTILE, "right");
+		Mockito.verify(gameEngine).addTile(0, 1, TileType.PROJECTILE, TunableParameters.RIGHT);
 	}
 
 	@Test
@@ -74,7 +75,7 @@ public class ProjectileHandlerTest {
 	public void random_horizontal_value_is_greater_than_zero() {
 		Mockito.when(randomWrapper.nextInt(maxX)).thenReturn(0);
 		projectileHandler.createTopEdgeProjectile();
-		Mockito.verify(gameEngine).addTile(1, 0, TileType.PROJECTILE, "down");
+		Mockito.verify(gameEngine).addTile(1, 0, TileType.PROJECTILE, TunableParameters.DOWN);
 	}
 
 	@Test

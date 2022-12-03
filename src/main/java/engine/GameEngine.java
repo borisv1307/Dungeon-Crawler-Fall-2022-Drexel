@@ -7,12 +7,17 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import values.TunableParameters;
 
 public class GameEngine {
 
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private final int level;
+	String UP = TunableParameters.UP;
+	String DOWN = TunableParameters.DOWN;
+	String LEFT = TunableParameters.LEFT;
+	String RIGHT = TunableParameters.RIGHT;
 	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
@@ -127,18 +132,18 @@ public class GameEngine {
 	}
 
 	public void moveProjectileRight() {
-		setProjectile(getProjectileXCoordinate("right") + 1, getProjectileYCoordinate("right"), "right");
+		setProjectile(getProjectileXCoordinate(RIGHT) + 1, getProjectileYCoordinate(RIGHT), RIGHT);
 	}
 
 	public void moveProjectileLeft() {
-		setProjectile(getProjectileXCoordinate("left") - 1, getProjectileYCoordinate("left"), "left");
+		setProjectile(getProjectileXCoordinate(LEFT) - 1, getProjectileYCoordinate(LEFT), LEFT);
 	}
 
 	public void moveProjectileDown() {
-		setProjectile(getProjectileXCoordinate("down"), getProjectileYCoordinate("down") + 1, "down");
+		setProjectile(getProjectileXCoordinate(DOWN), getProjectileYCoordinate(DOWN) + 1, DOWN);
 	}
 
 	public void moveProjectileUp() {
-		setProjectile(getProjectileXCoordinate("up"), getProjectileYCoordinate("up") - 1, "up");
+		setProjectile(getProjectileXCoordinate(UP), getProjectileYCoordinate(UP) - 1, UP);
 	}
 }

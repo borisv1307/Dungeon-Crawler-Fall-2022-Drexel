@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import values.TunableParameters;
 
 public class GameEngineTest {
 
@@ -75,9 +76,9 @@ public class GameEngineTest {
 	@Test
 	public void add_and_get_up_projectile_coordinates() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "up");
-		int actualX = gameEngine.getProjectileXCoordinate("up");
-		int actualY = gameEngine.getProjectileYCoordinate("up");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.UP);
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.UP);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.UP);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -85,9 +86,9 @@ public class GameEngineTest {
 	@Test
 	public void add_and_get_down_projectile_coordinates() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "down");
-		int actualX = gameEngine.getProjectileXCoordinate("down");
-		int actualY = gameEngine.getProjectileYCoordinate("down");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.DOWN);
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.DOWN);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.DOWN);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -95,9 +96,9 @@ public class GameEngineTest {
 	@Test
 	public void add_and_get_left_projectile_coordinates() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "left");
-		int actualX = gameEngine.getProjectileXCoordinate("left");
-		int actualY = gameEngine.getProjectileYCoordinate("left");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.LEFT);
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.LEFT);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.LEFT);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -105,9 +106,9 @@ public class GameEngineTest {
 	@Test
 	public void add_and_get_right_projectile_coordinates() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "right");
-		int actualX = gameEngine.getProjectileXCoordinate("right");
-		int actualY = gameEngine.getProjectileYCoordinate("right");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.RIGHT);
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.RIGHT);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.RIGHT);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -115,10 +116,10 @@ public class GameEngineTest {
 	@Test
 	public void projectile_move_right() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "right");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.RIGHT);
 		gameEngine.moveProjectileRight();
-		int actualX = gameEngine.getProjectileXCoordinate("right");
-		int actualY = gameEngine.getProjectileYCoordinate("right");
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.RIGHT);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.RIGHT);
 		assertThat(actualX, equalTo(ONE));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -126,10 +127,10 @@ public class GameEngineTest {
 	@Test
 	public void projectile_move_left() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ONE, ONE, tileType, "left");
+		gameEngine.addTile(ONE, ONE, tileType, TunableParameters.LEFT);
 		gameEngine.moveProjectileLeft();
-		int actualX = gameEngine.getProjectileXCoordinate("left");
-		int actualY = gameEngine.getProjectileYCoordinate("left");
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.LEFT);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.LEFT);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -137,10 +138,10 @@ public class GameEngineTest {
 	@Test
 	public void projectile_move_down() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ZERO, tileType, "down");
+		gameEngine.addTile(ZERO, ZERO, tileType, TunableParameters.DOWN);
 		gameEngine.moveProjectileDown();
-		int actualX = gameEngine.getProjectileXCoordinate("down");
-		int actualY = gameEngine.getProjectileYCoordinate("down");
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.DOWN);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.DOWN);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -148,10 +149,10 @@ public class GameEngineTest {
 	@Test
 	public void projectile_move_up() {
 		TileType tileType = TileType.PROJECTILE;
-		gameEngine.addTile(ZERO, ONE, tileType, "up");
+		gameEngine.addTile(ZERO, ONE, tileType, TunableParameters.UP);
 		gameEngine.moveProjectileUp();
-		int actualX = gameEngine.getProjectileXCoordinate("up");
-		int actualY = gameEngine.getProjectileYCoordinate("up");
+		int actualX = gameEngine.getProjectileXCoordinate(TunableParameters.UP);
+		int actualY = gameEngine.getProjectileYCoordinate(TunableParameters.UP);
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ZERO));
 	}
