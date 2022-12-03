@@ -1,5 +1,7 @@
 package wrappers;
 
+import exceptions.PassableTileException;
+
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -25,14 +27,14 @@ public class RandomWrapper {
         return secureRandom.nextInt(max);
     }
 
-    public Point getRandomPassableTile() throws RuntimeException {
+    public Point getRandomPassableTile() throws PassableTileException {
         ArrayList<Point> passableTiles = (ArrayList<Point>) getAllPassableTiles();
         int numberOfPassableTiles = passableTiles.size();
         if (numberOfPassableTiles > 0) {
             int randomIndex = getRandomIntInRange(numberOfPassableTiles);
             return passableTiles.get(randomIndex);
         } else {
-            throw new RuntimeException("No passable tiles available");
+            throw new PassableTileException("No passable tiles available");
         }
     }
 

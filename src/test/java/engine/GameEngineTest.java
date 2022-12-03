@@ -1,5 +1,6 @@
 package engine;
 
+import exceptions.PassableTileException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -97,7 +98,7 @@ public class GameEngineTest {
 
     @Test
     public void no_random_passable_tile() {
-        Exception exception = assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(PassableTileException.class, () -> {
             randomWrapper.getRandomPassableTile();
         });
         assertEquals("No passable tiles available", exception.getMessage());
@@ -119,6 +120,8 @@ public class GameEngineTest {
         randomWrapper.setAllPassableTiles(points);
         Point randomPassablePoint = randomWrapper.getRandomPassableTile();
         assertNotNull(randomPassablePoint);
+        assertEquals(1, (int) randomPassablePoint.getX());
+        assertEquals(1, (int) randomPassablePoint.getY());
     }
 
     @Test

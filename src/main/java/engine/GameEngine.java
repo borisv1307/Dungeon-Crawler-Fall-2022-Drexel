@@ -1,5 +1,6 @@
 package engine;
 
+import exceptions.PassableTileException;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class GameEngine {
 
-    private final static Logger LOGGER = Logger.getLogger(GameEngine.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GameEngine.class.getName());
     private final LevelCreator levelCreator;
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
@@ -140,7 +141,7 @@ public class GameEngine {
                 if (!tilesToBeUpdated.contains(passableTile)) {
                     tilesToBeUpdated.add(passableTile);
                 }
-            } catch (Exception e) {
+            } catch (PassableTileException e) {
                 LOGGER.log(Level.WARNING, e.getMessage());
             }
         }
