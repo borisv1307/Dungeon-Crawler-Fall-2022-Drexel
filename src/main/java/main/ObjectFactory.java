@@ -1,5 +1,7 @@
 package main;
 
+import engine.CombatEngine;
+import engine.EnemySpawner;
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
@@ -8,6 +10,7 @@ import ui.GamePanel;
 import ui.TilePainter;
 import ui.WindowAdapterSystemExit;
 import values.TunableParameters;
+import wrappers.RandomizerWrapper;
 import wrappers.ReaderWrapper;
 import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
@@ -21,6 +24,11 @@ public abstract class ObjectFactory {
     private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
     private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
             new WindowAdapterSystemExit(defaultGameEngine));
+    private static SystemWrapper defaultSystemWrapper = new SystemWrapper();
+    private static RandomizerWrapper defaultRandomizerWrapper = new RandomizerWrapper(defaultSystemWrapper);
+    private static EnemySpawner defaultEnemySpawner = new EnemySpawner(defaultRandomizerWrapper, defaultGameEngine);
+    private static CombatEngine defaultCombatEngine = new CombatEngine(defaultEnemySpawner);
+
 
     private ObjectFactory() {
     }
@@ -39,6 +47,10 @@ public abstract class ObjectFactory {
 
     public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
         return defaultFramesPerSecondHandler;
+    }
+
+    public static CombatEngine getDefaultCombatEngine() {
+        return defaultCombatEngine;
     }
 
 }

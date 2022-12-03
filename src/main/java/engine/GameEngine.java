@@ -7,8 +7,6 @@ import entities.Slime;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import wrappers.RandomizerWrapper;
-import wrappers.SystemWrapper;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -33,10 +31,10 @@ public class GameEngine {
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
         gameStatus = GameStatus.PLAYER_RESPAWNED;
+    }
 
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-        EnemySpawner enemySpawner = new EnemySpawner(randomizerWrapper, this);
-        combatEngine = new CombatEngine(enemySpawner);
+    public void setCombatEngine(CombatEngine combatEngine) {
+        this.combatEngine = combatEngine;
     }
 
     public void run(GameFrame gameFrame) {

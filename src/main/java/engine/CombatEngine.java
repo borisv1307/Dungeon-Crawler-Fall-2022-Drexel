@@ -7,7 +7,7 @@ public class CombatEngine {
     private EnemySpawner enemySpawner;
     private String gameStatusString;
 
-    CombatEngine(EnemySpawner enemySpawner) {
+    public CombatEngine(EnemySpawner enemySpawner) {
         this.enemySpawner = enemySpawner;
     }
 

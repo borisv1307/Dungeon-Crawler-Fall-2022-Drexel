@@ -16,7 +16,7 @@ public class EnemySpawner {
     private int levelVerticalDimension;
     private GameEngine gameEngine;
 
-    EnemySpawner(RandomizerWrapper randomizerWrapper, GameEngine gameEngine) {
+    public EnemySpawner(RandomizerWrapper randomizerWrapper, GameEngine gameEngine) {
         this.randomizerWrapper = randomizerWrapper;
         this.gameEngine = gameEngine;
         this.levelVerticalDimension = gameEngine.getLevelVerticalDimension();
