@@ -119,10 +119,7 @@ public class GameEngine {
     private boolean passable(int x, int y) {
         TileType attemptedLocation = getTileFromCoordinates(x, y);
 
-        if (attemptedLocation.equals(TileType.PASSABLE)) {
-            return true;
-        }
-        return false;
+        return attemptedLocation.equals(TileType.PASSABLE);
     }
 
     public boolean isExit() {
