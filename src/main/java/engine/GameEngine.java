@@ -2,6 +2,8 @@ package engine;
 
 import parser.LevelCreator;
 import projectile.Projectile;
+import projectile.ProjectileShooter;
+import projectile.ProjectileShooterFactory;
 import tiles.TileType;
 import ui.GameFrame;
 
@@ -22,11 +24,13 @@ public class GameEngine {
     private int startX, startY;
     private Point player;
     private List<Projectile> projectiles;
+    private List<ProjectileShooter> shooters;
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
         this.projectiles = new ArrayList<>();
+        this.shooters = new ArrayList<>();
         this.levelCreator = levelCreator;
         this.levelCreator.createLevel(this, level);
     }
@@ -43,6 +47,10 @@ public class GameEngine {
             startX = x;
             startY = y;
             tiles.put(new Point(x, y), TileType.PASSABLE);
+        } else if (TileType.isShooter(tileType)) {
+            ProjectileShooter shooter = ProjectileShooterFactory.getInstance().getProjectileShooter(x, y, 1500, 500, this, tileType);
+            shooters.add(shooter);
+            tiles.put(new Point(x, y), tileType);
         } else {
             tiles.put(new Point(x, y), tileType);
         }
@@ -125,6 +133,7 @@ public class GameEngine {
         if (projectileCollision(projectile)) {
             resetPlayer();
         } else if (getTileFromCoordinates(projectile.getX(), projectile.getY()).equals(TileType.PASSABLE) == false) {
+            projectile.stop();
             projectiles.remove(projectile);
         }
     }
@@ -133,8 +142,7 @@ public class GameEngine {
         return projectile.getX() == getPlayerXCoordinate() && projectile.getY() == getPlayerYCoordinate();
     }
 
-    protected void resetPlayer() {
-        System.out.println("Player reset.");
+    public void resetPlayer() {
         setPlayer(startX, startY);
     }
 
@@ -145,4 +153,5 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
 }

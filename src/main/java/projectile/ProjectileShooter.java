@@ -1,7 +1,6 @@
 package projectile;
 
 import engine.GameEngine;
-import tiles.TileType;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,7 +19,6 @@ public abstract class ProjectileShooter {
         this.projectileInterval = projectileInterval;
         this.engine = engine;
         this.timer = new Timer();
-        engine.addTile(x, y, TileType.NOT_PASSABLE);
         run();
     }
 
@@ -28,7 +26,7 @@ public abstract class ProjectileShooter {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                engine.addProjectile(new Projectile(x, y, deltaX, deltaY, projectileInterval, engine));
+                engine.addProjectile(new Projectile(x + deltaX, y + deltaY, deltaX, deltaY, projectileInterval, engine));
             }
         }, 0, interval);
     }

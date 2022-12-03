@@ -6,8 +6,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Projectile {
-    private int x, y, deltaX, deltaY, interval;
+    private int x, y, deltaX, deltaY, interval, totalIterations, iterations;
     private GameEngine engine;
+    private Timer timer;
 
     public Projectile(int startX, int startY, int deltaX, int deltaY, int interval, GameEngine engine) {
         this.x = startX;
@@ -15,27 +16,26 @@ public class Projectile {
         this.deltaX = deltaX;
         this.deltaY = deltaY;
         this.interval = interval;
+        this.iterations = 0;
         this.engine = engine;
-        move(this);
+        this.totalIterations = calculateIterations();
+        this.timer = new Timer();
+        start(this);
     }
 
-    private void move(Projectile selfForNotify) {
-        Timer timer = new Timer();
+    private void start(Projectile selfForNotify) {
         timer.scheduleAtFixedRate(new TimerTask() {
-            int totalIterations = calculateIterations();
-            int iterations = 0;
 
             @Override
             public void run() {
                 if (iterations == totalIterations) {
-                    timer.cancel();
+                    stop();
                     return;
                 }
                 x += deltaX;
                 y += deltaY;
                 engine.notifyProjectileMovement(selfForNotify);
                 iterations++;
-                System.out.println("Moved.");
             }
         }, interval, interval);
     }
@@ -44,20 +44,24 @@ public class Projectile {
         int xIterations = 0;
         int yIterations = 0;
         if (deltaX > 0) {
-            xIterations = engine.getLevelHorizontalDimension() - x;
+            xIterations = engine.getLevelHorizontalDimension() - x - 1;
         } else if (deltaX < 0) {
             xIterations = x;
         }
         if (deltaY > 0) {
-            yIterations = engine.getLevelVerticalDimension() - y;
+            yIterations = engine.getLevelVerticalDimension() - y - 1;
         } else if (deltaY < 0) {
             yIterations = y;
         }
 
-        if (xIterations > yIterations) {
+        if (xIterations >= 0 && yIterations == 0) {
             return xIterations;
         }
         return yIterations;
+    }
+
+    public void stop() {
+        timer.cancel();
     }
 
     public int getX() {
@@ -67,5 +71,4 @@ public class Projectile {
     public int getY() {
         return y;
     }
-
 }
