@@ -102,4 +102,10 @@ public class GamePanelTest {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
 	}
+
+	@Test
+	public void key_Z(){
+		boolean actual = gamePanel.keyDown(null, Event.Z);
+		assertSame(true, actual);
+	}
 }
