@@ -9,9 +9,7 @@ import org.junit.Assert;
 import org.mockito.Mockito;
 import tiles.TileType;
 import values.TestingTunableParameters;
-import wrappers.RandomizerWrapper;
 import wrappers.ReaderWrapper;
-import wrappers.SystemWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,9 +36,8 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
     public void i_create_the_level() throws Throwable {
         LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
                 new ReaderWrapper());
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
         try {
-            gameEngine = new GameEngine(levelCreator, randomizerWrapper);
+            gameEngine = new GameEngine(levelCreator);
         } catch (IllegalArgumentException e) {
             exceptionMessage = e.getMessage();
         }
@@ -54,8 +51,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
         Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
         Mockito.doThrow(ioException).when(bufferedReader).readLine();
         LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-        gameEngine = new GameEngine(levelCreator, randomizerWrapper);
+        gameEngine = new GameEngine(levelCreator);
     }
 
     @Then("^starting from the top-left:$")

@@ -2,14 +2,13 @@ package engine;
 
 import entities.Enemy;
 import entities.Player;
-import wrappers.RandomizerWrapper;
 
 public class CombatEngine {
-    private RandomizerWrapper randomizerWrapper;
+    private EnemySpawner enemySpawner;
     private String gameStatusString;
 
-    CombatEngine(RandomizerWrapper randomizerWrapper) {
-        this.randomizerWrapper = randomizerWrapper;
+    CombatEngine(EnemySpawner enemySpawner) {
+        this.enemySpawner = enemySpawner;
     }
 
     public CombatObject doCombat(CombatObject combatObject) {
@@ -33,7 +32,7 @@ public class CombatEngine {
 
     Enemy killEnemy(Enemy enemy) {
         setGameStatusString(String.format(GameStatus.ENEMY_DEFEATED, enemy.getName()));
-        return createNewEnemy(0, 0);
+        return enemySpawner.spawnNewEnemy();
     }
 
     Player killPlayer(Player player) {
@@ -47,10 +46,6 @@ public class CombatEngine {
 
     private void setGameStatusString(String string) {
         this.gameStatusString = string;
-    }
-
-    private Enemy createNewEnemy(int x, int y) {
-        return randomizerWrapper.getRandomEnemy(x, y);
     }
 
     private String getCombatStatus(Player player, Enemy enemy) {

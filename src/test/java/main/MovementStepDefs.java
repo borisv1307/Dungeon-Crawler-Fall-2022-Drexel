@@ -7,9 +7,7 @@ import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import values.TestingTunableParameters;
-import wrappers.RandomizerWrapper;
 import wrappers.ReaderWrapper;
-import wrappers.SystemWrapper;
 
 import java.util.List;
 
@@ -24,8 +22,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     public void level_is(List<String> levelStrings) throws Throwable {
         writeLevelFile(levelStrings);
         LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-        gameEngine = new GameEngine(levelCreator, randomizerWrapper);
+        gameEngine = new GameEngine(levelCreator);
     }
 
     @When("^the player moves left$")

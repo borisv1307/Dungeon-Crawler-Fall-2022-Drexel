@@ -6,7 +6,6 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import wrappers.RandomizerWrapper;
 
 import java.awt.*;
 
@@ -23,8 +22,7 @@ public class GameEngineTest {
     @Before
     public void setUp() throws Exception {
         LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-        RandomizerWrapper randomizerWrapper = Mockito.mock(RandomizerWrapper.class);
-        gameEngine = new GameEngine(levelCreator, randomizerWrapper);
+        gameEngine = new GameEngine(levelCreator);
         int level = 1;
         Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
     }

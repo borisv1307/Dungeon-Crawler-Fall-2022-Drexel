@@ -5,8 +5,7 @@ import entities.Player;
 import entities.Slime;
 import org.junit.Before;
 import org.junit.Test;
-import wrappers.RandomizerWrapper;
-import wrappers.SystemWrapper;
+import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
@@ -15,12 +14,13 @@ public class CombatEngineTest {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
-    CombatEngine combatEngine;
+    private CombatEngine combatEngine;
+    private EnemySpawner enemySpawner;
 
     @Before
     public void setUp() throws Exception {
-        RandomizerWrapper randomizerWrapper = new RandomizerWrapper(new SystemWrapper());
-        combatEngine = new CombatEngine(randomizerWrapper);
+        enemySpawner = Mockito.mock(EnemySpawner.class);
+        combatEngine = new CombatEngine(enemySpawner);
     }
 
     @Test
@@ -53,7 +53,8 @@ public class CombatEngineTest {
         CombatObject combatObject = new CombatObject(player, enemy);
         CombatObject returnObject = combatEngine.doCombat(combatObject);
         Enemy newEnemy = returnObject.enemy;
-        assertEquals(false, enemy.equals(newEnemy));
+        System.out.println(newEnemy);
+        Mockito.verify(enemySpawner, Mockito.times(ONE)).spawnNewEnemy();
     }
 
     @Test
