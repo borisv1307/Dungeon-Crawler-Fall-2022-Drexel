@@ -33,7 +33,12 @@ public class PlayerPoint extends Point {
         }
     }
 
-    public boolean equals(PlayerPoint player) {
-        return (this.x == player.x && this.y == player.y && this.hitpoints == player.hitpoints);
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof PlayerPoint) {
+            PlayerPoint player = (PlayerPoint) obj;
+            return (this.x == player.x && this.y == player.y && this.hitpoints == player.hitpoints);
+        }
+        return false;
     }
 }
