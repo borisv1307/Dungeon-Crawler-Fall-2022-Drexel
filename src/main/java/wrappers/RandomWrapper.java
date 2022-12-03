@@ -16,15 +16,16 @@ public class RandomWrapper {
         return secureRandom.nextInt(max - min + 1) + min;
     }
 
-    public int getRandomIntInRange(int min, int max) {
-        return secureRandom.nextInt(max - min + 1) + min;
+    public int getRandomIntInRange(int max) {
+        secureRandom = new SecureRandom();
+        return secureRandom.nextInt(max);
     }
 
     public Point getRandomPassableTile() {
         ArrayList<Point> passableTiles = getAllPassableTiles();
         int numberOfPassableTiles = passableTiles.size();
         if (numberOfPassableTiles > 0) {
-            int randomIndex = getRandomIntInRange(0, numberOfPassableTiles);
+            int randomIndex = getRandomIntInRange(numberOfPassableTiles);
             return passableTiles.get(randomIndex);
         } else {
             return null;
