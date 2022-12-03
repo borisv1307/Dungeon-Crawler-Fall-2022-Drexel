@@ -36,7 +36,7 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
     }
 
     @When("^a tile is passable and randomly selected$")
-    public void a_tile_is_passable_and_randomly_selected() {
+    public void a_tile_is_passable_and_randomly_selected() throws Exception {
         ArrayList<Point> allPassableTiles = new ArrayList<>();
         Point point = new Point(1, 1);
         allPassableTiles.add(point);

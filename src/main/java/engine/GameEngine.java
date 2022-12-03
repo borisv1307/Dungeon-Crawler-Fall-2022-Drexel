@@ -132,9 +132,14 @@ public class GameEngine {
         List<Point> passableTiles = getAllPassableTiles();
         for (int i = 0; i < numberOfTilesNeeded; i++) {
             randomWrapper.setAllPassableTiles(passableTiles);
-            Point passableTile = randomWrapper.getRandomPassableTile();
-            if (!tilesToBeUpdated.contains(passableTile)) {
-                tilesToBeUpdated.add(passableTile);
+            try {
+                Point passableTile = randomWrapper.getRandomPassableTile();
+                if (!tilesToBeUpdated.contains(passableTile)) {
+                    tilesToBeUpdated.add(passableTile);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         return tilesToBeUpdated;

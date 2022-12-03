@@ -7,29 +7,32 @@ import java.util.List;
 
 public class RandomWrapper {
 
+    private final int MIN_NUMBER_OF_OBJECTS = 1;
+    private final int MAX_NUMBER_OF_OBJECTS = 5;
     ArrayList<Point> allPassableTiles;
     SecureRandom secureRandom;
 
+    public RandomWrapper() {
+        this.allPassableTiles = new ArrayList<>();
+        this.secureRandom = new SecureRandom();
+    }
+
     public int getRandomNumberOfObjects() {
-        secureRandom = new SecureRandom();
-        int min = 1;
-        int max = 5;
-        return secureRandom.nextInt(max - min + 1) + min;
+        return secureRandom.nextInt(MAX_NUMBER_OF_OBJECTS - MIN_NUMBER_OF_OBJECTS + 1) + MIN_NUMBER_OF_OBJECTS;
     }
 
     public int getRandomIntInRange(int max) {
-        secureRandom = new SecureRandom();
         return secureRandom.nextInt(max);
     }
 
-    public Point getRandomPassableTile() {
+    public Point getRandomPassableTile() throws Exception {
         ArrayList<Point> passableTiles = (ArrayList<Point>) getAllPassableTiles();
         int numberOfPassableTiles = passableTiles.size();
         if (numberOfPassableTiles > 0) {
             int randomIndex = getRandomIntInRange(numberOfPassableTiles);
             return passableTiles.get(randomIndex);
         } else {
-            return null;
+            throw new Exception("No passable tiles available");
         }
     }
 

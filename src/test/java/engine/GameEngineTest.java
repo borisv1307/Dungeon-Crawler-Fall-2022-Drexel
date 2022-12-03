@@ -15,6 +15,7 @@ import static engine.GameEngineTestFactory.initializeSimpleGameEngine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class GameEngineTest {
@@ -98,10 +99,10 @@ public class GameEngineTest {
 
     @Test
     public void no_random_passable_tile() {
-        ArrayList<Point> allPassableTiles = new ArrayList<>();
-        randomWrapperMock.setAllPassableTiles(allPassableTiles);
-        Point randomPassablePoint = randomWrapperMock.getRandomPassableTile();
-        assertNull(randomPassablePoint);
+        Exception exception = assertThrows(Exception.class, () -> {
+            randomWrapper.getRandomPassableTile();
+        });
+        assertEquals("No passable tiles available", exception.getMessage());
     }
 
     @Test
@@ -114,7 +115,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void get_random_passable_tile() {
+    public void get_random_passable_tile() throws Exception {
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1, 1));
         randomWrapper.setAllPassableTiles(points);
