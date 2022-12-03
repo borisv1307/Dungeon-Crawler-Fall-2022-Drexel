@@ -3,6 +3,7 @@ package engine;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import parser.LevelCreator;
 import tiles.TileType;
@@ -91,9 +92,37 @@ public class GameEngine {
 	private void movement(int deltaX, int deltaY) {
 		TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
 				getPlayerYCoordinate() + deltaY);
+
 		if (attemptedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 		}
+		else if (attemptedLocation.equals(TileType.PORTAL)) {
+			transportPlayer(generateCoordinate(getLevelHorizontalDimension()),
+							generateCoordinate(getLevelVerticalDimension()));
+		}
+	}
+
+	private void transportPlayer(int x, int y) {
+		while (!passable(x, y)) {
+			x = generateCoordinate(getLevelHorizontalDimension());
+			y = generateCoordinate(getLevelVerticalDimension());
+		}
+
+		setPlayer(x, y);
+	}
+
+	private int generateCoordinate(int dimension) {
+		Random coordinate = new Random();
+		return coordinate.nextInt(dimension);
+	}
+
+	private boolean passable(int x, int y) {
+		TileType attemptedLocation = getTileFromCoordinates(x, y);
+
+		if (attemptedLocation.equals(TileType.PASSABLE)) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isExit() {

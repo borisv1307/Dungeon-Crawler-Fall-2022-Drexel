@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e3614ad-33dc-4f59-a5d6-dbd648ad1f1a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/levels/1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +45,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.saveactions&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TileTypeTest.get_tile_type_by_char_portal_char">
+  <component name="RunManager" selected="JUnit.RunCukesTest">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
       <module name="DungeonCrawlerFall2022Drexel" />
@@ -55,10 +59,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in DungeonCrawlerFall2022Drexel (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Feature: Portal" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" />
+      <option name="GLUE" value="main" />
+      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
       <module name="DungeonCrawlerFall2022Drexel" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
+      <option name="SUGGESTED_NAME" value="Feature: Portal" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -98,11 +113,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TileTypeTest.get_tile_type_by_char_portal_char" />
         <item itemvalue="JUnit.RunCukesTest" />
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Cucumber Java.Feature: Portal" />
+        <item itemvalue="JUnit.TileTypeTest.get_tile_type_by_char_portal_char" />
         <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (2)" />
-        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -115,7 +130,8 @@
       <option name="presentableId" value="Default" />
       <updated>1668187647499</updated>
       <workItem from="1668187652858" duration="3010000" />
-      <workItem from="1669913698391" duration="1179000" />
+      <workItem from="1669913698391" duration="1516000" />
+      <workItem from="1670008105398" duration="7598000" />
     </task>
     <servers />
   </component>
