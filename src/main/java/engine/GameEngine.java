@@ -130,7 +130,7 @@ public class GameEngine {
     public int getBombYCoordinate() {
         ticker++;
         int y = (int) bomb.getY();
-        if (ticker % 30 == 0) {
+        if (ticker % 50 == 0) {
             y++;
             int x = (int) bomb.getX();
             TileType attemptedLocation = getTileFromCoordinates(x, y);
