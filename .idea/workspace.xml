@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e3614ad-33dc-4f59-a5d6-dbd648ad1f1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/main/PortalStepDefs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/levels/1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,39 +51,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.saveactions&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.RunCukesTest">
-    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
-      <module name="DungeonCrawlerFall2022Drexel" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="launcher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Feature: Portal" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="1.2" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/portal/Portal.feature" />
-      <option name="GLUE" value="main" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <module name="DungeonCrawlerFall2022Drexel" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome" />
-      <option name="SUGGESTED_NAME" value="Feature: Portal" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.All in DungeonCrawlerFall2022Drexel (5)">
     <configuration name="All in DungeonCrawlerFall2022Drexel (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
       <option name="PACKAGE_NAME" value="" />
@@ -86,37 +60,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunCukesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in DungeonCrawlerFall2022Drexel (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="RunCukesTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TileTypeTest.get_tile_type_by_char_portal_char" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in DungeonCrawlerFall2022Drexel (4)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tiles.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tiles" />
-      <option name="MAIN_CLASS_NAME" value="tiles.TileTypeTest" />
-      <option name="METHOD_NAME" value="get_tile_type_by_char_portal_char" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in DungeonCrawlerFall2022Drexel (5)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawlerFall2022Drexel" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in DungeonCrawlerFall2022Drexel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawlerFall2022Drexel" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RunCukesTest" />
-        <item itemvalue="Application.Launcher" />
-        <item itemvalue="Cucumber Java.Feature: Portal" />
-        <item itemvalue="JUnit.TileTypeTest.get_tile_type_by_char_portal_char" />
+        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (5)" />
+        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (4)" />
+        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (3)" />
+        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel" />
         <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (2)" />
       </list>
     </recent_temporary>
