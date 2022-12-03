@@ -1,22 +1,23 @@
 package wrappers;
 
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
-
-import static java.util.concurrent.ThreadLocalRandom.current;
 
 public class RandomWrapper {
 
     ArrayList<Point> allPassableTiles;
+    SecureRandom secureRandom;
 
     public int getRandomNumberOfObjects() {
+        secureRandom = new SecureRandom();
         int min = 1;
         int max = 5;
-        return current().nextInt(min, max + 1);
+        return secureRandom.nextInt(max - min + 1) + min;
     }
 
     public int getRandomIntInRange(int min, int max) {
-        return current().nextInt(min, max + 1);
+        return secureRandom.nextInt(max - min + 1) + min;
     }
 
     public Point getRandomPassableTile() {
