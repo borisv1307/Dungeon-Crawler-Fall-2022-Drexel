@@ -12,7 +12,6 @@ public class ProjectileHandler {
 	private int moveCount = 0;
 	private double difficultyFactor = 1;
 	private double projectileSpeed;
-//	private int projectileTimer = 0;
 
 	public ProjectileHandler(GameEngine gameEngine, RandomWrapper randomWrapper) {
 		this.gameEngine = gameEngine;
