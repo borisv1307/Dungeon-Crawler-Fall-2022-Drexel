@@ -1,5 +1,6 @@
 package main;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,21 +44,15 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
         when(randomWrapper.getRandomPassableTile()).thenReturn(point);
     }
 
-    @Then("^an object will be placed on that tile$")
-    public void an_object_will_be_placed_on_that_tile() {
-        Point pointToUpdate = mock(Point.class);
-        gameEngine.addObjectToTile(pointToUpdate);
-    }
+//    @Then("^an object will be placed on that tile$")
+//    public void an_object_will_be_placed_on_that_tile() {
+//        Point pointToUpdate = mock(Point.class);
+//        gameEngine.addObjectToTile(pointToUpdate);
+//    }
 
     @When("^the game has been active for (\\d+) seconds$")
     public void theGameHasBeenActiveForSeconds(int numberOfSeconds) {
         gameEngine.activateGameTimer(numberOfSeconds);
-    }
-
-
-    @Then("^there will be objects available within the level$")
-    public void thereWillBeObjectsAvailableWithinTheLevel() {
-
     }
 
     @When("^\\((\\d+),(\\d+)\\) is selected as the randomly passable tile$")
@@ -76,5 +72,30 @@ public class CollectableObjectStepDefs extends LevelCreationStepDefHelper {
         when(randomWrapper.getRandomNumberOfObjects()).thenReturn(numberOfObjects);
         int actualNumberOfObjects = randomWrapper.getRandomNumberOfObjects();
         assertEquals(2, actualNumberOfObjects);
+    }
+
+    @Then("^the object at \\((\\d+),(\\d+)\\) will be removed$")
+    public void theObjectAtWillBeRemoved(int xCoordinate, int yCoordinate) {
+        gameEngine.removeObjectFromTile(new Point(xCoordinate, yCoordinate));
+        assertEquals(TileType.PASSABLE, gameEngine.getTileFromCoordinates(xCoordinate, yCoordinate));
+    }
+
+    @When("^an object is located at \\((\\d+),(\\d+)\\)$")
+    public void anObjectIsLocatedAt(int xCoordinate, int yCoordinate) {
+        Point point = new Point(xCoordinate, yCoordinate);
+        gameEngine.addObjectToTile(point);
+        assertEquals(TileType.OBJECT, gameEngine.getTileFromCoordinates(xCoordinate, yCoordinate));
+    }
+
+    @And("^the player moves up to that tile$")
+    public void thePlayerMovesUpToThatTile() {
+        gameEngine.keyUp();
+    }
+
+    @Then("^the player will be located at \\((\\d+),(\\d+)\\)$")
+    public void thePlayerWillBeLocatedAt(int xCoordinate, int yCoordinate) {
+        assertEquals(xCoordinate, gameEngine.getPlayerXCoordinate());
+        assertEquals(yCoordinate, gameEngine.getPlayerYCoordinate());
+        assertNotSame(gameEngine.getTileFromCoordinates(2, 1), TileType.OBJECT);
     }
 }
