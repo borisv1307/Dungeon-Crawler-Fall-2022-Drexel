@@ -28,11 +28,6 @@ public class GameEngineTest {
     }
 
     @Test
-    public void inflict_harm() {
-
-    }
-
-    @Test
     public void run() {
         GameFrame gameFrame = Mockito.mock(GameFrame.class);
         Component component = Mockito.mock(Component.class);

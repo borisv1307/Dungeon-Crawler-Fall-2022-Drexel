@@ -126,6 +126,12 @@ public class GameEngine {
                 case PASSABLE_HELPFUL_HIDDEN:
                     setTileByCoordinates(adjacentPoints[i], adjacentPoints[i + 1], TileType.PASSABLE_HELPFUL);
                     break;
+                case NOT_PASSABLE:
+                case PLAYER:
+                case PASSABLE:
+                case PASSABLE_HARMFUL:
+                case PASSABLE_HELPFUL:
+                    break;
             }
         }
     }
