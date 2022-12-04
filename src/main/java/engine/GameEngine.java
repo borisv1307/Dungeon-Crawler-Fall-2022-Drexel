@@ -109,9 +109,13 @@ public class GameEngine {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
-            if (collision()) {
-                systemWrapper.printLn("COLLISION");
-            }
+            ifCollisionPrintCollision();
+        }
+    }
+
+    public void ifCollisionPrintCollision() {
+        if (collision()) {
+            systemWrapper.printLn("COLLISION");
         }
     }
 
@@ -132,16 +136,20 @@ public class GameEngine {
         int y = (int) bomb.getY();
         if (ticker % 10 == 0) {
             y++;
-            int x = (int) bomb.getX();
-            TileType attemptedLocation = getTileFromCoordinates(x, y);
-            if (attemptedLocation.equals(TileType.NOT_PASSABLE)) {
-                randomNumber = randomWrapper.mathRandom();
-                x = (int) (randomNumber * 18) + 1;
-                y = 1;
-            }
-            bomb = new Point(x, y);
+            bomb = newPointIfNotPassable(y);
         }
         return y;
+    }
+
+    public Point newPointIfNotPassable(int y) {
+        int x = (int) bomb.getX();
+        TileType attemptedLocation = getTileFromCoordinates(x, y);
+        if (attemptedLocation.equals(TileType.NOT_PASSABLE)) {
+            randomNumber = randomWrapper.mathRandom();
+            x = (int) (randomNumber * 18) + 1;
+            y = 1;
+        }
+        return bomb = new Point(x, y);
     }
 
     public boolean collision() {
