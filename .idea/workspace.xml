@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c457262-f24d-4c56-b7d8-20339f9689d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TilePainter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TilePainter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/TilePainterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/TilePainterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/levels/1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +40,7 @@
     "settings.editor.selected.configurable": "EclipseFormatter"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Launcher">
+  <component name="RunManager" selected="JUnit.All in DungeonCrawlerFall2022Drexel">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
       <module name="DungeonCrawlerFall2022Drexel" />
@@ -54,16 +54,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameEngineTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in DungeonCrawlerFall2022Drexel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="engine.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="engine" />
-      <option name="MAIN_CLASS_NAME" value="engine.GameEngineTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunCukesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawlerFall2022Drexel" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="RunCukesTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -100,28 +102,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TileTypeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="DungeonCrawlerFall2022Drexel" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tiles.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tiles" />
-      <option name="MAIN_CLASS_NAME" value="tiles.TileTypeTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel" />
+        <item itemvalue="JUnit.RunCukesTest" />
         <item itemvalue="Application.Launcher" />
         <item itemvalue="JUnit.TilePainterTest" />
         <item itemvalue="JUnit.TilePainterTest.paint_tiles" />
-        <item itemvalue="JUnit.GameEngineTest" />
-        <item itemvalue="JUnit.TileTypeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -198,7 +185,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/TilePainterTest.java</url>
-          <line>63</line>
+          <line>60</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
