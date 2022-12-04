@@ -15,7 +15,7 @@ import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
     private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
-    private static LevelCreator defaultLevelCreator = new RandomLevelCreator(new BoardPieceFactory(), 5, 20, 20);
+    private static LevelCreator defaultLevelCreator = new RandomLevelCreator(new BoardPieceFactory(), 10, 20, 20);
     private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
     private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
             new WindowAdapterSystemExit(defaultGameEngine));

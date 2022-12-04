@@ -49,7 +49,7 @@ public class LevelCreatorITHelper {
         return TestingTunableParameters.FILE_LOCATION_PREFIX + ONE + TunableParameters.FILE_NAME_SUFFIX;
     }
 
-    protected void createLevel() throws Throwable {
+    protected void createLevel() {
         LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
                 new ReaderWrapper(), new BoardPieceFactory());
         try {
@@ -87,5 +87,4 @@ public class LevelCreatorITHelper {
         LevelCreator levelCreator = new FileLevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper, new BoardPieceFactory());
         gameEngine = new GameEngine(levelCreator);
     }
-
 }

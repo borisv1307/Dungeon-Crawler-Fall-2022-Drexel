@@ -71,11 +71,6 @@ public class GameEngine {
         playerMovesSinceLastEnemyMove = 0;
     }
 
-    public void regenerateLevel(final int level) {
-        this.level = level;
-        regenerateLevel();
-    }
-
     public boolean isExit() {
         return exit;
     }
