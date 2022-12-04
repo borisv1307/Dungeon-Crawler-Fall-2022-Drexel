@@ -14,6 +14,9 @@ public final class TileColorMap {
         tileColors.put(TileType.PLAYER, Color.GREEN);
         tileColors.put(TileType.PASSABLE_HELPFUL, Color.pink);
         tileColors.put(TileType.PASSABLE_HARMFUL, Color.red);
+        tileColors.put(TileType.PASSABLE_HIDDEN, Color.black);
+        tileColors.put(TileType.PASSABLE_HARMFUL_HIDDEN, Color.black);
+        tileColors.put(TileType.PASSABLE_HELPFUL_HIDDEN, Color.black);
     }
 
     private TileColorMap() {

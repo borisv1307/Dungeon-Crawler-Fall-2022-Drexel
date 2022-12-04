@@ -61,8 +61,12 @@ public class GameEngine {
         return tiles.get(new Point(x, y));
     }
 
+    public void setTileByCoordinates(int x, int y, TileType tileType) {
+        tiles.put(new Point(x, y), tileType);
+    }
+
     private void setPlayer(int x, int y) {
-        player.setXY(x, y);
+        player.setPosition(x, y);
     }
 
     public int getPlayerHitpoints() {
@@ -98,12 +102,31 @@ public class GameEngine {
                 getPlayerYCoordinate() + deltaY);
         if (attemptedLocation.equals(TileType.PASSABLE) || attemptedLocation.equals(TileType.PASSABLE_HARMFUL) || attemptedLocation.equals(TileType.PASSABLE_HELPFUL)) {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
+            revealAdjacentTiles(getPlayerXCoordinate(), getPlayerYCoordinate());
         }
         if (attemptedLocation.equals(TileType.PASSABLE_HARMFUL)) {
             player.damage();
         }
         if (attemptedLocation.equals(TileType.PASSABLE_HELPFUL)) {
             player.heal();
+        }
+    }
+
+    public void revealAdjacentTiles(int x, int y) {
+        int[] adjacentPoints = {x - 1, y, x + 1, y, x, y - 1, x, y + 1};
+        for (int i = 0; i < 8; i = i + 2) {
+            TileType adjacentTile = getTileFromCoordinates(adjacentPoints[i], adjacentPoints[i + 1]);
+            switch (adjacentTile) {
+                case PASSABLE_HIDDEN:
+                    setTileByCoordinates(adjacentPoints[i], adjacentPoints[i + 1], TileType.PASSABLE);
+                    break;
+                case PASSABLE_HARMFUL_HIDDEN:
+                    setTileByCoordinates(adjacentPoints[i], adjacentPoints[i + 1], TileType.PASSABLE_HARMFUL);
+                    break;
+                case PASSABLE_HELPFUL_HIDDEN:
+                    setTileByCoordinates(adjacentPoints[i], adjacentPoints[i + 1], TileType.PASSABLE_HELPFUL);
+                    break;
+            }
         }
     }
 

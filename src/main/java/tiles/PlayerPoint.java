@@ -15,7 +15,7 @@ public class PlayerPoint extends Point {
         return hitpoints;
     }
 
-    public void setXY(int x, int y) {
+    public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }

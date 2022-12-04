@@ -2,12 +2,13 @@ package tiles;
 
 public enum TileType {
 
-    PASSABLE(' '), PASSABLE_HARMFUL('-'), PASSABLE_HELPFUL('+'), NOT_PASSABLE('X'), PLAYER('P');
+    PASSABLE_HIDDEN('1'), PASSABLE_HARMFUL_HIDDEN('2'), PASSABLE_HELPFUL_HIDDEN('3'), NOT_PASSABLE('X'), PLAYER('P'),
+    PASSABLE(' '), PASSABLE_HARMFUL('-'), PASSABLE_HELPFUL('+');
 
     static final String INVALID_CHARACTER_PROVIDED_MESSAGE = "Invalid character provided: ";
     private final char asChar;
 
-    private TileType(char asChar) {
+    TileType(char asChar) {
         this.asChar = asChar;
     }
 
