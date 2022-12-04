@@ -41,6 +41,7 @@ public class GameEngine {
     }
 
     public void initializePlayerLevels() {
+        playerLevels.put(1, Color.GREEN);
         playerLevels.put(2, Color.BLUE);
         playerLevels.put(3, Color.MAGENTA);
         playerLevels.put(4, Color.CYAN);
@@ -146,11 +147,11 @@ public class GameEngine {
 
     public void setPlayerLevel(int levelValue) { // for testing
         playerLevel = levelValue;
+        TileColorMap.updatePlayerColor(playerLevels.get(playerLevel));
     }
 
     public void incrementPlayerLevel() {
         playerLevel += 1;
-        //randomCoinGeneration();
         TileColorMap.updatePlayerColor(playerLevels.get(playerLevel));
     }
 
