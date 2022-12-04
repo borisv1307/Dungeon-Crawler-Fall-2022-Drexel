@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.util.logging.Logger;
 
 public class RandomLevelCreator extends LevelCreator {
+    private static final Logger LOGGER = Logger.getLogger(RandomLevelCreator.class.getName());
     private final int xDimension;
     private final int yDimension;
     private final long seed;
