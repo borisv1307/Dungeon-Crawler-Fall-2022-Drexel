@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9c457262-f24d-4c56-b7d8-20339f9689d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/engine/GameEngineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/engine/GameEngineTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TilePainter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TilePainter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/TilePainterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/TilePainterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +40,7 @@
     "settings.editor.selected.configurable": "EclipseFormatter"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.GameEngineTest">
+  <component name="RunManager" selected="JUnit.TilePainterTest">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
       <module name="DungeonCrawlerFall2022Drexel" />
@@ -69,15 +69,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunCukesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="DungeonCrawlerFall2022Drexel" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="RunCukesTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TileColorMapTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
       <extension name="coverage">
@@ -88,6 +79,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="values" />
       <option name="MAIN_CLASS_NAME" value="values.TileColorMapTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TilePainterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawlerFall2022Drexel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.TilePainterTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -110,11 +116,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameEngineTest" />
+        <item itemvalue="JUnit.TilePainterTest" />
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="JUnit.GameEngineTest" />
         <item itemvalue="JUnit.TileTypeTest" />
         <item itemvalue="JUnit.TileColorMapTest" />
-        <item itemvalue="JUnit.RunCukesTest" />
       </list>
     </recent_temporary>
   </component>
@@ -178,6 +184,16 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/TilePainter.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/TilePainter.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

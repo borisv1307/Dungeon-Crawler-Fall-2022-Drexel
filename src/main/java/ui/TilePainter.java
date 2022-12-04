@@ -12,7 +12,21 @@ public class TilePainter {
 		for (int x = 0; x < game.getLevelHorizontalDimension(); x++) {
 			for (int y = 0; y < game.getLevelVerticalDimension(); y++) {
 				TileType tileType = game.getTileFromCoordinates(x, y);
-				paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+				if(game.checkTileVisited(x,y)){
+					if(tileType.equals(TileType.PASSABLE)){
+						paintTile(graphics, tileWidth, tileHeight, x, y, TileType.VISITED);
+					}else {
+						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+					}
+
+				}else  {
+					if(tileType.equals(TileType.NOT_PASSABLE)){
+						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+					}else {
+						paintTile(graphics, tileWidth, tileHeight, x, y, TileType.PASSABLE);
+					}
+
+				}
 			}
 		}
 	}
