@@ -129,17 +129,17 @@ public class GameEngine {
     }
 
     public void moveEnemy() {
-        int opt = random.nextInt(4);
-        if (opt == 0) {
+        int option = random.nextInt(4);
+        if (option == 0) {
             enemyMovement(-1, 0);
         }
-        else if (opt == 1) {
+        else if (option == 1) {
             enemyMovement(1, 0);
         }
-        else if (opt == 2) {
+        else if (option == 2) {
             enemyMovement(0, -1);
         }
-        else if (opt == 3) {
+        else if (option == 3) {
             enemyMovement(0, 1);
         }
     }
