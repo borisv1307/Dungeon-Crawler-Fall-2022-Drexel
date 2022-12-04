@@ -60,6 +60,7 @@ public class RandomLevelCreator extends LevelCreator {
         int emptyLocationIndex = generateNumberBetweenInclusive(0, emptyLocations.size(), random);
         Point location = emptyLocations.remove(emptyLocationIndex);
         gameBoard.addBoardPiece(tileType, location);
+        LOGGER.log(Level.INFO, String.format("(%s, %s) %s", location.x, location.y, tileType));
     }
 
     private void generateBasicBoard(GameBoard gameBoard) {
