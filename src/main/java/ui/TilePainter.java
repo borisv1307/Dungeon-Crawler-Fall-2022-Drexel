@@ -18,7 +18,6 @@ public class TilePainter {
 					}else {
 						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 					}
-
 				}else{
 					if(tileType.equals(TileType.NOT_PASSABLE)){
 						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
