@@ -3,11 +3,7 @@ package parser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +20,8 @@ public class LevelCreatorITHelper {
 	protected static final int ONE = 1;
 	protected GameEngine gameEngine;
 	protected String exceptionMessage;
-	private ReaderWrapper readerWrapper;
 	protected IOException ioException;
+	private ReaderWrapper readerWrapper;
 
 	protected List<String> createSimpleLevel() {
 		List<String> levelStrings = new ArrayList<>();

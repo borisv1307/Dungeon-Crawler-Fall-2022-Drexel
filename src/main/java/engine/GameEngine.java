@@ -1,14 +1,9 @@
 package engine;
 
-import parser.LevelCreator;
-import tiles.TileType;
-import ui.GameFrame;
-
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class GameEngine {
 
@@ -163,4 +158,5 @@ public class GameEngine {
         }
         return false;
     }
+
 }

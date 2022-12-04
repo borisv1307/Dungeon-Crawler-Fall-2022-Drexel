@@ -23,10 +23,10 @@ import wrappers.ReaderWrapper;
 public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 	private static final int ONE = 1;
 	private static final int COORDINATE_OFFSET = ONE;
-	private GameEngine gameEngine;
-	private String exceptionMessage;
 	ReaderWrapper readerWrapper;
 	IOException ioException;
+	private GameEngine gameEngine;
+	private String exceptionMessage;
 
 	@Given("^level is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
