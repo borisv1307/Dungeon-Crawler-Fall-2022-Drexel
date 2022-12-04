@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c457262-f24d-4c56-b7d8-20339f9689d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/levels/2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/values/TunableParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TunableParameters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/values/TileColorMapTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/values/TileColorMapTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/engine/GameEngineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/engine/GameEngineTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +40,7 @@
     "settings.editor.selected.configurable": "EclipseFormatter"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.TileTypeTest">
+  <component name="RunManager" selected="JUnit.GameEngineTest">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
       <module name="DungeonCrawlerFall2022Drexel" />
@@ -117,11 +110,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GameEngineTest" />
+        <item itemvalue="Application.Launcher" />
         <item itemvalue="JUnit.TileTypeTest" />
         <item itemvalue="JUnit.TileColorMapTest" />
         <item itemvalue="JUnit.RunCukesTest" />
-        <item itemvalue="Application.Launcher" />
-        <item itemvalue="JUnit.GameEngineTest" />
       </list>
     </recent_temporary>
   </component>

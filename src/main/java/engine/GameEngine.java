@@ -12,20 +12,39 @@ public class GameEngine {
 
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
-	private final int level;
 
+	private final Map<Point, TileType> visited = new HashMap<>();
+
+	private  int level;
+
+	private final int finalLevel ;
 	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+
+	private int potionCounter;
 
 
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
+		finalLevel = 2;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+	}
+
+	public int getLevel(){
+		return level;
+	}
+
+	public int getPotionCounter(){
+		return potionCounter;
+	}
+
+	public void setLevel(int newLevel){
+		this.level = newLevel;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -92,11 +111,40 @@ public class GameEngine {
 	}
 
 	private void movement(int deltaX, int deltaY) {
-		TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
-				getPlayerYCoordinate() + deltaY);
-		if (attemptedLocation.equals(TileType.PASSABLE)) {
+		int attemptedXCoordinate = getPlayerXCoordinate() + deltaX;
+		int attemptedYCoordinate = getPlayerYCoordinate() + deltaY;
+		TileType attemptedLocation = getTileFromCoordinates(attemptedXCoordinate,
+				attemptedYCoordinate);
+		if(!attemptedLocation.equals(TileType.NOT_PASSABLE)){
+			int newX = getPlayerXCoordinate();
+			int newY = getPlayerYCoordinate();
+			visited.put(new Point(newX, newY), TileType.VISITED);
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 		}
+		if(attemptedLocation.equals(TileType.POTION) && !checkTileVisited(attemptedXCoordinate,attemptedYCoordinate)){
+			potionCounter++;
+		}
+		if(attemptedLocation.equals(TileType.DRAGON)){
+			exit = true;
+		}
+		if(attemptedLocation.equals(TileType.EXIT)){
+			if(getLevel() == finalLevel){
+				setExit(true);
+			}
+			if(potionCounter == 3){
+				level++;
+				potionCounter =0;
+				visited.clear();
+				tiles.clear();
+				levelCreator.createLevel(this,level);
+
+			}
+		}
+
+	}
+
+	public boolean checkTileVisited(int x, int y){
+		return visited.containsKey(new Point(x,y));
 	}
 	public boolean isExit() {
 		return exit;
