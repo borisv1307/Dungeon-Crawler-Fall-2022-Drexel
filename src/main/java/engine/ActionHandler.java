@@ -32,24 +32,23 @@ public class ActionHandler {
     }
 
     public void interactWithObject() {
-        if (playerIsNextToEnemy()) {
+        if (playerIsNextTo(TileType.ENEMY)) {
             Enemy enemy = new Enemy(player.getLevel());
-            enemy.createEnemy(new EnemyRandomWrapper());
             enemy.createEnemy(new EnemyRandomWrapper());
             CombatManagement combatManagement = new CombatManagement(gameEngine, levelCreator, player);
             enemy.attackedBy(combatManagement);
         }
+
     }
 
-    public boolean playerIsNextToEnemy() {
-
+    public boolean playerIsNextTo(TileType tileType) {
         int playerXCoordinate = gameEngine.getPlayerXCoordinate();
         int playerYCoordinate = gameEngine.getPlayerYCoordinate();
 
 
-        return (playerIsBelowOrAboveTheEnemy(playerXCoordinate, playerYCoordinate) || playerIsLeftOrRightTheEnemy(playerXCoordinate, playerYCoordinate));
-
+        return (playerIsBelowOrAboveTheEnemy(playerXCoordinate, playerYCoordinate, tileType) || playerIsLeftOrRightTheEnemy(playerXCoordinate, playerYCoordinate, tileType));
     }
+
 
     private TileType convertPositionToTitleType(int deltaX, int deltaY) {
         return gameEngine.getTileFromCoordinates(gameEngine.getPlayerXCoordinate() + deltaX, gameEngine.getPlayerYCoordinate() + deltaY);
@@ -59,16 +58,16 @@ public class ActionHandler {
         return tileTypeOne.equals(tileTypeTwo);
     }
 
-    private boolean playerIsBelowOrAboveTheEnemy(int playerXCoordinate, int playerYCoordinate) {
-        boolean playerIsAboveEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate, playerYCoordinate + 1).equals(TileType.ENEMY);
-        boolean playerIsBelowEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate, playerYCoordinate - 1).equals(TileType.ENEMY);
+    private boolean playerIsBelowOrAboveTheEnemy(int playerXCoordinate, int playerYCoordinate, TileType tileType) {
+        boolean playerIsAboveEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate, playerYCoordinate + 1).equals(tileType);
+        boolean playerIsBelowEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate, playerYCoordinate - 1).equals(tileType);
         return (playerIsAboveEnemy || playerIsBelowEnemy);
 
     }
 
-    private boolean playerIsLeftOrRightTheEnemy(int playerXCoordinate, int playerYCoordinate) {
-        boolean playerIsLeftEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate - 1, playerYCoordinate).equals(TileType.ENEMY);
-        boolean playerIsRightEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate + 1, playerYCoordinate).equals(TileType.ENEMY);
+    private boolean playerIsLeftOrRightTheEnemy(int playerXCoordinate, int playerYCoordinate, TileType tileType) {
+        boolean playerIsLeftEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate - 1, playerYCoordinate).equals(tileType);
+        boolean playerIsRightEnemy = gameEngine.getTileFromCoordinates(playerXCoordinate + 1, playerYCoordinate).equals(tileType);
 
         return (playerIsLeftEnemy || playerIsRightEnemy);
 

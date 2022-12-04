@@ -11,12 +11,13 @@ public class Player extends CharacterObject {
     public void levelUp() {
         level += 1;
         levelStatChange();
+        TileColorMap.changePlayerHpBar(this);
     }
 
     private void levelStatChange() {
-        int baseState = 10;
-        setMaxHealthPoint(baseState + level * 5);
-        setAttackPoint(baseState + level * 2);
+        int baseStat = 10;
+        setMaxHealthPoint(baseStat + level * 5);
+        setAttackPoint(baseStat + level * 2);
     }
 
     public void resetPlayerStatus() {

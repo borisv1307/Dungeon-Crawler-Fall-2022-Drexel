@@ -26,6 +26,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void player_hp_color_change_when_level_up() {
+        player.levelUp();
+        TileColorMap.changePlayerHpBar(player);
+        assertEquals(Color.BLUE, TileColorMap.get(TileType.PLAYER));
+    }
+
+    @Test
     public void player_level_up_1_time() {
         player.levelUp();
         assertEquals(2, player.getLevel());

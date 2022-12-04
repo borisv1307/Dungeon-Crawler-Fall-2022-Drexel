@@ -20,13 +20,17 @@ public class CombatManagement {
     }
 
     public void attack(Enemy enemy) {
-        int playerCurrentHealth = player.getCurrentHealthPoint();
-        int enemyCurrentHealth = enemy.getCurrentHealthPoint();
 
-        while (playerCurrentHealth != 0 && enemyCurrentHealth != 0) {
-            enemyCurrentHealth -= player.getAttackPoint();
+        while (player.getCurrentHealthPoint() != 0 && enemy.getCurrentHealthPoint() != 0) {
+            enemy.takeDamage(player.getAttackPoint());
+
+            if (enemy.getCurrentHealthPoint() <= 0) {
+                break;
+            }
+
             managePlayerHealth(enemy);
         }
+
 
         battlerResult();
     }

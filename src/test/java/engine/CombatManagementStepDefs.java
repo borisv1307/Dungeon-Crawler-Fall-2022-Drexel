@@ -31,13 +31,14 @@ public class CombatManagementStepDefs {
 
     @When("^the enemy die first$")
     public void the_player_attack_first() {
-        enemy.setAttackPoint(4);
+        enemy.setCurrentHealthPoint(1);
         combatManagement.attack(enemy);
     }
 
     @When("^the player die first$")
-    public void the_enemy_attack_is_greater() {
-        enemy.setAttackPoint(12);
+    public void the_enemy_health_is_greater_than_player_attack() {
+        player.setCurrentHealthPoint(1);
+        player.setAttackPoint(1);
         combatManagement.attack(enemy);
     }
 

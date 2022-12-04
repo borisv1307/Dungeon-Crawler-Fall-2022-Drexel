@@ -4,10 +4,9 @@ import entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import parser.LevelCreator;
-
+import tiles.TileType;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
-
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
@@ -17,9 +16,11 @@ public class ActionHandlerTest {
     GameEngine gameEngine;
     ActionHandler actionHandler;
 
+    LevelCreator levelCreator;
+
     @Before
     public void setUp() {
-        LevelCreator levelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
+        levelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
         gameEngine = new GameEngine(levelCreator);
         actionHandler = new ActionHandler(gameEngine, levelCreator, new Player());
     }
@@ -50,8 +51,8 @@ public class ActionHandlerTest {
     }
 
     @Test
-    public void current_level_one_is_not_next_to_enemy(){
-        assertFalse(actionHandler.playerIsNextToEnemy());
+    public void current_level_one_is_not_next_to_enemy() {
+        assertFalse(actionHandler.playerIsNextTo(TileType.ENEMY));
     }
 
 }

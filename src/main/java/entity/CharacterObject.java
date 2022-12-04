@@ -35,6 +35,11 @@ public abstract class CharacterObject {
         return currentHealthPoint;
     }
 
+    public void setCurrentHealthPoint(int maxHealthPoint) {
+        currentHealthPoint = maxHealthPoint;
+    }
+
+
     public void takeDamage(int healthPointLost) {
         currentHealthPoint -= healthPointLost;
     }
