@@ -19,13 +19,12 @@ public class TilePainter {
 						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 					}
 
-				}else  {
+				}else{
 					if(tileType.equals(TileType.NOT_PASSABLE)){
 						paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
-					}else {
+					} else {
 						paintTile(graphics, tileWidth, tileHeight, x, y, TileType.PASSABLE);
 					}
-
 				}
 			}
 		}
