@@ -6,10 +6,8 @@ import engine.GameEngine;
 import enums.TileType;
 
 import java.awt.*;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,19 +17,22 @@ public class RandomLevelCreator extends LevelCreator {
     private final int yDimension;
     private final long seed;
 
+    private final RandomWrapper random;
+
     private static final int NUMBER_OF_DEFAULT_OBJECTS = 3;
 
-    public RandomLevelCreator(final BoardPieceFactory boardPieceFactory, final long seed, final int xDimension, final int yDimension) {
+    public RandomLevelCreator(final BoardPieceFactory boardPieceFactory, RandomWrapper randomWrapper, final long seed, final int xDimension, final int yDimension) {
         super(boardPieceFactory);
         this.seed = seed;
         this.xDimension = xDimension;
         this.yDimension = yDimension;
+        this.random = randomWrapper;
     }
 
     @Override
     public void createLevel(final GameEngine gameEngine, final int level) {
         final GameBoard gameBoard = new GameBoard(boardPieceFactory, xDimension, yDimension);
-        Random random = new SecureRandom();
+        random.reset();
         random.setSeed(seed + level);
 
         generateBasicBoard(gameBoard);
@@ -39,11 +40,11 @@ public class RandomLevelCreator extends LevelCreator {
         int numberOfWalls = getNumberOfWall(level);
 
         if (enoughEmptyLocations(emptyLocations, numberOfWalls)) {
-            generateBoardPiece(gameBoard, emptyLocations, TileType.PLAYER, random);
-            generateBoardPiece(gameBoard, emptyLocations, TileType.ENEMY, random);
-            generateBoardPiece(gameBoard, emptyLocations, TileType.GOAL, random);
+            generateBoardPiece(gameBoard, emptyLocations, TileType.PLAYER);
+            generateBoardPiece(gameBoard, emptyLocations, TileType.ENEMY);
+            generateBoardPiece(gameBoard, emptyLocations, TileType.GOAL);
             for (int wallCount = 0; wallCount < numberOfWalls; wallCount++) {
-                generateBoardPiece(gameBoard, emptyLocations, TileType.WALL, random);
+                generateBoardPiece(gameBoard, emptyLocations, TileType.WALL);
             }
         } else {
             LOGGER.log(Level.SEVERE, "Not enough space on board to generate objects");
@@ -56,11 +57,13 @@ public class RandomLevelCreator extends LevelCreator {
         return emptyLocations.size() >= NUMBER_OF_DEFAULT_OBJECTS + numberOfWalls;
     }
 
-    private void generateBoardPiece(GameBoard gameBoard, List<Point> emptyLocations, final TileType tileType, Random random) {
-        int emptyLocationIndex = generateNumberBetweenInclusive(0, emptyLocations.size(), random);
+    private void generateBoardPiece(GameBoard gameBoard, List<Point> emptyLocations, final TileType tileType) {
+        int emptyLocationIndex = 0;
+        if (emptyLocations.size() > 1) {
+            emptyLocationIndex = generateNumberBetweenInclusive(0, emptyLocations.size());
+        }
         Point location = emptyLocations.remove(emptyLocationIndex);
         gameBoard.addBoardPiece(tileType, location);
-        LOGGER.log(Level.INFO, String.format("(%s, %s) %s", location.x, location.y, tileType));
     }
 
     private void generateBasicBoard(GameBoard gameBoard) {
@@ -89,8 +92,8 @@ public class RandomLevelCreator extends LevelCreator {
         return x == 0 || y == 0 || x == xDimension - 1 || y == yDimension - 1;
     }
 
-    private int generateNumberBetweenInclusive(int lower, int upper, Random random) {
-        return random.nextInt(upper - lower) + lower;
+    private int generateNumberBetweenInclusive(int lower, int upper) {
+        return random.nextInt(lower, upper - 1);
     }
 
     private int getNumberOfWall(int level) {

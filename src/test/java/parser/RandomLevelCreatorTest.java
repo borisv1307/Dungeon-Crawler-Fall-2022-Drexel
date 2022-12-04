@@ -5,6 +5,7 @@ import board.piece.BoardPieceFactory;
 import engine.GameEngine;
 import enums.TileType;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.awt.*;
 
@@ -13,6 +14,7 @@ import static enums.Result.WIN;
 import static org.junit.Assert.*;
 
 public class RandomLevelCreatorTest {
+    private RandomWrapper randomWrapper;
     private final int SEED_ZERO = 0;
     private final int SEED_ONE = 1;
     private final int X_DIMENSION_TWO = 2;
@@ -24,18 +26,21 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void generate_level_with_enough_space_for_tiles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ONE, 3, 5);
         assertFalse(gameEngine.isExit());
     }
 
     @Test
     public void generate_level_no_space_for_tiles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ONE, X_DIMENSION_TWO, Y_DIMENSION_TWO);
         assertTrue(gameEngine.isExit());
     }
 
     @Test
     public void generate_levels_with_seed_1() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ONE, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         int expectedObstacleCount = 0;
         verifyTiles(gameEngine, X_DIMENSION_FIVE, Y_DIMENSION_FIVE, expectedObstacleCount);
@@ -81,20 +86,21 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void generate_levels_with_seed_0() {
-        GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
-        verifyTiles(gameEngine, X_DIMENSION_FIVE, Y_DIMENSION_FIVE, 0);
+        GameEngine gameEngine = setUpMocks(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
+        verifyMocks(SEED_ZERO, gameEngine.getLevel(), 1);
     }
 
     @Test
     public void generate_levels_with_seed_0_twice() {
-        GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
-        TileType[][] tiles = getTiles(gameEngine);
+        GameEngine gameEngine = setUpMocks(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
+
         gameEngine.handleLevelCompletion(LOSE);
-        verifyAddedPieces(gameEngine, tiles);
+        verifyMocks(SEED_ZERO, 1, 2);
     }
 
     @Test
     public void generate_levels_increments_seed_by_level() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         TileType[][] tilesLevelOne = getTiles(gameEngine);
         verifyTiles(gameEngine, X_DIMENSION_FIVE, Y_DIMENSION_FIVE, 0);
@@ -119,12 +125,14 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_1_has_no_walls_as_obstacles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         verifyWallsAsObstaclesCount(gameEngine, 0);
     }
 
     @Test
     public void level_2_has_no_walls_as_obstacles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         gameEngine.handleLevelCompletion(WIN);
         assertEquals(2, gameEngine.getLevel());
@@ -133,6 +141,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_3_has_no_walls_as_obstacles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -142,6 +151,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_4_has_no_walls_as_obstacles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -153,6 +163,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_5_has_no_walls_as_obstacles() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_FIVE, Y_DIMENSION_FIVE);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -164,12 +175,14 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_1_has_no_walls_as_obstacles_20_by_10() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_TWENTY, Y_DIMENSION_TEN);
         verifyWallsAsObstaclesCount(gameEngine, 0);
     }
 
     @Test
     public void level_2_has_no_walls_as_obstacles_20_by_10() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_TWENTY, Y_DIMENSION_TEN);
         gameEngine.handleLevelCompletion(WIN);
         assertEquals(2, gameEngine.getLevel());
@@ -178,6 +191,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_3_has_no_walls_as_obstacles_20_by_10() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_TWENTY, Y_DIMENSION_TEN);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -187,6 +201,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_4_has_no_walls_as_obstacles_20_by_10() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_TWENTY, Y_DIMENSION_TEN);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -198,6 +213,7 @@ public class RandomLevelCreatorTest {
 
     @Test
     public void level_5_has_no_walls_as_obstacles_20_by_10() {
+        randomWrapper = new RandomWrapper();
         GameEngine gameEngine = setUp(SEED_ZERO, X_DIMENSION_TWENTY, Y_DIMENSION_TEN);
         gameEngine.handleLevelCompletion(WIN);
         gameEngine.handleLevelCompletion(WIN);
@@ -231,11 +247,6 @@ public class RandomLevelCreatorTest {
         }
     }
 
-    private GameEngine setUp(int seed, int xDimension, int yDimension) {
-        RandomLevelCreator randomLevelCreator = new RandomLevelCreator(new BoardPieceFactory(), seed, xDimension, yDimension);
-        return new GameEngine(randomLevelCreator);
-    }
-
     private TileType[][] getTiles(GameEngine gameEngine) {
         TileType[][] tiles = new TileType[gameEngine.getLevelHorizontalDimension()][gameEngine.getLevelVerticalDimension()];
         for (int x = 0; x < gameEngine.getLevelHorizontalDimension(); x++) {
@@ -244,5 +255,28 @@ public class RandomLevelCreatorTest {
             }
         }
         return tiles;
+    }
+
+    private GameEngine setUpMocks(int seed, int xDimension, int yDimension) {
+        randomWrapper = Mockito.mock(RandomWrapper.class);
+        Mockito.when(randomWrapper.nextInt(0, 8)).thenReturn(0);
+        Mockito.when(randomWrapper.nextInt(0, 7)).thenReturn(0);
+        Mockito.when(randomWrapper.nextInt(0, 6)).thenReturn(1);
+
+        return setUp(seed, xDimension, yDimension);
+    }
+
+    private GameEngine setUp(int seed, int xDimension, int yDimension) {
+        RandomLevelCreator randomLevelCreator = new RandomLevelCreator(new BoardPieceFactory(), randomWrapper, seed, xDimension, yDimension);
+        return new GameEngine(randomLevelCreator);
+    }
+
+    private void verifyMocks(int seed, int level, int times) {
+        Mockito.verify(randomWrapper, Mockito.times(times)).reset();
+        Mockito.verify(randomWrapper, Mockito.times(times)).setSeed(level + seed);
+        Mockito.verify(randomWrapper, Mockito.times(times)).nextInt(0, 8);
+        Mockito.verify(randomWrapper, Mockito.times(times)).nextInt(0, 7);
+        Mockito.verify(randomWrapper, Mockito.times(times)).nextInt(0, 6);
+        Mockito.verifyNoMoreInteractions(randomWrapper);
     }
 }
