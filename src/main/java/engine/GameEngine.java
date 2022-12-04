@@ -4,6 +4,9 @@ import java.awt.*;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import parser.LevelCreator;
+import tiles.TileType;
+import ui.GameFrame;
 
 public class GameEngine {
 
