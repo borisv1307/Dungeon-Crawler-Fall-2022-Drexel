@@ -29,14 +29,15 @@ public class CombatManagementStepDefs {
         combatManagement = new CombatManagement(gameEngine, levelCreator, player);
     }
 
-    @When("^the player attack first$")
+    @When("^the enemy die first$")
     public void the_player_attack_first() {
+        enemy.setAttackPoint(4);
         combatManagement.attack(enemy);
     }
 
-    @When("^the player attack is lower than the enemy health$")
+    @When("^the player die first$")
     public void the_enemy_attack_is_greater() {
-        player.setAttackPoint(9);
+        enemy.setAttackPoint(12);
         combatManagement.attack(enemy);
     }
 

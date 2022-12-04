@@ -25,10 +25,6 @@ public class CombatManagement {
 
         while (playerCurrentHealth != 0 && enemyCurrentHealth != 0) {
             enemyCurrentHealth -= player.getAttackPoint();
-
-            if (enemyCurrentHealth <= 0) {
-                break;
-            }
             managePlayerHealth(enemy);
         }
 
