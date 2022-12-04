@@ -149,7 +149,8 @@ public class GameEngine {
             x = (int) (randomNumber * 18) + 1;
             y = 1;
         }
-        return bomb = new Point(x, y);
+        bomb = new Point(x, y);
+        return bomb;
     }
 
     public boolean collision() {
