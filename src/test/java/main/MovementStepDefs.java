@@ -6,9 +6,14 @@ import cucumber.api.java.en.When;
 import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
+import tiles.TileType;
 import values.TestingTunableParameters;
+import values.TileColorMap;
+import wrappers.RandomWrapper;
 import wrappers.ReaderWrapper;
 
+import java.awt.*;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +27,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     public void level_is(List<String> levelStrings) throws Throwable {
         writeLevelFile(levelStrings);
         gameEngine = new GameEngine(
-                new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+                new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new RandomWrapper());
     }
 
     @Given("^the player starts with (\\d+) coins$")
@@ -64,5 +69,19 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
     @Then("^the player has (\\d+) coins$")
     public void the_player_has_coins(int coins) {
         assertThat(gameEngine.getPlayerCoins(), equalTo(coins));
+    }
+
+    @Then("^the player is color \"([^\"]*)\"$")
+    public void the_player_is_color(String playerColor) {
+
+        Color color;
+        try {
+            Field field = Class.forName("java.awt.Color").getField(playerColor);
+            color = (Color) field.get(null);
+        } catch (Exception e) {
+            color = null; // Not defined
+        }
+
+        assertThat(TileColorMap.get(TileType.PLAYER), equalTo(color));
     }
 }

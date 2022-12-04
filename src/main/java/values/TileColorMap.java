@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.EnumMap;
 
 public final class TileColorMap {
-    private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
+    private static EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
 
     static {
         tileColors.put(TileType.PASSABLE, Color.WHITE);
@@ -20,5 +20,9 @@ public final class TileColorMap {
 
     public static Color get(TileType key) {
         return tileColors.get(key);
+    }
+
+    public static void updatePlayerColor(Color newPlayerColor) {
+        tileColors.put(TileType.PLAYER, newPlayerColor);
     }
 }

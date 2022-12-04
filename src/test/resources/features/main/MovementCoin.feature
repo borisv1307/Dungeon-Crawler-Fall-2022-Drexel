@@ -9,24 +9,18 @@ Feature: Move the player over a coin and collect it
       | X   X |
       | XXXXX |
 
-  Scenario: Moves onto coin with 0 coins
-    Given the player starts with 0 coins
+  Scenario Outline: Moves onto coin with <currentCoins> coins
+    Given the player starts with <currentCoins> coins
+    And the player is at level <currentLevel>
     When the player moves up
-    Then the player is located at (3, 2)
-    And the player has 1 coins
+    Then the player is located at (<xCoord>, <yCoord>)
+    And the player has <newCoins> coins
+    And the player is at level <newLevel>
+    And the player is color <levelColor>
 
-  Scenario: Moves onto coin with 4 coins (Requires 5 to level up to 2)
-    Given the player starts with 4 coins
-    And the player is at level 1
-    When the player moves up
-    Then the player is located at (3, 2)
-    And the player has 0 coins
-    And the player is at level 2
 
-  Scenario: Moves onto coin with 9 coins (Requires 10 to level up to 3)
-    Given the player starts with 9 coins
-    And the player is at level 2
-    When the player moves up
-    Then the player is located at (3, 2)
-    And the player has 0 coins
-    And the player is at level 3
+    Examples:
+      | currentCoins | currentLevel | xCoord | yCoord | newCoins | newLevel | levelColor |
+      | 0            | 1            | 3      | 2      | 1        | 1        | "GREEN"    |
+      | 4            | 1            | 3      | 2      | 0        | 2        | "BLUE"     |
+      | 9            | 2            | 3      | 2      | 0        | 3        | "MAGENTA"  |
