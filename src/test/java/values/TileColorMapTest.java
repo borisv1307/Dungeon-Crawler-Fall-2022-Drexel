@@ -25,4 +25,24 @@ public class TileColorMapTest {
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
 	}
 
+	@Test
+	public void dragon() {
+		assertSame(Color.RED, TileColorMap.get(TileType.DRAGON));
+	}
+
+	@Test
+	public void potion() {
+		assertSame(Color.CYAN, TileColorMap.get(TileType.POTION));
+	}
+
+	@Test
+	public void near() {
+		assertSame(Color.MAGENTA, TileColorMap.get(TileType.NEAR));
+	}
+
+	@Test
+	public void visited() {
+		assertSame(Color.yellow, TileColorMap.get(TileType.VISITED));
+	}
+
 }

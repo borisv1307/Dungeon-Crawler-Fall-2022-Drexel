@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c457262-f24d-4c56-b7d8-20339f9689d5" name="Changes" comment="" />
+    <list default="true" id="9c457262-f24d-4c56-b7d8-20339f9689d5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/levels/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiles/TileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TileColorMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/values/TunableParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/values/TunableParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tiles/TileTypeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/values/TileColorMapTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/values/TileColorMapTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,13 +39,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;EclipseFormatter&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "settings.editor.selected.configurable": "EclipseFormatter"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="JUnit.TileTypeTest">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Launcher" />
@@ -49,18 +61,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in DungeonCrawlerFall2022Drexel (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameEngineTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawlerFall2022Drexel" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in DungeonCrawlerFall2022Drexel (5)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="DungeonCrawlerFall2022Drexel" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="engine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="engine" />
+      <option name="MAIN_CLASS_NAME" value="engine.GameEngineTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -69,6 +80,21 @@
       <module name="DungeonCrawlerFall2022Drexel" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="RunCukesTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TileColorMapTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawlerFall2022Drexel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="values.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="values" />
+      <option name="MAIN_CLASS_NAME" value="values.TileColorMapTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,10 +118,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TileTypeTest" />
-        <item itemvalue="Application.Launcher" />
+        <item itemvalue="JUnit.TileColorMapTest" />
         <item itemvalue="JUnit.RunCukesTest" />
-        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (5)" />
-        <item itemvalue="JUnit.All in DungeonCrawlerFall2022Drexel (2)" />
+        <item itemvalue="Application.Launcher" />
+        <item itemvalue="JUnit.GameEngineTest" />
       </list>
     </recent_temporary>
   </component>
@@ -120,5 +146,47 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/GamePanel.java</url>
+          <line>28</line>
+          <properties class="ui.GamePanel" method="paint">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/GamePanel.java</url>
+          <line>37</line>
+          <properties class="ui.GamePanel" method="update">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/GamePanel.java</url>
+          <line>22</line>
+          <properties class="ui.GamePanel" method="init">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/GamePanel.java</url>
+          <line>16</line>
+          <properties class="ui.GamePanel" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -13,10 +13,13 @@ public class GameEngine {
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private final int level;
+
 	private boolean exit;
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+
+
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -95,7 +98,6 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
 		}
 	}
-
 	public boolean isExit() {
 		return exit;
 	}

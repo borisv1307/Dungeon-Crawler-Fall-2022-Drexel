@@ -13,7 +13,11 @@ public class TileTypeTest {
 
 	private static final char DRAGON_CHAR = 'D';
 	private static final char POTION_CHAR = 'M';
-	private static final char BRICK_CHAR = 'B';
+
+	private static final char NEAR_CHAR = 'N';
+	private static final char VISITED_CHAR = 'V';
+
+
 
 
 
@@ -40,9 +44,15 @@ public class TileTypeTest {
 		assertEquals(TileType.POTION, actual);
 	}
 	@Test
-	public void get_tile_type_by_char_brick(){
-		TileType actual = TileType.getTileTypeByChar(BRICK_CHAR);
-		assertEquals(TileType.BRICK, actual);
+	public void get_tile_type_by_char_near(){
+		TileType actual = TileType.getTileTypeByChar(NEAR_CHAR);
+		assertEquals(TileType.NEAR, actual);
+	}
+
+	@Test
+	public void get_tile_type_by_char_visited(){
+		TileType actual = TileType.getTileTypeByChar(VISITED_CHAR);
+		assertEquals(TileType.VISITED, actual);
 	}
 
 	@Test
