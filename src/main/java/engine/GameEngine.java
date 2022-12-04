@@ -95,7 +95,11 @@ public class GameEngine {
         if (result == Result.WIN) {
             wins++;
             level++;
-            regenerateLevel();
+            if (level == 6) {
+                setExit(true);
+            } else {
+                regenerateLevel();
+            }
         } else if (result == Result.LOSE) {
             losses++;
             regenerateLevel();

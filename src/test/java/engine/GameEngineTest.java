@@ -2,6 +2,7 @@ package engine;
 
 import board.GameBoard;
 import board.piece.BoardPieceFactory;
+import enums.Result;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -12,6 +13,7 @@ import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.*;
 
 public class GameEngineTest {
     private static final int ONE = 1;
@@ -44,6 +46,31 @@ public class GameEngineTest {
         int actualHorizontal = gameEngine.getLevelHorizontalDimension();
         assertThat(actualVertical, equalTo(TWO));
         assertThat(actualHorizontal, equalTo(ONE));
+    }
+
+    @Test
+    public void exit_after_five_levels() {
+        gameEngine.handleLevelCompletion(Result.LOSE);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.LOSE);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        assertTrue(gameEngine.isExit());
+        assertEquals(6, gameEngine.getLevel());
+    }
+
+    @Test
+    public void not_exit_after_four_levels() {
+        gameEngine.handleLevelCompletion(Result.LOSE);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.LOSE);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        gameEngine.handleLevelCompletion(Result.WIN);
+        assertFalse(gameEngine.isExit());
+        assertEquals(5, gameEngine.getLevel());
     }
 
     @Test
