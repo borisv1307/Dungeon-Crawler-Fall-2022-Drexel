@@ -80,24 +80,24 @@ public class GameEngineTest {
 	@Test
 	public void key_left() {
 		// TODO Should I start with this test?
-		gameEngine.keyLeft();
+		//gameEngine.keyLeft();
 	}
 
 	@Test
 	public void key_right() {
 		// TODO Should I start with this test?
-		gameEngine.keyRight();
+		//gameEngine.keyRight();
 	}
 
 	@Test
 	public void key_up() {
 		// TODO Should I start with this test?
-		gameEngine.keyUp();
+		//gameEngine.keyUp();
 	}
 
 	@Test
 	public void key_down() {
 		// TODO Should I start with this test?
-		gameEngine.keyDown();
+		//gameEngine.keyDown();
 	}
 }
