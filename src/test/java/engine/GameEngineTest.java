@@ -70,6 +70,16 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_fireball_coordinates(){
+		TileType tileType = TileType.FIREBALL;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getFireballXCoordinate();
+		int actualY = gameEngine.getFireballsYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);

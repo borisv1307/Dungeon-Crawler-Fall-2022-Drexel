@@ -18,6 +18,8 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private Point fireball;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -64,6 +66,8 @@ public class GameEngine {
         player = new Point(x, y);
     }
 
+
+
     public int getPlayerXCoordinate() {
         return (int) player.getX();
     }
@@ -73,19 +77,23 @@ public class GameEngine {
     }
 
     public void keyLeft() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
     }
 
     public void keyRight() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
     }
 
     public void keyUp() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
     }
 
     public void keyDown() {
-        // TODO Implement movement logic here
+        setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+    }
+
+    public void keyZ() {
+
     }
 
     public boolean isExit() {
@@ -95,4 +103,6 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
+
 }
