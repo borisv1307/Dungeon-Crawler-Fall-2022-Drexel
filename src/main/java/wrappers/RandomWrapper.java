@@ -1,9 +1,9 @@
 package wrappers;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class RandomWrapper {
-    Random r = new Random();
+    SecureRandom r = new SecureRandom();
 
     public int generateCoordinate(int bound) {
         return r.nextInt(bound - 1) + 1;
