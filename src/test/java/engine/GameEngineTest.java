@@ -46,6 +46,14 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_powerball(){
+		TileType tileType = TileType.POWERBALL;
+		gameEngine.addTile(ZERO, ONE, TileType.POWERBALL);
+		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
 	public void set_and_get_horizontal_dimension() {
 		gameEngine.setLevelHorizontalDimension(ONE);
 		int actual = gameEngine.getLevelHorizontalDimension();
@@ -68,6 +76,8 @@ public class GameEngineTest {
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
+
+	//@Test
 
 	@Test
 	public void set_and_get_exit() {
