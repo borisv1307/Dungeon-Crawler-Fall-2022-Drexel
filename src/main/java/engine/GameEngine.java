@@ -112,5 +112,9 @@ public class GameEngine {
     }
 
 
+    public int getPowerBallXCoordinate() {
 
+        Point powerball = new Point();
+        return (int) powerball.getX();
+    }
 }
