@@ -44,7 +44,7 @@ public class GamePanelTest {
         gamePanel.paint(graphics);
         Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
         Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
-                TileType.PLAYER, gameEngine.getPlayerHP(), 50, gameEngine.getPlayerRegenStatus(), gameEngine.getPlayerDrainStatus());
+                TileType.PLAYER, gameEngine.getPlayer());
     }
 
     @Test

@@ -90,6 +90,11 @@ public class GameEngine {
         movement(0, 1);
     }
 
+    public void keyEnter() {
+        player.reset();
+        this.levelCreator.createLevel(this, level);
+    }
+
     private void movement(int deltaX, int deltaY) {
         TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() + deltaX,
                 getPlayerYCoordinate() + deltaY);
@@ -146,6 +151,10 @@ public class GameEngine {
         this.exit = exit;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public int getPlayerHP() {
         return player.getHP();
     }
@@ -166,8 +175,4 @@ public class GameEngine {
         return player.getDrainRemaining();
     }
 
-    public void keyEnter() {
-        player.reset();
-        this.levelCreator.createLevel(this, level);
-    }
 }

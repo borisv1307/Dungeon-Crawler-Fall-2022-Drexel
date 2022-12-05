@@ -7,6 +7,7 @@ import org.mockito.AdditionalMatchers;
 import org.mockito.InOrder;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
+import player.Player;
 import tiles.TileType;
 import values.TileColorMap;
 
@@ -54,7 +55,8 @@ public class TilePainterTest {
     @Test
     public void paint_player() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 10, 50, false, false);
+        Player player = new Player();
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));
@@ -68,7 +70,9 @@ public class TilePainterTest {
     @Test
     public void paint_player_max_health() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 50, 50, false, false);
+        Player player = new Player();
+        player.changeHealth(50);
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));
@@ -82,7 +86,9 @@ public class TilePainterTest {
     @Test
     public void paint_player_zero_health() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 0, 50, false, false);
+        Player player = new Player();
+        player.changeHealth(-50);
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));
@@ -95,13 +101,16 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(20, 60, 10, 20);
         inOrder.verify(graphics).setColor(Color.BLACK);
         inOrder.verify(graphics).drawString("RIP", 30, 80);
-        inOrder.verify(graphics).drawString("Press 'Enter' to reset", 30, 100);
+        inOrder.verify(graphics).drawString("Press 'Enter' to reset", 20, 100);
     }
 
     @Test
     public void paint_player_regen_on() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 10, 50, true, false);
+        Player player = new Player();
+        player.setRegen(true, 5);
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
+
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));
@@ -116,7 +125,9 @@ public class TilePainterTest {
     @Test
     public void paint_player_drain_on() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 10, 50, false, true);
+        Player player = new Player();
+        player.setDrain(true, 5);
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));
@@ -131,7 +142,10 @@ public class TilePainterTest {
     @Test
     public void paint_player_regen_and_drain_on() {
 
-        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, 10, 50, true, true);
+        Player player = new Player();
+        player.setRegen(true, 5);
+        player.setDrain(true, 5);
+        tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER, player);
 
         InOrder inOrder = Mockito.inOrder(graphics);
         inOrder.verify(graphics).setColor(TileColorMap.get(TileType.PLAYER));

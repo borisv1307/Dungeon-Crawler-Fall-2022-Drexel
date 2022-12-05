@@ -1,6 +1,7 @@
 package ui;
 
 import engine.GameEngine;
+import player.Player;
 import tiles.TileType;
 import values.TileColorMap;
 
@@ -17,10 +18,11 @@ public class TilePainter {
         }
     }
 
-    void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType, int currentHitPoints, int maxHitPoints, boolean regenStatus, boolean drainStatus) {
+    void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType, Player player) {
         paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
-        paintLostPlayerHitPoints(graphics, tileWidth, tileHeight, x, y, currentHitPoints, maxHitPoints);
-        paintPlayerStatus(graphics, tileWidth, tileHeight, x, y, currentHitPoints, regenStatus, drainStatus);
+        int currentHitPoints = player.getHP();
+        paintLostPlayerHitPoints(graphics, tileWidth, tileHeight, x, y, currentHitPoints, 50);
+        paintPlayerStatus(graphics, tileWidth, tileHeight, x, y, player);
         if (currentHitPoints == 0) {
             paintPlayerGravestone(graphics, tileWidth, tileHeight, x, y);
         }
@@ -34,8 +36,11 @@ public class TilePainter {
         graphics.drawString("Press 'Enter' to reset", x * tileWidth, y * tileHeight + 40);
     }
 
-    private void paintPlayerStatus(Graphics graphics, int tileWidth, int tileHeight, int x, int y, int currentHitPoints, boolean regenStatus, boolean drainStatus) {
+    private void paintPlayerStatus(Graphics graphics, int tileWidth, int tileHeight, int x, int y, Player player) {
         graphics.setColor(Color.BLACK);
+        int currentHitPoints = player.getHP();
+        boolean regenStatus = player.isRegenOn();
+        boolean drainStatus = player.isDrainOn();
         graphics.drawString("HP:" + currentHitPoints, x * tileWidth, y * tileHeight + 10);
         if (regenStatus) {
             graphics.drawString("Regen", x * tileWidth, y * tileHeight + 20);
