@@ -165,4 +165,9 @@ public class GameEngine {
     public int getPlayerDrainCounter() {
         return player.getDrainRemaining();
     }
+
+    public void keyEnter() {
+        player.reset();
+        this.levelCreator.createLevel(this, level);
+    }
 }

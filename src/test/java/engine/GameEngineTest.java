@@ -76,5 +76,4 @@ public class GameEngineTest {
         boolean actual = gameEngine.isExit();
         assertThat(actual, equalTo(exit));
     }
-
 }

@@ -95,6 +95,12 @@ public class GamePanelTest {
     }
 
     @Test
+    public void key_enter() {
+        gamePanel.keyDown(null, Event.ENTER);
+        Mockito.verify(gameEngine, Mockito.times(1)).keyEnter();
+    }
+
+    @Test
     public void key_escape() {
         boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
         assertSame(true, actual);

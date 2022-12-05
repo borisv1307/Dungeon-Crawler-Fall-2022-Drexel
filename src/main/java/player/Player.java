@@ -101,4 +101,10 @@ public class Player {
     public int getHP() {
         return health;
     }
+
+    public void reset() {
+        health = 10;
+        setRegen(false, 0);
+        setDrain(false, 0);
+    }
 }

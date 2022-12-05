@@ -13,6 +13,8 @@ public class PlayerTest {
     private static final int THREE = 3;
     private static final int FIVE = 5;
     private static final int EIGHT = 8;
+
+    private static final int TEN = 10;
     private static final int TWELVE = 12;
     private static final int THIRTEEN = 13;
     private static final int FIFTY = 50;
@@ -43,7 +45,7 @@ public class PlayerTest {
 
     @Test
     public void block_healing_over_max_health() {
-        for (int healCounter = 1; healCounter <= 10; healCounter++) {
+        for (int healCounter = ONE; healCounter <= TEN; healCounter++) {
             player.changeHealth(THIRTEEN);
         }
         int actualHP = player.getHP();
@@ -52,7 +54,7 @@ public class PlayerTest {
 
     @Test
     public void block_damage_reducing_player_health_under_zero() {
-        for (int damageCounter = 1; damageCounter <= 10; damageCounter++) {
+        for (int damageCounter = ONE; damageCounter <= TEN; damageCounter++) {
             player.changeHealth(THIRTEEN * -1);
         }
         int actualHP = player.getHP();
@@ -140,7 +142,7 @@ public class PlayerTest {
 
     @Test
     public void player_does_not_move_when_health_is_zero() {
-        for (int damageCounter = 1; damageCounter <= 10; damageCounter++) {
+        for (int damageCounter = ONE; damageCounter <= TEN; damageCounter++) {
             player.changeHealth(THIRTEEN * -1);
         }
         player.move(ZERO, ONE);
@@ -150,6 +152,31 @@ public class PlayerTest {
         assertThat(actualX, equalTo(THREE));
         assertThat(actualY, equalTo(FIVE));
 
+    }
+
+    @Test
+    public void player_reset_health() {
+        for (int damageCounter = ONE; damageCounter <= TEN; damageCounter++) {
+            player.changeHealth(THIRTEEN * -1);
+        }
+        player.reset();
+        assertThat(player.getHP(), equalTo(TEN));
+    }
+
+    @Test
+    public void player_reset_regen() {
+        player.setRegen(true, TWELVE);
+        player.reset();
+        assertThat(player.isRegenOn(), equalTo(false));
+        assertThat(player.getRegenRemaining(), equalTo(ZERO));
+    }
+
+    @Test
+    public void player_reset_drain() {
+        player.setDrain(true, TWELVE);
+        player.reset();
+        assertThat(player.isDrainOn(), equalTo(false));
+        assertThat(player.getDrainRemaining(), equalTo(ZERO));
     }
 
 }
