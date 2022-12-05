@@ -138,4 +138,18 @@ public class PlayerTest {
         assertThat(actualDrainRemaining, equalTo(ZERO));
     }
 
+    @Test
+    public void player_does_not_move_when_health_is_zero() {
+        for (int damageCounter = 1; damageCounter <= 10; damageCounter++) {
+            player.changeHealth(THIRTEEN * -1);
+        }
+        player.move(ZERO, ONE);
+        player.move(ONE, ZERO);
+        int actualX = player.getX();
+        int actualY = player.getY();
+        assertThat(actualX, equalTo(THREE));
+        assertThat(actualY, equalTo(FIVE));
+
+    }
+
 }

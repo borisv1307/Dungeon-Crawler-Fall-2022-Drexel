@@ -21,9 +21,11 @@ public class Player {
     }
 
     public void move(int deltaX, int deltaY) {
-        setPoint(getX() + deltaX, getY() + deltaY);
-        updateRegen();
-        updateDrain();
+        if (health > 0) {
+            setPoint(getX() + deltaX, getY() + deltaY);
+            updateRegen();
+            updateDrain();
+        }
     }
 
     public void setPoint(int x, int y) {
