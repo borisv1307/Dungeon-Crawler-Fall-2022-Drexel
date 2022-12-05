@@ -60,4 +60,10 @@ public class TilePainterTest {
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 
+	@Test
+	public void paint_power_ball(){
+		tilePainter.paintPowerBall(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.POWERBALL);
+		Mockito.verify(graphics).fillOval(20, 60, 20, 20);
+	}
+
 }
