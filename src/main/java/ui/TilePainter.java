@@ -31,6 +31,7 @@ public class TilePainter {
         graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         graphics.setColor(Color.BLACK);
         graphics.drawString("RIP", x * tileWidth + 10, y * tileHeight + 20);
+        graphics.drawString("Press 'Enter' to reset", x * tileWidth, y * tileHeight + 40);
     }
 
     private void paintPlayerStatus(Graphics graphics, int tileWidth, int tileHeight, int x, int y, int currentHitPoints, boolean regenStatus, boolean drainStatus) {

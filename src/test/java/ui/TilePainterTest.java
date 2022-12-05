@@ -95,6 +95,7 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(20, 60, 10, 20);
         inOrder.verify(graphics).setColor(Color.BLACK);
         inOrder.verify(graphics).drawString("RIP", 30, 80);
+        inOrder.verify(graphics).drawString("Press 'Enter' to reset", 30, 100);
     }
 
     @Test
