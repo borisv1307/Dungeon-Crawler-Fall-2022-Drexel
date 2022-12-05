@@ -77,7 +77,15 @@ public class GameEngineTest {
 		assertThat(actualY, equalTo(ONE));
 	}
 
-	//@Test
+	@Test
+	public void add_and_get_powerball_coordinates() {
+		TileType tileType = TileType.POWERBALL;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getPowerBallXCoordinate();
+		int actualY = gameEngine.getPowerBallYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
 
 	@Test
 	public void set_and_get_exit() {
