@@ -76,6 +76,13 @@ public class GameEngine {
         return (int) player.getY();
     }
 
+    public int getFireballXCoordinate() {
+        return (int) fireball.getX();
+    }
+
+    public int getFireballYCoordinate(){
+        return
+    }
     public void keyLeft() {
         setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
     }
@@ -103,6 +110,7 @@ public class GameEngine {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
 
 
 }

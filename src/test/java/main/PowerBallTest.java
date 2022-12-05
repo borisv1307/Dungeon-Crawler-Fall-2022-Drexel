@@ -7,9 +7,14 @@ import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
 public class PowerBallTest {
-    @Test
+
+    public void generate_powerball(){
+
+    }
+
+    /*@Test
     public void the_player_generates_powerball(){
         GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
         gameEngine.keyZ();
-    }
+    }*/
 }

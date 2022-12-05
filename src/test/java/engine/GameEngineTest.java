@@ -70,11 +70,11 @@ public class GameEngineTest {
 	}
 
 	@Test
-	public void add_and_get_fireball_coordinates(){
-		TileType tileType = TileType.FIREBALL;
+	public void add_and_get_powerball_coordinates(){
+		TileType tileType = TileType.POWERBALL;
 		gameEngine.addTile(ZERO, ONE, tileType);
-		int actualX = gameEngine.getFireballXCoordinate();
-		int actualY = gameEngine.getFireballsYCoordinate();
+		int actualX = gameEngine.getPowerballXCoordinate();
+		int actualY = gameEngine.getPowerballsYCoordinate();
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
