@@ -9,6 +9,7 @@ import org.junit.Test;
 public class TileTypeTest {
 
 	private static final char INVALID_CHAR = 'Z';
+
 	private static final char VALID_CHAR = ' ';
 
 	@Test
@@ -29,5 +30,12 @@ public class TileTypeTest {
 		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), TileType.INVALID_CHARACTER_PROVIDED_MESSAGE + "Z");
 		}
+	}
+
+	@Test
+	public void new_valid_char_type(){
+		TileType actual = TileType.getTileTypeByChar(POWER_BALL_CHAR);
+		assertEquals(TileType.POWERBALL, actual);
+
 	}
 }
