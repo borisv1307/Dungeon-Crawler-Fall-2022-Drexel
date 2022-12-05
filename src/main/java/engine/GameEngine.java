@@ -18,6 +18,8 @@ public class GameEngine {
     private int levelVerticalDimension;
     private Point player;
 
+    private Point powerball;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -35,6 +37,9 @@ public class GameEngine {
         if (tileType.equals(TileType.PLAYER)) {
             setPlayer(x, y);
             tiles.put(new Point(x, y), TileType.PASSABLE);
+        } else if(tileType.equals(TileType.POWERBALL)){
+            setPowerball(x, y);
+            tiles.put(new Point(x, y), TileType.POWERBALL);
         } else {
             tiles.put(new Point(x, y), tileType);
         }
@@ -62,6 +67,10 @@ public class GameEngine {
 
     private void setPlayer(int x, int y) {
         player = new Point(x, y);
+    }
+
+    private void setPowerball(int x, int y){
+        powerball = new Point(x,y);
     }
 
 
@@ -113,8 +122,10 @@ public class GameEngine {
 
 
     public int getPowerBallXCoordinate() {
-
-        Point powerball = new Point();
         return (int) powerball.getX();
+    }
+
+    public int getPowerBallYCoordinate() {
+        return (int) powerball.getY();
     }
 }
