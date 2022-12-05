@@ -91,6 +91,10 @@ public class TilePainterTest {
         inOrder.verify(graphics).fillRect(20, 60, 10, 20);
         inOrder.verify(graphics).setColor(Color.BLACK);
         inOrder.verify(graphics).drawString("HP:0", 20, 70);
+        inOrder.verify(graphics).setColor(Color.LIGHT_GRAY);
+        inOrder.verify(graphics).fillRect(20, 60, 10, 20);
+        inOrder.verify(graphics).setColor(Color.BLACK);
+        inOrder.verify(graphics).drawString("RIP", 30, 80);
     }
 
     @Test

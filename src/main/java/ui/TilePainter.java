@@ -21,6 +21,16 @@ public class TilePainter {
         paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
         paintLostPlayerHitPoints(graphics, tileWidth, tileHeight, x, y, currentHitPoints, maxHitPoints);
         paintPlayerStatus(graphics, tileWidth, tileHeight, x, y, currentHitPoints, regenStatus, drainStatus);
+        if (currentHitPoints == 0) {
+            paintPlayerGravestone(graphics, tileWidth, tileHeight, x, y);
+        }
+    }
+
+    private void paintPlayerGravestone(Graphics graphics, int tileWidth, int tileHeight, int x, int y) {
+        graphics.setColor(Color.LIGHT_GRAY);
+        graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("RIP", x * tileWidth + 10, y * tileHeight + 20);
     }
 
     private void paintPlayerStatus(Graphics graphics, int tileWidth, int tileHeight, int x, int y, int currentHitPoints, boolean regenStatus, boolean drainStatus) {
