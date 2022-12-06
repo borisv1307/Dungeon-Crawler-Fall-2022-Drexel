@@ -4,7 +4,6 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
-import java.awt.event.KeyEvent;
 
 import engine.GameEngine;
 import tiles.TileType;

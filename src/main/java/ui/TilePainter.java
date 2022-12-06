@@ -34,8 +34,5 @@ public class TilePainter {
 		handleTile(graphics, tileType);
 		graphics.fillOval(x * tileWidth,y * tileHeight,tileWidth, tileHeight);
 	}
-    /*public void paintPowerBall(Graphics graphics, int x, int y, int tileDiameter, TileType powerball) {
-		handleTile(graphics, powerball);
-		graphics.fillOval(x*tileDiameter,y*tileDiameter,tileDiameter,tileDiameter);
-    }*/
+
 }
