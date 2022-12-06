@@ -94,4 +94,14 @@ public class GameEngineTest {
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
 	}
+
+	@Test
+	public void key_Z(){
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+		gameEngine.keyZ();
+		int actualX = gameEngine.getPowerBallXCoordinate();
+		int actualY = gameEngine.getPowerBallYCoordinate();
+		assertThat(actualX, equalTo(ONE));
+		assertThat(actualY, equalTo(ZERO));
+	}
 }
