@@ -102,7 +102,7 @@ public class GameEngineTest {
 		int actualX = gameEngine.getPowerBallXCoordinate();
 		int actualY = gameEngine.getPowerBallYCoordinate();
 		assertThat(actualX, equalTo(ONE));
-		assertThat(actualY, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
 	}
 
 

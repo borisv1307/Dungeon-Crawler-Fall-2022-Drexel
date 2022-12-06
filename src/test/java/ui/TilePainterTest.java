@@ -63,8 +63,8 @@ public class TilePainterTest {
 
 	@Test
 	public void paint_power_ball(){
-		tilePainter.paintPowerBall(graphics, X, Y, TILE_DIAMETER,TileType.POWERBALL);
-		Mockito.verify(graphics).fillOval(40, 60, 20, 20);
+		tilePainter.paintPowerBall(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT,TileType.POWERBALL);
+		Mockito.verify(graphics).fillOval(20, 60, 10, 20);
 	}
 
 }
