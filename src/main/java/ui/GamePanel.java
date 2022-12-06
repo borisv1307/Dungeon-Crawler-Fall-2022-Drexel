@@ -4,6 +4,7 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.event.KeyEvent;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -36,6 +37,7 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		tilePainter.paintPowerBall(graphics,gameEngine.getPowerBallXCoordinate(), gameEngine.getPowerBallYCoordinate(), tileHeight, TileType.POWERBALL);
 	}
 
 	@Override
@@ -61,7 +63,8 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
-		}
+		} else if (key == evt.key)
+			gameEngine.keyZ();
 
 		return true;
 	}

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertSame;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -101,5 +102,11 @@ public class GamePanelTest {
 	public void key_escape() {
 		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
 		assertSame(true, actual);
+	}
+
+	@Test void key_Z(){
+		boolean actual = gamePanel.keyDown(null, KeyEvent.VK_Z);
+		assertSame(true, actual);
+
 	}
 }

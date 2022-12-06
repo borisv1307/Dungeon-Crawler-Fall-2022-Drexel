@@ -128,4 +128,9 @@ public class GameEngine {
     public int getPowerBallYCoordinate() {
         return (int) powerball.getY();
     }
+
+    public void keyZ() {
+        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() , getPlayerYCoordinate());
+        setPowerball(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+    }
 }
