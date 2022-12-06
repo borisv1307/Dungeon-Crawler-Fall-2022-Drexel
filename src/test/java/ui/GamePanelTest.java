@@ -106,8 +106,14 @@ public class GamePanelTest {
 
 	@Test
 	public void key_Z(){
-		boolean actual = gamePanel.keyDown(null, KeyEvent.VK_Z);
-		assertSame(true, actual);
-
+		gamePanel.keyDown(null, KeyEvent.VK_Z);
+		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
 	}
+
+	@Test
+	public void key_X(){
+		gamePanel.keyDown(null, KeyEvent.VK_X);
+		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
+	}
+
 }
