@@ -30,6 +30,10 @@ public class TilePainter {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
 
+	void paintPowerBall(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		handleTile(graphics, tileType);
+		graphics.fillOval(x * tileWidth,y * tileHeight,tileWidth, tileHeight);
+	}
     public void paintPowerBall(Graphics graphics, int x, int y, int tileDiameter, TileType powerball) {
 		handleTile(graphics, powerball);
 		graphics.fillOval(x*tileDiameter,y*tileDiameter,tileDiameter,tileDiameter);

@@ -20,6 +20,8 @@ public class GameEngine {
 
     private Point powerball;
 
+    private boolean hasPowerBall = false;
+
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
         level = 1;
@@ -71,6 +73,7 @@ public class GameEngine {
 
     private void setPowerball(int x, int y){
         powerball = new Point(x,y);
+        hasPowerBall = true;
     }
 
 
@@ -130,7 +133,10 @@ public class GameEngine {
     }
 
     public void keyZ() {
-        TileType attemptedLocation = getTileFromCoordinates(getPlayerXCoordinate() , getPlayerYCoordinate());
-        setPowerball(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+        setPowerball(getPlayerXCoordinate(), getPlayerYCoordinate());
+    }
+
+    public boolean hasPowerBall() {
+        return hasPowerBall;
     }
 }

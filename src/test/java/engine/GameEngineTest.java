@@ -104,4 +104,6 @@ public class GameEngineTest {
 		assertThat(actualX, equalTo(ONE));
 		assertThat(actualY, equalTo(ZERO));
 	}
+
+
 }

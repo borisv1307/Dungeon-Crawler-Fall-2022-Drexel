@@ -37,7 +37,10 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
-		tilePainter.paintPowerBall(graphics,gameEngine.getPowerBallXCoordinate(), gameEngine.getPowerBallYCoordinate(), tileHeight, TileType.POWERBALL);
+
+		if(gameEngine.hasPowerBall())
+			tilePainter.paintPowerBall(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
+				tileWidth, tileHeight, TileType.POWERBALL);
 	}
 
 	@Override
