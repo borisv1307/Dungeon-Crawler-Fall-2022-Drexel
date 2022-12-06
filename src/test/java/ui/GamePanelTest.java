@@ -107,13 +107,24 @@ public class GamePanelTest {
 	@Test
 	public void key_Z(){
 		gamePanel.keyDown(null, KeyEvent.VK_Z);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
+		Mockito.verify(gameEngine, Mockito.times(1)).keyZ();
 	}
 
 	@Test
 	public void key_X(){
 		gamePanel.keyDown(null, KeyEvent.VK_X);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
+		Mockito.verify(gameEngine, Mockito.times(1)).keyX();
+	}
+
+	@Test
+	public void key_Z_then_key_X(){
+		gamePanel.keyDown(null, KeyEvent.VK_Z);
+		Mockito.verify(gameEngine, Mockito.times(1)).keyZ();
+
+
+
+		gamePanel.keyDown(null, KeyEvent.VK_X);
+		Mockito.verify(gameEngine, Mockito.times(1)).keyX();
 	}
 
 }

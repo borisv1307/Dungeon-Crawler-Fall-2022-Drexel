@@ -56,6 +56,14 @@ public class GamePanel extends Panel {
 		graphics.drawImage(dbImage, 0, 0, this);
 	}
 
+	boolean isKeyZ(int key){
+		return key == 122 || key == 90;
+	}
+
+	boolean isKeyX(int key){
+		return key == 120 || key == 88;
+	}
+
 	@Override
 	public boolean keyDown(Event evt, int key) {
 		if (key == Event.LEFT) {
@@ -66,8 +74,12 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
-		} else if (evt != null &&  key == evt.key)
+		} else if (isKeyZ(key)) {
 			gameEngine.keyZ();
+		} else if (isKeyX(key)) {
+			gameEngine.keyX();
+		}
+
 
 		return true;
 	}

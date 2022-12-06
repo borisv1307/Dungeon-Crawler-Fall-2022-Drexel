@@ -105,5 +105,22 @@ public class GameEngineTest {
 		assertThat(actualY, equalTo(ONE));
 	}
 
+	@Test
+	public void ley_Z_then_key_X(){
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+		gameEngine.keyZ();
+		int actualX = gameEngine.getPowerBallXCoordinate();
+		int actualY = gameEngine.getPowerBallYCoordinate();
+		assertThat(actualX, equalTo(ONE));
+		assertThat(actualY, equalTo(ONE));
+
+		gameEngine.keyX();
+		int next_actualX = gameEngine.getPowerBallXCoordinate();
+		int next_actualY = gameEngine.getPowerBallYCoordinate();
+		assertThat(next_actualX, equalTo(ONE));
+		assertThat(next_actualY, equalTo(ZERO));
+
+	}
+
 
 }

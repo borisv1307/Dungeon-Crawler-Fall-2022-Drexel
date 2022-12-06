@@ -139,4 +139,14 @@ public class GameEngine {
     public boolean hasPowerBall() {
         return hasPowerBall;
     }
+
+    public void keyX() {
+
+        TileType attemptedLocation;
+
+        attemptedLocation = getTileFromCoordinates(getPowerBallXCoordinate() , getPowerBallYCoordinate());
+
+        setPowerball(getPowerBallXCoordinate(), getPowerBallYCoordinate()-1);
+        //}while(!attemptedLocation.equals(TileType.PASSABLE));
+    }
 }
