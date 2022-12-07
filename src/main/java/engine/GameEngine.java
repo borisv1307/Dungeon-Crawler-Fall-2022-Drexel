@@ -17,12 +17,11 @@ public class GameEngine {
     private final Map<Point, TileType> tiles = new HashMap<>();
     private final int level;
     private final int levelenemycount;
+    private final List<Point> enemies = new ArrayList<>();
     private boolean exit;
     private int levelHorizontalDimension;
     private int levelVerticalDimension;
     private Point player;
-
-    private List<Point> enemies = new ArrayList<Point>();
 
     public GameEngine(LevelCreator levelCreator) {
         exit = false;
@@ -106,9 +105,7 @@ public class GameEngine {
     public boolean is_meet_enemy(int x, int y) {
         boolean meet = false;
 
-        int count = enemies.size();
-        for (int i = 0; i < count; i++) {
-            Point pt = enemies.get(i);
+        for (Point pt : enemies) {
             if (pt.x == x && pt.y == y) {
                 meet = true;
                 break;
@@ -155,14 +152,14 @@ public class GameEngine {
         int height = getLevelVerticalDimension();
 
         int enemycount = 0;
-        int x = 0;
-        int y = 0;
-        TileType type = TileType.PASSABLE;
+        int x;
+        int y;
+        TileType type;
 
         enemies.clear();
 
         for (int i = 0; i < count; i++) {
-            while (created == false) {
+            while (!created) {
                 x = (int) (Math.random() * width);
                 y = (int) (Math.random() * height);
                 type = tiles.get(new Point(x, y));
@@ -179,11 +176,11 @@ public class GameEngine {
             created = false;
         }
 
-        return enemycount > 0 ? true : false;
+        return enemycount > 0;
     }
 
     public int setRandomEnemyPosition() {
-        int enemy_count = (int) enemies.size();
+        int enemy_count = enemies.size();
         int xmove = 0;
         int ymove = 0;
         int width = getLevelHorizontalDimension();
@@ -192,7 +189,7 @@ public class GameEngine {
         boolean enemy_moved = false;
 
         for (int i = 0; i < enemy_count; i++) {
-            while (enemy_moved == false) {
+            while (!enemy_moved) {
                 int odd = (int) Math.round(Math.random());
                 if (odd == 1) {
                     odd = (int) Math.round(Math.random());
@@ -228,8 +225,8 @@ public class GameEngine {
         return 0;
     }
 
-    public void setEnemyPos(int idx, int x, int y) {
-        int enemy_count = (int) enemies.size();
+    public void setEnemyPos(int x, int y) {
+        int enemy_count = enemies.size();
         Point pt = new Point(x, y);
         if (enemy_count == 0) {
             enemies.add(pt);
