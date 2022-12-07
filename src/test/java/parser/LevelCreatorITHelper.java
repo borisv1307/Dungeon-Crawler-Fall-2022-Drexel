@@ -52,16 +52,16 @@ public class LevelCreatorITHelper {
         }
     }
 
-    protected void playerIsLocatedAt() throws Throwable {
+    protected void playerIsLocatedAt() {
         checkPlayerXCoordinate();
         checkPlayerYCoordinate();
     }
 
-    protected void checkPlayerXCoordinate() throws Throwable {
+    protected void checkPlayerXCoordinate() {
         assertThat(gameEngine.getPlayerXCoordinate(), equalTo(2));
     }
 
-    protected void checkPlayerYCoordinate() throws Throwable {
+    protected void checkPlayerYCoordinate() {
         assertThat(gameEngine.getPlayerYCoordinate(), equalTo(1));
     }
 
@@ -70,7 +70,7 @@ public class LevelCreatorITHelper {
         assertThat(actualTileType, equalTo(TileType.getTileTypeByChar(tileChar)));
     }
 
-    protected void checkAllTiles(List<String> levelStrings) throws Throwable {
+    protected void checkAllTiles(List<String> levelStrings) {
         for (int row = 0; row < levelStrings.size(); row++) {
             String rowString = levelStrings.get(row);
             for (int col = 0; col < rowString.length(); col++) {

@@ -4,7 +4,6 @@ import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import tiles.TileType;
 
 import java.awt.*;
 
@@ -43,8 +42,8 @@ public class GamePanelTest {
         Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
         gamePanel.paint(graphics);
         Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-        Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
-                TileType.PLAYER);
+        Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight
+        );
     }
 
     @Test

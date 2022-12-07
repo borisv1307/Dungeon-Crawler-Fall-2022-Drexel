@@ -1,7 +1,6 @@
 package ui;
 
 import engine.GameEngine;
-import tiles.TileType;
 
 import java.awt.*;
 
@@ -31,7 +30,7 @@ public class GamePanel extends Panel {
         requestFocusInWindow();
         tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
         tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
-                tileWidth, tileHeight, TileType.PLAYER);
+                tileWidth, tileHeight);
     }
 
     @Override

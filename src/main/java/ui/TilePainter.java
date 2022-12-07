@@ -17,8 +17,8 @@ public class TilePainter {
         }
     }
 
-    void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
-        paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+    void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight) {
+        paintTile(graphics, tileWidth, tileHeight, x, y, TileType.PLAYER);
     }
 
     private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
