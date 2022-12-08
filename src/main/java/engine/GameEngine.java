@@ -102,7 +102,7 @@ public class GameEngine {
         setEnemyCount(levelenemycount);
     }
 
-    public boolean meet_enemy(int x, int y) {
+    public boolean meetEnemy(int x, int y) {
         boolean meet = false;
 
         for (Point pt : enemies) {
@@ -122,7 +122,7 @@ public class GameEngine {
             setPlayer(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY);
         }
 
-        if (meet_enemy(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY)) {
+        if (meetEnemy(getPlayerXCoordinate() + deltaX, getPlayerYCoordinate() + deltaY)) {
             int reply = JOptionPane.showConfirmDialog(null, "You are captured to enemy!\nDo you want to play again?", "Dungeon-Crawler-Fall-2022", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 resetGame();
