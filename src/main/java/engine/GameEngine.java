@@ -152,7 +152,6 @@ public class GameEngine {
         int width = getLevelHorizontalDimension();
         int height = getLevelVerticalDimension();
 
-        int enemyCount = 0;
         int x;
         int y;
         TileType type;
@@ -164,8 +163,8 @@ public class GameEngine {
         int enemycount = 0;
         for (int i = 0; i < count; i++) {
             while (!created) {
-                x = random.nextInt() * width;
-                y = random.nextInt() * height;
+                x = (int) Math.round(random.nextDouble()) * width;
+                y = (int) Math.round(random.nextDouble()) * height;
                 type = tiles.get(new Point(x, y));
 
                 if (type == TileType.PASSABLE && !((x == 0 || x == 1) && (y == 0 || y == 1))) {
@@ -191,17 +190,17 @@ public class GameEngine {
         int width = getLevelHorizontalDimension();
         int height = getLevelVerticalDimension();
 
-        boolean enemy_moved = false;
+        boolean enemyMoved = false;
 
         for (int i = 0; i < enemyCount; i++) {
-            while (!enemy_moved) {
-                int odd = random.nextInt();
+            while (!enemyMoved) {
+                int odd = (int) Math.round(random.nextDouble());
                 if (odd == 1) {
-                    odd = random.nextInt();
-                    xmove = (odd == 1 ? -1 : 1);
+                    odd = (int) Math.round(random.nextDouble());
+                    xmove = getNewCoordinate(odd);
                 } else {
-                    odd = random.nextInt();
-                    ymove = (odd == 1 ? -1 : 1);
+                    odd = (int) Math.round(random.nextDouble());
+                    ymove = getNewCoordinate(odd);
                 }
 
                 Point pt = enemies.get(i);
@@ -217,23 +216,28 @@ public class GameEngine {
                     enemies.set(i, pt);
                     xmove = 0;
                     ymove = 0;
-                    enemy_moved = true;
+                    enemyMoved = true;
                 } else {
                     xmove = 0;
                     ymove = 0;
                 }
             }
 
-            enemy_moved = false;
+            enemyMoved = false;
         }
 
         return 0;
     }
 
+    private int getNewCoordinate(int odd) {
+        return (odd == 1 ? -1 : 1);
+    }
+
+
     public void setEnemyPos(int x, int y) {
-        int enemy_count = enemies.size();
+        int enemyCount = enemies.size();
         Point pt = new Point(x, y);
-        if (enemy_count == 0) {
+        if (enemyCount == 0) {
             enemies.add(pt);
             tiles.put(pt, TileType.ENEMY);
             return;
