@@ -180,7 +180,7 @@ public class GameEngine {
     }
 
     public int randomPosition() {
-        int enemy_count = enemies.size();
+        int enemyCount = enemies.size();
         int xmove = 0;
         int ymove = 0;
         int width = getLevelHorizontalDimension();
@@ -188,7 +188,7 @@ public class GameEngine {
 
         boolean enemy_moved = false;
 
-        for (int i = 0; i < enemy_count; i++) {
+        for (int i = 0; i < enemyCount; i++) {
             while (!enemy_moved) {
                 int odd = (int) Math.round(Math.random());
                 if (odd == 1) {
