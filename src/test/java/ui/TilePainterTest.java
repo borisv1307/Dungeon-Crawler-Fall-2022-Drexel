@@ -4,8 +4,8 @@ import engine.GameEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InOrder;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 import tiles.TileType;
 import values.TileColorMap;
@@ -34,8 +34,8 @@ public class TilePainterTest {
         Mockito.when(game.getLevelHorizontalDimension()).thenReturn(X);
         Mockito.when(game.getLevelVerticalDimension()).thenReturn(Y);
         Mockito.when(game.getTileFromCoordinates(1, 1)).thenReturn(TileType.NOT_PASSABLE);
-        Mockito.when(game.getTileFromCoordinates(AdditionalMatchers.not(Matchers.eq(1)),
-                AdditionalMatchers.not(Matchers.eq(1)))).thenReturn(TileType.PASSABLE);
+        Mockito.when(game.getTileFromCoordinates(AdditionalMatchers.not(ArgumentMatchers.eq(1)),
+                AdditionalMatchers.not(ArgumentMatchers.eq(1)))).thenReturn(TileType.PASSABLE);
 
         tilePainter.paintTiles(graphics, game, TILE_WIDTH, TILE_HEIGHT);
 
