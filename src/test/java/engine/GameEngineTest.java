@@ -2,14 +2,10 @@ package engine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
-import ui.GameFrame;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
-
-import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,15 +25,7 @@ public class GameEngineTest {
         gameEngine = new GameEngine(levelCreator);
     }
 
-    @Test
-    public void run() {
-        GameFrame gameFrame = Mockito.mock(GameFrame.class);
-        Component component = Mockito.mock(Component.class);
-        Mockito.when(gameFrame.getComponents()).thenReturn(new Component[]{component});
-        gameEngine.run(gameFrame);
-        Mockito.verify(component, Mockito.times(1)).repaint();
-    }
-
+    
     @Test
     public void add_and_get_tile() {
         TileType tileType = TileType.PASSABLE;
