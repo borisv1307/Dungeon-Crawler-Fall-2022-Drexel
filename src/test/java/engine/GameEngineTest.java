@@ -89,7 +89,7 @@ public class GameEngineTest {
 
     @Test
     public void set_enemy_random_moves() {
-        int ret = gameEngine.setRandomEnemyPosition();
+        int ret = gameEngine.randomPosition();
         assertThat(ret, equalTo(0));
     }
 
