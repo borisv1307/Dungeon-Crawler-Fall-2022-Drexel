@@ -6,6 +6,7 @@ import ui.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -158,11 +159,13 @@ public class GameEngine {
 
         enemies.clear();
 
+        SecureRandom random = new SecureRandom();
+
         int enemycount = 0;
         for (int i = 0; i < count; i++) {
             while (!created) {
-                x = (int) (Math.random() * width);
-                y = (int) (Math.random() * height);
+                x = random.nextInt() * width;
+                y = random.nextInt() * height;
                 type = tiles.get(new Point(x, y));
 
                 if (type == TileType.PASSABLE && !((x == 0 || x == 1) && (y == 0 || y == 1))) {
@@ -181,6 +184,7 @@ public class GameEngine {
     }
 
     public int randomPosition() {
+        SecureRandom random = new SecureRandom();
         int enemyCount = enemies.size();
         int xmove = 0;
         int ymove = 0;
@@ -191,12 +195,12 @@ public class GameEngine {
 
         for (int i = 0; i < enemyCount; i++) {
             while (!enemy_moved) {
-                int odd = (int) Math.round(Math.random());
+                int odd = random.nextInt();
                 if (odd == 1) {
-                    odd = (int) Math.round(Math.random());
+                    odd = random.nextInt();
                     xmove = (odd == 1 ? -1 : 1);
                 } else {
-                    odd = (int) Math.round(Math.random());
+                    odd = random.nextInt();
                     ymove = (odd == 1 ? -1 : 1);
                 }
 
