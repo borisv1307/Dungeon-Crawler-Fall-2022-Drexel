@@ -151,13 +151,14 @@ public class GameEngine {
         int width = getLevelHorizontalDimension();
         int height = getLevelVerticalDimension();
 
-        int enemycount = 0;
+        int enemyCount = 0;
         int x;
         int y;
         TileType type;
 
         enemies.clear();
 
+        int enemycount = 0;
         for (int i = 0; i < count; i++) {
             while (!created) {
                 x = (int) (Math.random() * width);

@@ -98,7 +98,7 @@ public class GameEngineTest {
         int x = 10;
         int y = 5;
         gameEngine.setEnemyPos(10, 5);
-        boolean captured = gameEngine.is_meet_enemy(x, y);
+        boolean captured = gameEngine.meet_enemy(x, y);
         assertThat(captured, equalTo(true));
     }
 
