@@ -163,11 +163,8 @@ public class GameEngine {
     }
 
     public boolean validateTypeCoordinates(TileType tileType, int x, int y) {
-        if (tileType == TileType.PASSABLE && !(checkZeroOrOne(x) && checkZeroOrOne(y))) {
-            return true;
-        } else {
-            return false;
-        }
+        return (tileType == TileType.PASSABLE && !(checkZeroOrOne(x) && checkZeroOrOne(y)));
+
     }
 
     public int createEnemies(int enemyCount) {
