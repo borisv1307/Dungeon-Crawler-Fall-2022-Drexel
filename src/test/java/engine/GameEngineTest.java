@@ -1,5 +1,6 @@
 package engine;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -100,6 +101,29 @@ public class GameEngineTest {
         gameEngine.setEnemyPos(10, 5);
         boolean captured = gameEngine.meetEnemy(x, y);
         assertThat(captured, equalTo(true));
+    }
+
+    @Test
+    public void check_zero_or_one() {
+        Assert.assertTrue(gameEngine.checkZeroOrOne(0));
+        Assert.assertTrue(gameEngine.checkZeroOrOne(1));
+        Assert.assertFalse(gameEngine.checkZeroOrOne(3));
+    }
+
+    @Test
+    public void validate_type_coordinates() {
+        Assert.assertFalse(gameEngine.validateTypeCoordinates(TileType.PASSABLE, 1, 1));
+        Assert.assertTrue(gameEngine.validateTypeCoordinates(TileType.PASSABLE, 2, 2));
+        Assert.assertTrue(gameEngine.validateTypeCoordinates(TileType.PASSABLE, 0, 2));
+        Assert.assertFalse(gameEngine.validateTypeCoordinates(TileType.NOT_PASSABLE, 1, 1));
+        Assert.assertFalse(gameEngine.validateTypeCoordinates(TileType.NOT_PASSABLE, 2, 2));
+        Assert.assertTrue(gameEngine.validateTypeCoordinates(TileType.PASSABLE, 2, 0));
+    }
+
+    @Test
+    public void create_enemies() {
+        Assert.assertEquals(1, gameEngine.createEnemies(0));
+        Assert.assertNotEquals(1, gameEngine.createEnemies(1));
     }
 
 }

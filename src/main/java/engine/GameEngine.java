@@ -147,40 +147,56 @@ public class GameEngine {
 
     public boolean setEnemyCount(int count) {
 
+        enemies.clear();
+
+        int enemyCount = 0;
+        for (int i = 0; i < count; i++) {
+            enemyCount = createEnemies(enemyCount);
+
+        }
+
+        return enemyCount > 0;
+    }
+
+    public boolean checkZeroOrOne(int coordinate) {
+        return (coordinate == 0 || coordinate == 1);
+    }
+
+    public boolean validateTypeCoordinates(TileType tileType, int x, int y) {
+        if (tileType == TileType.PASSABLE && !(checkZeroOrOne(x) && checkZeroOrOne(y))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int createEnemies(int enemyCount) {
+
+        SecureRandom random = new SecureRandom();
+
         boolean created = false;
 
         int width = getLevelHorizontalDimension();
         int height = getLevelVerticalDimension();
 
-        int x;
-        int y;
-        TileType type;
 
-        enemies.clear();
+        while (!created) {
+            int x = (int) Math.round(random.nextDouble() * width);
+            int y = (int) Math.round(random.nextDouble() * height);
+            TileType type = tiles.get(new Point(x, y));
 
-        SecureRandom random = new SecureRandom();
 
-        int enemycount = 0;
-        for (int i = 0; i < count; i++) {
-            while (!created) {
-                x = (int) Math.round(random.nextDouble()) * width;
-                y = (int) Math.round(random.nextDouble()) * height;
-                type = tiles.get(new Point(x, y));
-
-                if (type == TileType.PASSABLE && !((x == 0 || x == 1) && (y == 0 || y == 1))) {
-                    Point pt = new Point(x, y);
-                    tiles.put(pt, TileType.ENEMY);
-                    created = true;
-                    enemies.add(pt);
-                    enemycount++;
-                }
+            if (validateTypeCoordinates(type, x, y)) {
+                Point pt = new Point(x, y);
+                tiles.put(pt, TileType.ENEMY);
+                created = true;
+                enemies.add(pt);
+                enemyCount++;
             }
-
-            created = false;
         }
-
-        return enemycount > 0;
+        return enemyCount;
     }
+
 
     public int randomPosition() {
         SecureRandom random = new SecureRandom();
