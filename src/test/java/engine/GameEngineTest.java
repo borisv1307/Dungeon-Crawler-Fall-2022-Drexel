@@ -126,4 +126,28 @@ public class GameEngineTest {
         Assert.assertNotEquals(1, gameEngine.createEnemies(1));
     }
 
+    @Test
+    public void is_inside_boundary() {
+        Assert.assertTrue(gameEngine.isInsideBoundary(200, 50, 50));
+        Assert.assertFalse(gameEngine.isInsideBoundary(200, 50, 175));
+        Assert.assertFalse(gameEngine.isInsideBoundary(200, -50, -50));
+    }
+
+    @Test
+    public void is_passable_or_player() {
+        Assert.assertTrue(gameEngine.isPassableOrPlayer(TileType.PASSABLE));
+        Assert.assertTrue(gameEngine.isPassableOrPlayer(TileType.PLAYER));
+        Assert.assertFalse(gameEngine.isPassableOrPlayer(TileType.ENEMY));
+    }
+
+    @Test
+    public void move_enemy() {
+        Assert.assertTrue(gameEngine.moveEnemy(1));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void move_enemy_out_of_bounds() {
+        gameEngine.moveEnemy(3);
+    }
+
 }

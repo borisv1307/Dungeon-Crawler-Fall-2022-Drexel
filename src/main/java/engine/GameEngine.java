@@ -196,8 +196,21 @@ public class GameEngine {
 
 
     public int randomPosition() {
-        SecureRandom random = new SecureRandom();
+
         int enemyCount = enemies.size();
+
+        for (int i = 0; i < enemyCount; i++) {
+
+            moveEnemy(i);
+        }
+
+        return 0;
+    }
+
+    public boolean moveEnemy(int i) {
+
+        SecureRandom random = new SecureRandom();
+        
         int xmove = 0;
         int ymove = 0;
         int width = getLevelHorizontalDimension();
@@ -205,41 +218,44 @@ public class GameEngine {
 
         boolean enemyMoved = false;
 
-        for (int i = 0; i < enemyCount; i++) {
-            while (!enemyMoved) {
-                int odd = (int) Math.round(random.nextDouble());
-                if (odd == 1) {
-                    odd = (int) Math.round(random.nextDouble());
-                    xmove = getNewCoordinate(odd);
-                } else {
-                    odd = (int) Math.round(random.nextDouble());
-                    ymove = getNewCoordinate(odd);
-                }
-
-                Point pt = enemies.get(i);
-                TileType type = tiles.get(new Point(pt.x + xmove, pt.y + ymove));
-
-                if ((pt.x + xmove >= 0 && pt.x + xmove < width) && (pt.y + ymove >= 0 && pt.y + ymove < height) && (type == TileType.PASSABLE || type == TileType.PLAYER)) {
-
-                    tiles.put(new Point(pt.x, pt.y), TileType.PASSABLE);
-
-                    pt.x += xmove;
-                    pt.y += ymove;
-                    tiles.put(new Point(pt.x, pt.y), TileType.ENEMY);
-                    enemies.set(i, pt);
-                    xmove = 0;
-                    ymove = 0;
-                    enemyMoved = true;
-                } else {
-                    xmove = 0;
-                    ymove = 0;
-                }
+        while (!enemyMoved) {
+            int odd = (int) Math.round(random.nextDouble());
+            if (odd == 1) {
+                odd = (int) Math.round(random.nextDouble());
+                xmove = getNewCoordinate(odd);
+            } else {
+                odd = (int) Math.round(random.nextDouble());
+                ymove = getNewCoordinate(odd);
             }
 
-            enemyMoved = false;
-        }
+            Point pt = enemies.get(i);
+            TileType type = tiles.get(new Point(pt.x + xmove, pt.y + ymove));
 
-        return 0;
+            if (isInsideBoundary(width, pt.x, xmove) && isInsideBoundary(height, pt.y, ymove) && isPassableOrPlayer(type)) {
+
+                tiles.put(new Point(pt.x, pt.y), TileType.PASSABLE);
+
+                pt.x += xmove;
+                pt.y += ymove;
+                tiles.put(new Point(pt.x, pt.y), TileType.ENEMY);
+                enemies.set(i, pt);
+                xmove = 0;
+                ymove = 0;
+                enemyMoved = true;
+            } else {
+                xmove = 0;
+                ymove = 0;
+            }
+        }
+        return enemyMoved;
+    }
+
+    public boolean isPassableOrPlayer(TileType type) {
+        return (type == TileType.PASSABLE || type == TileType.PLAYER);
+    }
+
+    public boolean isInsideBoundary(int boundary, int coordinate, int movement) {
+        return (coordinate + movement >= 0 && coordinate + movement < boundary);
     }
 
     private int getNewCoordinate(int odd) {
